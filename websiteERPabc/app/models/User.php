@@ -4,10 +4,12 @@ use Illuminate\Auth\UserTrait;
 use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableTrait;
 use Illuminate\Auth\Reminders\RemindableInterface;
+use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
 class User extends Eloquent implements UserInterface, RemindableInterface {
 
 	use UserTrait, RemindableTrait;
+	use SoftDeletingTrait;
 
 	/**
 	 * The database table used by the model.
@@ -22,5 +24,16 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	 * @var array
 	 */
 	protected $hidden = array('password', 'remember_token');
+	protected $fillable = array('email', 'password', 'username', 'phone', 'address', 'avatar', 'fullname', 'room_id', 'position_id', 'status');
+	 protected $dates = ['deleted_at'];
 
+	public function room()
+    {
+        return $this->hasMany('Room', 'room_id', 'id');
+    }
+
+    public function postion()
+    {
+        return $this->hasMany('Position', 'position_id', 'id');
+    }
 }
