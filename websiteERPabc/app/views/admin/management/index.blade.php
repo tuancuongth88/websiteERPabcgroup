@@ -22,6 +22,7 @@
 			  <th>ID</th>
 			  <th>Tài khoản</th>
 			  <th>Số điện thoại</th>
+			  <th>Action</th>
 			</tr>
 			@foreach($data as $key => $value)
 			<tr>
