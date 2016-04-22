@@ -28,8 +28,12 @@ class CommonNormal
 		if ($name == NULL) {
 			$name = Request::segment(2);
 		}
-		if ($name == 'manager') {
+		if ($name == 'manager') 
 			return 'Admin';
+		if($name == 'room')
+			return 'Room';
+		if ($name == 'management') {
+			return 'User';
 		}
 	}
 

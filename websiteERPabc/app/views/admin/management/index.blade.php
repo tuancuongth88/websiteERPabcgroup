@@ -28,7 +28,7 @@
 			  <td>{{ $value->id }}</td>
 			  <td>{{ $value->username }}</td>
 			  <td>{{ $value->phone }}</td>
-			  <td>
+			  <td >
 				<a href="{{ action('ManagementController@edit', $value->id) }}" class="btn btn-primary">Sửa</a>
 				{{ Form::open(array('method'=>'DELETE', 'action' => array('ManagementController@destroy', $value->id), 'style' => 'display: inline-block;')) }}
 				<button class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa?');">Xóa</button>
@@ -49,6 +49,7 @@
 	<div class="col-xs-12">
 		<ul class="pagination">
 		<!-- phan trang -->
+		{{ $data->appends(Request::except('page'))->links() }}
 		</ul>
 	</div>
 </div>

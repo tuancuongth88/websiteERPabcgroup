@@ -1,6 +1,6 @@
-<?php
+<?php 
 
-class ManagementController extends AdminController {
+class RoomController extends AdminController {
 
 	/**
 	 * Display a listing of the resource.
@@ -9,9 +9,9 @@ class ManagementController extends AdminController {
 	 */
 	public function index()
 	{
-
-		$data = User::orderBy('id', 'asc')->paginate(PAGINATE);
-		return View::make('admin.management.index')->with(compact('data'));
+		// dd(999);
+		$data = Room::orderBy('id', 'desc')->paginate(PAGINATE);
+		return View::make('admin.room.index')->with(compact('data'));
 	}
 
 
@@ -22,7 +22,7 @@ class ManagementController extends AdminController {
 	 */
 	public function create()
 	{
-		return View::make('admin.management.create');
+		return View::make('admin.room.create');
 	}
 
 
@@ -34,17 +34,17 @@ class ManagementController extends AdminController {
 	public function store()
 	{
 		$rules = array(
-			'username' => 'required',
-			'phone' => 'required',
+			'name' => 'required',
 		);
 		$input = Input::except('_token');
 		$validator = Validator::make($input,$rules);
 		if($validator->fails()) {
-			return Redirect::action('ManagementController@create')
+			return Redirect::action('RoomController@create')
 	            ->withErrors($validator);
         }else{
-			CommonNormal::create($input);
-			return Redirect::action('ManagementController@index');	
+        	$input['status'] = 1;
+        	$id = CommonNormal::create($input);
+        	return Redirect::action('RoomController@index');
         }
 	}
 
@@ -69,7 +69,8 @@ class ManagementController extends AdminController {
 	 */
 	public function edit($id)
 	{
-		//
+		$data = Room::find($id);
+		return View::make('admin.room.edit')->with(compact('data'));
 	}
 
 
@@ -81,7 +82,18 @@ class ManagementController extends AdminController {
 	 */
 	public function update($id)
 	{
-		
+		$rules = array(
+			'name' => 'required',
+		);
+		$input = Input::except('_token');
+		$validator = Validator::make($input,$rules);
+		if($validator->fails()) {
+			return Redirect::action('RoomController@edit', $id)
+	            ->withErrors($validator);
+        }else{
+        	CommonNormal::update($id, $input);
+        	return Redirect::action('RoomController@index') ;
+        }
 	}
 
 
@@ -93,7 +105,8 @@ class ManagementController extends AdminController {
 	 */
 	public function destroy($id)
 	{
-		//
+		CommonNormal::delete($id);
+		return Redirect::action('RoomController@index') ;
 	}
 
 
