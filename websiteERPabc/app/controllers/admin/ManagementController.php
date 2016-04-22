@@ -1,9 +1,7 @@
-<?php 
+<?php
 
-class AdminController extends BaseController {
- public function __construct() {
-        $this->beforeFilter('admin', array('except'=>array('login','doLogin')));
-    }
+class ManagementController extends BaseController {
+
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -11,9 +9,9 @@ class AdminController extends BaseController {
 	 */
 	public function index()
 	{
-		
-            return View::make('admin.layout.login');
-        
+
+		$data = User::orderBy('id', 'asc')->get();
+		return View::make('admin.management.index') ->with(compact('data'));
 	}
 
 
@@ -24,7 +22,7 @@ class AdminController extends BaseController {
 	 */
 	public function create()
 	{
-		//
+		return View::make('admin.management.create');
 	}
 
 
@@ -35,7 +33,9 @@ class AdminController extends BaseController {
 	 */
 	public function store()
 	{
-		//
+		$input = Input::except('_token');
+		User::create($input);
+		return Redirect::action('ManagementController@index');
 	}
 
 
@@ -71,7 +71,7 @@ class AdminController extends BaseController {
 	 */
 	public function update($id)
 	{
-		//
+		
 	}
 
 
@@ -85,23 +85,6 @@ class AdminController extends BaseController {
 	{
 		//
 	}
-   public function login()
-    {
-    
-	    
-            return View::make('admin.layout.login');
-        
-    }
-     public function doLogin()
-    {
 
-        $input = Input::all();
-        $user = array('username'=> $input['username'], 'password'=> $input['password']);
-        if (Auth::attempt($user)) {
-        	return Redirect::action('ManagementController@index');
-        }else{
-        	dd('login that bai !!');
-        }
-    }
 
 }
