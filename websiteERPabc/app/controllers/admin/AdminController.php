@@ -94,7 +94,7 @@ class AdminController extends BaseController {
     }
      public function doLogin()
     {
-
+    	return Redirect::action('RoomController@index');
         $rules = array(
             'username'   => 'required',
             'password'   => 'required',
