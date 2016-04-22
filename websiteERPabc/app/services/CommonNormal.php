@@ -35,6 +35,8 @@ class CommonNormal
 		if ($name == 'management') {
 			return 'User';
 		}
+		if($name == 'position')
+			return 'Position';
 	}
 
 }

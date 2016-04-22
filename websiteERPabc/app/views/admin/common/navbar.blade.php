@@ -25,7 +25,7 @@
         </li>
 
         <li class="user">
-        	<a href="#"><i class="fa fa-power-off"></i>Đăng xuất</a>
+        	<a href="{{ action('AdminController@logout') }}"><i class="fa fa-power-off"></i>Đăng xuất</a>
         </li>
 
       </ul>

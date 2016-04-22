@@ -2,7 +2,9 @@
 
 class AdminController extends BaseController {
  public function __construct() {
+
         $this->beforeFilter('admin', array('except'=>array('login','doLogin')));
+
     }
 	/**
 	 * Display a listing of the resource.
@@ -88,7 +90,6 @@ class AdminController extends BaseController {
    public function login()
     {
     
-	    
             return View::make('admin.layout.login');
         
     }
@@ -102,6 +103,14 @@ class AdminController extends BaseController {
         }else{
         	dd('login that bai !!');
 		}
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+        Session::flush();
+    	// dd(999);
+        return Redirect::route('admin.login');
     }
 
 }
