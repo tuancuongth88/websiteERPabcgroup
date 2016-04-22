@@ -69,7 +69,8 @@ class ManagementController extends AdminController {
 	 */
 	public function edit($id)
 	{
-		//
+		$data = User::find($id);
+		return View::make('admin.management.edit')->with(compact('data'));
 	}
 
 
@@ -81,7 +82,20 @@ class ManagementController extends AdminController {
 	 */
 	public function update($id)
 	{
-		
+		$rules = array(
+			'username' => 'required',
+			'phone' => 'required|integer|max:9999999999',
+		);
+		$input = Input::except('_token');
+
+		$validator = Validator::make($input,$rules);
+		if($validator->fails()) {
+			return Redirect::action('ManagementController@edit', $id)
+	            ->withErrors($validator);
+        }else{
+        	CommonNormal::update($id, $input);
+        	return Redirect::action('ManagementController@index') ;
+        }
 	}
 
 
@@ -93,7 +107,8 @@ class ManagementController extends AdminController {
 	 */
 	public function destroy($id)
 	{
-		//
+		CommonNormal::delete($id);
+		return Redirect::action('ManagementController@index') ;
 	}
 
 

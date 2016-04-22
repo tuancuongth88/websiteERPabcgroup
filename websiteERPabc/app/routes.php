@@ -20,7 +20,5 @@ Route::group(['prefix' => 'admin'], function () {
 	Route::post('/login', array('uses' => 'AdminController@doLogin'));
 	Route::resource('/', 'AdminController');
 	Route::resource('/management', 'ManagementController');
-
-
 	Route::resource('/room', 'RoomController');
 });
