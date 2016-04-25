@@ -1,7 +1,7 @@
 @extends('admin.layout.default')
 
 @section('title')
-{{ $title='Quản lý chứ vụ vị trí' }}
+{{ $title='Quản lý chức vụ vị trí' }}
 @stop
 
 @section('content')

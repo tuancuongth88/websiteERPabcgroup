@@ -17,11 +17,11 @@
       <ul class="nav navbar-nav">
 
         <li class="user">
-          <a href="#"><i class="fa fa-user"></i></a>
+          <a href="#"><i class="fa fa-user">{{ Auth::user()->username }}</i></a>
         </li>
 
         <li class="user">
-        	<a href="#"><i class="fa fa-user"></i>Tài khoản</a>
+        	<a href="{{ action('ManagementController@edit', Auth::user()->id) }}"><i class="fa fa-user"></i>Tài khoản</a>
         </li>
 
         <li class="user">

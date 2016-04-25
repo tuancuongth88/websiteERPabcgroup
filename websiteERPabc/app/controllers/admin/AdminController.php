@@ -101,7 +101,7 @@ class AdminController extends BaseController {
         if (Auth::attempt($user)) {
         	return Redirect::action('ManagementController@index');
         }else{
-        	dd('login that bai !!');
+        	return View::make('admin.layout.login')->with(compact('message','Sai username hoặc password'));
 		}
     }
 
@@ -109,7 +109,6 @@ class AdminController extends BaseController {
     {
         Auth::logout();
         Session::flush();
-    	// dd(999);
         return Redirect::route('admin.login');
     }
 
