@@ -1,10 +1,11 @@
 <?php 
 
 class AdminController extends BaseController {
-	public function __construct() 
-	{
-		$this->beforeFilter('auth', array('except' => array('login', 'doLogin')));
-	}
+ 	public function __construct() 
+ 	{
+        $this->beforeFilter('admin', array('except'=>array('login','doLogin')));
+
+    }
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -12,13 +13,14 @@ class AdminController extends BaseController {
 	 */
 	public function index()
 	{
-		return View::make('admin.layout.login');
 		
+            return View::make('admin.layout.login');
+        
 	}
 
 
 	/**
-	 * Show the form for ceating a new resource.
+	 * Show the form for creating a new resource.
 	 *
 	 * @return Response
 	 */
@@ -86,39 +88,28 @@ class AdminController extends BaseController {
 		//
 	}
    public function login()
-	{
-		return View::make('admin.layout.login');
-		
-	}
-	 public function doLogin()
-	{
-		return Redirect::action('RoomController@index');
-		$rules = array(
-			'username'   => 'required',
-			'password'   => 'required',
-		);
-		$input = Input::except('_token');
-		$validator = Validator::make($input, $rules);
-		if ($validator->fails()) {
-			return Redirect::route('admin.login')
-				->withErrors($validator)
-				->withInput(Input::except('password'));
-		} else {
-			Auth::admin()->attempt($input);
-			$checkLogin = Auth::admin()->check();
-			if($checkLogin) {
-				dd('thanh cong');
-			} else {
-				return Redirect::route('admin.login');
-			}
+    {
+    
+            return View::make('admin.layout.login');
+        
+    }
+     public function doLogin()
+    {
+
+        $input = Input::all();
+        $user = array('username'=> $input['username'], 'password'=> $input['password']);
+        if (Auth::attempt($user)) {
+        	return Redirect::action('ManagementController@index');
+        }else{
+        	return View::make('admin.layout.login')->with(compact('message','Sai username hoặc password'));
 		}
-	}
-	 public function logout()
-	{
-		// dd(1);
-		Auth::admin()->logout();
-		Session::flush();
-		return Redirect::route('admin.login');
-	}
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+        Session::flush();
+        return Redirect::route('admin.login');
+    }
 
 }

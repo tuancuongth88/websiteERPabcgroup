@@ -32,7 +32,11 @@ class CommonNormal
 			return 'Admin';
 		if($name == 'room')
 			return 'Room';
-		
+		if ($name == 'management') {
+			return 'User';
+		}
+		if($name == 'position')
+			return 'Position';
 	}
 
 }

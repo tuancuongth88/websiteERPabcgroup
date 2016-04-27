@@ -15,18 +15,17 @@
 
 	<div class="navbar-custom-menu">
 	  <ul class="nav navbar-nav">
+        <li class="user">
+          <a href="#"><i class="fa fa-user">{{ Auth::user()->username }}</i></a>
+        </li>
 
-		<li class="user">
-		  <a href="#"><i class="fa fa-user"></i></a>
-		</li>
+        <li class="user">
+        	<a href="{{ action('ManagementController@edit', Auth::user()->id) }}"><i class="fa fa-user"></i>Tài khoản</a>
+        </li>
 
-		<li class="user">
-			<a href="#"><i class="fa fa-user"></i>Tài khoản</a>
-		</li>
-
-		<li class="user">
-			<a href="{{ action('AdminController@logout') }}"><i class="fa fa-power-off"></i>Đăng xuất</a>
-		</li>
+        <li class="user">
+        	<a href="{{ action('AdminController@logout') }}"><i class="fa fa-power-off"></i>Đăng xuất</a>
+        </li>
 
 	  </ul>
 	</div>
