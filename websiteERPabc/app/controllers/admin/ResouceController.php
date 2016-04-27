@@ -59,10 +59,9 @@ class ResouceController extends AdminController {
 	 */
 	public function show($id)
 	{
-		//
+		
 	}
-
-
+  
 	/**
 	 * Show the form for editing the specified resource.
 	 *
@@ -71,7 +70,7 @@ class ResouceController extends AdminController {
 	 */
 	public function edit($id)
 	{
-		//
+		
 	}
 
 
@@ -83,7 +82,7 @@ class ResouceController extends AdminController {
 	 */
 	public function update($id)
 	{
-		//
+		      
 	}
 
 

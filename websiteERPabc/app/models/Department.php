@@ -16,7 +16,7 @@ class Department extends Eloquent implements UserInterface, RemindableInterface 
 	 *
 	 * @var string
 	 */
-	protected $table = 'department';
+	protected $table = 'departments';
 
 	/**
 	 * The attributes excluded from the model's JSON form.

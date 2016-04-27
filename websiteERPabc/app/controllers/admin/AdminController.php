@@ -98,7 +98,8 @@ class AdminController extends BaseController {
 
         $input = Input::all();
         $user = array('username'=> $input['username'], 'password'=> $input['password']);
-        if (Auth::attempt($user)) {
+
+        if (Auth::user()->attempt($user)) {
         	return Redirect::action('ManagementController@index');
         }else{
         	return View::make('admin.layout.login')->with(compact('message','Sai username hoặc password'));

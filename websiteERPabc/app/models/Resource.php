@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
-class Resouce extends Eloquent {
+class Resource extends Eloquent {
 
 	use UserTrait, RemindableTrait;
 	use SoftDeletingTrait;
