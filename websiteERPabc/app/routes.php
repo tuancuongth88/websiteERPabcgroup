@@ -18,8 +18,7 @@
 Route::group(['prefix' => 'admin'], function () {
 	Route::get('/login', array('uses' => 'AdminController@login', 'as' => 'admin.login'));
 	Route::post('/login', array('uses' => 'AdminController@doLogin'));
+	Route::get('/logout','AdminController@logout');
 	Route::resource('/', 'AdminController');
-
-
 	Route::resource('/room', 'RoomController');
 });
