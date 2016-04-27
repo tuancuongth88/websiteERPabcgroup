@@ -1,9 +1,9 @@
 <?php
- 
+
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateResouceTable extends Migration {
+class CreateResourceTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -30,7 +30,7 @@ class CreateResouceTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('resouce');
+		Schema::drop('resources');
 	}
 
 }

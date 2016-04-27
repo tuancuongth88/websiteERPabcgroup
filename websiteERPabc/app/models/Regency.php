@@ -16,7 +16,7 @@ class Regency extends Eloquent implements UserInterface, RemindableInterface {
 	 *
 	 * @var string
 	 */
-	protected $table = 'regency';
+	protected $table = 'regencies';
 
 	/**
 	 * The attributes excluded from the model's JSON form.
