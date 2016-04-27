@@ -84,7 +84,7 @@ class ManagementController extends AdminController {
 	{
 		$rules = array(
 			'username' => 'required',
-			'phone' => 'required|integer|max:9999999999',
+			'phone' => 'required|integer',
 		);
 		$input = Input::except('_token');
 

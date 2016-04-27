@@ -1,6 +1,6 @@
 <?php 
 
-class PositionController extends AdminController {
+class DeparmentController extends AdminController {
 
 	/**
 	 * Display a listing of the resource.
@@ -9,8 +9,9 @@ class PositionController extends AdminController {
 	 */
 	public function index()
 	{
-		$data = Regency::orderBy('id', 'desc')->paginate(PAGINATE);
-		return View::make('admin.position.index')->with(compact('data'));
+		// dd(999);
+		$data = Department::orderBy('id', 'desc')->paginate(PAGINATE);
+		return View::make('admin.room.index')->with(compact('data'));
 	}
 
 
@@ -21,7 +22,7 @@ class PositionController extends AdminController {
 	 */
 	public function create()
 	{
-		return View::make('admin.position.create');
+		return View::make('admin.room.create');
 	}
 
 
@@ -38,12 +39,12 @@ class PositionController extends AdminController {
 		$input = Input::except('_token');
 		$validator = Validator::make($input,$rules);
 		if($validator->fails()) {
-			return Redirect::action('PositionController@create')
+			return Redirect::action('DeparmentController@create')
 	            ->withErrors($validator);
         }else{
         	$input['status'] = 1;
         	$id = CommonNormal::create($input);
-        	return Redirect::action('PositionController@index');
+        	return Redirect::action('DeparmentController@index');
         }
 	}
 
@@ -68,8 +69,8 @@ class PositionController extends AdminController {
 	 */
 	public function edit($id)
 	{
-		$data = Position::find($id);
-		return View::make('admin.position.edit')->with(compact('data'));
+		$data = Room::find($id);
+		return View::make('admin.room.edit')->with(compact('data'));
 	}
 
 
@@ -87,11 +88,11 @@ class PositionController extends AdminController {
 		$input = Input::except('_token');
 		$validator = Validator::make($input,$rules);
 		if($validator->fails()) {
-			return Redirect::action('PositionController@edit', $id)
+			return Redirect::action('DeparmentController@edit', $id)
 	            ->withErrors($validator);
         }else{
         	CommonNormal::update($id, $input);
-        	return Redirect::action('PositionController@index') ;
+        	return Redirect::action('DeparmentController@index') ;
         }
 	}
 
@@ -105,7 +106,7 @@ class PositionController extends AdminController {
 	public function destroy($id)
 	{
 		CommonNormal::delete($id);
-		return Redirect::action('PositionController@index') ;
+		return Redirect::action('DeparmentController@index') ;
 	}
 
 

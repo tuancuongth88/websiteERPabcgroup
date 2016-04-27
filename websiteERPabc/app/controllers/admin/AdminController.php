@@ -1,8 +1,8 @@
 <?php 
 
 class AdminController extends BaseController {
- public function __construct() {
-
+ 	public function __construct() 
+ 	{
         $this->beforeFilter('admin', array('except'=>array('login','doLogin')));
 
     }
@@ -101,7 +101,7 @@ class AdminController extends BaseController {
         if (Auth::attempt($user)) {
         	return Redirect::action('ManagementController@index');
         }else{
-        	dd('login that bai !!');
+        	return View::make('admin.layout.login')->with(compact('message','Sai username hoặc password'));
 		}
     }
 

@@ -1,6 +1,6 @@
 <?php 
 
-class RoomController extends AdminController {
+class RegencyController extends AdminController {
 
 	/**
 	 * Display a listing of the resource.
@@ -9,9 +9,8 @@ class RoomController extends AdminController {
 	 */
 	public function index()
 	{
-		// dd(999);
-		$data = Department::orderBy('id', 'desc')->paginate(PAGINATE);
-		return View::make('admin.room.index')->with(compact('data'));
+		$data = Regency::orderBy('id', 'desc')->paginate(PAGINATE);
+		return View::make('admin.position.index')->with(compact('data'));
 	}
 
 
@@ -22,7 +21,7 @@ class RoomController extends AdminController {
 	 */
 	public function create()
 	{
-		return View::make('admin.room.create');
+		return View::make('admin.position.create');
 	}
 
 
@@ -39,12 +38,12 @@ class RoomController extends AdminController {
 		$input = Input::except('_token');
 		$validator = Validator::make($input,$rules);
 		if($validator->fails()) {
-			return Redirect::action('RoomController@create')
+			return Redirect::action('RegencyController@create')
 	            ->withErrors($validator);
         }else{
         	$input['status'] = 1;
         	$id = CommonNormal::create($input);
-        	return Redirect::action('RoomController@index');
+        	return Redirect::action('RegencyController@index');
         }
 	}
 
@@ -69,8 +68,8 @@ class RoomController extends AdminController {
 	 */
 	public function edit($id)
 	{
-		$data = Room::find($id);
-		return View::make('admin.room.edit')->with(compact('data'));
+		$data = Position::find($id);
+		return View::make('admin.position.edit')->with(compact('data'));
 	}
 
 
@@ -88,11 +87,11 @@ class RoomController extends AdminController {
 		$input = Input::except('_token');
 		$validator = Validator::make($input,$rules);
 		if($validator->fails()) {
-			return Redirect::action('RoomController@edit', $id)
+			return Redirect::action('RegencyController@edit', $id)
 	            ->withErrors($validator);
         }else{
         	CommonNormal::update($id, $input);
-        	return Redirect::action('RoomController@index') ;
+        	return Redirect::action('RegencyController@index') ;
         }
 	}
 
@@ -106,7 +105,7 @@ class RoomController extends AdminController {
 	public function destroy($id)
 	{
 		CommonNormal::delete($id);
-		return Redirect::action('RoomController@index') ;
+		return Redirect::action('RegencyController@index') ;
 	}
 
 

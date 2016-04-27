@@ -7,7 +7,7 @@
 @section('content')
 <div class="row margin-bottom">
 	<div class="col-xs-12">
-	<a href="{{ action('RoomController@create') }}" class="btn btn-primary">Thêm phòng</a>
+	<a href="{{ action('DeparmentController@create') }}" class="btn btn-primary">Thêm phòng</a>
 	</div>
 </div>
 <div class="row">
@@ -29,8 +29,8 @@
 						<td>{{ $value->id }}</td>
 						<td>{{ $value->name }}</td>
 						<td>
-							<a href="{{ action('RoomController@edit', $value->id) }}" class="btn btn-primary">Sửa</a>
-							{{ Form::open(array('method'=>'DELETE', 'action' => array('RoomController@destroy', $value->id), 'style' => 'display: inline-block;')) }}
+							<a href="{{ action('DeparmentController@edit', $value->id) }}" class="btn btn-primary">Sửa</a>
+							{{ Form::open(array('method'=>'DELETE', 'action' => array('DeparmentController@destroy', $value->id), 'style' => 'display: inline-block;')) }}
 							<button class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa?');">Xóa</button>
 							{{ Form::close() }}
 						</td>

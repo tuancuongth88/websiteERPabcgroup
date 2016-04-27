@@ -21,7 +21,7 @@ Route::group(['prefix' => 'admin'], function () {
 	Route::get('/logout', array('uses' => 'AdminController@logout',  'as' => 'admin.logout'));
 	Route::resource('/', 'AdminController');
 	Route::resource('/management', 'ManagementController');
-	Route::resource('/room', 'RoomController');
-	Route::resource('/position', 'PositionController');
+	Route::resource('/deparment', 'DeparmentController');
+	Route::resource('/regency', 'RegencyController');
 	Route::resource('/resouce', 'ResouceController');
 });

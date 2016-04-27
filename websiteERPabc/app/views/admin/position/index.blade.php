@@ -1,13 +1,13 @@
 @extends('admin.layout.default')
 
 @section('title')
-{{ $title='Quản lý chứ vụ vị trí' }}
+{{ $title='Quản lý chức vụ vị trí' }}
 @stop
 
 @section('content')
 <div class="row margin-bottom">
 	<div class="col-xs-12">
-	<a href="{{ action('PositionController@create') }}" class="btn btn-primary">Thêm mới</a>
+	<a href="{{ action('RegencyController@create') }}" class="btn btn-primary">Thêm mới</a>
 	</div>
 </div>
 <div class="row">
@@ -29,8 +29,8 @@
 						<td>{{ $value->id }}</td>
 						<td>{{ $value->name }}</td>
 						<td>
-							<a href="{{ action('PositionController@edit', $value->id) }}" class="btn btn-primary">Sửa</a>
-							{{ Form::open(array('method'=>'DELETE', 'action' => array('PositionController@destroy', $value->id), 'style' => 'display: inline-block;')) }}
+							<a href="{{ action('RegencyController@edit', $value->id) }}" class="btn btn-primary">Sửa</a>
+							{{ Form::open(array('method'=>'DELETE', 'action' => array('RegencyController@destroy', $value->id), 'style' => 'display: inline-block;')) }}
 							<button class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa?');">Xóa</button>
 							{{ Form::close() }}
 						</td>

@@ -5,8 +5,8 @@
 		<ul class="sidebar-menu">
 			<li class="header">Menu</li>
 			<li><a href="{{ action('ManagementController@index') }}"><i class="fa fa-user"></i> <span>Users</span></a></li>
-			<li><a href="{{ action('RoomController@index') }}"><i class="fa fa-laptop"></i> <span>Quản lý phòng ban</span></a></li>
-			<li><a href="{{ action('PositionController@index') }}"><i class="fa fa-laptop"></i> <span>Quản lý chức vụ</span></a></li>
+			<li><a href="{{ action('DeparmentController@index') }}"><i class="fa fa-laptop"></i> <span>Quản lý phòng ban</span></a></li>
+			<li><a href="{{ action('RegencyController@index') }}"><i class="fa fa-laptop"></i> <span>Quản lý chức vụ</span></a></li>
 			<li><a href="{{ action('ResouceController@index') }}"><i class="fa fa-laptop"></i> <span>Quản lý tài nguyên</span></a></li>
 		</ul>
 	</section>
