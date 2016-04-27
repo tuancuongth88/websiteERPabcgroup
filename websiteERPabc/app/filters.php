@@ -51,7 +51,7 @@ Route::filter('auth', function()
 
 Route::filter('admin', function()
 {
-	if (Auth::guest()){
+	if (Auth::admin()->guest()){
 		return Redirect::route('admin.login');
 	}
 });

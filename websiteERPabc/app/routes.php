@@ -25,3 +25,9 @@ Route::group(['prefix' => 'admin'], function () {
 	Route::resource('/regency', 'RegencyController');
 	Route::resource('/resouce', 'ResouceController');
 });
+Route::group(
+	['prefix' => 'user'], function(){
+		Route::get('/login', array('uses' => 'UserController@login', 'as' => 'user.login'));
+
+	}
+);
