@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRoomTable extends Migration {
+class CreateRegencyTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,7 +12,7 @@ class CreateRoomTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('room', function(Blueprint $table) {
+		Schema::create('regency', function(Blueprint $table) {
             $table->increments('id');
             $table->string('name', 256)->nullable();
             $table->integer('status')->nullable();
@@ -28,7 +28,7 @@ class CreateRoomTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('room');
+		Schema::drop('regency');
 	}
 
 }

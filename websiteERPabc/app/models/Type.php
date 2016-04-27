@@ -6,7 +6,7 @@ use Illuminate\Auth\Reminders\RemindableTrait;
 use Illuminate\Auth\Reminders\RemindableInterface;
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
-class Room extends Eloquent implements UserInterface, RemindableInterface {
+class Type extends Eloquent implements UserInterface, RemindableInterface {
 
 	use UserTrait, RemindableTrait;
 	use SoftDeletingTrait;
@@ -16,7 +16,7 @@ class Room extends Eloquent implements UserInterface, RemindableInterface {
 	 *
 	 * @var string
 	 */
-	protected $table = 'room';
+	protected $table = 'types';
 
 	/**
 	 * The attributes excluded from the model's JSON form.

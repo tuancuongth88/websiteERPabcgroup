@@ -31,12 +31,14 @@ class CommonNormal
 		if ($name == 'manager') 
 			return 'Admin';
 		if($name == 'room')
-			return 'Room';
+			return 'Department';
 		if ($name == 'management') {
 			return 'User';
 		}
 		if($name == 'position')
-			return 'Position';
+			return 'Regency';
+		if($name == 'resouce')
+			return 'Resouce';
 	}
 
 }

@@ -1,18 +1,18 @@
 <?php
 
-class PositionTableSeeder extends Seeder {
+class RegencyTableSeeder extends Seeder {
 
 	public function run()
 	{
-		Position::create([
+		Regency::create([
 					'name' => 'Manager',
 					'status'=>'1',
 			]);
-		Position::create([
+		Regency::create([
 					'name' => 'leader',
 					'status'=>'1',
 			]);
-		Position::create([
+		Regency::create([
 					'name' => 'member',
 					'status'=>'1',
 			]);

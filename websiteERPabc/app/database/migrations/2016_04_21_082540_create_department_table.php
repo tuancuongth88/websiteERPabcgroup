@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePositionTable extends Migration {
+class CreateDepartmentTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,7 +12,7 @@ class CreatePositionTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('position', function(Blueprint $table) {
+		Schema::create('department', function(Blueprint $table) {
             $table->increments('id');
             $table->string('name', 256)->nullable();
             $table->integer('status')->nullable();
@@ -28,7 +28,7 @@ class CreatePositionTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('position');
+		Schema::drop('department');
 	}
 
 }

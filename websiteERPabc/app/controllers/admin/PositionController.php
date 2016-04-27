@@ -9,7 +9,7 @@ class PositionController extends AdminController {
 	 */
 	public function index()
 	{
-		$data = Position::orderBy('id', 'desc')->paginate(PAGINATE);
+		$data = Regency::orderBy('id', 'desc')->paginate(PAGINATE);
 		return View::make('admin.position.index')->with(compact('data'));
 	}
 

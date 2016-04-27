@@ -1,11 +1,7 @@
-<?php 
+<?php
 
-class AdminController extends BaseController {
- public function __construct() {
+class ResouceController extends AdminController {
 
-        $this->beforeFilter('admin', array('except'=>array('login','doLogin')));
-
-    }
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -13,9 +9,8 @@ class AdminController extends BaseController {
 	 */
 	public function index()
 	{
-		
-            return View::make('admin.layout.login');
-        
+		$data = Resouce::orderBy('id', 'desc')->paginate(PAGINATE);
+		return View::make('admin.resouce.index')->with(compact('data'));
 	}
 
 
@@ -26,7 +21,7 @@ class AdminController extends BaseController {
 	 */
 	public function create()
 	{
-		//
+		return View::make('admin.resouce.create');
 	}
 
 
@@ -37,7 +32,22 @@ class AdminController extends BaseController {
 	 */
 	public function store()
 	{
-		//
+		$rules = array(
+			'name' => 'required',
+
+		);
+		$input = Input::except('_token');
+		$validator = Validator::make($input,$rules);
+		if($validator->fails()) {
+			return Redirect::action('ResouceController@create')
+	            ->withErrors($validator);
+        }else{
+        	$input['status'] = 1;
+        	// $id = CommonNormal::create($input);
+        	CommonUpload::uploadFile($input, USER_AVATAR);
+        	return Redirect::action('ResouceController@index');
+
+        }
 	}
 
 
@@ -87,29 +97,6 @@ class AdminController extends BaseController {
 	{
 		//
 	}
-   public function login()
-    {
-    
-            return View::make('admin.layout.login');
-        
-    }
-     public function doLogin()
-    {
 
-        $input = Input::all();
-        $user = array('username'=> $input['username'], 'password'=> $input['password']);
-        if (Auth::attempt($user)) {
-        	return Redirect::action('ManagementController@index');
-        }else{
-        	dd('login that bai !!');
-		}
-    }
-
-    public function logout()
-    {
-        Auth::logout();
-        Session::flush();
-        return Redirect::route('admin.login');
-    }
 
 }

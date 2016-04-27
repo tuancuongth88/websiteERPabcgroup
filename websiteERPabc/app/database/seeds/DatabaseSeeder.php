@@ -13,8 +13,8 @@ class DatabaseSeeder extends Seeder {
 
 		$this->call('UserTableSeeder');
 		$this->call('AdminTableSeeder');
-		$this->call('RoomTableSeeder');
-		$this->call('PositionTableSeeder');
+		$this->call('DepartmentTableSeeder');
+		$this->call('RegencyTableSeeder');
 	}
 
 }

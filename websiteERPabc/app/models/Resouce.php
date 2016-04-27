@@ -6,7 +6,7 @@ use Illuminate\Auth\Reminders\RemindableTrait;
 use Illuminate\Auth\Reminders\RemindableInterface;
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
-class User extends Eloquent implements UserInterface, RemindableInterface {
+class Resouce extends Eloquent implements UserInterface, RemindableInterface {
 
 	use UserTrait, RemindableTrait;
 	use SoftDeletingTrait;
@@ -16,16 +16,15 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	 *
 	 * @var string
 	 */
-	protected $table = 'users';
+	protected $table = 'resouce';
 
 	/**
 	 * The attributes excluded from the model's JSON form.
 	 *
 	 * @var array
 	 */
-	protected $hidden = array('password', 'remember_token');
-	protected $fillable = array('email', 'password', 'username', 'phone', 'address', 'avatar', 'fullname', 'room_id', 'position_id', 'status');
-	 protected $dates = ['deleted_at'];
+	protected $fillable = array('name','linkFile','link' ,'status');
+    protected $dates = ['deleted_at'];
 
-
+   
 }

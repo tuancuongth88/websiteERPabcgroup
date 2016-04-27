@@ -10,7 +10,7 @@ class RoomController extends AdminController {
 	public function index()
 	{
 		// dd(999);
-		$data = Room::orderBy('id', 'desc')->paginate(PAGINATE);
+		$data = Department::orderBy('id', 'desc')->paginate(PAGINATE);
 		return View::make('admin.room.index')->with(compact('data'));
 	}
 

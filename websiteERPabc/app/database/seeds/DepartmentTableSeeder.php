@@ -1,14 +1,14 @@
 <?php
 
-class RoomTableSeeder extends Seeder {
+class DepartmentTableSeeder extends Seeder {
 
 	public function run()
 	{
-		Room::create([
+		Department::create([
 					'name' => 'Room developer',
 					'status'=>'1',
 			]);
-		Room::create([
+		Department::create([
 					'name' => 'Room sale',
 					'status'=>'1',
 			]);
