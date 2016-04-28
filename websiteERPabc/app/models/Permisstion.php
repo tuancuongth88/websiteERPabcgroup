@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
 class Permisstion extends Eloquent {
 
-	use UserTrait, RemindableTrait;
 	use SoftDeletingTrait;
 
 	/**

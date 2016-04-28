@@ -10,9 +10,9 @@ class DeparmentController extends AdminController {
 	public function index()
 	{
 		$data = Department::orderBy('id', 'desc')->paginate(PAGINATE);
-		$status = Department::where('status','1')->count();
-		dd($status);
-		return View::make('admin.room.index')->with(compact('data'));
+		$status = DepFunction::where('dep_id', '1')->get();
+		// dd(count($status));
+		return View::make('admin.room.index')->with(compact('data', 'status'));
 	}
 
 
@@ -41,12 +41,17 @@ class DeparmentController extends AdminController {
 		$validator = Validator::make($input,$rules);
 		if($validator->fails()) {
 			return Redirect::action('DeparmentController@create')
-	            ->withErrors($validator);
-        }else{
-        	$input['status'] = 1;
-        	$id = CommonNormal::create($input);
-        	return Redirect::action('DeparmentController@index');
-        }
+				->withErrors($validator);
+		}else{
+			$input['status'] = 1;
+			$id = CommonNormal::create($input);
+			$inputDepFunction['dep_id'] = $id;
+			//foreach function
+			//	$inputDepFunction['fun_id'] = ;
+			//end for
+			DepFunction::create($inputDepFunction);
+			return Redirect::action('DeparmentController@index');
+		}
 	}
 
 
@@ -90,11 +95,11 @@ class DeparmentController extends AdminController {
 		$validator = Validator::make($input,$rules);
 		if($validator->fails()) {
 			return Redirect::action('DeparmentController@edit', $id)
-	            ->withErrors($validator);
-        }else{
-        	CommonNormal::update($id, $input);
-        	return Redirect::action('DeparmentController@index') ;
-        }
+				->withErrors($validator);
+		}else{
+			CommonNormal::update($id, $input);
+			return Redirect::action('DeparmentController@index') ;
+		}
 	}
 
 
