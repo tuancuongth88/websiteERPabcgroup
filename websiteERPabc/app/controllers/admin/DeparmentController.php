@@ -12,7 +12,7 @@ class DeparmentController extends AdminController {
 		$data = Department::orderBy('id', 'desc')->paginate(PAGINATE);
 		$status = DepFunction::where('dep_id', '1')->get();
 		// dd(count($status));
-		return View::make('admin.room.index')->with(compact('data', 'status'));
+		return View::make('admin.department.index')->with(compact('data', 'status'));
 	}
 
 
@@ -23,7 +23,7 @@ class DeparmentController extends AdminController {
 	 */
 	public function create()
 	{
-		return View::make('admin.room.create');
+		return View::make('admin.department.create');
 	}
 
 
@@ -75,8 +75,8 @@ class DeparmentController extends AdminController {
 	 */
 	public function edit($id)
 	{
-		$data = Room::find($id);
-		return View::make('admin.room.edit')->with(compact('data'));
+		$data = Department::find($id);
+		return View::make('admin.department.edit')->with(compact('data'));
 	}
 
 
