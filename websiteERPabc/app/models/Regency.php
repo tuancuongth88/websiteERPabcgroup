@@ -6,9 +6,8 @@ use Illuminate\Auth\Reminders\RemindableTrait;
 use Illuminate\Auth\Reminders\RemindableInterface;
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
-class Regency extends Eloquent implements UserInterface, RemindableInterface {
+class Regency extends Eloquent {
 
-	use UserTrait, RemindableTrait;
 	use SoftDeletingTrait;
 
 	/**

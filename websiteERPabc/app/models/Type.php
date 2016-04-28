@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
 class Type extends Eloquent {
 
-	use UserTrait, RemindableTrait;
 	use SoftDeletingTrait;
 
 	/**
