@@ -4,17 +4,15 @@ class AdminController extends BaseController {
 	public function __construct() 
 	{
 		$this->beforeFilter('admin', array('except'=>array('login','doLogin')));
-
 	}
 	/**
 	 * Display a listing of the resource.
 	 *
 	 * @return Response
 	 */
-	public function index()
+	public function index() 
 	{
 		return View::make('admin.layout.login');
-		
 	}
 
 
@@ -86,15 +84,12 @@ class AdminController extends BaseController {
 	{
 		//
 	}
-   public function login()
+    public function login()
 	{
-	
-			return View::make('admin.layout.login');
-		
+		return View::make('admin.layout.login');
 	}
-	 public function doLogin()
+	public function doLogin()
 	{
-
 		$input = Input::all();
 		$user = array('username'=> $input['username'], 'password'=> $input['password']);
 		// dd(Auth::admin()->attempt($user));
