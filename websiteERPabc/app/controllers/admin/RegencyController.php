@@ -9,8 +9,8 @@ class RegencyController extends AdminController {
 	 */
 	public function index()
 	{
-		$data = Regency::orderBy('id', 'desc')->paginate(PAGINATE);
-		return View::make('admin.position.index')->with(compact('data'));
+		$data = Regency::orderBy('id', 'asc')->paginate(PAGINATE);
+		return View::make('admin.regency.index')->with(compact('data'));
 	}
 
 
@@ -21,7 +21,7 @@ class RegencyController extends AdminController {
 	 */
 	public function create()
 	{
-		return View::make('admin.position.create');
+		return View::make('admin.regency.create');
 	}
 
 
@@ -41,7 +41,6 @@ class RegencyController extends AdminController {
 			return Redirect::action('RegencyController@create')
 	            ->withErrors($validator);
         }else{
-        	$input['status'] = 1;
         	$id = CommonNormal::create($input);
         	return Redirect::action('RegencyController@index');
         }
@@ -68,8 +67,8 @@ class RegencyController extends AdminController {
 	 */
 	public function edit($id)
 	{
-		$data = Position::find($id);
-		return View::make('admin.position.edit')->with(compact('data'));
+		$data = Regency::find($id);
+		return View::make('admin.regency.edit')->with(compact('data'));
 	}
 
 
@@ -90,6 +89,10 @@ class RegencyController extends AdminController {
 			return Redirect::action('RegencyController@edit', $id)
 	            ->withErrors($validator);
         }else{
+
+        	if ($input['parent_id'] == '') {
+        		$input['parent_id'] = null;
+        	}
         	CommonNormal::update($id, $input);
         	return Redirect::action('RegencyController@index') ;
         }
