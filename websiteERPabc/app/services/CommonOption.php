@@ -35,4 +35,11 @@ class CommonOption {
 		}
 		return null;
 	}
+	public static function deleteParent($modelName, $id)
+	{
+		$parentId = $modelName::find($id)->parent_id;
+		if ($parentId) {
+			$list = $modelName::where('parent_id', $id)->update(['parent_id' => $parentId]);
+		}
+	}
 }
