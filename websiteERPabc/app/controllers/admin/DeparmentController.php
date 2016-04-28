@@ -9,8 +9,9 @@ class DeparmentController extends AdminController {
 	 */
 	public function index()
 	{
-		// dd(999);
 		$data = Department::orderBy('id', 'desc')->paginate(PAGINATE);
+		$status = Department::where('status','1')->count();
+		dd($status);
 		return View::make('admin.room.index')->with(compact('data'));
 	}
 

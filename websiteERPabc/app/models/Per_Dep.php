@@ -6,11 +6,11 @@ use Illuminate\Auth\Reminders\RemindableTrait;
 use Illuminate\Auth\Reminders\RemindableInterface;
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
-class Per_Dep extends Eloquent implements UserInterface, RemindableInterface {
+class Per_Dep extends Eloquent {
 
 	use UserTrait, RemindableTrait;
 	use SoftDeletingTrait;
-
+ 
 	/**
 	 * The database table used by the model.
 	 *
@@ -21,10 +21,10 @@ class Per_Dep extends Eloquent implements UserInterface, RemindableInterface {
 	/**
 	 * The attributes excluded from the model's JSON form.
 	 *
-	 * @var array
+	 * @var array 
 	 */
 	protected $fillable = array('dep_id', 'fun_id', 'use_id', 'pre_id');
     protected $dates = ['deleted_at'];
-
    
 }
+  
