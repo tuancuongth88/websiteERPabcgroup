@@ -10,9 +10,9 @@ class DeparmentController extends AdminController {
 	public function index()
 	{
 		$data = Department::orderBy('id', 'desc')->paginate(PAGINATE);
-		$status = DepFunction::where('dep_id', '1')->get();
+		// $status = DepFunction::where('dep_id', '1')->get();
 		// dd(count($status));
-		return View::make('admin.room.index')->with(compact('data', 'status'));
+		return View::make('admin.department.index')->with(compact('data', 'status'));
 	}
 
 
@@ -23,7 +23,7 @@ class DeparmentController extends AdminController {
 	 */
 	public function create()
 	{
-		return View::make('admin.room.create');
+		return View::make('admin.department.create');
 	}
 
 
@@ -75,8 +75,8 @@ class DeparmentController extends AdminController {
 	 */
 	public function edit($id)
 	{
-		$data = Room::find($id);
-		return View::make('admin.room.edit')->with(compact('data'));
+		$data = Department::find($id);
+		return View::make('admin.department.edit')->with(compact('data'));
 	}
 
 
@@ -97,6 +97,9 @@ class DeparmentController extends AdminController {
 			return Redirect::action('DeparmentController@edit', $id)
 				->withErrors($validator);
 		}else{
+			if ($input['parent_id'] == '') {
+        		$input['parent_id'] = null;
+        	}
 			CommonNormal::update($id, $input);
 			return Redirect::action('DeparmentController@index') ;
 		}
@@ -111,6 +114,7 @@ class DeparmentController extends AdminController {
 	 */
 	public function destroy($id)
 	{
+		CommonOption::deleteParent('Department', $id);
 		CommonNormal::delete($id);
 		return Redirect::action('DeparmentController@index') ;
 	}

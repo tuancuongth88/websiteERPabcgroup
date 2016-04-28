@@ -1,6 +1,6 @@
 @extends('admin.layout.default')
 @section('title')
-{{ $title='Thêm phòng ban' }}
+{{ $title='Sửa phòng ban' }}
 @stop
 
 @section('content')
@@ -15,22 +15,29 @@
 	<div class="col-xs-12">
 		<div class="box box-primary">
         <!-- form start -->
-        {{ Form::open(array('action' => 'DeparmentController@store')) }}
+       {{ Form::open(array('action' => array('DeparmentController@update', $data->id), 'method' => 'PUT')) }}
           <div class="box-body">
             <div class="form-group">
               <label for="username">Tên phòng</label>
               <div class="row">
               	<div class="col-sm-6">
-                	<input type="text" class="form-control" id="username" placeholder="Tên phòng" name="name">
+                	<input type="text" class="form-control" id="username" value="{{ $data->name }}" placeholder="Tên phòng" name="name">
                 </div>
               </div>
+            </div>
+            <div class="form-group">
+              <label for="name">Thể loại</label>
+                <div class="row">
+                  <div class="col-sm-6">
+                    {{ Form::select('category_id', Category::lists('name', 'id'), $data->category_id, array('class' => 'form-control')) }}
+                  </div>
+                </div>
             </div>
           </div>
           <!-- /.box-body -->
 
           <div class="box-footer">
             <input type="submit" class="btn btn-primary" value="Lưu lại" />
-            <input type="reset" class="btn btn-default" value="Nhập lại" />
           </div>
         {{ Form::close() }}
       </div>
