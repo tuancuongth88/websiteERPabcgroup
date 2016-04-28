@@ -5,15 +5,31 @@ class DepartmentTableSeeder extends Seeder {
 	public function run()
 	{
 		Department::create([
-					'name' => 'Room developer',
+					'name' => 'Phòng hành chính nhân sự',
 					'status'=>'1',
 			]);
 		Department::create([
-					'name' => 'Room sale',
+					'name' => 'Phòng tài chính kế toán',
 					'status'=>'1',
 			]);
 		Department::create([
-					'name' => 'Room Maketting',
+					'name' => 'Phòng kinh doanh',
+					'status'=>'2',
+			]);
+		Department::create([
+					'name' => 'Phòng nghiên cứu phát triển',
+					'status'=>'2',
+			]);
+		Department::create([
+					'name' => 'Phòng truyền thông',
+					'status'=>'2',
+			]);
+		Department::create([
+					'name' => 'Phòng kỹ thuật',
+					'status'=>'1',
+			]);
+		Department::create([
+					'name' => 'Phòng hỗ trợ dịch vụ',
 					'status'=>'2',
 			]);
 	}

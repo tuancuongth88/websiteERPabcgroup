@@ -17,6 +17,16 @@
 		<!-- form start -->
 		{{ Form::open(array('action' => 'DeparmentController@store')) }}
 		  <div class="box-body">
+		  	<div class="box-body">
+				<div class="form-group">
+					<label>Parent</label>
+					<div class="row">
+						<div class="col-sm-6">
+							{{ Form::select('parent_id', CommonOption::getOption('Department'), null, array('class' => 'form-control')) }}
+						</div>
+					</div>
+				</div>
+			</div>
 			<div class="form-group">
 			  <label for="username">Tên phòng</label>
 			  <div class="row">
