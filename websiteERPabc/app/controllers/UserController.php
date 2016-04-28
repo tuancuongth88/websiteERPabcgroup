@@ -1,18 +1,20 @@
-<?php 
+<?php
 
-class AdminController extends BaseController {
-	public function __construct() 
-	{
-		$this->beforeFilter('admin', array('except'=>array('login','doLogin')));
-	}
+class UserController extends \BaseController {
+
 	/**
 	 * Display a listing of the resource.
 	 *
 	 * @return Response
 	 */
-	public function index() 
+	public function login()
 	{
-		return View::make('admin.layout.login');
+		$user = array('username'=> 'trantung', 'password'=> '123456789');
+		
+	}
+	public function index()
+	{
+		//
 	}
 
 
@@ -84,32 +86,6 @@ class AdminController extends BaseController {
 	{
 		//
 	}
-    public function login()
-	{
-		return View::make('admin.layout.login');
-	}
-	public function doLogin()
-	{
-		$input = Input::all();
-		$user = array('username'=> $input['username'], 'password'=> $input['password']);
-		// dd(Auth::admin()->attempt($user));
-		if (Auth::admin()->attempt($user)) {
-			return Redirect::action('ManagementController@index');
-		}
-		elseif (Auth::user()->attempt($user)) {
-			# code...
-			dd(444);
-		}
-		else{
-			return View::make('admin.layout.login')->with(compact('message','Sai username hoặc password'));
-		}
-	}
 
-	public function logout()
-	{
-		Auth::logout();
-		Session::flush();
-		return Redirect::route('admin.login');
-	}
 
 }

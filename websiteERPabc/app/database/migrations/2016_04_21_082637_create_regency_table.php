@@ -28,7 +28,7 @@ class CreateRegencyTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('regency');
+		Schema::drop('regencies');
 	}
 
 }
