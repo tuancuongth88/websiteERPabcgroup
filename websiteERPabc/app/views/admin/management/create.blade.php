@@ -37,7 +37,7 @@
 						<label for="name">Phòng ban</label>
 						<div class="row">
 							<div class="col-sm-6">
-								{{ Form::select('room_id', Department::lists('name', 'id'),  null,array('class' => 'form-control')) }}
+								{{ Form::select('dep_id', Department::lists('name', 'id'),  null,array('class' => 'form-control')) }}
 							</div>
 						</div>
 					</div>
@@ -45,7 +45,7 @@
 						<label for="name">Chức vụ</label>
 						<div class="row">
 							<div class="col-sm-6">
-								{{ Form::select('position_id', Regency::lists('name', 'id'), null,array('class' => 'form-control')) }}
+								{{ Form::select('regency_id', Regency::lists('name', 'id'), null,array('class' => 'form-control')) }}
 							</div>
 						</div>
 					</div>

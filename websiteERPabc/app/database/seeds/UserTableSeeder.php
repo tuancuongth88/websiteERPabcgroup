@@ -11,8 +11,8 @@ class UserTableSeeder extends Seeder {
 					'phone' => '123456789',
 					'avatar' => 'a1.jpg',
 					'status'=>'1',
-					'room_id'=>'1',
-					'position_id'=>'1',
+					'dep_id'=>'1',
+					'regency_id'=>'1',
 			]);
 		User::create([
 					'email'=>'si@gmail.com',
@@ -21,8 +21,8 @@ class UserTableSeeder extends Seeder {
 					'phone' => '123456789',
 					'avatar' => 'a2.jpg',
 					'status'=>'1',
-					'room_id'=>'1',
-					'position_id'=>'2',
+					'dep_id'=>'1',
+					'regency_id'=>'2',
 					]);
 		User::create([
 					'email'=>'dung@gmail.com',
@@ -31,8 +31,8 @@ class UserTableSeeder extends Seeder {
 					'phone' => '123456',
 					'avatar' => 'a3.jpg',
 					'status'=>'1',
-					'room_id'=>'1',
-					'position_id'=>'3',
+					'dep_id'=>'1',
+					'regency_id'=>'3',
 			]);
 	}
 

@@ -30,8 +30,6 @@ class CommonNormal
 		}
 		if ($name == 'manager') 
 			return 'Admin';
-		if($name == 'room')
-			return 'Department';
 		if ($name == 'management') {
 			return 'User';
 		}
@@ -39,6 +37,10 @@ class CommonNormal
 			return 'Regency';
 		if($name == 'resouce')
 			return 'Resouce';
+		if($name == 'deparment')
+			return 'Department';
+		if($name == 'depFunction')
+			return 'DepFunction';
 	}
 
 }

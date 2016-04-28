@@ -12,6 +12,10 @@ class DepartmentTableSeeder extends Seeder {
 					'name' => 'Room sale',
 					'status'=>'1',
 			]);
+		Department::create([
+					'name' => 'Room Maketting',
+					'status'=>'2',
+			]);
 	}
 
 }

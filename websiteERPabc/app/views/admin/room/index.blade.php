@@ -22,12 +22,14 @@
 					<tr>
 						<th>ID</th>
 						<th>Tên phòng</th>
+						<th>Số người</th>
 						<th>Action</th>
 					</tr>
 					@foreach($data as $key => $value)
 					<tr>
 						<td>{{ $value->id }}</td>
-						<td>{{ $value->name }}</td>
+						<td>{{ $value->name }}</td> 
+						<td>{{ CommonCount::count('User', $value->id, 'dep_id') }}</td>
 						<td>
 							<a href="{{ action('DeparmentController@edit', $value->id) }}" class="btn btn-primary">Sửa</a>
 							{{ Form::open(array('method'=>'DELETE', 'action' => array('DeparmentController@destroy', $value->id), 'style' => 'display: inline-block;')) }}
