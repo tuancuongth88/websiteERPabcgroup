@@ -107,6 +107,7 @@ class RegencyController extends AdminController {
 	 */
 	public function destroy($id)
 	{
+		CommonOption::deleteParent('Regency', $id);
 		CommonNormal::delete($id);
 		return Redirect::action('RegencyController@index') ;
 	}
