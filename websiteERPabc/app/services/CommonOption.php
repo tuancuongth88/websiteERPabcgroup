@@ -41,5 +41,8 @@ class CommonOption {
 		if ($parentId) {
 			$list = $modelName::where('parent_id', $id)->update(['parent_id' => $parentId]);
 		}
+		else {
+			$modelName::where('parent_id', $id)->update(['parent_id' => null]);
+		}
 	}
 }
