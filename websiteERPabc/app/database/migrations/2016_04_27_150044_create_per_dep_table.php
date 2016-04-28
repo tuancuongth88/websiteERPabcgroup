@@ -16,8 +16,8 @@ class CreatePerDepTable extends Migration {
 			$table->increments('id');
 			$table->integer('dep_id')->nullable();
 			$table->integer('fun_id')->nullable();
-			$table->integer('use_id')->nullable();
-			$table->integer('pre_id')->nullable();
+			$table->integer('user_id')->nullable();
+			$table->integer('per_id')->nullable();
 			$table->softDeletes();
             $table->timestamps();
 		});

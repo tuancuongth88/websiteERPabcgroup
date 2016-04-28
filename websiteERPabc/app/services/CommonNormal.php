@@ -35,7 +35,7 @@ class CommonNormal
 		if ($name == 'management') {
 			return 'User';
 		}
-		if($name == 'position')
+		if($name == 'regency')
 			return 'Regency';
 		if($name == 'resouce')
 			return 'Resouce';

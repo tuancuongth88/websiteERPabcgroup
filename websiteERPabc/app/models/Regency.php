@@ -22,7 +22,7 @@ class Regency extends Eloquent {
 	 *
 	 * @var array
 	 */
-	protected $fillable = array('name', 'status');
+	protected $fillable = array('name', 'status', 'parent_id', 'description');
     protected $dates = ['deleted_at'];
 
    
