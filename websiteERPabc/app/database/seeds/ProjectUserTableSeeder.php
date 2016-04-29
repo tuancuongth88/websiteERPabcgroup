@@ -19,7 +19,7 @@ class ProjectUserTableSeeder extends Seeder {
 				'user_id' => 2,
 				'temp_role_id' => 2,
 				'per_id' => 1,
-			);
+			]);
 		ProjectUser::create([
 				'name' => '',
 				'status' => 1,
@@ -27,7 +27,7 @@ class ProjectUserTableSeeder extends Seeder {
 				'user_id' => 3,
 				'temp_role_id' => 3,
 				'per_id' => 1,
-			);
+			]);
 
 	}
 
