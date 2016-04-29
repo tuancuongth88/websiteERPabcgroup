@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder {
 		$this->call('DepFunctionTableSeeder');
 		$this->call('TempRoleTableSeeder');
 		$this->call('ProjectTableSeeder');
+		$this->call('DepUserRegencyTableSeeder');
 	}
 
 }

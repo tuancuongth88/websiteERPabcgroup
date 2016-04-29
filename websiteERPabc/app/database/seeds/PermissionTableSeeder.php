@@ -5,24 +5,22 @@ class PermissionTableSeeder extends Seeder {
 	public function run()
 	{
 		Permission::create([
-					'name' => 'Full',
-			);
+ 			'name' => 'Full',
+		]);
 		Permission::create([
-					'name' => 'Thêm',
-			]);
+			'name' => 'Thêm',
+		]);
 		Permission::create([
-					'name' => 'Xem',
-			]);
+			'name' => 'Xem',
+		]);
 		Permission::create([
-					'name' => 'Sửa',
-			]);
+ 			'name' => 'Sửa',
+		]);
 		Permission::create([
-					'name' => 'Xóa',
-			]);
+ 			'name' => 'Xóa',
+		]);
 		Permission::create([
-					'name' => 'Asign',
-			]);
-
+ 			'name' => 'Asign',
+		]);
 	}
-
 }
