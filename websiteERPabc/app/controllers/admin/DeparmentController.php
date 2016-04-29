@@ -10,8 +10,6 @@ class DeparmentController extends AdminController {
 	public function index()
 	{
 		$data = Department::orderBy('id', 'desc')->paginate(PAGINATE);
-		// $status = DepFunction::where('dep_id', '1')->get();
-		// dd(count($status));
 		return View::make('admin.department.index')->with(compact('data', 'status'));
 	}
 
@@ -45,11 +43,13 @@ class DeparmentController extends AdminController {
 		}else{
 			$input['status'] = 1;
 			$id = CommonNormal::create($input);
-			$inputDepFunction['dep_id'] = $id;
-			//foreach function
-			//	$inputDepFunction['fun_id'] = ;
-			//end for
-			DepFunction::create($inputDepFunction);
+			// foreach function
+				foreach ($input['function'] as $key => $value) {
+					$inputDepFunction['dep_id'] = $id;
+					$inputDepFunction['fun_id'] = $value;
+					DepFunction::create($inputDepFunction);
+				}
+			// end for
 			return Redirect::action('DeparmentController@index');
 		}
 	}
@@ -101,6 +101,13 @@ class DeparmentController extends AdminController {
         		$input['parent_id'] = null;
         	}
 			CommonNormal::update($id, $input);
+			// foreach function
+				foreach ($input['function'] as $key => $value) {
+					$inputDepFunction['dep_id'] = $id;
+					$inputDepFunction['fun_id'] = $value;
+					DepFunction::create($inputDepFunction);
+				}
+			// end for
 			return Redirect::action('DeparmentController@index') ;
 		}
 	}

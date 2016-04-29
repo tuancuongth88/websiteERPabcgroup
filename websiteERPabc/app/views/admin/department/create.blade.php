@@ -17,12 +17,12 @@
 		<!-- form start -->
 		{{ Form::open(array('action' => 'DeparmentController@store')) }}
 		  <div class="box-body">
-		  	<div class="box-body">
+			<div class="box-body">
 				<div class="form-group">
 					<label>Parent</label>
 					<div class="row">
 						<div class="col-sm-6">
-							{{ Form::select('parent_id', CommonOption::getOption('Department'), null, array('class' => 'form-control')) }}
+						{{ Form::select('parent_id', CommonOption::getOption('Department'), null, array('class' => 'form-control')) }}
 						</div>
 					</div>
 				</div>
@@ -38,9 +38,17 @@
 			<div class="form-group">
 			  <label for="name">Quyền hạn</label>
 				<div class="row">
-				  <div class="col-sm-6">
-					
-				  </div>
+					<div class="col-sm-6">
+						@if($functions = CommonOption::getOptionModel('Functions'))
+							@foreach($functions as $key => $value)
+							<p>
+								{{ Form::checkbox('function[]', $key, false, array('id' => 'function_'.$key))
+	 }}
+	 						<label for="{{ 'function_'.$key }}">{{ $value }}</label>
+	 						</p>
+							@endforeach
+						@endif
+					</div>
 				</div>
 			</div>
 		  </div>

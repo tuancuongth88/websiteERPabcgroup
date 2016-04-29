@@ -45,4 +45,9 @@ class CommonOption {
 			$modelName::where('parent_id', $id)->update(['parent_id' => null]);
 		}
 	}
+	public static function getOptionModel($model)
+	{
+		$data = $model::lists('name', 'id');
+		return $data;
+	}
 }

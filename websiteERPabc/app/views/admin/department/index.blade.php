@@ -22,6 +22,7 @@
 					<tr>
 						<th>ID</th>
 						<th>Tên phòng</th>
+						<th>Parent</th>
 						<th>Số người</th>
 						<th>Action</th>
 					</tr>
@@ -29,6 +30,7 @@
 					<tr>
 						<td>{{ $value->id }}</td>
 						<td>{{ $value->name }}</td> 
+						<td>{{ CommonOption::getNameOption('Department', $value) }}</td>
 						<td>{{ CommonCount::count('User', $value->id, 'dep_id') }}</td>
 						<td>
 							<a href="{{ action('DeparmentController@edit', $value->id) }}" class="btn btn-primary">Sửa</a>
