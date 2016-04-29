@@ -13,4 +13,8 @@ define('SUCCESS', 'Success');
 //active inactive
 define('ACTIVE', 1);
 define('INACTIVE', 2);
+//value checkbox
+define('CHECKED', 1);
+define('NOT_CHECKED', 0);
 //status project
+

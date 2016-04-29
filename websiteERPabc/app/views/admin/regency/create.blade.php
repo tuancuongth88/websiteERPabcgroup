@@ -43,7 +43,7 @@
 								@foreach(Department::lists('name', 'id') as $key =>$value)
 									{{ $value }}:{{ Form::checkbox("dep_id[$key]") }}
 									<br/>
-								@endforeach()
+								@endforeach
 							</div>
 						</div>
 					</div>
