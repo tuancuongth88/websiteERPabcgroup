@@ -6,7 +6,7 @@ use Illuminate\Auth\Reminders\RemindableTrait;
 use Illuminate\Auth\Reminders\RemindableInterface;
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
-class Functions extends Eloquent {
+class AdminFunction extends Eloquent {
 
 	use SoftDeletingTrait;
 

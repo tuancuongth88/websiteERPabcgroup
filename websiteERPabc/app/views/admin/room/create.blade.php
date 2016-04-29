@@ -16,12 +16,37 @@
 		<div class="box box-primary">
         <!-- form start -->
         {{ Form::open(array('action' => 'DeparmentController@store')) }}
+
+          <div class="box-body">
+            <div class="form-group">
+              <label>Parent</label>
+              <div class="row">
+                <div class="col-sm-6">
+                  {{ Form::select('parent_id', CommonOption::getOption('Department'), null, array('class' => 'form-control')) }}
+                </div>
+              </div>
+            </div>
+          </div>
+
           <div class="box-body">
             <div class="form-group">
               <label for="username">Tên phòng</label>
               <div class="row">
               	<div class="col-sm-6">
                 	<input type="text" class="form-control" id="username" placeholder="Tên phòng" name="name">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="box-body">
+            <div class="form-group">
+              <label for="username">Chuc vu</label>
+              <div class="row">
+                <div class="col-sm-6">
+                  @foreach(AdminFunction::lists('name', 'id') as $key =>$value)
+                    {{ $value }}: {{ Form::checkbox("fun_id[$key]") }} <br/>
+                  @endforeach
                 </div>
               </div>
             </div>
