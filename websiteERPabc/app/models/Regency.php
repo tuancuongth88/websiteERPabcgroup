@@ -25,5 +25,9 @@ class Regency extends Eloquent {
 	protected $fillable = array('name', 'status', 'parent_id', 'description');
     protected $dates = ['deleted_at'];
 
+    public function departments()
+    {
+        return $this->belongsToMany('Department', 'dep_user_regencies', 'regency_id', 'dep_id');
+    }
    
 }

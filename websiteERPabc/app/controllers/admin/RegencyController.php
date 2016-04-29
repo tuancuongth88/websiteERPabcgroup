@@ -45,10 +45,10 @@ class RegencyController extends AdminController {
         	if ($input['parent_id'] == '') {
         		$input['parent_id'] = null;
         	}
+        	$array = CommonOption::getKeyFromArray($input['dep_id']);
+        	// dd($array);
         	$id = CommonNormal::create($input);
-        	foreach ($input['dep_id'] as $key => $value) {
-				DepUserRegency::create(['dep_id' => $key, 'regency_id' => $id]);        	
-        	}
+        	Regency::find($id)->departments()->attach($array);
         	return Redirect::action('RegencyController@index');
         }
 	}
@@ -96,10 +96,11 @@ class RegencyController extends AdminController {
 			return Redirect::action('RegencyController@edit', $id)
 	            ->withErrors($validator);
         }else{
-
         	if ($input['parent_id'] == '') {
         		$input['parent_id'] = null;
         	}
+        	$array = CommonOption::getKeyFromArray($input['dep_id']);
+        	Regency::find($id)->departments()->sync($array);
         	CommonNormal::update($id, $input);
         	return Redirect::action('RegencyController@index') ;
         }
@@ -115,6 +116,7 @@ class RegencyController extends AdminController {
 	public function destroy($id)
 	{
 		CommonOption::deleteParent('Regency', $id);
+		Regency::find($id)->departments()->detach();
 		CommonNormal::delete($id);
 		return Redirect::action('RegencyController@index') ;
 	}
