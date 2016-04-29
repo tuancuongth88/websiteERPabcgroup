@@ -1,13 +1,13 @@
 @extends('admin.layout.default')
 @section('title')
-{{ $title='Thêm phòng ban' }}
+{{ $title='Sửa chức vụ' }}
 @stop
 
 @section('content')
 
 <div class="row margin-bottom">
 	<div class="col-xs-12">
-		<a href="{{ action('DeparmentController@index') }}" class="btn btn-success">Danh phòng ban</a>
+		<a href="{{ action('RegencyController@index') }}" class="btn btn-success">Danh sách</a>
 	</div>
 </div>
 
@@ -15,39 +15,33 @@
 	<div class="col-xs-12">
 		<div class="box box-primary">
 		<!-- form start -->
-		{{ Form::open(array('action' => 'DeparmentController@store')) }}
-		  	<div class="box-body">
+			{{ Form::open(array('action' => array('RegencyController@update', $data->id), 'method' => 'PUT')) }}
+			<div class="box-body">
 				<div class="form-group">
 					<label>Parent</label>
 					<div class="row">
 						<div class="col-sm-6">
-							{{ Form::select('parent_id', CommonOption::getOption('Department'), null, array('class' => 'form-control')) }}
+							{{ Form::select('parent_id', CommonOption::getOption('Regency'), Regency::find($data->id)->parent_id, array('class' => 'form-control')) }}
 						</div>
 					</div>
 				</div>
+			</div>
+			<div class="box-body">
 				<div class="form-group">
 					<label for="username">Tên phòng</label>
 					<div class="row">
 						<div class="col-sm-6">
-							<input type="text" class="form-control" id="username" placeholder="Tên phòng" name="name">
+							<input type="text" class="form-control" id="username" value="{{ $data->name }}" placeholder="Tên phòng" name="name">
 						</div>
 					</div>
 				</div>
-				<div class="form-group">
-				  	<label for="name">Quyền hạn</label>
-					<div class="row">
-					  	<div class="col-sm-6">
-						
-					  	</div>
-					</div>
-				</div>
-		  	</div>
+			</div>
 			<!-- /.box-body -->
+
 			<div class="box-footer">
 				<input type="submit" class="btn btn-primary" value="Lưu lại" />
-				<input type="reset" class="btn btn-default" value="Nhập lại" />
 			</div>
-		{{ Form::close() }}
+			{{ Form::close() }}
 		</div>
 		<!-- /.box -->
 	</div>
