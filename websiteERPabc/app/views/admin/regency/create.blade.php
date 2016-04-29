@@ -34,6 +34,21 @@
 						</div>
 					</div>
 				</div>
+
+				<div class="box-body">
+					<div class="form-group">
+						<label>Thuộc phòng ban liên quan</label>
+						<div class="row">
+							<div class="col-sm-6">
+								@foreach(Department::lists('name', 'id') as $key =>$value)
+									{{ $value }}:{{ Form::checkbox("dep_id[$key]") }}
+									<br/>
+								@endforeach()
+							</div>
+						</div>
+					</div>
+				</div>
+
 				<div class="box-footer">
 					{{ Form::submit('Lưu lại', array('class' => 'btn btn-primary')) }}
 				</div>

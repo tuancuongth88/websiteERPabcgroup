@@ -7,14 +7,14 @@ use Illuminate\Auth\Reminders\RemindableInterface;
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
 
-class DepFunction extends Eloquent {
+class DepUserRegency extends Eloquent {
 	use SoftDeletingTrait;
 	/**
 	 * The database table used by the model.
 	 *
 	 * @var string
 	 */
-	protected $table = 'dep_functions';
+	protected $table = 'dep_user_regencies';
 
 	/**
 	 * The attributes excluded from the model's JSON form.
