@@ -22,7 +22,7 @@
 					<tr>
 						<th>ID</th>
 						<th>Tên vai trò</th>
-						<th>Parent</th>
+						<th>Cấp trên</th>
 						<th>Action</th>
 					</tr>
 					@foreach($data as $key => $value)

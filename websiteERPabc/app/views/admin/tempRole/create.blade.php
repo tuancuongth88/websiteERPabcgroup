@@ -16,7 +16,7 @@
 			{{ Form::open(array('action' => 'TempRoleController@store')) }}
 				<div class="box-body">
 					<div class="form-group">
-						<label>Parent</label>
+						<label>Cấp trên</label>
 						<div class="row">
 							<div class="col-sm-6">
 								{{ Form::select('parent_id', CommonOption::getOption('TempRole'), null, array('class' => 'form-control')) }}
@@ -24,7 +24,7 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label>Tên chức vụ</label>
+						<label>Tên vai trò</label>
 						<div class="row">
 							<div class="col-sm-6">
 								{{ Form::text('name', null, array('class' => 'form-control')) }}

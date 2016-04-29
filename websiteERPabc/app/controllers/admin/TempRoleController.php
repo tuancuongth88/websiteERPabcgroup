@@ -32,7 +32,18 @@ class TempRoleController extends AdminController {
 	 */
 	public function store()
 	{
-		//
+		$rules = array(
+			'name' => 'required',
+		);
+		$input = Input::except('_token');
+		$validator = Validator::make($input, $rules);
+		if($validator->fails()) {
+			return Redirect::action('TempRoleController@create')
+	            ->withErrors($validator);
+        } else {
+			CommonNormal::create($input);
+			return Redirect::action('TempRoleController@index');	
+        }
 	}
 
 
@@ -56,7 +67,8 @@ class TempRoleController extends AdminController {
 	 */
 	public function edit($id)
 	{
-		//
+		$data = TempRole::find($id);
+		return View::make('admin.tempRole.edit')->with(compact('data'));
 	}
 
 
@@ -68,7 +80,18 @@ class TempRoleController extends AdminController {
 	 */
 	public function update($id)
 	{
-		//
+		$rules = array(
+			'name' => 'required',
+		);
+		$input = Input::except('_token');
+		$validator = Validator::make($input, $rules);
+		if($validator->fails()) {
+			return Redirect::action('TempRoleController@edit', $id)
+	            ->withErrors($validator);
+        }else{
+        	CommonNormal::update($id, $input);
+        	return Redirect::action('TempRoleController@index');
+        }
 	}
 
 
@@ -80,7 +103,8 @@ class TempRoleController extends AdminController {
 	 */
 	public function destroy($id)
 	{
-		//
+		CommonNormal::delete($id);
+		return Redirect::action('TempRoleController@index');
 	}
 
 
