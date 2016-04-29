@@ -17,10 +17,10 @@ class DatabaseSeeder extends Seeder {
 		$this->call('RegencyTableSeeder');
 		$this->call('FunctionTableSeeder');
 		$this->call('PermissionTableSeeder');
-		// $this->call('DepFunctionTableSeeder');
 		$this->call('TempRoleTableSeeder');
 		$this->call('ProjectTableSeeder');
 		$this->call('DepUserRegencyTableSeeder');
+		$this->call('ProjectUserTableSeeder');
 	}
 
 }
