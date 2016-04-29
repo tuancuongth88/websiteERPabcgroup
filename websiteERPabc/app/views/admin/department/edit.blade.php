@@ -25,6 +25,14 @@
                 </div>
               </div>
             </div>
+            <div class="form-group">
+              <label for="name">Thể loại</label>
+                <div class="row">
+                  <div class="col-sm-6">
+                    {{ Form::select('category_id', Category::lists('name', 'id'), $data->category_id, array('class' => 'form-control')) }}
+                  </div>
+                </div>
+            </div>
           </div>
           <!-- /.box-body -->
 
