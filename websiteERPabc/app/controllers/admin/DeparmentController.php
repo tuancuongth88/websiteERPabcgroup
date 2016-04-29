@@ -38,18 +38,23 @@ class DeparmentController extends AdminController {
 			'name' => 'required',
 		);
 		$input = Input::except('_token');
+		//check validation
 		$validator = Validator::make($input,$rules);
 		if($validator->fails()) {
 			return Redirect::action('DeparmentController@create')
 				->withErrors($validator);
 		}else{
+		//create department
 			$input['status'] = 1;
+			// dd($input);
 			$id = CommonNormal::create($input);
-			$inputDepFunction['dep_id'] = $id;
-			//foreach function
-			//	$inputDepFunction['fun_id'] = ;
-			//end for
-			DepFunction::create($inputDepFunction);
+		//create new record in the dep_functions table
+			foreach ($input['fun_id'] as $key => $value) {
+				DepFunction::create(['dep_id' => $id, 'fun_id' => $key]);
+			}
+			// $inputDepFunction['dep_id'] = $id;
+
+			// DepFunction::create($inputDepFunction);
 			return Redirect::action('DeparmentController@index');
 		}
 	}

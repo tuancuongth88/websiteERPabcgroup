@@ -24,10 +24,11 @@ Route::group(['prefix' => 'admin'], function () {
 	Route::resource('/deparment', 'DeparmentController');
 	Route::resource('/regency', 'RegencyController');
 	Route::resource('/resouce', 'ResouceController');
+	Route::resource('/project', 'ProjectController');
 });
-Route::group(
-	['prefix' => 'user'], function(){
-		Route::get('/login', array('uses' => 'UserController@login', 'as' => 'user.login'));
+// Route::group(
+// 	['prefix' => 'user'], function(){
+// 		Route::get('/login', array('uses' => 'UserController@login', 'as' => 'user.login'));
 
-	}
-);
+// 	}
+// );

@@ -41,7 +41,11 @@ class RegencyController extends AdminController {
 			return Redirect::action('RegencyController@create')
 	            ->withErrors($validator);
         }else{
+        	// dd($input);
         	$id = CommonNormal::create($input);
+        	foreach ($input['dep_id'] as $key => $value) {
+				DepUserRegency::create(['dep_id' => $key, 'regency_id' => $id]);        	
+        	}
         	return Redirect::action('RegencyController@index');
         }
 	}
