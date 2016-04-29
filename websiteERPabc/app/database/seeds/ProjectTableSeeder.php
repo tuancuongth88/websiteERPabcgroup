@@ -10,8 +10,8 @@ class ProjectTableSeeder extends Seeder {
 				'end' => '2016-05-31 14:30:00',
 				'percent' => '50',
 				'description' => 'choinhanh.vn',
-				'status' => ACTIVE,
-			);
+				'status' => 1,
+			]);
 
 	}
 
