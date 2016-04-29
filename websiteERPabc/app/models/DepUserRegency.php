@@ -21,7 +21,7 @@ class DepUserRegency extends Eloquent {
 	 *
 	 * @var array 
 	 */
-	protected $fillable = array('dep_id', 'fun_id', 'user_id', 'per_id');
+	protected $fillable = array('dep_id', 'regency_id', 'user_id');
     protected $dates = ['deleted_at'];
    
 }

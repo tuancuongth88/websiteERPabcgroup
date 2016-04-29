@@ -42,6 +42,9 @@ class RegencyController extends AdminController {
 	            ->withErrors($validator);
         }else{
         	// dd($input);
+        	if ($input['parent_id'] == '') {
+        		$input['parent_id'] = null;
+        	}
         	$id = CommonNormal::create($input);
         	foreach ($input['dep_id'] as $key => $value) {
 				DepUserRegency::create(['dep_id' => $key, 'regency_id' => $id]);        	
