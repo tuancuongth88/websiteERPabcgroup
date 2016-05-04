@@ -61,32 +61,16 @@
 						<label for="name">Phòng ban</label>
 						<div class="row">
 							<div class="col-sm-6">
-								{{ Form::select('dep_id', Department::lists('name', 'id'),  null,array('class' => 'form-control')) }}
+								@foreach(Department::lists('name', 'id') as $key =>$value)
+									{{ $value }}:{{ Form::checkbox("dep_id[$key]") }}
+									<br/>
+								@endforeach
 							</div>
 						</div>
 					</div>					
-					<div class="form-group">
-						<label for="name">Chức vụ</label>
-						<div class="row">
-							<div class="col-sm-6">
-								{{ Form::select('regency_id', Regency::lists('name', 'id'), null,array('class' => 'form-control')) }}
-							</div>
-						</div>
-					</div>
-					<div class="form-group">
-						<label>Người quản lý</label>
-						<div class="row">
-							<div class="col-sm-6">
-								{{ Form::select('parent_id', CommonOption::getOption('User'), null, array('class' => 'form-control')) }}
-							</div>
-						</div>
-					</div>
 				</div>
-				<!-- /.box-body -->
-
 				<div class="box-footer">
-					<input type="submit" class="btn btn-primary" value="Lưu lại" />
-					<input type="reset" class="btn btn-default" value="Nhập lại" />
+					{{ Form::submit('Lưu lại', array('class' => 'btn btn-primary'))}}
 				</div>
 			{{ Form::close() }}
 		</div>

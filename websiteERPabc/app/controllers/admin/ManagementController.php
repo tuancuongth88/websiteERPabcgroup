@@ -36,6 +36,7 @@ class ManagementController extends AdminController {
 		$rules = array(
 			'username' => 'required',
 			'phone' => 'required',
+			'dep_id' => 'tunglaso1'
 		);
 		$input = Input::except('_token');
 		$validator = Validator::make($input,$rules);
@@ -43,8 +44,15 @@ class ManagementController extends AdminController {
 			return Redirect::action('ManagementController@create')
 	            ->withErrors($validator);
         }else{
-			CommonNormal::create($input);
-			return Redirect::action('ManagementController@index');	
+        	if(!isset($input['dep_id'])){
+        		dd(999);
+        		Redirect::action('ManagementController@create')
+	            ->withErrors('phải chọn phòng ban!');
+        	}else{
+				$id = CommonNormal::create($input);
+				$dep_user_regenci['dep_id'] = $input->get('dep_id');
+				return Redirect::action('ManagementController@index');	
+        	}
         }
 	}
 
