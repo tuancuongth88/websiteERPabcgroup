@@ -13,7 +13,11 @@
 		margin-left: 10px;
 		cursor: pointer;
 	}
-	.assignBtn {
+	a.assignBtn {
+		cursor: pointer;
+	}
+	a.removeAssignBtn {
+		color: #e00;
 		cursor: pointer;
 	}
 </style>
@@ -49,6 +53,11 @@
 				$('input[name=projectUserKey]').val(projectUserKey);
 			}
 		});
+	}
+
+	function removeAssignProjectUser(projectUserKey)
+	{
+		$('#assignRow_'+projectUserKey).remove();
 	}
 
 </script>

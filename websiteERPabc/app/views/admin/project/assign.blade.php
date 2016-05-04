@@ -1,4 +1,4 @@
-<tr>
+<tr id = "assignRow_{{ $projectUserKey }}">
 	<td>
 		{{ Form::select('user_id['.$projectUserKey.']', CommonProject::getModelArray('User', 'username', 'id'), null, array('class' => 'form-control', 'style' => 'width: 120px;')) }}
 		{{ Form::hidden('projectUserKey', $projectUserKey) }}
@@ -20,5 +20,8 @@
 				{{ Form::checkbox('per_id['.$projectUserKey.']['.$key.']', $key, false, array('id' => 'per_id_'.$key)) }}
 			@endforeach
 		@endif
+	</td>
+	<td>
+		<a onclick="removeAssignProjectUser({{ $projectUserKey }})" class="removeAssignBtn">Xóa</a>
 	</td>
 </tr>
