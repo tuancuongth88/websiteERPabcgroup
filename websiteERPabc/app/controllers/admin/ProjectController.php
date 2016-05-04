@@ -37,7 +37,7 @@ class ProjectController extends AdminController {
 		);
 		$input = Input::except('_token');
 		// dd($input);
-		
+
 		// $validator = Validator::make($input, $rules);
 		// if($validator->fails()) {
 		// 	return Redirect::action('ProjectController@create')
@@ -53,7 +53,6 @@ class ProjectController extends AdminController {
 		$inputUser = $input['user_id'];
 		$inputTempRole = $input['temp_role_id'];
 		$inputPer = $input['per_id'];
-		// dd($input);
 		foreach ($inputUser as $key => $value) {
 			foreach ($inputPer[$key] as $k => $v) {
 				$inputProjectUser['user_id'] = $inputUser[$key];
@@ -63,7 +62,7 @@ class ProjectController extends AdminController {
 				ProjectUser::create($inputProjectUser);
 			}
 		}
-		dd($projectId);
+		return Redirect::action('ProjectController@index');
 		//
 	}
 
