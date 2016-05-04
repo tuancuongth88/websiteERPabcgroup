@@ -1,6 +1,6 @@
 <?php
 
-class ProjectController extends AdminController {
+class ProjectStatusController extends AdminController {
 
 	/**
 	 * Display a listing of the resource.
@@ -9,8 +9,8 @@ class ProjectController extends AdminController {
 	 */
 	public function index()
 	{
-		$data = Project::orderBy('id', 'desc')->paginate(PAGINATE);
-		return View::make('admin.project.index')->with(compact('data'));
+		$data = ProjectStatus::orderBy('id', 'desc')->paginate(PAGINATE);
+		return View::make('admin.projectStatus.index')->with(compact('data'));
 	}
 
 
@@ -21,7 +21,7 @@ class ProjectController extends AdminController {
 	 */
 	public function create()
 	{
-		return View::make('admin.project.create');
+		return View::make('admin.projectStatus.create');
 	}
 
 
@@ -38,11 +38,11 @@ class ProjectController extends AdminController {
 		$input = Input::except('_token');
 		$validator = Validator::make($input, $rules);
 		if($validator->fails()) {
-			return Redirect::action('ProjectController@create')
+			return Redirect::action('ProjectStatusController@create')
 	            ->withErrors($validator);
         } else {
 			CommonNormal::create($input);
-			return Redirect::action('ProjectController@index');	
+			return Redirect::action('ProjectStatusController@index');	
         }
 	}
 
@@ -67,7 +67,8 @@ class ProjectController extends AdminController {
 	 */
 	public function edit($id)
 	{
-		//
+		$data = ProjectStatus::find($id);
+		return View::make('admin.projectStatus.edit')->with(compact('data'));
 	}
 
 
@@ -79,7 +80,18 @@ class ProjectController extends AdminController {
 	 */
 	public function update($id)
 	{
-		//
+		$rules = array(
+			'name' => 'required',
+		);
+		$input = Input::except('_token');
+		$validator = Validator::make($input, $rules);
+		if($validator->fails()) {
+			return Redirect::action('ProjectStatusController@edit', $id)
+	            ->withErrors($validator);
+        }else{
+        	CommonNormal::update($id, $input);
+        	return Redirect::action('ProjectStatusController@index');
+        }
 	}
 
 
@@ -91,7 +103,8 @@ class ProjectController extends AdminController {
 	 */
 	public function destroy($id)
 	{
-		//
+		CommonNormal::delete($id);
+		return Redirect::action('ProjectStatusController@index');
 	}
 
 
