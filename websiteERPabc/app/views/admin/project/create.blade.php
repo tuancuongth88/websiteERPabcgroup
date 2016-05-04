@@ -51,7 +51,7 @@
 						<label>Trạng thái</label>
 						<div class="row">
 							<div class="col-sm-6">
-								{{ Form::select('status', CommonProject::getStatusProjectArray(), null, array('class' => 'form-control')) }}
+								{{ Form::select('status', CommonProject::getModelArray('ProjectStatus', 'name', 'id'), null, array('class' => 'form-control')) }}
 							</div>
 						</div>
 					</div>
@@ -67,26 +67,11 @@
 											<th>Quyền hạn</th>
 										</tr>
 									</thead>
-									<tbody>
-										<tr>
-											<td>
-												{{ Form::select('user_id[]', CommonProject::getModelArray('User', 'username', 'id'), null, array('class' => 'form-control', 'style' => 'width: 120px;')) }}
-											</td>
-											<td>
-												{{ Form::select('temp_role_id[]', CommonProject::getModelArray('TempRole', 'name', 'id'), null, array('class' => 'form-control', 'style' => 'width: 120px;')) }}
-											</td>
-											<td class="assignBoxPermission">
-												@if($per = CommonProject::getModelArray('Permission', 'name', 'id'))
-													@foreach($per as $key => $value)
-													<label for="per_id_{{ $key }}">{{ $value }}</label>
-														{{ Form::checkbox('per_id[]', $key, false, array('id' => 'per_id_'.$key)) }}
-													@endforeach
-												@endif
-											</td>
-										</tr>
+									<tbody id="assignBox">
+										
 									</tbody>
 								</table>
-								<a onclick="" class="assignBtn">Thêm thành viên</a>
+								<a onclick="assignProjectUser()" class="assignBtn">Thêm thành viên</a>
 							</div>
 						</div>
 					</div>

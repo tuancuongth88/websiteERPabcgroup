@@ -36,6 +36,7 @@ class ProjectController extends AdminController {
 			'name' => 'required',
 		);
 		$input = Input::except('_token');
+		dd($input);
 		$validator = Validator::make($input, $rules);
 		if($validator->fails()) {
 			return Redirect::action('ProjectController@create')
@@ -94,5 +95,10 @@ class ProjectController extends AdminController {
 		//
 	}
 
+	public function assignProjectUser()
+	{
+		$projectUserKey = Input::get('projectUserKey');
+		return View::make('admin.project.assign')->with(compact('projectUserKey'));
+	}
 
 }

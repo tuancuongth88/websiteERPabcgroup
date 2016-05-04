@@ -25,6 +25,7 @@ Route::group(['prefix' => 'admin'], function () {
 	Route::resource('/regency', 'RegencyController');
 	Route::resource('/resouce', 'ResouceController');
 	//quan ly du an
+	Route::post('/project/assignProjectUser', 'ProjectController@assignProjectUser');
 	Route::resource('/project', 'ProjectController');
 	//trang thai du an
 	Route::resource('/projectStatus', 'ProjectStatusController');
