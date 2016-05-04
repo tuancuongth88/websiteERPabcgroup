@@ -39,7 +39,7 @@
 			  <label for="name">Quyền hạn</label>
 				<div class="row">
 					<div class="col-sm-6">
-						@if($functions = CommonOption::getOptionModel('Functions'))
+						@if($functions = CommonOption::getOptionModel('AdminFunction'))
 							@foreach($functions as $key => $value)
 							<p>
 								{{ Form::checkbox('function[]', $key, false, array('id' => 'function_'.$key))

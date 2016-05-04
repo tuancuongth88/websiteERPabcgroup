@@ -36,20 +36,20 @@ class DeparmentController extends AdminController {
 			'name' => 'required',
 		);
 		$input = Input::except('_token');
+		//check validation
 		$validator = Validator::make($input,$rules);
 		if($validator->fails()) {
 			return Redirect::action('DeparmentController@create')
 				->withErrors($validator);
 		}else{
+		//create department
 			$input['status'] = 1;
 			$id = CommonNormal::create($input);
-			// foreach function
 				foreach ($input['function'] as $key => $value) {
 					$inputDepFunction['dep_id'] = $id;
 					$inputDepFunction['fun_id'] = $value;
-					DepFunction::create($inputDepFunction);
+					DepUserRegency::create($inputDepFunction);
 				}
-			// end for
 			return Redirect::action('DeparmentController@index');
 		}
 	}
@@ -105,7 +105,7 @@ class DeparmentController extends AdminController {
 				foreach ($input['function'] as $key => $value) {
 					$inputDepFunction['dep_id'] = $id;
 					$inputDepFunction['fun_id'] = $value;
-					DepFunction::create($inputDepFunction);
+					DepUserRegency::create($inputDepFunction);
 				}
 			// end for
 			return Redirect::action('DeparmentController@index') ;

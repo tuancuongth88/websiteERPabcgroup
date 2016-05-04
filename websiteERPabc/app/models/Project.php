@@ -6,7 +6,7 @@ use Illuminate\Auth\Reminders\RemindableTrait;
 use Illuminate\Auth\Reminders\RemindableInterface;
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
-class Regency extends Eloquent {
+class Project extends Eloquent {
 
 	use SoftDeletingTrait;
 
@@ -15,19 +15,15 @@ class Regency extends Eloquent {
 	 *
 	 * @var string
 	 */
-	protected $table = 'regencies';
+	protected $table = 'projects';
 
 	/**
 	 * The attributes excluded from the model's JSON form.
 	 *
 	 * @var array
 	 */
-	protected $fillable = array('name', 'status', 'parent_id', 'description');
+	protected $fillable = array('name', 'status', 'start', 'end', 'description', 'percent');
     protected $dates = ['deleted_at'];
 
-    public function departments()
-    {
-        return $this->belongsToMany('Department', 'dep_user_regencies', 'regency_id', 'dep_id');
-    }
    
 }

@@ -40,7 +40,7 @@ class CommonNormal
 		if($name == 'deparment')
 			return 'Department';
 		if($name == 'depFunction')
-			return 'DepFunction';
+			return 'DepUserRegency';
 	}
 
 }

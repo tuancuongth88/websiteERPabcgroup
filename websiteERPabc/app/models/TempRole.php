@@ -6,7 +6,7 @@ use Illuminate\Auth\Reminders\RemindableTrait;
 use Illuminate\Auth\Reminders\RemindableInterface;
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
-class Permisstion extends Eloquent {
+class TempRole extends Eloquent {
 
 	use SoftDeletingTrait;
 
@@ -15,14 +15,14 @@ class Permisstion extends Eloquent {
 	 *
 	 * @var string
 	 */
-	protected $table = 'permissions';
+	protected $table = 'temp_roles';
 
 	/**
 	 * The attributes excluded from the model's JSON form.
 	 *
 	 * @var array
 	 */
-	protected $fillable = array('name', 'description');
+	protected $fillable = array('name', 'status', 'parent_id', 'description');
     protected $dates = ['deleted_at'];
 
    

@@ -6,7 +6,7 @@ use Illuminate\Auth\Reminders\RemindableTrait;
 use Illuminate\Auth\Reminders\RemindableInterface;
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
-class Functions extends Eloquent {
+class ProjectUser extends Eloquent {
 
 	use SoftDeletingTrait;
 
@@ -15,14 +15,14 @@ class Functions extends Eloquent {
 	 *
 	 * @var string
 	 */
-	protected $table = 'functions';
+	protected $table = 'project_users';
 
 	/**
 	 * The attributes excluded from the model's JSON form.
 	 *
 	 * @var array
 	 */
-	protected $fillable = array('name', 'description');
+	protected $fillable = array('name', 'status', 'project_id', 'user_id', 'temp_role_id', 'per_id');
     protected $dates = ['deleted_at'];
 
    

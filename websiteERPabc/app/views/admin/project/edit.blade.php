@@ -28,24 +28,10 @@
 			</div>
 			<div class="box-body">
 				<div class="form-group">
-					<label for="username">Tên chức vụ</label>
+					<label for="username">Tên phòng</label>
 					<div class="row">
 						<div class="col-sm-6">
 							<input type="text" class="form-control" id="username" value="{{ $data->name }}" placeholder="Tên phòng" name="name">
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<div class="box-body">
-				<div class="form-group">
-					<label>Thuộc phòng ban liên quan</label>
-					<div class="row">
-						<div class="col-sm-6">
-							@foreach(Department::lists('name', 'id') as $key =>$value)
-								{{ $value }}:{{ Form::checkbox("dep_id[$key]", CommonOption::checkValueCheckbox('DepUserRegency', $key, $data->id, 'dep_id', 'regency_id'), CommonOption::checkOptionCheckbox('DepUserRegency', $key, $data->id, 'dep_id', 'regency_id')) }}
-								<br/>
-							@endforeach
 						</div>
 					</div>
 				</div>
