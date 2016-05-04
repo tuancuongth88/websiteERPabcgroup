@@ -6,7 +6,7 @@ class TempRoleTableSeeder extends Seeder {
 	{
 		TempRole::create([
 					'name' => 'Manager',
-					'parent_id' => 0,
+					'parent_id' => NULL,
 			]);
 		TempRole::create([
 					'name' => 'Leader',
