@@ -18,10 +18,34 @@
 			{{ Form::open(array('action' => 'ManagementController@store')) }}
 				<div class="box-body">
 					<div class="form-group">
-						<label for="name">Name</label>
+						<label for="name">Full name</label>
+						<div class="row">
+							<div class="col-sm-6">
+								<input type="text" class="form-control" id="name" placeholder="name" name="name">
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="name">Email</label>
+						<div class="row">
+							<div class="col-sm-6">
+								<input type="text" class="form-control" id="email" placeholder="name" name="email">
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="name">Tài khoản</label>
 						<div class="row">
 							<div class="col-sm-6">
 								<input type="text" class="form-control" id="username" placeholder="name" name="username">
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="name">Mật khẩu</label>
+						<div class="row">
+							<div class="col-sm-6">
+								<input type="text" class="form-control" id="password" placeholder="name" name="password">
 							</div>
 						</div>
 					</div>
@@ -37,24 +61,16 @@
 						<label for="name">Phòng ban</label>
 						<div class="row">
 							<div class="col-sm-6">
-								{{ Form::select('dep_id', Department::lists('name', 'id'),  null,array('class' => 'form-control')) }}
+								@foreach(Department::lists('name', 'id') as $key =>$value)
+									{{ $value }}:{{ Form::checkbox("dep_id[$key]") }}
+									<br/>
+								@endforeach
 							</div>
 						</div>
-					</div>
-					<div class="form-group">
-						<label for="name">Chức vụ</label>
-						<div class="row">
-							<div class="col-sm-6">
-								{{ Form::select('regency_id', Regency::lists('name', 'id'), null,array('class' => 'form-control')) }}
-							</div>
-						</div>
-					</div>
+					</div>					
 				</div>
-				<!-- /.box-body -->
-
 				<div class="box-footer">
-					<input type="submit" class="btn btn-primary" value="Lưu lại" />
-					<input type="reset" class="btn btn-default" value="Nhập lại" />
+					{{ Form::submit('Lưu lại', array('class' => 'btn btn-primary'))}}
 				</div>
 			{{ Form::close() }}
 		</div>
