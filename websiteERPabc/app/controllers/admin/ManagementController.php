@@ -71,18 +71,9 @@ class ManagementController extends AdminController {
 			//upload file ho so cv
 			$input_User['curriculum_vitae_file'] = CommonUser::uploadAction('curriculum_vitae_file', PROFILE.'/'.$id.'/file');
 			CommonNormal::update($id, $input_User);
-			$inputDepartment = $input['dep_id'];
-			$inputRegency = $input['regency_id'];
-			$inputPer = $input['per_id'];
-			foreach ($inputDepartment as $key => $value) {
-				foreach ($inputPer[$key] as $k => $v) {
-					$inputDepartRegency['dep_id'] = $inputDepartment[$key];
-					$inputDepartRegency['regency_id'] = $inputRegency[$key];
-					$inputDepartRegency['user_id'] = $id;
-					// $inputDepartRegency['per_id'] = $v;
-					DepUserRegency::create($inputDepartRegency);
-				}
-			}
+			//insert phong ban
+			CommonUser::insertDepartment($id, $input);
+
 			return Redirect::action('ManagementController@index');	
 		}
 	}
@@ -132,17 +123,25 @@ class ManagementController extends AdminController {
 			return Redirect::action('ManagementController@edit', $id)
 				->withErrors($validator);
 		}else{
-			$input_User = Input::only('name', 'email', 'username', 'password', 'phone','date_of_birth', 'sex', 'ethnic', 'identity_card', 'current_address', 'address','personal_file', 'medical_file', 'curriculum_vitae_file', 'degree', 'skyper', 'number_tax', 'number_insure', 'marriage', 'note', 'type_id', 'salary', 'start_time', 'end_time', 'avatar');
+			$input_User = Input::only('name', 'email', 'username', 'password', 'phone','date_of_birth', 'sex', 'ethnic', 'identity_card', 'current_address', 'address', 'degree', 'skyper', 'number_tax', 'number_insure', 'marriage', 'note', 'type_id', 'salary', 'start_time', 'end_time');
+			$input_User_file = Input::only('avatar', 'personal_file', 'medical_file', 'curriculum_vitae_file');
 			//xu ly upload file
 			//upload file avata
-			$input_User['avatar'] = CommonUser::uploadAction('avatar', PROFILE.'/'.$id.'/avatar');
+			if($input_User_file['avatar'])
+				$input_User['avatar'] = CommonUser::uploadAction('avatar', PROFILE.'/'.$id.'/avatar');
 			//upload file so yeu ly lich
-			$input_User['personal_file'] = CommonUser::uploadAction('personal_file', PROFILE.'/'.$id.'/file');
+			if($input_User_file['personal_file'])
+				$input_User['personal_file'] = CommonUser::uploadAction('personal_file', PROFILE.'/'.$id.'/file');
 			//upload file giay kham suc khoe
-			$input_User['medical_file'] = CommonUser::uploadAction('medical_file', PROFILE.'/'.$id.'/file');
+			if($input_User_file['medical_file'])
+				$input_User['medical_file'] = CommonUser::uploadAction('medical_file', PROFILE.'/'.$id.'/file');
 			//upload file ho so cv
+			if($input_User_file['curriculum_vitae_file'])
 			$input_User['curriculum_vitae_file'] = CommonUser::uploadAction('curriculum_vitae_file', PROFILE.'/'.$id.'/file');
 			CommonNormal::update($id, $input_User);
+			//update phòng ban
+			User::find($id)->department()->detach();
+			CommonUser::insertDepartment($id, $input);
 			return Redirect::action('ManagementController@index') ;
 		}
 	}
@@ -156,6 +155,7 @@ class ManagementController extends AdminController {
 	 */
 	public function destroy($id)
 	{
+		User::find($id)->department()->detach();
 		CommonNormal::delete($id);
 		return Redirect::action('ManagementController@index') ;
 	}

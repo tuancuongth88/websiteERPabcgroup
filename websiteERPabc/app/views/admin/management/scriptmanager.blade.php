@@ -21,7 +21,6 @@
 	(function($){
 		
 	})(jQuery);
-
 	function assignDepartmentUser()
 	{
 		var departmentUserKey = $('input[name=departmentUserKey]').val();
@@ -47,6 +46,10 @@
 				$('input[name=departmentUserKey]').val(departmentUserKey);
 			}
 		});
+	}
+	function removeAssignProjectUser(projectUserKey)
+	{
+		$('#assignRow_'+projectUserKey).remove();
 	}
 
 </script>

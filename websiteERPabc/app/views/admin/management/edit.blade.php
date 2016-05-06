@@ -15,7 +15,7 @@
 	<div class="col-xs-12">
 		<div class="box box-primary">
 			<!-- form start -->
-			{{ Form::open(array('action' => array('ManagementController@update', $data->id), 'method' => 'PUT')) }}
+			{{ Form::open(array('action' => array('ManagementController@update', $data->id), 'method' => 'PUT', 'files' => true)) }}
 				<div class="box-body">
 					<div class="form-group">
 						<div class="row">
@@ -209,7 +209,27 @@
 										</tr>
 									</thead>
 									<tbody id="assignBox">
-										
+										@foreach($data->department as $departmentUserKey => $values)
+										<tr id = "assignRow_{{ $departmentUserKey }}">
+											<td>
+												{{ Form::select('dep_id['.$departmentUserKey.']', CommonProject::getModelArray('Department', 'name', 'id'), $values->pivot->dep_id, array('class' => 'form-control', 'style' => 'width: 120px;')) }}
+											</td>
+											<td>
+												{{ Form::select('regency_id['.$departmentUserKey.']', Regency::lists('name', 'id'), $values->pivot->regency_id, array('class' => 'form-control','style' => 'width: 120px;')) }}
+											</td>
+											<td class="assignBoxPermission">
+												@if($per = CommonProject::getModelArray('Permission', 'name', 'id'))
+													@foreach($per as $key => $value)
+													<label for="per_id_{{ $key }}">{{ $value }}</label>
+														{{ Form::checkbox('per_id['.$departmentUserKey.']['.$key.']', $key, false, array('id' => 'per_id_'.$key)) }}
+													@endforeach
+												@endif
+											</td>
+											<td>
+												<a onclick="removeAssignProjectUser({{ $departmentUserKey }})" class="removeAssignBtn">Xóa</a>
+											</td>
+										</tr>
+										@endforeach
 									</tbody>
 								</table>
 								<a onclick="assignDepartmentUser()" class="assignBtn">Thêm phòng ban</a>
@@ -226,5 +246,5 @@
 		<!-- /.box -->
 	</div>
 </div>
-
+@include('admin.management.scriptmanager')
 @stop
