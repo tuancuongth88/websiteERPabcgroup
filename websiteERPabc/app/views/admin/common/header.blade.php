@@ -100,6 +100,13 @@
 	    $('#datepickerEnddate').datepicker({
 	    	dateFormat: 'yy-mm-dd',
 			});
+
+	    $("#input_dateofbirth").datepicker({
+                    yearRange: "1960:2016",
+                    changeMonth: true,
+                    changeYear: true,
+                    dateFormat: "yy-mm-dd"
+                });
 	  });
 	</script>
 

@@ -20,6 +20,7 @@ Route::group(['prefix' => 'admin'], function () {
 	Route::post('/login', array('uses' => 'AdminController@doLogin'));
 	Route::get('/logout', array('uses' => 'AdminController@logout',  'as' => 'admin.logout'));
 	Route::resource('/', 'AdminController');
+	Route::post('/management/assignDepartmentUser', 'ManagementController@assignDepartmentUser');
 	Route::resource('/management', 'ManagementController');
 	Route::resource('/deparment', 'DeparmentController');
 	// search
