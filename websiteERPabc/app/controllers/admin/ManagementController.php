@@ -34,26 +34,57 @@ class ManagementController extends AdminController {
 	public function store()
 	{
 		$rules = array(
+			'name' => 'required',
+			'email' => 'required',
 			'username' => 'required',
+			'password' => 'required',
 			'phone' => 'required',
-			'dep_id' => 'tunglaso1'
+			'date_of_birth' => 'required',
+			'sex' => 'required',
+			'ethnic' => 'required',
+			'identity_card' => 'required',
+			'current_address' => 'required',
+			'address' => 'required',
+			'degree' => 'required',
+			'marriage' => 'required',
+			'salary' => 'required',
+			'start_time' => 'required',
+			'end_time' => 'required',
 		);
 		$input = Input::except('_token');
 		$validator = Validator::make($input,$rules);
 		if($validator->fails()) {
 			return Redirect::action('ManagementController@create')
-	            ->withErrors($validator);
-        }else{
-        	if(!isset($input['dep_id'])){
-        		dd(999);
-        		Redirect::action('ManagementController@create')
-	            ->withErrors('phải chọn phòng ban!');
-        	}else{
-				$id = CommonNormal::create($input);
-				$dep_user_regenci['dep_id'] = $input->get('dep_id');
-				return Redirect::action('ManagementController@index');	
-        	}
-        }
+				->withErrors($validator);
+		}else{
+			$input_User = Input::only('name', 'email', 'username', 'password', 'phone','date_of_birth', 'sex', 'ethnic', 'identity_card', 'current_address', 'address','personal_file', 'medical_file', 'curriculum_vitae_file', 'degree', 'skyper', 'number_tax', 'number_insure', 'marriage', 'note', 'type_id', 'salary', 'start_time', 'end_time', 'avatar');
+			$input_User['password'] = Hash::make($input_User['password']);
+			$id = CommonNormal::create($input_User);
+			$input_User_file = Input::only('avatar', 'personal_file', 'medical_file', 'curriculum_vitae_file');
+			//xu ly upload file
+			//upload file avata
+			$input_User['avatar'] = CommonUser::uploadAction('avatar', PROFILE.'/'.$id.'/avatar');
+			//upload file so yeu ly lich
+			$input_User['personal_file'] = CommonUser::uploadAction('personal_file', PROFILE.'/'.$id.'/file');
+			//upload file giay kham suc khoe
+			$input_User['medical_file'] = CommonUser::uploadAction('medical_file', PROFILE.'/'.$id.'/file');
+			//upload file ho so cv
+			$input_User['curriculum_vitae_file'] = CommonUser::uploadAction('curriculum_vitae_file', PROFILE.'/'.$id.'/file');
+			CommonNormal::update($id, $input_User);
+			$inputDepartment = $input['dep_id'];
+			$inputRegency = $input['regency_id'];
+			$inputPer = $input['per_id'];
+			foreach ($inputDepartment as $key => $value) {
+				foreach ($inputPer[$key] as $k => $v) {
+					$inputDepartRegency['dep_id'] = $inputDepartment[$key];
+					$inputDepartRegency['regency_id'] = $inputRegency[$key];
+					$inputDepartRegency['user_id'] = $id;
+					// $inputDepartRegency['per_id'] = $v;
+					DepUserRegency::create($inputDepartRegency);
+				}
+			}
+			return Redirect::action('ManagementController@index');	
+		}
 	}
 
 
@@ -99,11 +130,21 @@ class ManagementController extends AdminController {
 		$validator = Validator::make($input,$rules);
 		if($validator->fails()) {
 			return Redirect::action('ManagementController@edit', $id)
-	            ->withErrors($validator);
-        }else{
-        	CommonNormal::update($id, $input);
-        	return Redirect::action('ManagementController@index') ;
-        }
+				->withErrors($validator);
+		}else{
+			$input_User = Input::only('name', 'email', 'username', 'password', 'phone','date_of_birth', 'sex', 'ethnic', 'identity_card', 'current_address', 'address','personal_file', 'medical_file', 'curriculum_vitae_file', 'degree', 'skyper', 'number_tax', 'number_insure', 'marriage', 'note', 'type_id', 'salary', 'start_time', 'end_time', 'avatar');
+			//xu ly upload file
+			//upload file avata
+			$input_User['avatar'] = CommonUser::uploadAction('avatar', PROFILE.'/'.$id.'/avatar');
+			//upload file so yeu ly lich
+			$input_User['personal_file'] = CommonUser::uploadAction('personal_file', PROFILE.'/'.$id.'/file');
+			//upload file giay kham suc khoe
+			$input_User['medical_file'] = CommonUser::uploadAction('medical_file', PROFILE.'/'.$id.'/file');
+			//upload file ho so cv
+			$input_User['curriculum_vitae_file'] = CommonUser::uploadAction('curriculum_vitae_file', PROFILE.'/'.$id.'/file');
+			CommonNormal::update($id, $input_User);
+			return Redirect::action('ManagementController@index') ;
+		}
 	}
 
 
@@ -119,5 +160,10 @@ class ManagementController extends AdminController {
 		return Redirect::action('ManagementController@index') ;
 	}
 
+	public function assignDepartmentUser()
+	{
+		$departmentUserKey = Input::get('departmentUserKey');
+		return View::make('admin.management.assign')->with(compact('departmentUserKey'));
+	}
 
 }

@@ -71,5 +71,9 @@ class CommonOption {
 		}
 		return $array;
 	}
+	public static function getOptionAllModel($model)
+	{
+		return $model::where('status', '=', 1)->lists('name', 'id');
+	}
 
 }
