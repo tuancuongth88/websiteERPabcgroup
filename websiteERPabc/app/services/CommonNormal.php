@@ -28,19 +28,28 @@ class CommonNormal
 		if ($name == NULL) {
 			$name = Request::segment(2);
 		}
-		if ($name == 'manager') 
+		if ($name == 'manager') {
 			return 'Admin';
+		}
 		if ($name == 'management') {
 			return 'User';
 		}
-		if($name == 'regency')
+		if($name == 'regency') {
 			return 'Regency';
-		if($name == 'resouce')
+		}
+		if($name == 'resouce') {
 			return 'Resouce';
-		if($name == 'deparment')
+		}
+		if($name == 'deparment') 
 			return 'Department';
 		if($name == 'depFunction')
-			return 'DepUserRegency';
+			return 'DepRegencyPerFun';
+		if($name == 'tempRole') {
+			return 'TempRole';
+		}
+		if($name == 'projects') {
+			return 'Project';
+		}
 	}
 
 }

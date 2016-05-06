@@ -5,6 +5,7 @@
 @stop
 
 @section('content')
+@include('admin.department.search')
 <div class="row margin-bottom">
 	<div class="col-xs-12">
 	<a href="{{ action('DeparmentController@create') }}" class="btn btn-primary">Thêm phòng</a>
@@ -24,7 +25,7 @@
 						<th>Tên phòng</th>
 						<th>Parent</th>
 						<th>Số người</th>
-						<th>Action</th>
+						<th>Action</th> 
 					</tr>
 					@foreach($data as $key => $value)
 					<tr>

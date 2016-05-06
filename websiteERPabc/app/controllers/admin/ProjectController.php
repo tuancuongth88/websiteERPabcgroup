@@ -9,7 +9,8 @@ class ProjectController extends AdminController {
 	 */
 	public function index()
 	{
-		//
+		$data = Project::orderBy('id', 'desc')->paginate(PAGINATE);
+		return View::make('admin.project.index')->with(compact('data'));
 	}
 
 

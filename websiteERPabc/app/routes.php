@@ -22,9 +22,14 @@ Route::group(['prefix' => 'admin'], function () {
 	Route::resource('/', 'AdminController');
 	Route::resource('/management', 'ManagementController');
 	Route::resource('/deparment', 'DeparmentController');
+	// search
+	Route::get('/deparment', array('uses' => 'DeparmentController@search'));
 	Route::resource('/regency', 'RegencyController');
 	Route::resource('/resouce', 'ResouceController');
+	//quan ly du an
 	Route::resource('/project', 'ProjectController');
+	//quan ly vai tro
+	Route::resource('/tempRole', 'TempRoleController');
 });
 // Route::group(
 // 	['prefix' => 'user'], function(){

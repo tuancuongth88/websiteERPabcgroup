@@ -1,6 +1,6 @@
 <?php
 
-class ManagementController extends AdminController {
+class TempRoleController extends AdminController {
 
 	/**
 	 * Display a listing of the resource.
@@ -9,9 +9,8 @@ class ManagementController extends AdminController {
 	 */
 	public function index()
 	{
-
-		$data = User::orderBy('id', 'asc')->paginate(PAGINATE);
-		return View::make('admin.management.index')->with(compact('data'));
+		$data = TempRole::orderBy('id', 'desc')->paginate(PAGINATE);
+		return View::make('admin.tempRole.index')->with(compact('data'));
 	}
 
 
@@ -22,7 +21,7 @@ class ManagementController extends AdminController {
 	 */
 	public function create()
 	{
-		return View::make('admin.management.create');
+		return View::make('admin.tempRole.create');
 	}
 
 
@@ -34,25 +33,16 @@ class ManagementController extends AdminController {
 	public function store()
 	{
 		$rules = array(
-			'username' => 'required',
-			'phone' => 'required',
-			'dep_id' => 'tunglaso1'
+			'name' => 'required',
 		);
 		$input = Input::except('_token');
-		$validator = Validator::make($input,$rules);
+		$validator = Validator::make($input, $rules);
 		if($validator->fails()) {
-			return Redirect::action('ManagementController@create')
+			return Redirect::action('TempRoleController@create')
 	            ->withErrors($validator);
-        }else{
-        	if(!isset($input['dep_id'])){
-        		dd(999);
-        		Redirect::action('ManagementController@create')
-	            ->withErrors('phải chọn phòng ban!');
-        	}else{
-				$id = CommonNormal::create($input);
-				$dep_user_regenci['dep_id'] = $input->get('dep_id');
-				return Redirect::action('ManagementController@index');	
-        	}
+        } else {
+			CommonNormal::create($input);
+			return Redirect::action('TempRoleController@index');	
         }
 	}
 
@@ -77,8 +67,8 @@ class ManagementController extends AdminController {
 	 */
 	public function edit($id)
 	{
-		$data = User::find($id);
-		return View::make('admin.management.edit')->with(compact('data'));
+		$data = TempRole::find($id);
+		return View::make('admin.tempRole.edit')->with(compact('data'));
 	}
 
 
@@ -91,18 +81,16 @@ class ManagementController extends AdminController {
 	public function update($id)
 	{
 		$rules = array(
-			'username' => 'required',
-			'phone' => 'required|integer',
+			'name' => 'required',
 		);
 		$input = Input::except('_token');
-
-		$validator = Validator::make($input,$rules);
+		$validator = Validator::make($input, $rules);
 		if($validator->fails()) {
-			return Redirect::action('ManagementController@edit', $id)
+			return Redirect::action('TempRoleController@edit', $id)
 	            ->withErrors($validator);
         }else{
         	CommonNormal::update($id, $input);
-        	return Redirect::action('ManagementController@index') ;
+        	return Redirect::action('TempRoleController@index');
         }
 	}
 
@@ -116,7 +104,7 @@ class ManagementController extends AdminController {
 	public function destroy($id)
 	{
 		CommonNormal::delete($id);
-		return Redirect::action('ManagementController@index') ;
+		return Redirect::action('TempRoleController@index');
 	}
 
 

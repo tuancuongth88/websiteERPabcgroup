@@ -37,14 +37,13 @@
 			  <label for="name">Quyền hạn</label>
 				<div class="row">
 				  	<div class="col-sm-6">
-				  		@if($functions = CommonOption::getOptionModel('AdminFunction'))
-							@foreach($functions as $key => $value)
-							<p>
-								{{ Form::checkbox('function[]', $key, false, array('id' => 'function_'.$key)) }}
-	 						<label for="{{ 'function_'.$key }}">{{ $value }}</label>
-	 						</p>
-							@endforeach
-						@endif
+						@foreach(AdminFunction::lists('name', 'id') as $key =>$value)
+						<p>
+							{{ Form::checkbox("function_id[$key]",
+							CommonOption::checkValueCheckbox('DepRegencyPerFun', $key, $data->id,  'function_id', 'dep_id'), CommonOption::checkOptionCheckbox('DepRegencyPerFun', $key, $data->id, 'function_id', 'dep_id')) }}
+	 					<label for="{{ 'function_'.$key }}">{{ $value }}</label>
+	 					</p>
+						@endforeach
 				 	 </div>
 				</div>
 			</div>
