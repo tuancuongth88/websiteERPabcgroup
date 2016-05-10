@@ -87,7 +87,8 @@ class ProjectController extends AdminController {
 	 */
 	public function edit($id)
 	{
-		//
+		$data = Project::find($id);
+		return View::make('admin.project.index')->with(compact('data'));
 	}
 
 
