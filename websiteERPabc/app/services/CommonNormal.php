@@ -43,7 +43,7 @@ class CommonNormal
 		if($name == 'deparment') 
 			return 'Department';
 		if($name == 'depFunction')
-			return 'DepRegencyPerFun';
+			return 'DepRegencyPerFun';	
 		if($name == 'tempRole') {
 			return 'TempRole';
 		}

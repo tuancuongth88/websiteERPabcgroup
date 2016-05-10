@@ -1,11 +1,14 @@
 <tr id = "assignRow_{{ $departmentUserKey }}">
 	<td>
-		{{ Form::select('dep_id['.$departmentUserKey.']', CommonProject::getModelArray('Department', 'name', 'id'), null, array('class' => 'form-control', 'style' => 'width: 120px;')) }}
+		{{ Form::select('dep_id[]', CommonProject::getModelArray('Department', 'name', 'id'), null, array('class' => 'form-control', 'style' => 'width: 120px;')) }}
 		{{ Form::hidden('departmentUserKey', $departmentUserKey) }}
 	</td>
 	<td>
-		
-		{{ Form::select('regency_id['.$departmentUserKey.']', Regency::lists('name', 'id'), null, array('class' => 'form-control','style' => 'width: 120px;')) }}
+		{{ Form::select('regency_id[]', Regency::lists('name', 'id'), null, array('class' => 'form-control','style' => 'width: 120px;')) }}
+	</td>
+	<td>
+		{{ Form::select('function_id[]', [], null, array('class' => 'form-control','style' => 'width: 120px;')) }}
+        </select>
 	</td>
 	<td class="assignBoxPermission">
 		@if($per = CommonProject::getModelArray('Permission', 'name', 'id'))

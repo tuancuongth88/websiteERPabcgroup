@@ -201,6 +201,7 @@
 										<tr>
 											<th>Phòng ban</th>
 											<th>Chức vụ</th>
+											<th>Chức năng</th>
 											<th>Quyền hạn</th>
 										</tr>
 									</thead>

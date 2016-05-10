@@ -35,8 +35,8 @@
 				'departmentUserKey' : departmentUserKey,
 			},
 			beforeSend: function() {
-	            $('.assignBtn').html('Đang load...');
-	        },
+				$('.assignBtn').html('Đang load...');
+			},
 			success: function(responseText)
 			{
 				$('.assignBtn').html('Thêm phòng ban');
@@ -51,5 +51,22 @@
 	{
 		$('#assignRow_'+projectUserKey).remove();
 	}
-
+ 	function loadUserFunction(departmentUserKey) 
+ 	{
+ 		return;
+		var dep_id = $('[id^=dep_id]').val();
+		$.ajax({
+			type: 'POST',
+			data: {
+				dep_id:dep_id
+			},
+			url: '{{ url("management/loadUserFunction") }}',
+			success:function(data) {
+			$('[id^=function_id]').empty();
+				$.each(data ,function(index, value){
+					$('[id^=function_id]').append('<option value="'+ index+'" >'+value+'</option>');
+				});
+			}
+		});
+	}
 </script>

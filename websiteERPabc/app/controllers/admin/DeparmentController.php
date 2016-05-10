@@ -30,11 +30,11 @@ class DeparmentController extends AdminController {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store() 
 	{
 		$rules = array(
 			'name' => 'required',
-		);
+		); 
 		$input = Input::except('_token');
 		//check validation
 		$validator = Validator::make($input,$rules);
@@ -99,8 +99,8 @@ class DeparmentController extends AdminController {
 			if ($input['parent_id'] == '') {
         		$input['parent_id'] = null;
         	}
-			$array = CommonOption::getKeyFromArray($input['function']);
-        	Department::find($id)->adminfunctions()->sync($input['function']);
+			$array = CommonOption::getKeyFromArray($input['function_id']);
+        	Department::find($id)->adminfunctions()->sync($array);
         	CommonNormal::update($id, $input);
 			return Redirect::action('DeparmentController@index') ;
 		}
@@ -123,6 +123,7 @@ class DeparmentController extends AdminController {
 	public function search()
 	{
 		$data = Department::orderBy('id', 'desc')->paginate(PAGINATE);
+		
 		return View::make('admin.department.index')->with(compact('data', 'status'));
 	}	
 

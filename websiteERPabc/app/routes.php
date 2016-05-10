@@ -21,6 +21,8 @@ Route::group(['prefix' => 'admin'], function () {
 	Route::get('/logout', array('uses' => 'AdminController@logout',  'as' => 'admin.logout'));
 	Route::resource('/', 'AdminController');
 	Route::post('/management/assignDepartmentUser', 'ManagementController@assignDepartmentUser');
+	// Route của ajax manager
+	Route::post('/management/loadUserFunction', 'ManagementController@loadUserFunction');
 	Route::resource('/management', 'ManagementController');
 	Route::resource('/deparment', 'DeparmentController');
 	// search
