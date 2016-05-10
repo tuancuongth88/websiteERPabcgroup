@@ -22,8 +22,11 @@ class Department extends Eloquent {
 	 *
 	 * @var array
 	 */
-	protected $fillable = array('name', 'status');
+	protected $fillable = array('name', 'status', 'parent_id');
     protected $dates = ['deleted_at'];
-
+ 	public function adminfunctions()
+    {
+        return $this->belongsToMany('AdminFunction', 'dep_regency_per_funs', 'dep_id', 'function_id');
+    }
    
 }

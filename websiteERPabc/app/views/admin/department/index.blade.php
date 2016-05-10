@@ -5,6 +5,7 @@
 @stop
 
 @section('content')
+@include('admin.department.search')
 <div class="row margin-bottom">
 	<div class="col-xs-12">
 	<a href="{{ action('DeparmentController@create') }}" class="btn btn-primary">Thêm phòng</a>
@@ -22,13 +23,15 @@
 					<tr>
 						<th>ID</th>
 						<th>Tên phòng</th>
+						<th>Parent</th>
 						<th>Số người</th>
-						<th>Action</th>
+						<th>Action</th> 
 					</tr>
 					@foreach($data as $key => $value)
 					<tr>
 						<td>{{ $value->id }}</td>
 						<td>{{ $value->name }}</td> 
+						<td>{{ CommonOption::getNameOption('Department', $value) }}</td>
 						<td>{{ CommonCount::count('User', $value->id, 'dep_id') }}</td>
 						<td>
 							<a href="{{ action('DeparmentController@edit', $value->id) }}" class="btn btn-primary">Sửa</a>

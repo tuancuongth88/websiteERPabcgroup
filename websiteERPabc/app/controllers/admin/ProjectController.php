@@ -118,6 +118,7 @@ class ProjectController extends AdminController {
 	public function assignProjectUser()
 	{
 		$projectUserKey = Input::get('projectUserKey');
+		// dd($projectUserKey);
 		return View::make('admin.project.assign')->with(compact('projectUserKey'));
 	}
 

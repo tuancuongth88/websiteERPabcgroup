@@ -10,8 +10,6 @@ class DeparmentController extends AdminController {
 	public function index()
 	{
 		$data = Department::orderBy('id', 'desc')->paginate(PAGINATE);
-		// $status = DepFunction::where('dep_id', '1')->get();
-		// dd(count($status));
 		return View::make('admin.department.index')->with(compact('data', 'status'));
 	}
 
@@ -45,16 +43,12 @@ class DeparmentController extends AdminController {
 				->withErrors($validator);
 		}else{
 		//create department
-			$input['status'] = 1;
-			// dd($input);
-			$id = CommonNormal::create($input);
-		//create new record in the dep_functions table
-			foreach ($input['fun_id'] as $key => $value) {
-				DepFunction::create(['dep_id' => $id, 'fun_id' => $key]);
-			}
-			// $inputDepFunction['dep_id'] = $id;
-
-			// DepFunction::create($inputDepFunction);
+			if ($input['parent_id'] == '') {
+        		$input['parent_id'] = null;
+        	}
+			$array = CommonOption::getKeyFromArray($input['function']);
+        	$id = CommonNormal::create($input);
+        	Department::find($id)->adminfunctions()->attach($input['function']);
 			return Redirect::action('DeparmentController@index');
 		}
 	}
@@ -105,7 +99,9 @@ class DeparmentController extends AdminController {
 			if ($input['parent_id'] == '') {
         		$input['parent_id'] = null;
         	}
-			CommonNormal::update($id, $input);
+			$array = CommonOption::getKeyFromArray($input['function']);
+        	Department::find($id)->adminfunctions()->sync($input['function']);
+        	CommonNormal::update($id, $input);
 			return Redirect::action('DeparmentController@index') ;
 		}
 	}
@@ -120,9 +116,14 @@ class DeparmentController extends AdminController {
 	public function destroy($id)
 	{
 		CommonOption::deleteParent('Department', $id);
+		Department::find($id)->adminfunctions()->detach();
 		CommonNormal::delete($id);
 		return Redirect::action('DeparmentController@index') ;
 	}
-
+	public function search()
+	{
+		$data = Department::orderBy('id', 'desc')->paginate(PAGINATE);
+		return View::make('admin.department.index')->with(compact('data', 'status'));
+	}	
 
 }

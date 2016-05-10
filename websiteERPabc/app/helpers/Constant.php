@@ -16,3 +16,15 @@ define('INACTIVE', 2);
 //value checkbox
 define('CHECKED', 1);
 define('NOT_CHECKED', 0);
+//male, female or orther
+define('SEX_MALE', 1);
+define('SEX_FEMALE', 2);
+define('SEX_ORTHER', 3);
+// marriage
+define('SINGLE', 1);
+define('MARRIAG', 2);
+//upload file
+define('PROFILE', '/users');
+//if upload file
+define('IS_UPLOAD_FILE', 1);
+define('IS_UPLOAD_UNIQUE', 1);

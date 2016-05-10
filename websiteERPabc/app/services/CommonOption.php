@@ -45,6 +45,12 @@ class CommonOption {
 			$modelName::where('parent_id', $id)->update(['parent_id' => null]);
 		}
 	}
+
+	public static function getOptionModel($model)
+	{
+		$data = $model::lists('name', 'id');
+		return $data;
+	}
 	public static function checkOptionCheckbox($modelName, $id1, $id2, $field1, $field2)
 	{
 		$check = $modelName::where($field1, $id1)->where($field2, $id2)->first();
@@ -70,6 +76,10 @@ class CommonOption {
 			$array[] = $key;
 		}
 		return $array;
+	}
+	public static function getOptionAllModel($model)
+	{
+		return $model::where('status', '=', 1)->lists('name', 'id');
 	}
 
 }
