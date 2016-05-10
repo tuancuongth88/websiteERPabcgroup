@@ -28,10 +28,13 @@
 
 	function assignProjectUser()
 	{
-		var projectUserKey = $('input[name=projectUserKey]').val();
-		if(!projectUserKey) {
-			projectUserKey = 0;
-		}
+		var projectUserKey = $('input[name^="projectUserKey"]').map(function () {
+			return this.value;
+		}).get();
+		// var projectUserKey = $('input[name=projectUserKey]').val();
+		// if(!projectUserKey) {
+		// 	projectUserKey = [];
+		// }
 		$.ajax(
 		{
 			type : 'post',
@@ -45,12 +48,11 @@
 			success: function(responseText)
 			{
 				$('.assignBtn').html('Thêm thành viên');
-				console.log(responseText);
 				// var object = document.getElementById("assignBox").childNodes[1];
 				// object.innerHTML = responseText;
 				$('#assignBox').append(responseText);
-				projectUserKey++;
-				$('input[name=projectUserKey]').val(projectUserKey);
+				// projectUserKey++;
+				// $('input[name=projectUserKey]').val(projectUserKey);
 			}
 		});
 	}

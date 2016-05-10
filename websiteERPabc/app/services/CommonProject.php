@@ -19,4 +19,26 @@ class CommonProject {
 		return [];
 	}
 
+	public static function getProjectUserPerIdArray($projectId, $userId, $tempRoleId)
+	{
+		$rs = ProjectUser::where('project_id', $projectId)
+				->where('user_id', $userId)
+				->where('temp_role_id', $tempRoleId)
+				->lists('per_id');
+		if($rs) {
+			return $rs;
+		}
+		return [];
+	}
+
+	public static function checkProjectUserPerStatus($projectId, $userId, $tempRoleId, $perId)
+	{
+		$projectUserPerIdArray = CommonProject::getProjectUserPerIdArray($projectId, $userId, $tempRoleId);
+		if(in_array($perId, $projectUserPerIdArray)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 }
