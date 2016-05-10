@@ -24,9 +24,10 @@ Route::group(['prefix' => 'admin'], function () {
 	// Route của ajax manager
 	Route::post('/management/loadUserFunction', 'ManagementController@loadUserFunction');
 	Route::resource('/management', 'ManagementController');
-	Route::resource('/deparment', 'DeparmentController');
 	// search
-	Route::get('/deparment', array('uses' => 'DeparmentController@search'));
+	Route::get('/deparment/search', array('uses' => 'DeparmentController@search'));
+	Route::resource('/deparment', 'DeparmentController');
+	
 	Route::resource('/regency', 'RegencyController');
 	Route::resource('/resouce', 'ResouceController');
 	//quan ly du an
