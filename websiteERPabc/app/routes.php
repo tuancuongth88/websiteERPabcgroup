@@ -21,10 +21,13 @@ Route::group(['prefix' => 'admin'], function () {
 	Route::get('/logout', array('uses' => 'AdminController@logout',  'as' => 'admin.logout'));
 	Route::resource('/', 'AdminController');
 	Route::post('/management/assignDepartmentUser', 'ManagementController@assignDepartmentUser');
+	// Route của ajax manager
+	Route::post('/management/loadUserFunction', 'ManagementController@loadUserFunction');
 	Route::resource('/management', 'ManagementController');
-	Route::resource('/deparment', 'DeparmentController');
 	// search
-	Route::get('/deparment', array('uses' => 'DeparmentController@search'));
+	Route::get('/deparment/search', array('uses' => 'DeparmentController@search'));
+	Route::resource('/deparment', 'DeparmentController');
+	
 	Route::resource('/regency', 'RegencyController');
 	Route::resource('/resouce', 'ResouceController');
 	//quan ly du an

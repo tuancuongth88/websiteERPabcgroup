@@ -73,7 +73,6 @@ class ManagementController extends AdminController {
 			CommonNormal::update($id, $input_User);
 			//insert phong ban
 			CommonUser::insertDepartment($id, $input);
-
 			return Redirect::action('ManagementController@index');	
 		}
 	}
@@ -102,7 +101,6 @@ class ManagementController extends AdminController {
 		$data = User::find($id);
 		return View::make('admin.management.edit')->with(compact('data'));
 	}
-
 
 	/**
 	 * Update the specified resource in storage.
@@ -164,6 +162,15 @@ class ManagementController extends AdminController {
 	{
 		$departmentUserKey = Input::get('departmentUserKey');
 		return View::make('admin.management.assign')->with(compact('departmentUserKey'));
+	}
+	public function loadUserFunction()
+	{
+		$dep_id = Input::get('dep_id');
+		//select cac function theo dep_id
+		// $fun = AdminFunction::find($dep_id)->lists('name');
+		$listID = DepRegencyPerFun::where('dep_id', '=' ,$dep_id)->lists('function_id');
+		$data = AdminFunction::whereIn('id', $listID)->lists('name', 'id');
+		return Response::json($data);
 	}
 
 }

@@ -168,7 +168,7 @@
 						<label for="type">Loại hợp đồng</label>
 						<div class="row">
 							<div class="col-sm-6">
-									{{ Form::select('type_id', CommonOption::getOptionAllModel('Type'), null, array('class' => 'form-control')) }}
+								{{ Form::select('type_id', CommonOption::getOptionAllModel('Type'), null, array('class' => 'form-control')) }}
 							</div>
 						</div>
 					</div>
@@ -201,6 +201,7 @@
 										<tr>
 											<th>Phòng ban</th>
 											<th>Chức vụ</th>
+											<th>Chức năng</th>
 											<th>Quyền hạn</th>
 										</tr>
 									</thead>
