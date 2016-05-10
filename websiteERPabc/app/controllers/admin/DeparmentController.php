@@ -10,7 +10,7 @@ class DeparmentController extends AdminController {
 	public function index()
 	{
 		$data = Department::orderBy('id', 'desc')->paginate(PAGINATE);
-		return View::make('admin.department.index')->with(compact('data', 'status'));
+		return View::make('admin.department.index')->with(compact('data'));
 	}
 
 
@@ -99,14 +99,12 @@ class DeparmentController extends AdminController {
 			if ($input['parent_id'] == '') {
         		$input['parent_id'] = null;
         	}
-			$array = CommonOption::getKeyFromArray($input['function']);
-        	Department::find($id)->adminfunctions()->sync($input['function']);
+			$array = CommonOption::getKeyFromArray($input['function_id']);
+        	Department::find($id)->adminfunctions()->sync($array);
         	CommonNormal::update($id, $input);
 			return Redirect::action('DeparmentController@index') ;
 		}
 	}
-
-
 	/**
 	 * Remove the specified resource from storage.
 	 *
@@ -116,14 +114,25 @@ class DeparmentController extends AdminController {
 	public function destroy($id)
 	{
 		CommonOption::deleteParent('Department', $id);
+		//delete record in the dep_regency_per_funs table where dep_id = $id
 		Department::find($id)->adminfunctions()->detach();
+		//delete record in the dep_user_regencies table where dep_id = $id
+		//TODO
+		//delete record in the departments table where id = id
 		CommonNormal::delete($id);
 		return Redirect::action('DeparmentController@index') ;
 	}
 	public function search()
 	{
-		$data = Department::orderBy('id', 'desc')->paginate(PAGINATE);
-		return View::make('admin.department.index')->with(compact('data', 'status'));
+		$input = Input::all();
+		if ($input['keyword']) {
+			$data = Department::where('name', 'LIKE', '%' . $input['keyword'] . '%')
+				->paginate(PAGINATE);
+		}
+		else {
+			$data = Department::orderBy('id', 'desc')->paginate(PAGINATE);
+		}
+		return View::make('admin.department.index')->with(compact('data'));
 	}	
 
 }

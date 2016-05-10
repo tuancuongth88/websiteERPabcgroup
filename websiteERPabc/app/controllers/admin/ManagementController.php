@@ -73,7 +73,6 @@ class ManagementController extends AdminController {
 			CommonNormal::update($id, $input_User);
 			//insert phong ban
 			CommonUser::insertDepartment($id, $input);
-
 			return Redirect::action('ManagementController@index');	
 		}
 	}

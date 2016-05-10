@@ -22,9 +22,10 @@ Route::group(['prefix' => 'admin'], function () {
 	Route::resource('/', 'AdminController');
 	Route::post('/management/assignDepartmentUser', 'ManagementController@assignDepartmentUser');
 	Route::resource('/management', 'ManagementController');
-	Route::resource('/deparment', 'DeparmentController');
 	// search
-	Route::get('/deparment', array('uses' => 'DeparmentController@search'));
+	Route::get('/deparment/search', array('uses' => 'DeparmentController@search'));
+	Route::resource('/deparment', 'DeparmentController');
+	
 	Route::resource('/regency', 'RegencyController');
 	Route::resource('/resouce', 'ResouceController');
 	//quan ly du an

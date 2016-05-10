@@ -5,7 +5,7 @@
 	</td>
 	<td>
 		
-		{{ Form::select('regency_id['.$departmentUserKey.']', Regency::lists('name', 'id'), null, array('class' => 'form-control','style' => 'width: 120px;')) }}
+		{{ Form::select('regency_id['.$departmentUserKey.']', [NULL => 'Lựa chọn'] + Regency::lists('name', 'id'), null, array('class' => 'form-control','style' => 'width: 120px;')) }}
 	</td>
 	<td class="assignBoxPermission">
 		@if($per = CommonProject::getModelArray('Permission', 'name', 'id'))
