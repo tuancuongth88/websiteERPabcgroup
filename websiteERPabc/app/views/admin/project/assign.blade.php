@@ -16,8 +16,8 @@
 				// }
 				
 			?>
-			<label for="per_id_{{ $key }}">{{ $value }}</label>
-				{{ Form::checkbox('per_id['.$projectUserKey.']['.$key.']', $key, false, array('id' => 'per_id_'.$key)) }}
+			<label for="per_id_{{ $projectUserKey . '_' . $key }}">{{ $value }}</label>
+				{{ Form::checkbox('per_id['.$projectUserKey.']['.$key.']', $key, false, array('id' => 'per_id_'.$projectUserKey.'_'.$key)) }}
 			@endforeach
 		@endif
 	</td>
