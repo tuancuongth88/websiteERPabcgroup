@@ -35,7 +35,7 @@
 							<td>{{ $value->percent }}</td>
 							<td>{{ date('d-m-Y', strtotime($value->start)) }}</td>
 							<td>{{ date('d-m-Y', strtotime($value->end)) }}</td>
-							<td>{{ $value->status }}</td>
+							<td>{{ CommonOption::getFieldTextByModel('ProjectStatus', $value->status, 'name') }}</td>
 							<td>
 								<a href="{{ action('ProjectController@edit', $value->id) }}" class="btn btn-primary">Sửa</a>
 								{{-- Form::open(array('method'=>'DELETE', 'action' => array('ProjectController@destroy', $value->id), 'style' => 'display: inline-block;')) --}}
