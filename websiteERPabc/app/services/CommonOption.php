@@ -93,4 +93,19 @@ class CommonOption {
 		return '';
 	}
 
+	public static function getStatusTaskArray()
+	{
+		return array(
+				TASK_STATUS_1 => 'Đang làm',
+				TASK_STATUS_2 => 'Hoàn thành',
+				TASK_STATUS_3 => 'Tạm dừng',
+			);
+	}
+
+	public static function getStatusTaskValue($status)
+	{
+		$array = self::getStatusTaskArray();
+		return $array[$status];
+	}
+
 }

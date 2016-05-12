@@ -28,3 +28,7 @@ define('PROFILE', '/users');
 //if upload file
 define('IS_UPLOAD_FILE', 1);
 define('IS_UPLOAD_UNIQUE', 1);
+//task status
+define('TASK_STATUS_1', 1);
+define('TASK_STATUS_2', 2);
+define('TASK_STATUS_3', 3);

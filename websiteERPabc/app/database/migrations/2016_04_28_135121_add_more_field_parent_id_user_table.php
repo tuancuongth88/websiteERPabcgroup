@@ -13,7 +13,7 @@ class AddMoreFieldParentIdUserTable extends Migration {
 	public function up()
 	{
 		Schema::table('users', function(Blueprint $table) {
-            $table->integer('parent_id')->after('regency_id')->nullable();
+            $table->integer('parent_id')->after('id')->nullable();
         });
 	}
 

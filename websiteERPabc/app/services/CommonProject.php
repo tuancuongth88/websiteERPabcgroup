@@ -33,7 +33,7 @@ class CommonProject {
 
 	public static function checkProjectUserPerStatus($projectId, $userId, $tempRoleId, $perId)
 	{
-		$projectUserPerIdArray = CommonProject::getProjectUserPerIdArray($projectId, $userId, $tempRoleId);
+		$projectUserPerIdArray = self::getProjectUserPerIdArray($projectId, $userId, $tempRoleId);
 		if(in_array($perId, $projectUserPerIdArray)) {
 			return true;
 		} else {

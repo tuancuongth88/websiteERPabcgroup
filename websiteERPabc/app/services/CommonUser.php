@@ -49,5 +49,14 @@ class CommonUser
 		if ($user = Auth::user()->get()) 
 			return $user;
     }
+	public static function getUsernameById($userId = null)
+	{
+		if($userId == null) {
+			return 'Admin';
+		} else {
+			$username = CommonOption::getFieldTextByModel('User', $userId, 'username');
+			return $username;
+		}
+	}
 
 }
