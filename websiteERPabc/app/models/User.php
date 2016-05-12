@@ -28,12 +28,22 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	 protected $dates = ['deleted_at'];
 
 	public function department()
-    {
-        return $this->belongsToMany('Department', 'dep_user_regencies', 'user_id', 'dep_id');
-    }
-    public function regencies()
-    {
-        return $this->belongsToMany('Regency', 'dep_user_regencies', 'user_id', 'regency_id');
-    }
+	{
+		return $this->belongsToMany('Department', 'dep_user_regencies', 'user_id', 'dep_id');
+	}
+	public function regencies()
+	{
+		return $this->belongsToMany('Regency', 'dep_user_regencies', 'user_id', 'regency_id');
+	}
 
+	public static function checkPermission($id)
+	{
+		if(!Admin::isAdmin()){
+			$user_id_current  = Auth::user()->get()->id;
+			if($user_id_current == $id)
+				return true;
+			return false;
+		}
+		return true;
+	}
 }

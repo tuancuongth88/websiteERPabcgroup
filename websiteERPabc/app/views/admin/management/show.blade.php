@@ -1,6 +1,6 @@
 @extends('admin.layout.default')
 @section('title')
-{{ $title='Sửa User' }}
+{{ $title='Chi tiết user' }}
 @stop
 
 @section('content')
@@ -15,7 +15,6 @@
 	<div class="col-xs-12">
 		<div class="box box-primary">
 			<!-- form start -->
-			{{ Form::open(array('action' => array('ManagementController@update', $data->id), 'method' => 'PUT', 'files' => true)) }}
 				<div class="box-body">
 					<div class="form-group">
 						<div class="row">
@@ -171,21 +170,12 @@
 							</div>
 						</div>
 					</div>
-					@if(Admin::isAdmin())
+					@if(User::checkPermission($data->id))
 					<div class="form-group">
 						<label for="type">Ngạch, bậc lương</label>
 						<div class="row">
 							<div class="col-sm-6">
 									{{ Form::text('salary', $data->salary, array('class' => 'form-control', 'placeholder'=> 'Nhập mức lương')) }}
-							</div>
-						</div>
-					</div>
-					@elseif(User::checkPermission($data->id))
-					<div class="form-group">
-						<label for="type">Ngạch, bậc lương</label>
-						<div class="row">
-							<div class="col-sm-6">
-								{{ Form::label($data->salary) }}
 							</div>
 						</div>
 					</div>
@@ -237,9 +227,8 @@
 				</div>
 				<!-- /.box-body -->
 				<div class="box-footer">
-					{{ Form::submit('Lưu lại', array('class' => 'btn btn-primary'))}}
+					<a href="{{ action('ManagementController@index') }}" class="btn btn-primary">Quay lại</a>
 				</div>
-			{{ Form::close() }}
 		</div>
 		<!-- /.box -->
 	</div>

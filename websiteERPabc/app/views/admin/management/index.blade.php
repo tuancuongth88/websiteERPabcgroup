@@ -4,6 +4,7 @@
 @stop
 
 @section('content')
+@include('admin.management.search')
 <div class="row margin-bottom">
 	<div class="col-xs-12">
 		<a href="{{ action('ManagementController@create') }}" class="btn btn-primary">Thêm</a>
@@ -19,22 +20,25 @@
 		<div class="box-body table-responsive no-padding">
 		  <table class="table table-hover">
 			<tr>
-			  <th>ID</th>
-			  <th>Tài khoản</th>
-			  <th>Số điện thoại</th>
-			  <th>Action</th>
+				<th>ID</th>
+				<th>Tài khoản</th>
+				<th>Số điện thoại</th>
+				<th>Action</th>
 			</tr>
 			@foreach($data as $key => $value)
 			<tr>
-			  <td>{{ $value->id }}</td>
-			  <td>{{ $value->username }}</td>
-			  <td>{{ $value->phone }}</td>
-			  <td >
-				<a href="{{ action('ManagementController@edit', $value->id) }}" class="btn btn-primary">Sửa</a>
-				{{ Form::open(array('method'=>'DELETE', 'action' => array('ManagementController@destroy', $value->id), 'style' => 'display: inline-block;')) }}
-				<button class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa?');">Xóa</button>
-				{{ Form::close() }}
-
+				<td>{{ $value->id }}</td>
+				<td>{{ $value->username }}</td>
+				<td>{{ $value->phone }}</td>
+				<td >
+				@if(User::checkPermission($value->id))
+					<a href="{{ action('ManagementController@edit', $value->id) }}" class="btn btn-primary">Sửa</a>
+					{{ Form::open(array('method'=>'DELETE', 'action' => array('ManagementController@destroy', $value->id), 'style' => 'display: inline-block;')) }}
+					<button class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa?');">Xóa</button>
+					{{ Form::close() }}
+					<a href="{{ action('ManagementController@resPassword', $value->id) }}" class="btn btn-primary">Đổi mật khẩu</a>
+				@endif
+				<a href="{{ action('ManagementController@show', $value->id) }}" class="btn btn-primary">Xem</a>
 			  </td>
 			</tr>
 			@endforeach
