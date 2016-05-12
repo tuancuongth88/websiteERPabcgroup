@@ -37,6 +37,9 @@ Route::group(['prefix' => 'admin'], function () {
 	Route::resource('/projectStatus', 'ProjectStatusController');
 	//quan ly vai tro
 	Route::resource('/tempRole', 'TempRoleController');
+	//task
+	Route::post('/task/assignTaskUser', 'TaskController@assignTaskUser');
+	Route::resource('/task', 'TaskController');
 });
 // Route::group(
 // 	['prefix' => 'user'], function(){

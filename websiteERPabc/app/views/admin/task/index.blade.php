@@ -1,20 +1,20 @@
 @extends('admin.layout.default')
 
 @section('title')
-{{ $title='Quản lý dự án' }}
+{{ $title='Quản lý công việc' }}
 @stop
 
 @section('content')
 <div class="row margin-bottom">
 	<div class="col-xs-12">
-		<a href="{{ action('ProjectController@create') }}" class="btn btn-primary">Thêm mới</a>
+		<a href="{{ action('TaskController@create') }}" class="btn btn-primary">Thêm mới</a>
 	</div>
 </div>
 <div class="row">
 	<div class="col-xs-12">
 		<div class="box">
 			<div class="box-header">
-				<h3 class="box-title">Danh sách dự án</h3>
+				<h3 class="box-title">Danh sách công việc</h3>
 				<span> (Tổng số: {{ count($data) }})</span>
 			</div>
 			<!-- /.box-header -->
@@ -22,10 +22,12 @@
 				<table class="table table-hover">
 					<tr>
 						<!-- <th>ID</th> -->
-						<th>Tên dự án</th>
+						<th>Tên công việc</th>
 						<th>Tiến độ (%)</th>
 						<th>Ngày bắt đầu</th>
 						<th>Ngày kết thúc</th>
+						<th>Người tạo</th>
+						<th>Dự án</th>
 						<th>Trạng thái</th>
 						<th>Action</th>
 					</tr>
@@ -36,12 +38,14 @@
 							<td>{{ $value->percent }}</td>
 							<td>{{ date('d-m-Y', strtotime($value->start)) }}</td>
 							<td>{{ date('d-m-Y', strtotime($value->end)) }}</td>
-							<td>{{ CommonOption::getFieldTextByModel('ProjectStatus', $value->status, 'name') }}</td>
+							<td>{{ CommonUser::getUsernameById($value->user_id) }}</td>
+							<td>{{ CommonOption::getFieldTextByModel('Project', $value->project_id, 'name') }}</td>
+							<td>{{ CommonOption::getStatusTaskValue($value->status) }}</td>
 							<td>
-								<a href="{{ action('ProjectController@edit', $value->id) }}" class="btn btn-primary">Sửa</a>
-								{{-- Form::open(array('method'=>'DELETE', 'action' => array('ProjectController@destroy', $value->id), 'style' => 'display: inline-block;')) --}}
-									<!-- <button class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa?');">Xóa</button> -->
-								{{-- Form::close() --}}
+								<a href="{{ action('TaskController@edit', $value->id) }}" class="btn btn-primary">Sửa</a>
+								{{ Form::open(array('method'=>'DELETE', 'action' => array('TaskController@destroy', $value->id), 'style' => 'display: inline-block;')) }}
+									<button class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa?');">Xóa</button>
+								{{ Form::close() }}
 							</td>
 						</tr>
 					@endforeach

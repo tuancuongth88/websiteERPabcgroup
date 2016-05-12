@@ -42,4 +42,14 @@ class CommonUser
 		return DepUserRegency::where('user_id', $id)->get();
 	}
 
+	public static function getUsernameById($userId = null)
+	{
+		if($userId == null) {
+			return 'Admin';
+		} else {
+			$username = CommonOption::getFieldTextByModel('User', $userId, 'username');
+			return $username;
+		}
+	}
+
 }
