@@ -16,6 +16,10 @@ class FunctionTableSeeder extends Seeder {
 					'name' => 'Quản lý công việc',
 					'description'=>'quan ly work_plan',
 			]);
+		AdminFunction::create([
+					'name' => 'Quản lý chức vụ',
+					'description'=>'quan ly regencies',
+			]);
 	}
 
 }
