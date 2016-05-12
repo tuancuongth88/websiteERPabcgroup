@@ -36,34 +36,29 @@ class ProjectController extends AdminController {
 			'name' => 'required',
 		);
 		$input = Input::except('_token');
-		// dd($input);
-
-		// $validator = Validator::make($input, $rules);
-		// if($validator->fails()) {
-		// 	return Redirect::action('ProjectController@create')
-	 //            ->withErrors($validator);
-  //       } else {
-		// 	CommonNormal::create($input);
-		// 	return Redirect::action('ProjectController@index');	
-  //       }
-		$inputProject = Input::except('_token', 'user_id', 'temp_role_id', 'per_id');
-		//tao moi project
-		$projectId = Project::create($inputProject)->id;
-		//save project_user
-		$inputUser = $input['user_id'];
-		$inputTempRole = $input['temp_role_id'];
-		$inputPer = $input['per_id'];
-		foreach ($inputUser as $key => $value) {
-			foreach ($inputPer[$key] as $k => $v) {
-				$inputProjectUser['user_id'] = $inputUser[$key];
-				$inputProjectUser['temp_role_id'] = $inputTempRole[$key];
-				$inputProjectUser['project_id'] = $projectId;
-				$inputProjectUser['per_id'] = $v;
-				ProjectUser::create($inputProjectUser);
+		$validator = Validator::make($input, $rules);
+		if($validator->fails()) {
+			return Redirect::action('ProjectController@create')
+	            ->withErrors($validator);
+        } else {
+			$inputProject = Input::except('_token', 'user_id', 'temp_role_id', 'per_id');
+			//tao moi project
+			$projectId = Project::create($inputProject)->id;
+			//save project_user
+			$inputUser = $input['user_id'];
+			$inputTempRole = $input['temp_role_id'];
+			$inputPer = $input['per_id'];
+			foreach ($inputUser as $key => $value) {
+				foreach ($inputPer[$key] as $k => $v) {
+					$inputProjectUser['user_id'] = $inputUser[$key];
+					$inputProjectUser['temp_role_id'] = $inputTempRole[$key];
+					$inputProjectUser['project_id'] = $projectId;
+					$inputProjectUser['per_id'] = $v;
+					ProjectUser::create($inputProjectUser);
+				}
 			}
-		}
-		return Redirect::action('ProjectController@index');
-		//
+			return Redirect::action('ProjectController@index')->with('message', 'Tạo mới thành công');
+        }
 	}
 
 
@@ -88,7 +83,10 @@ class ProjectController extends AdminController {
 	public function edit($id)
 	{
 		$data = Project::find($id);
-		return View::make('admin.project.index')->with(compact('data'));
+		$projectUser = ProjectUser::where('project_id', $data->id)
+						->groupBy('user_id')
+						->get();
+		return View::make('admin.project.edit')->with(compact('data', 'projectUser'));
 	}
 
 
@@ -100,7 +98,43 @@ class ProjectController extends AdminController {
 	 */
 	public function update($id)
 	{
-		//
+		$rules = array(
+			'name' => 'required',
+		);
+		$input = Input::except('_token');
+		$validator = Validator::make($input, $rules);
+		if($validator->fails()) {
+			return Redirect::action('ProjectController@edit', $id)
+	            ->withErrors($validator);
+        } else {
+			$inputProject = Input::except('_token', 'user_id', 'temp_role_id', 'per_id');
+			//sua project
+			$project = Project::find($id);
+			$project->update(array(
+					'name' => $inputProject['name'],
+					'start' => $inputProject['start'],
+					'end' => $inputProject['end'],
+					'percent' => $inputProject['percent'],
+					'description' => $inputProject['description'],
+					'status' => $inputProject['status'],
+				));
+			//xoa project user truoc khi update
+			ProjectUser::where('project_id', $id)->delete();
+			//save project_user
+			$inputUser = $input['user_id'];
+			$inputTempRole = $input['temp_role_id'];
+			$inputPer = $input['per_id'];
+			foreach ($inputUser as $key => $value) {
+				foreach ($inputPer[$key] as $k => $v) {
+					$inputProjectUser['user_id'] = $inputUser[$key];
+					$inputProjectUser['temp_role_id'] = $inputTempRole[$key];
+					$inputProjectUser['project_id'] = $id;
+					$inputProjectUser['per_id'] = $v;
+					ProjectUser::create($inputProjectUser);
+				}
+			}
+			return Redirect::action('ProjectController@index')->with('message', 'Sửa thành công');
+        }
 	}
 
 
@@ -117,8 +151,13 @@ class ProjectController extends AdminController {
 
 	public function assignProjectUser()
 	{
-		$projectUserKey = Input::get('projectUserKey');
-		// dd($projectUserKey);
+		$projectUserKeys = Input::get('projectUserKey');
+		if($projectUserKeys == '') {
+			$projectUserKey = 0;
+		} else {
+			$projectUserKey = max($projectUserKeys);
+			$projectUserKey++;
+		}
 		return View::make('admin.project.assign')->with(compact('projectUserKey'));
 	}
 

@@ -37,5 +37,9 @@ class CommonUser
 			// }
 		}
 	}
+	public static function getDepUserRegency($id)
+	{
+		return DepUserRegency::where('user_id', $id)->get();
+	}
 
 }

@@ -29,7 +29,7 @@ class Department extends Eloquent {
     {
         return $this->belongsToMany('AdminFunction', 'dep_regency_per_funs', 'dep_id', 'function_id');
     }
-    public function User()
+    public function users()
     {
         return $this->belongsToMany('User', 'dep_user_regencies', 'dep_id', 'user_id');
     }

@@ -23,11 +23,6 @@
 								<label for="username">Tài khoản</label>
 								{{ Form::text('username', $data->username, array('class'=> 'form-control', 'id'=> 'username', 'placeholder'=> 'Tên tài khoản'))}}
 							</div>
-							<div class="col-sm-3">
-								<label for="password">Mật khẩu</label>
-									{{ Form::password('password', array('class' => 'form-control', 'id' => 'password', 'placeholder'=> 'Mật khẩu')) }}
-							</div>
-						</div>
 					</div>
 					<div class="form-group">
 						<div class="row">
@@ -209,21 +204,13 @@
 										</tr>
 									</thead>
 									<tbody id="assignBox">
-										@foreach($data->department as $departmentUserKey => $values)
+										@foreach(CommonUser::getDepUserRegency($data->id) as $departmentUserKey => $values)
 										<tr id = "assignRow_{{ $departmentUserKey }}">
 											<td>
-												{{ Form::select('dep_id['.$departmentUserKey.']', CommonProject::getModelArray('Department', 'name', 'id'), $values->pivot->dep_id, array('class' => 'form-control', 'style' => 'width: 120px;')) }}
+												{{ Form::select('dep_id['.$departmentUserKey.']', CommonProject::getModelArray('Department', 'name', 'id'), $values->dep_id, array('class' => 'form-control', 'style' => 'width: 120px;')) }}
 											</td>
 											<td>
-												{{ Form::select('regency_id['.$departmentUserKey.']', Regency::lists('name', 'id'), $values->pivot->regency_id, array('class' => 'form-control','style' => 'width: 120px;')) }}
-											</td>
-											<td class="assignBoxPermission">
-												@if($per = CommonProject::getModelArray('Permission', 'name', 'id'))
-													@foreach($per as $key => $value)
-													<label for="per_id_{{ $key }}">{{ $value }}</label>
-														{{ Form::checkbox('per_id['.$departmentUserKey.']['.$key.']', $key, false, array('id' => 'per_id_'.$key)) }}
-													@endforeach
-												@endif
+												{{ Form::select('regency_id['.$departmentUserKey.']', Regency::lists('name', 'id'), $values->regency_id, array('class' => 'form-control','style' => 'width: 120px;')) }}
 											</td>
 											<td>
 												<a onclick="removeAssignProjectUser({{ $departmentUserKey }})" class="removeAssignBtn">Xóa</a>

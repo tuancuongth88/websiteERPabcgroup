@@ -40,6 +40,14 @@
 						</div>
 					</div>
 					<div class="form-group">
+						<label>Mức độ hoàn thành (%)</label>
+						<div class="row">
+							<div class="col-sm-6">
+								{{ Form::text('percent', $data->percent, array('class' => 'form-control')) }}
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
 						<label>Mô tả</label>
 						<div class="row">
 							<div class="col-sm-6">
@@ -68,7 +76,7 @@
 										</tr>
 									</thead>
 									<tbody id="assignBox">
-										
+										@include('admin.project.editAssignBox', array('projectUser' => $projectUser))
 									</tbody>
 								</table>
 								<a onclick="assignProjectUser()" class="assignBtn">Thêm thành viên</a>
