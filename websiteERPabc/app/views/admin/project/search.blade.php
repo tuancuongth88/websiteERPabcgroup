@@ -1,7 +1,7 @@
 <div class="margin-bottom">
 	{{ Form::open(array('action' => 'ProjectController@search', 'method' => 'GET')) }}
 		<div class="input-group" style="width: 150px; display:inline-block;">
-			<label>Tên</label>
+			<label>Tên dự án</label>
 		  	<input type="text" name="name" class="form-control" placeholder="Tên" />
 		</div>
 		<div class="input-group" style="width: 150px; display:inline-block;">
