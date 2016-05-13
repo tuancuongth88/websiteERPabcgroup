@@ -42,6 +42,13 @@ class CommonUser
 		return DepUserRegency::where('user_id', $id)->get();
 	}
 
+	public static function getObjectFromAuth()
+    {
+    	if($admin = Auth::admin()->get())
+			return $admin;
+		if ($user = Auth::user()->get()) 
+			return $user;
+    }
 	public static function getUsernameById($userId = null)
 	{
 		if($userId == null) {

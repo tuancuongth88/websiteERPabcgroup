@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
 
 class DepRegencyPerFun extends Eloquent {
-	use SoftDeletingTrait;
 	/**
 	 * The database table used by the model.
 	 *
@@ -22,7 +21,6 @@ class DepRegencyPerFun extends Eloquent {
 	 * @var array 
 	 */
 	protected $fillable = array('dep_id', 'regency_id', 'permission_id', 'function_id');
-	protected $dates = ['deleted_at'];
 		 
 }
   

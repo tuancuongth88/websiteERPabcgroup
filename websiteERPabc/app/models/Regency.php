@@ -29,4 +29,5 @@ class Regency extends Eloquent {
     {
         return $this->belongsToMany('Department', 'dep_user_regencies', 'regency_id', 'dep_id');
     }
+    
 }
