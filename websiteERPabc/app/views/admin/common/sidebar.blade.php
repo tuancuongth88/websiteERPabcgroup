@@ -16,7 +16,7 @@
 			<li><a href="{{ action('RegencyController@index') }}"><i class="fa fa-laptop"></i> <span>Quản lý chức vụ</span></a></li>
 			<li><a href="{{ action('ResouceController@index') }}"><i class="fa fa-laptop"></i> <span>Quản lý tài nguyên</span></a></li>
 			<li class="treeview">
-				<a href="#"><i class="fa fa-list"></i> <span>Quản lý công việc</span></a>
+				<a href="#"><i class="fa fa-list"></i> <span>Quản lý công việc</span> <i class="fa fa-angle-left pull-right"></i></a>
 				<ul class="treeview-menu">
 					<li><a href="{{ action('TaskController@index') }}"><i class="fa fa-circle-o"></i> <span>Tất cả</span></a></li>
 					<li><a href="{{ action('TaskController@filter', TASK_STATUS_1) }}"><i class="fa fa-circle-o"></i> <span>Đang làm</span></a></li>
@@ -25,7 +25,7 @@
 				</ul>
 			</li>
 			<li class="treeview">
-				<a href="#"><i class="fa fa-laptop"></i> <span>Quản lý dự án</span></a>
+				<a href="#"><i class="fa fa-laptop"></i> <span>Quản lý dự án</span> <i class="fa fa-angle-left pull-right"></i></a>
 				<ul class="treeview-menu">
 					<li><a href="{{ action('ProjectController@index') }}"><i class="fa fa-circle-o"></i> <span>Quản lý dự án</span></a></li>
 					<li><a href="{{ action('TempRoleController@index') }}"><i class="fa fa-circle-o"></i> <span>Quản lý vai trò dự án</span></a></li>
