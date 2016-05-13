@@ -18,10 +18,10 @@
 			<li class="treeview">
 				<a href="#"><i class="fa fa-list"></i> <span>Quản lý công việc</span></a>
 				<ul class="treeview-menu">
-					<li><a href="{{ action('TaskController@index', '') }}"><i class="fa fa-circle-o"></i> <span>Tất cả</span></a></li>
-					<li><a href="{{ action('TaskController@index', TASK_STATUS_1) }}"><i class="fa fa-circle-o"></i> <span>Đang làm</span></a></li>
-					<li><a href="{{ action('TaskController@index', TASK_STATUS_3) }}"><i class="fa fa-circle-o"></i> <span>Tạm dừng</span></a></li>
-					<li><a href="{{ action('TaskController@index', TASK_STATUS_2) }}"><i class="fa fa-circle-o"></i> <span>Đã hoàn thành</span></a></li>
+					<li><a href="{{ action('TaskController@index') }}"><i class="fa fa-circle-o"></i> <span>Tất cả</span></a></li>
+					<li><a href="{{ action('TaskController@filter', TASK_STATUS_1) }}"><i class="fa fa-circle-o"></i> <span>Đang làm</span></a></li>
+					<li><a href="{{ action('TaskController@filter', TASK_STATUS_3) }}"><i class="fa fa-circle-o"></i> <span>Tạm dừng</span></a></li>
+					<li><a href="{{ action('TaskController@filter', TASK_STATUS_2) }}"><i class="fa fa-circle-o"></i> <span>Đã hoàn thành</span></a></li>
 				</ul>
 			</li>
 			<li class="treeview">

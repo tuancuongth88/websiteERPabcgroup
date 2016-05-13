@@ -7,7 +7,18 @@ class TaskController extends AdminController {
 	 *
 	 * @return Response
 	 */
-	public function index($status = null)
+	public function index()
+	{
+		$user = Auth::user()->get();
+		$data = Task::orderBy('id', 'desc');
+		if($user) {
+			$data = $data->where('user_id', $user->id);
+		}
+		$data = $data->paginate(PAGINATE);
+		return View::make('admin.task.index')->with(compact('data'));
+	}
+
+	public function filter($status = null)
 	{
 		$user = Auth::user()->get();
 		$data = Task::orderBy('id', 'desc');

@@ -44,7 +44,7 @@ Route::group(['prefix' => 'admin'], function () {
 	//task
 	Route::get('/task/search', 'TaskController@search');
 	Route::post('/task/assignTaskUser', 'TaskController@assignTaskUser');
-	Route::get('/task/{status}', 'TaskController@index');
+	Route::get('/task/filter/{status}', 'TaskController@filter');
 	Route::resource('/task', 'TaskController');
 });
 // Route::group(
