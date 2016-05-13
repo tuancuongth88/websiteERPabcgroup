@@ -7,12 +7,27 @@ class TaskController extends AdminController {
 	 *
 	 * @return Response
 	 */
-	public function index()
+	public function index($status = null)
 	{
 		$user = Auth::user()->get();
 		$data = Task::orderBy('id', 'desc');
 		if($user) {
 			$data = $data->where('user_id', $user->id);
+		}
+		switch ($status) {
+			case TASK_STATUS_1:
+				$data = $data->where('status', TASK_STATUS_1);
+				break;
+			case TASK_STATUS_2:
+				$data = $data->where('status', TASK_STATUS_2);
+				break;
+			case TASK_STATUS_3:
+				$data = $data->where('status', TASK_STATUS_3);
+				break;
+			
+			default:
+				# code...
+				break;
 		}
 		$data = $data->paginate(PAGINATE);
 		return View::make('admin.task.index')->with(compact('data'));

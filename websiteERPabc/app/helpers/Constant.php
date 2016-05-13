@@ -29,6 +29,9 @@ define('PROFILE', '/users');
 define('IS_UPLOAD_FILE', 1);
 define('IS_UPLOAD_UNIQUE', 1);
 //task status
+//Đang làm
 define('TASK_STATUS_1', 1);
+//Hoàn thành
 define('TASK_STATUS_2', 2);
+//Tạm dừng
 define('TASK_STATUS_3', 3);
