@@ -58,6 +58,7 @@ class ManagementController extends AdminController {
 				->withErrors($validator);
 		}else{
 			$input_User = Input::only('name', 'email', 'username', 'password', 'phone','date_of_birth', 'sex', 'ethnic', 'identity_card', 'current_address', 'address','personal_file', 'medical_file', 'curriculum_vitae_file', 'degree', 'skyper', 'number_tax', 'number_insure', 'marriage', 'note', 'type_id', 'salary', 'start_time', 'end_time', 'avatar');
+			// $input_User = $input;
 			$input_User['password'] = Hash::make($input_User['password']);
 			$id = CommonNormal::create($input_User);
 			$input_User_file = Input::only('avatar', 'personal_file', 'medical_file', 'curriculum_vitae_file');
@@ -86,7 +87,8 @@ class ManagementController extends AdminController {
 	 */
 	public function show($id)
 	{
-		//
+		$data = User::find($id);
+		return View::make('admin.management.show')->with(compact('data'));
 	}
 
 
@@ -171,6 +173,46 @@ class ManagementController extends AdminController {
 		$listID = DepRegencyPerFun::where('dep_id', '=' ,$dep_id)->lists('function_id');
 		$data = AdminFunction::whereIn('id', $listID)->lists('name', 'id');
 		return Response::json($data);
+	}
+
+	public function resPassword($id)
+	{
+		$data = User::find($id);
+		return View::make('admin.management.changepassword')->with(compact('data'));
+	}
+
+	public function updatePassword($id)
+	{
+		$rules = array(
+			'password'   => 'required',
+			'repassword' => 'required|same:password'
+		);
+		$input = Input::except('_token');
+		$validator = Validator::make($input,$rules);
+		if($validator->fails()) {
+			return Redirect::action('ManagementController@resPassword',$id)
+				->withErrors($validator)
+				->withInput(Input::except('password'));
+		} else 
+		{
+			$inputPass['password'] = Hash::make($input['password']);
+			CommonNormal::update($id, $inputPass);
+			return Redirect::action('ManagementController@index')->with('message', 'Thay đổi mật khẩu thành công');
+		}
+			return Redirect::action('ManagementController@index')->with('message', 'Thay đổi mật khẩu không thành công');
+	}
+	//search user
+	public function search()
+	{
+		$input = Input::except('_token');
+		if ($input['keyword']) {
+			$data = User::where('username', 'LIKE', '%' . $input['keyword'] . '%')
+				->paginate(PAGINATE);
+		}
+		else {
+			$data = User::orderBy('id', 'desc')->paginate(PAGINATE);
+		}
+		return View::make('admin.management.index')->with(compact('data'));
 	}
 
 }

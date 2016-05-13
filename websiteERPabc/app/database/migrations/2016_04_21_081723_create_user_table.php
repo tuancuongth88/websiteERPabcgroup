@@ -21,8 +21,6 @@ class CreateUserTable extends Migration {
 			$table->string('address', 256)->nullable();
 			$table->string('avatar', 256)->nullable();
 			$table->string('fullname', 256)->nullable();
-			$table->integer('dep_id')->nullable();
-			$table->integer('regency_id')->nullable();
 			$table->integer('status')->nullable();
 			$table->string('remember_token', 256)->nullable();
 			$table->softDeletes();

@@ -20,6 +20,9 @@ Route::group(['prefix' => 'admin'], function () {
 	Route::post('/login', array('uses' => 'AdminController@doLogin'));
 	Route::get('/logout', array('uses' => 'AdminController@logout',  'as' => 'admin.logout'));
 	Route::resource('/', 'AdminController');
+	Route::get('/management/search/', array('uses' => 'ManagementController@search'));
+	Route::get('/management/respassword/{id}', array('uses' => 'ManagementController@resPassword',  'as' => 'resPassword'));
+	Route::post('/management/updatePassword/{id}', array('uses' =>'ManagementController@updatePassword', 'as' => 'updatePassword'));
 	Route::post('/management/assignDepartmentUser', 'ManagementController@assignDepartmentUser');
 	// Route của ajax manager
 	Route::post('/management/loadUserFunction', 'ManagementController@loadUserFunction');
@@ -31,12 +34,18 @@ Route::group(['prefix' => 'admin'], function () {
 	Route::resource('/regency', 'RegencyController');
 	Route::resource('/resouce', 'ResouceController');
 	//quan ly du an
+	Route::get('/project/search', 'ProjectController@search');
 	Route::post('/project/assignProjectUser', 'ProjectController@assignProjectUser');
 	Route::resource('/project', 'ProjectController');
 	//trang thai du an
 	Route::resource('/projectStatus', 'ProjectStatusController');
 	//quan ly vai tro
 	Route::resource('/tempRole', 'TempRoleController');
+	//task
+	Route::get('/task/search', 'TaskController@search');
+	Route::post('/task/assignTaskUser', 'TaskController@assignTaskUser');
+	Route::get('/task/{status}', 'TaskController@index');
+	Route::resource('/task', 'TaskController');
 });
 // Route::group(
 // 	['prefix' => 'user'], function(){

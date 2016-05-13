@@ -82,4 +82,30 @@ class CommonOption {
 		return $model::where('status', '=', 1)->lists('name', 'id');
 	}
 
+	public static function getFieldTextByModel($modelName, $modelId, $field)
+	{
+		$data = $modelName::find($modelId);
+		if($data) {
+			if($data->$field) {
+				return $data->$field;
+			}
+		}
+		return '';
+	}
+
+	public static function getStatusTaskArray()
+	{
+		return array(
+				TASK_STATUS_1 => 'Đang làm',
+				TASK_STATUS_2 => 'Hoàn thành',
+				TASK_STATUS_3 => 'Tạm dừng',
+			);
+	}
+
+	public static function getStatusTaskValue($status)
+	{
+		$array = self::getStatusTaskArray();
+		return $array[$status];
+	}
+
 }

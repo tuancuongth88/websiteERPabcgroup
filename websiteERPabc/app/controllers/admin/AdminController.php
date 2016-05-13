@@ -3,7 +3,7 @@
 class AdminController extends BaseController {
 	public function __construct() 
 	{
-		$this->beforeFilter('admin', array('except'=>array('login','doLogin')));
+		$this->beforeFilter('admin', array('except'=>array('login', 'doLogin')));
 	}
 	/**
 	 * Display a listing of the resource.
@@ -98,7 +98,7 @@ class AdminController extends BaseController {
 		}
 		elseif (Auth::user()->attempt($user)) {
 			# code...
-			dd(444);
+			return Redirect::action('ManagementController@index');
 		}
 		else{
 			return View::make('admin.layout.login')->with(compact('message','Sai username hoặc password'));

@@ -5,20 +5,20 @@ use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableTrait;
 use Illuminate\Auth\Reminders\RemindableInterface;
 
-class ProjectUser extends Eloquent {
+class TaskUser extends Eloquent {
 
 	/**
 	 * The database table used by the model.
 	 *
 	 * @var string
 	 */
-	protected $table = 'project_users';
+	protected $table = 'task_users';
 
 	/**
 	 * The attributes excluded from the model's JSON form.
 	 *
 	 * @var array
 	 */
-	protected $fillable = array('name', 'status', 'project_id', 'user_id', 'temp_role_id', 'per_id');
+	protected $fillable = array('task_id', 'user_id', 'per_id');
    
 }

@@ -13,6 +13,12 @@ class ProjectController extends AdminController {
 		return View::make('admin.project.index')->with(compact('data'));
 	}
 
+	public function search()
+	{
+		$data = CommonProject::search();
+		return View::make('admin.project.index')->with(compact('data'));
+	}
+
 
 	/**
 	 * Show the form for creating a new resource.

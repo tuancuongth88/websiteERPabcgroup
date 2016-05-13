@@ -41,11 +41,32 @@
 				<div class="form-group">
 					<label>Thuộc phòng ban liên quan</label>
 					<div class="row">
-						<div class="col-sm-6">
-							@foreach(Department::lists('name', 'id') as $key =>$value)
-								{{ $value }}:{{ Form::checkbox("dep_id[$key]", CommonOption::checkValueCheckbox('DepUserRegency', $key, $data->id, 'dep_id', 'regency_id'), CommonOption::checkOptionCheckbox('DepUserRegency', $key, $data->id, 'dep_id', 'regency_id')) }}
-								<br/>
-							@endforeach
+						<div class="col-sm-8">
+							<table class="table">
+									 <thead>
+										<tr>
+											<th>Tên phòng ban</th>
+											<th>Chọn phòng</th>
+											<th>Quyền hạn</th>
+										</tr>
+									</thead>
+									@foreach(Department::lists('name', 'id') as $key =>$value)
+									<tr>
+										<td>{{ $value }}</td>
+										<td>{{ Form::checkbox("dep_id[$key]", CommonOption::checkValueCheckbox('DepUserRegency', $key, $data->id, 'dep_id', 'regency_id'), CommonOption::checkOptionCheckbox('DepUserRegency', $key, $data->id, 'dep_id', 'regency_id')) }}</td>
+										<td>
+											@if($per = CommonProject::getModelArray('Permission', 'name', 'id'))
+												@foreach($per as $keyPer => $value)
+													<label for="per_id{{ $key . '_' . $keyPer }}">{{ $value }}</label>
+													{{ Form::checkbox('per_id['.$key.']['.$keyPer.']', $keyPer, 
+														CommonRegency::checkOptionCheckboxRegency('DepRegencyPerFun', $key, $data->id, $keyPer,  'dep_id', 'regency_id', 'permission_id')
+													, array('id' => 'per_id_'.$key.'_'.$keyPer)) }}
+												@endforeach
+											@endif
+										</td>
+									</tr>
+									@endforeach
+								</table>
 						</div>
 					</div>
 				</div>

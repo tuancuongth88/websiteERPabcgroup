@@ -39,16 +39,35 @@
 					<div class="form-group">
 						<label>Thuộc phòng ban liên quan</label>
 						<div class="row">
-							<div class="col-sm-6">
+							<div class="col-sm-8">
+							<table class="table">
+							 <thead>
+								<tr>
+									<th>Tên phòng ban</th>
+									<th>Chọn phòng</th>
+									<th>Quyền hạn</th>
+								</tr>
+							</thead>
 								@foreach(Department::lists('name', 'id') as $key =>$value)
-									{{ $value }}:{{ Form::checkbox("dep_id[$key]") }}
-									<br/>
+								<tr>
+									<td>{{ $value }}</td>
+									<td>{{ Form::checkbox("dep_id[$key]") }}</td>
+									<td>
+										@if($per = CommonProject::getModelArray('Permission', 'name', 'id'))
+									@foreach($per as $keyPer => $value)
+										<label for="per_id{{ $key . '_' . $keyPer }}">{{ $value }}</label>
+										{{ Form::checkbox('per_id['.$key.']['.$keyPer.']', $keyPer, false, array('id' => 'per_id_'.$key.'_'.$keyPer)) }}
+									@endforeach
+								@endif
+									</td>
+								</tr>
 								@endforeach
+							</table>
+								
 							</div>
 						</div>
 					</div>
 				</div>
-
 				<div class="box-footer">
 					{{ Form::submit('Lưu lại', array('class' => 'btn btn-primary')) }}
 				</div>
