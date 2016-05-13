@@ -16,10 +16,10 @@
 			<label>Người tạo</label>
 			{{ Form::select('user_id', ['' => 'Tất cả', 0 => 'Admin'] + CommonProject::getModelArray('User', 'username', 'id'), null, array('class' => 'form-control')) }}
 		</div>
-		<div class="input-group" style="width: 150px; display:inline-block;">
+		<!-- <div class="input-group" style="width: 150px; display:inline-block;">
 			<label>Người làm</label>
-			{{ Form::select('assign_id', ['' => 'Tất cả', 0 => 'Admin'] + CommonProject::getModelArray('User', 'username', 'id'), null, array('class' => 'form-control')) }}
-		</div>
+			{{-- Form::select('assign_id', ['' => 'Tất cả', 0 => 'Admin'] + CommonProject::getModelArray('User', 'username', 'id'), null, array('class' => 'form-control')) --}}
+		</div> -->
 		<div class="input-group" style="width: 150px; display:inline-block;">
 			<label>Ngày bắt đầu</label>
 		  	<input type="text" name="start" class="form-control" id="datepickerStartdate" placeholder="Từ ngày" />
