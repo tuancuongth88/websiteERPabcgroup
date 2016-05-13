@@ -10,6 +10,7 @@
 		<a href="{{ action('ProjectController@create') }}" class="btn btn-primary">Thêm mới</a>
 	</div>
 </div>
+@include('admin.project.search')
 <div class="row">
 	<div class="col-xs-12">
 		<div class="box">

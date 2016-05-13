@@ -18,6 +18,12 @@ class TaskController extends AdminController {
 		return View::make('admin.task.index')->with(compact('data'));
 	}
 
+	public function search()
+	{
+		$data = CommonTask::search();
+		return View::make('admin.task.index')->with(compact('data'));
+	}
+
 
 	/**
 	 * Show the form for creating a new resource.

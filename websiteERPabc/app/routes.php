@@ -31,6 +31,7 @@ Route::group(['prefix' => 'admin'], function () {
 	Route::resource('/regency', 'RegencyController');
 	Route::resource('/resouce', 'ResouceController');
 	//quan ly du an
+	Route::get('/project/search', 'ProjectController@search');
 	Route::post('/project/assignProjectUser', 'ProjectController@assignProjectUser');
 	Route::resource('/project', 'ProjectController');
 	//trang thai du an
@@ -38,6 +39,7 @@ Route::group(['prefix' => 'admin'], function () {
 	//quan ly vai tro
 	Route::resource('/tempRole', 'TempRoleController');
 	//task
+	Route::get('/task/search', 'TaskController@search');
 	Route::post('/task/assignTaskUser', 'TaskController@assignTaskUser');
 	Route::resource('/task', 'TaskController');
 });
