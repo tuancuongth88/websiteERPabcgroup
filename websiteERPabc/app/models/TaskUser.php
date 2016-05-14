@@ -19,6 +19,6 @@ class TaskUser extends Eloquent {
 	 *
 	 * @var array
 	 */
-	protected $fillable = array('task_id', 'user_id', 'per_id');
+	protected $fillable = array('task_id', 'user_id', 'per_id', 'assign_id', 'status');
    
 }

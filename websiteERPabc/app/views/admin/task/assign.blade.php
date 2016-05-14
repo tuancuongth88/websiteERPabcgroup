@@ -3,15 +3,10 @@
 		{{ Form::select('user_id['.$taskUserKey.']', CommonProject::getModelArray('User', 'username', 'id'), null, array('class' => 'form-control', 'style' => 'width: 120px;')) }}
 		{{ Form::hidden('taskUserKey[]', $taskUserKey) }}
 	</td>
-	<td class="assignBoxPermission">
-		@if($per = CommonProject::getModelArray('Permission', 'name', 'id'))
-			@foreach($per as $key => $value)
-				<label for="per_id_{{ $taskUserKey . '_' . $key }}">{{ $value }}</label>
-				{{ Form::checkbox('per_id['.$taskUserKey.']['.$key.']', $key, false, array('id' => 'per_id_'.$taskUserKey.'_'.$key)) }}
-			@endforeach
-		@endif
+	<td>
+		{{ Form::select('per_id['.$taskUserKey.']', CommonOption::getPermissionArray(), null, array('class' => 'form-control', 'style' => 'width: 120px;')) }}
 	</td>
 	<td>
-		<a onclick="removeAssignTaskUser({{ $taskUserKey }})" class="removeAssignBtn">Xóa</a>
+		<a onclick="return confirm('Bạn có chắc chắn muốn xóa?')?removeAssignTaskUser({{ $taskUserKey }}):false;" class="removeAssignBtn">Xóa</a>
 	</td>
 </tr>

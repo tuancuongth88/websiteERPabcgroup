@@ -108,4 +108,18 @@ class CommonOption {
 		return $array[$status];
 	}
 
+	public static function getPermissionArray()
+	{
+		return array(
+				PERMISSION_1 => 'Toàn quyền',
+				PERMISSION_2 => 'Bình thường',
+			);
+	}
+
+	public static function getPermissionValue($permission)
+	{
+		$array = self::getPermissionArray();
+		return $array[$permission];
+	}
+
 }

@@ -19,6 +19,6 @@ class ProjectUser extends Eloquent {
 	 *
 	 * @var array
 	 */
-	protected $fillable = array('name', 'status', 'project_id', 'user_id', 'temp_role_id', 'per_id');
+	protected $fillable = array('name', 'status', 'project_id', 'user_id', 'temp_role_id', 'per_id', 'assign_id');
    
 }
