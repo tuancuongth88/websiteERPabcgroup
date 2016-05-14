@@ -43,7 +43,7 @@
 						<label>Dự án</label>
 						<div class="row">
 							<div class="col-sm-6">
-								{{ Form::select('project_id', CommonProject::getModelArray('Project', 'name', 'id'), null, array('class' => 'form-control')) }}
+								{{ Form::select('project_id', [NULL => 'Không chọn'] + CommonProject::getModelArray('Project', 'name', 'id'), null, array('class' => 'form-control')) }}
 							</div>
 						</div>
 					</div>
