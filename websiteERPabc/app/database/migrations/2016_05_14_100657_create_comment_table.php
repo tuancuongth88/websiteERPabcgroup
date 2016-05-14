@@ -16,6 +16,7 @@ class CreateCommentTable extends Migration {
             $table->increments('id');
             $table->string('model_name', 256)->nullable();
             $table->integer('model_id')->nullable();
+            $table->text('description')->nullable();
             $table->integer('status')->nullable();
             $table->timestamps();
         });
