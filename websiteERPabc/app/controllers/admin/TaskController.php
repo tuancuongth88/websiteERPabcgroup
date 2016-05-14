@@ -109,7 +109,9 @@ class TaskController extends AdminController {
 	 */
 	public function show($id)
 	{
-		//
+		$task = Task::find($id);
+		// dd(1);
+		return View::make('admin.task.show')->with(compact('task'));
 	}
 
 
@@ -200,6 +202,13 @@ class TaskController extends AdminController {
 			$taskUserKey++;
 		}
 		return View::make('admin.task.assign')->with(compact('taskUserKey'));
+	}
+	public function comment($taskId)
+	{
+		$input = Input::except('_token');
+		$input['status'] = ACTIVE;
+		$commentId = Common::insertComment('Task', $taskId, $input);
+		return Redirect::action('TaskController@index');
 	}
 
 }
