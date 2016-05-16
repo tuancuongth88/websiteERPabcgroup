@@ -55,6 +55,8 @@ Route::group(['prefix' => 'admin'], function () {
 	Route::post('/report/assignReportUser', 'ReportController@assignReportUser');
 	Route::resource('/report', 'ReportController');
 
+	Route::resource('/type_report', 'TypeReportController');
+
 
 	// Route::resource('/comment', 'CommentController');
 });
