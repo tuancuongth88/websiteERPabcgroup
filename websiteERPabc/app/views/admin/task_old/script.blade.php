@@ -1,7 +1,17 @@
 <style>
+	.assign {
+		
+	}
 	.assign td,
 	.assign th {
 		padding: 5px;
+	}
+	.assignBoxPermission input[type=checkbox] {
+		vertical-align: text-top;
+	}
+	.assignBoxPermission label {
+		margin-left: 10px;
+		cursor: pointer;
 	}
 	a.assignBtn {
 		cursor: pointer;
@@ -16,17 +26,21 @@
 		
 	})(jQuery);
 
-	function assignProjectUser()
+	function assignTaskUser()
 	{
-		var projectUserKey = $('input[name^="projectUserKey"]').map(function () {
+		var taskUserKey = $('input[name^="taskUserKey"]').map(function () {
 			return this.value;
 		}).get();
+		// var taskUserKey = $('input[name=taskUserKey]').val();
+		// if(!taskUserKey) {
+		// 	taskUserKey = [];
+		// }
 		$.ajax(
 		{
 			type : 'post',
-			url : '{{ url("admin/project/assignProjectUser") }}',
+			url : '{{ url("admin/task/assignTaskUser") }}',
 			data : {
-				'projectUserKey' : projectUserKey,
+				'taskUserKey' : taskUserKey,
 			},
 			beforeSend: function() {
 	            $('.assignBtn').html('Đang load...');
@@ -37,15 +51,15 @@
 				// var object = document.getElementById("assignBox").childNodes[1];
 				// object.innerHTML = responseText;
 				$('#assignBox').append(responseText);
-				// projectUserKey++;
-				// $('input[name=projectUserKey]').val(projectUserKey);
+				// taskUserKey++;
+				// $('input[name=taskUserKey]').val(taskUserKey);
 			}
 		});
 	}
 
-	function removeAssignProjectUser(projectUserKey)
+	function removeAssignTaskUser(taskUserKey)
 	{
-		$('#assignRow_'+projectUserKey).remove();
+		$('#assignRow_'+taskUserKey).remove();
 	}
 
 </script>

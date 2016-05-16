@@ -1,7 +1,17 @@
 <style>
+	.assign {
+		
+	}
 	.assign td,
 	.assign th {
 		padding: 5px;
+	}
+	.assignBoxPermission input[type=checkbox] {
+		vertical-align: text-top;
+	}
+	.assignBoxPermission label {
+		margin-left: 10px;
+		cursor: pointer;
 	}
 	a.assignBtn {
 		cursor: pointer;
@@ -21,6 +31,10 @@
 		var projectUserKey = $('input[name^="projectUserKey"]').map(function () {
 			return this.value;
 		}).get();
+		// var projectUserKey = $('input[name=projectUserKey]').val();
+		// if(!projectUserKey) {
+		// 	projectUserKey = [];
+		// }
 		$.ajax(
 		{
 			type : 'post',

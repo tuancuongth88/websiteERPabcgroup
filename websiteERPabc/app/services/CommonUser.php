@@ -26,15 +26,6 @@ class CommonUser
 			$inputDepartRegency['regency_id'] = $inputRegency[$key];
 			$inputDepartRegency['user_id'] = $id;
 			DepUserRegency::create($inputDepartRegency);
-			
-			// foreach ($inputPer[$key] as $k => $v) {
-				
-
-			// 	//chưa làm phần phần quyền
-				
-			// 	// $inputDepartRegency['per_id'] = $v;
-				
-			// }
 		}
 	}
 	public static function getDepUserRegency($id)
@@ -64,6 +55,12 @@ class CommonUser
 		if(is_array($user))
 			return true;
 		return false;
+	}
+	public static function getOptionRole(){
+		return array(
+			ROLE_ADMIN => 'Quản trị',
+			ROLE_USER => 'Nhân viên',
+		);
 	}
 
 }

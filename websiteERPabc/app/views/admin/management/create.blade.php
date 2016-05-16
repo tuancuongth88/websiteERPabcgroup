@@ -30,6 +30,14 @@
 						</div>
 					</div>
 					<div class="form-group">
+						<label for="address">Loại tài khoản</label>
+						<div class="row">
+							<div class="col-sm-6">
+								{{ Form::select('role_id', [null => 'Lựa chọn'] +  CommonUser::getOptionRole(), null, array('class' => 'form-control')) }}
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
 						<div class="row">
 							<div class="col-sm-3">
 								<label for="name">Tên đầy đủ</label>
@@ -201,6 +209,7 @@
 										<tr>
 											<th>Phòng ban</th>
 											<th>Chức vụ</th>
+											<th>Quyền hạn</th>
 										</tr>
 									</thead>
 									<tbody id="assignBox">

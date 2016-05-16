@@ -50,6 +50,7 @@ class ManagementController extends AdminController {
 			'salary' => 'required',
 			'start_time' => 'required',
 			'end_time' => 'required',
+			'role_id' => 'required',
 		);
 		$input = Input::except('_token');
 		$validator = Validator::make($input,$rules);

@@ -6,10 +6,15 @@
 	<td>
 		{{ Form::select('temp_role_id['.$projectUserKey.']', CommonProject::getModelArray('TempRole', 'name', 'id'), null, array('class' => 'form-control', 'style' => 'width: 120px;')) }}
 	</td>
-	<td>
-		{{ Form::select('per_id['.$projectUserKey.']', CommonOption::getPermissionArray(), null, array('class' => 'form-control', 'style' => 'width: 120px;')) }}
+	<td class="assignBoxPermission">
+		@if($per = CommonProject::getModelArray('Permission', 'name', 'id'))
+			@foreach($per as $key => $value)
+				<label for="per_id_{{ $projectUserKey . '_' . $key }}">{{ $value }}</label>
+				{{ Form::checkbox('per_id['.$projectUserKey.']['.$key.']', $key, false, array('id' => 'per_id_'.$projectUserKey.'_'.$key)) }}
+			@endforeach
+		@endif
 	</td>
 	<td>
-		<a onclick="return confirm('Bạn có chắc chắn muốn xóa?')?removeAssignProjectUser({{ $projectUserKey }}):false;" class="removeAssignBtn">Xóa</a>
+		<a onclick="removeAssignProjectUser({{ $projectUserKey }})" class="removeAssignBtn">Xóa</a>
 	</td>
 </tr>

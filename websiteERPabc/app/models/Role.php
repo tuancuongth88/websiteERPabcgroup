@@ -26,5 +26,9 @@ class Role extends Eloquent implements UserInterface, RemindableInterface {
 	protected $fillable = array('name', 'status');
     protected $dates = ['deleted_at'];
 
-   
+	public function users()
+	{
+		return $this->hasMany('User', 'role_id', 'id');
+	}
+
 }

@@ -1,22 +1,22 @@
 @extends('admin.layout.default')
 @section('title')
-{{ $title='Thêm mới công việc' }}
+{{ $title='Thêm mới dự án' }}
 @stop
 
 @section('content')
 
 <div class="row margin-bottom">
 	<div class="col-xs-12">
-		<a href="{{ action('TaskController@index') }}" class="btn btn-success">Danh sách</a>
+		<a href="{{ action('ProjectController@index') }}" class="btn btn-success">Danh sách</a>
 	</div>
 </div>
 <div class="row">
 	<div class="col-xs-12">
 		<div class="box box-primary">
-			{{ Form::open(array('action' => 'TaskController@store')) }}
+			{{ Form::open(array('action' => 'ProjectController@store')) }}
 				<div class="box-body">
 					<div class="form-group">
-						<label>Tên công việc</label>
+						<label>Tên dự án</label>
 						<div class="row">
 							<div class="col-sm-6">
 								{{ Form::text('name', null, array('class' => 'form-control')) }}
@@ -40,14 +40,6 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label>Dự án</label>
-						<div class="row">
-							<div class="col-sm-6">
-								{{ Form::select('project_id', [NULL => 'Không chọn'] + CommonProject::getModelArray('Project', 'name', 'id'), null, array('class' => 'form-control')) }}
-							</div>
-						</div>
-					</div>
-					<div class="form-group">
 						<label>Mô tả</label>
 						<div class="row">
 							<div class="col-sm-6">
@@ -59,7 +51,7 @@
 						<label>Trạng thái</label>
 						<div class="row">
 							<div class="col-sm-6">
-								{{ Form::select('status', CommonOption::getStatusTaskArray(), null, array('class' => 'form-control')) }}
+								{{ Form::select('status', CommonProject::getModelArray('ProjectStatus', 'name', 'id'), null, array('class' => 'form-control')) }}
 							</div>
 						</div>
 					</div>
@@ -71,6 +63,7 @@
 									<thead>
 										<tr>
 											<th>Thành viên</th>
+											<th>Vai trò</th>
 											<th>Quyền hạn</th>
 										</tr>
 									</thead>
@@ -78,7 +71,7 @@
 										
 									</tbody>
 								</table>
-								<a onclick="assignTaskUser()" class="assignBtn">Thêm thành viên</a>
+								<a onclick="assignProjectUser()" class="assignBtn">Thêm thành viên</a>
 							</div>
 						</div>
 					</div>
@@ -90,5 +83,5 @@
 		</div>
 	</div>
 </div>
-@include('admin.task.script')
+@include('admin.project.script')
 @stop
