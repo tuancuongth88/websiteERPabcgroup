@@ -118,7 +118,6 @@ class DeparmentController extends AdminController {
 		Department::find($id)->adminfunctions()->detach();
 		//delete record in the dep_user_regencies table where dep_id = $id
 		Department::find($id)->users()->detach();
-		//TODO
 		//delete record in the departments table where id = id
 		CommonNormal::delete($id);
 		return Redirect::action('DeparmentController@index') ;

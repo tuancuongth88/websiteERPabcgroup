@@ -12,12 +12,11 @@ class CreateTableDepRegencyPerFun extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('dep_regency_per_funs', function(Blueprint $table){
+		Schema::create('dep_regency_per_user', function(Blueprint $table){
 			$table->increments('id');
 			$table->integer('dep_id')->nullable();
 			$table->integer('regency_id')->nullable();
 			$table->integer('permission_id')->nullable();
-			$table->integer('function_id')->nullable();
 			$table->softDeletes();
             $table->timestamps();
 		});
@@ -30,7 +29,7 @@ class CreateTableDepRegencyPerFun extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('dep_regency_per_funs');
+		Schema::drop('dep_regency_per_user');
 	}
 
 }
