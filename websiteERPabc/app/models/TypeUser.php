@@ -6,7 +6,7 @@ use Illuminate\Auth\Reminders\RemindableTrait;
 use Illuminate\Auth\Reminders\RemindableInterface;
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
-class Type extends Eloquent {
+class TypeUser extends Eloquent {
 
 	use SoftDeletingTrait;
 
@@ -15,7 +15,7 @@ class Type extends Eloquent {
 	 *
 	 * @var string
 	 */
-	protected $table = 'types';
+	protected $table = 'type_users';
 
 	/**
 	 * The attributes excluded from the model's JSON form.
