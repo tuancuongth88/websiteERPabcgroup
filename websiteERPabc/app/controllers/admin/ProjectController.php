@@ -140,12 +140,12 @@ class ProjectController extends AdminController {
 				if($projectUser) {
 					$projectUser->update($inputProjectUser);
 				} else {
+					$inputProjectUser['user_id'] = $inputUser[$key];
+					$inputProjectUser['project_id'] = $id;
+					$inputProjectUser['temp_role_id'] = $inputTempRole[$key];
+					$inputProjectUser['status'] = ASSIGN_STATUS_3;
 					if($user) {
-						$inputProjectUser['project_id'] = $id;
-						$inputProjectUser['user_id'] = $inputUser[$key];
-						$inputProjectUser['temp_role_id'] = $inputTempRole[$key];
 						$inputProjectUser['assign_id'] = $user->id;
-						$inputProjectUser['status'] = ASSIGN_STATUS_3;
 					}
 					ProjectUser::create($inputProjectUser);	
 				}

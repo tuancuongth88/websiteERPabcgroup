@@ -171,11 +171,11 @@ class TaskController extends AdminController {
 				if($taskUser) {
 					$taskUser->update($inputTaskUser);
 				} else {
+					$inputTaskUser['task_id'] = $id;
+					$inputTaskUser['user_id'] = $inputUser[$key];
+					$inputTaskUser['status'] = ASSIGN_STATUS_3;
 					if($user) {
-						$inputTaskUser['task_id'] = $id;
-						$inputTaskUser['user_id'] = $inputUser[$key];
 						$inputTaskUser['assign_id'] = $user->id;
-						$inputTaskUser['status'] = ASSIGN_STATUS_3;
 					}
 					TaskUser::create($inputTaskUser);
 				}
