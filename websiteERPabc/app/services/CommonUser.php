@@ -58,5 +58,12 @@ class CommonUser
 			return $username;
 		}
 	}
+	public static function checkUserIsExit($username)
+	{
+		$user = User::where('username', $username)->get();
+		if(is_array($user))
+			return true;
+		return false;
+	}
 
 }

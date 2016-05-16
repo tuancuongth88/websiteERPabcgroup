@@ -123,7 +123,7 @@ class ManagementController extends AdminController {
 			return Redirect::action('ManagementController@edit', $id)
 				->withErrors($validator);
 		}else{
-			$input_User = Input::only('name', 'email', 'username', 'password', 'phone','date_of_birth', 'sex', 'ethnic', 'identity_card', 'current_address', 'address', 'degree', 'skyper', 'number_tax', 'number_insure', 'marriage', 'note', 'type_id', 'salary', 'start_time', 'end_time');
+			$input_User = Input::only('name', 'email', 'username', 'phone','date_of_birth', 'sex', 'ethnic', 'identity_card', 'current_address', 'address', 'degree', 'skyper', 'number_tax', 'number_insure', 'marriage', 'note', 'type_id', 'salary', 'start_time', 'end_time');
 			$input_User_file = Input::only('avatar', 'personal_file', 'medical_file', 'curriculum_vitae_file');
 			//xu ly upload file
 			//upload file avata
@@ -165,13 +165,12 @@ class ManagementController extends AdminController {
 		$departmentUserKey = Input::get('departmentUserKey');
 		return View::make('admin.management.assign')->with(compact('departmentUserKey'));
 	}
-	public function loadUserFunction()
+
+	public function loadRegency()
 	{
 		$dep_id = Input::get('dep_id');
-		//select cac function theo dep_id
-		// $fun = AdminFunction::find($dep_id)->lists('name');
-		$listID = DepRegencyPerFun::where('dep_id', '=' ,$dep_id)->lists('function_id');
-		$data = AdminFunction::whereIn('id', $listID)->lists('name', 'id');
+		$listID = DepUserRegency::whereIn('dep_id', $dep_id)->lists('regency_id');
+		$data = Regency::whereIn('id', $listID)->lists('name', 'id');
 		return Response::json($data);
 	}
 

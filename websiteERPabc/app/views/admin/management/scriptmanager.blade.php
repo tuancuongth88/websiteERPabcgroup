@@ -21,6 +21,9 @@
 	(function($){
 		
 	})(jQuery);
+	$(function () {
+	  loadRegency();
+	});
 	function assignDepartmentUser()
 	{
 		var departmentUserKey = $('input[name=departmentUserKey]').val();
@@ -51,22 +54,23 @@
 	{
 		$('#assignRow_'+projectUserKey).remove();
 	}
- 	function loadUserFunction(departmentUserKey) 
- 	{
- 		return;
-		var dep_id = $('[id^=dep_id]').val();
-		$.ajax({
-			type: 'POST',
-			data: {
-				dep_id:dep_id
-			},
-			url: '{{ url("management/loadUserFunction") }}',
-			success:function(data) {
-			$('[id^=function_id]').empty();
-				$.each(data ,function(index, value){
-					$('[id^=function_id]').append('<option value="'+ index+'" >'+value+'</option>');
-				});
-			}
-		});
+	function loadRegency(projectUserKey)
+	{
+		var dep_id = $('select[name^="dep_id"]').map(function () {
+			return this.value;
+		}).get();
+			$.ajax({
+				type: 'POST',
+				data: {
+					dep_id:dep_id
+				},
+				url: '{{ url("admin/management/loadRegency") }}',
+				success:function(data) {
+				$('select[name^="regency_id"]').empty();
+					$.each(data ,function(index, value){
+						$('select[name^="regency_id"]').append('<option value="'+ index+'" >'+value+'</option>');
+					});
+				}
+			});	
 	}
 </script>
