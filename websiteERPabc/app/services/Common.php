@@ -28,9 +28,18 @@ class Common {
 		}
 		return '';
 	}
-	public static function checkViewSideBar()
+	public static function checkViewSideBar($position)
 	{
-		
+		// $user = Auth::user()->get();
+		// if($user) {
+		// 	$dep = DepRegencyPerFun::where('user_id', $user->id)
+		// 			->groupBy('dep_id')
+		// 			->lists('dep_id');
+		// 	if($dep) {
+				
+		// 	}
+		// }
+		// return null;
 	}
 
 }
