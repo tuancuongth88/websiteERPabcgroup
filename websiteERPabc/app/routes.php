@@ -51,6 +51,7 @@ Route::group(['prefix' => 'admin'], function () {
 	Route::post('/task/comment/{modelId}', 'TaskController@comment');
 
 	Route::resource('/task', 'TaskController');
+	Route::resource('/report', 'ReportController');
 
 
 	// Route::resource('/comment', 'CommentController');

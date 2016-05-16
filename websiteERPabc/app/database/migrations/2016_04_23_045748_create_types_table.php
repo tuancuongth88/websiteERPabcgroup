@@ -28,7 +28,7 @@ class CreateTypesTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('types');
+		Schema::drop('type_users');
 	}
 
 }

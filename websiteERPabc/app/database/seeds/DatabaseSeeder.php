@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder {
 		$this->call('DepUserRegencyTableSeeder');
 		$this->call('ProjectUserTableSeeder');
 		$this->call('ProjectStatusTableSeeder');
+		$this->call('ReportTypeTableSeeder');
 	}
 
 }
