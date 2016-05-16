@@ -58,10 +58,19 @@ class CommonUser
 		return false;
 	}
 	public static function getOptionRole(){
-		return array(
-			ROLE_ADMIN => 'Quản trị',
-			ROLE_USER => 'Nhân viên',
-		);
+		return Role::lists('name', 'id');
+		// return array(
+		// 	ROLE_ADMIN => 'Quản trị',
+		// 	ROLE_USER => 'Nhân viên',
+		// );
+	}
+	public static function getDepartmentUser($id){
+		$department = Department::WhereIn('id', DepRegencyPerUser::where('user_id', $id)->lists('dep_id'))->get();
+		$nameDepartment = '';
+		foreach ($department as $key => $value) {
+			$nameDepartment = $nameDepartment.$value->name.'-';
+		}
+		return  $nameDepartment;
 	}
 
 }

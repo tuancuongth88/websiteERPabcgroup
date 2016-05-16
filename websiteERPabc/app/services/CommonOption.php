@@ -132,6 +132,7 @@ class CommonOption {
 				FUNCTION_PROJECT => 'Quản lý dự án',
 				FUNCTION_TEMPROLE => 'Quản lý vai trò dự án',
 				FUNCTION_PROJECTSTATUS => 'Quản lý trạng thái dự án',
+				FUNCTION_REPORT => 'Quản lý báo cáo',
 			);
 	}
 

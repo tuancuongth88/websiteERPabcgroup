@@ -35,7 +35,7 @@
 					</div>
 				</div>
 
-				<div class="box-body">
+				<!-- <div class="box-body">
 					<div class="form-group">
 						<label>Thuộc phòng ban liên quan</label>
 						<div class="row">
@@ -67,7 +67,7 @@
 							</div>
 						</div>
 					</div>
-				</div>
+				</div> -->
 				<div class="box-footer">
 					{{ Form::submit('Lưu lại', array('class' => 'btn btn-primary')) }}
 				</div>

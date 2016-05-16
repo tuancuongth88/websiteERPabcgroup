@@ -1,6 +1,7 @@
 <?php
 //default reset password 
 define('ADMIN', 1);
+define('USER', 2);
 //phan trang
 define('PAGINATE', 20);
 //define upload user avatar
@@ -58,3 +59,4 @@ define('FUNCTION_TASK', 4);
 define('FUNCTION_PROJECT', 5);
 define('FUNCTION_TEMPROLE', 6);
 define('FUNCTION_PROJECTSTATUS', 7);
+define('FUNCTION_REPORT', 8);

@@ -41,7 +41,21 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
     {
         return $this->belongsTo('Role', 'role_id', 'id');
     }
-
+    public static function isAdmin()
+    {
+    	$roleId = Auth::user()->get()->role_id;
+    	if ($roleId == ADMIN) {
+    		return ADMIN;
+    	}
+    	if ($roleId == USER) {
+    		return USER;
+    	}
+    	return null;
+    }
+    public static function getUserIdByAuth()
+    {
+    	return Auth::user()->get()->id;
+    }
 	public static function checkPermission($id)
 	{
 		if(!Admin::isAdmin()){

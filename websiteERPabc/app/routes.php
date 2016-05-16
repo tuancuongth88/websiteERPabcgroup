@@ -52,6 +52,9 @@ Route::group(['prefix' => 'admin'], function () {
 
 	Route::resource('/task', 'TaskController');
 
+	Route::post('/report/assignReportUser', 'ReportController@assignReportUser');
+	Route::resource('/report', 'ReportController');
+
 
 	// Route::resource('/comment', 'CommentController');
 });
