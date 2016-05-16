@@ -78,26 +78,21 @@ class TaskController extends AdminController {
 			return Redirect::action('TaskController@create')
 	            ->withErrors($validator);
         } else {
-        	$user = Auth::user()->get();
-        	if($user) {
-				$userId = $user->id;
-			} else {
-				$userId = NULL;
-			}
 			$inputTask = Input::except('_token', 'user_id', 'per_id');
-			//tao moi
-			$inputTask['user_id'] = $userId;
+			//tao moi 
+			$user = Auth::user()->get();
+			if($user) {
+				$inputTask['user_id'] = $user->id;
+			}
 			$taskId = Task::create($inputTask)->id;
 			//save user
-			if(isset($input['user_id'])) {
-				$inputUser = $input['user_id'];
-				$inputPer = $input['per_id'];
-				foreach ($inputUser as $key => $value) {
+			$inputUser = $input['user_id'];
+			$inputPer = $input['per_id'];
+			foreach ($inputUser as $key => $value) {
+				foreach ($inputPer[$key] as $k => $v) {
 					$inputTaskUser['user_id'] = $inputUser[$key];
 					$inputTaskUser['task_id'] = $taskId;
-					$inputTaskUser['per_id'] = $inputPer[$key];
-					$inputTaskUser['status'] = ASSIGN_STATUS_3;
-					$inputTaskUser['assign_id'] = $userId;
+					$inputTaskUser['per_id'] = $v;
 					TaskUser::create($inputTaskUser);
 				}
 			}
@@ -114,9 +109,7 @@ class TaskController extends AdminController {
 	 */
 	public function show($id)
 	{
-		$task = Task::find($id);
-		// dd(1);
-		return View::make('admin.task.show')->with(compact('task'));
+		//
 	}
 
 
@@ -153,12 +146,6 @@ class TaskController extends AdminController {
 			return Redirect::action('TaskController@edit', $id)
 	            ->withErrors($validator);
         } else {
-        	$user = Auth::user()->get();
-        	if($user) {
-				$userId = $user->id;
-			} else {
-				$userId = NULL;
-			}
 			$inputTask = Input::except('_token', 'user_id', 'per_id');
 			//sua task
 			$task = Task::find($id);
@@ -171,19 +158,16 @@ class TaskController extends AdminController {
 					'description' => $inputTask['description'],
 					'status' => $inputTask['status'],
 				));
+			//xoa user truoc khi update
+			TaskUser::where('task_id', $id)->delete();
 			//save user
-			if(isset($input['user_id'])) {
-				//xoa truoc khi cap nhat lai
-				TaskUser::where('task_id', $id)
-						->delete();
-				$inputUser = $input['user_id'];
-				$inputPer = $input['per_id'];
-				foreach ($inputUser as $key => $value) {
-					$inputTaskUser['per_id'] = $inputPer[$key];
-					$inputTaskUser['task_id'] = $id;
+			$inputUser = $input['user_id'];
+			$inputPer = $input['per_id'];
+			foreach ($inputUser as $key => $value) {
+				foreach ($inputPer[$key] as $k => $v) {
 					$inputTaskUser['user_id'] = $inputUser[$key];
-					$inputTaskUser['status'] = ASSIGN_STATUS_3;
-					$inputTaskUser['assign_id'] = $userId;
+					$inputTaskUser['task_id'] = $id;
+					$inputTaskUser['per_id'] = $v;
 					TaskUser::create($inputTaskUser);
 				}
 			}
@@ -216,13 +200,6 @@ class TaskController extends AdminController {
 			$taskUserKey++;
 		}
 		return View::make('admin.task.assign')->with(compact('taskUserKey'));
-	}
-	public function comment($taskId)
-	{
-		$input = Input::except('_token');
-		$input['status'] = ACTIVE;
-		$commentId = Common::insertComment('Task', $taskId, $input);
-		return Redirect::action('TaskController@index');
 	}
 
 }

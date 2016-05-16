@@ -5,20 +5,20 @@ use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableTrait;
 use Illuminate\Auth\Reminders\RemindableInterface;
 
-class TaskUser extends Eloquent {
+class Comment extends Eloquent {
 
 	/**
 	 * The database table used by the model.
 	 *
 	 * @var string
 	 */
-	protected $table = 'task_users';
+	protected $table = 'comments';
 
 	/**
 	 * The attributes excluded from the model's JSON form.
 	 *
 	 * @var array
 	 */
-	protected $fillable = array('task_id', 'user_id', 'per_id', 'assign_id', 'status');
+	protected $fillable = array('user_id', 'model_name', 'model_id', 'status', 'description');
    
 }

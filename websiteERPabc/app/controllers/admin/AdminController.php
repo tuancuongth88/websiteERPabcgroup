@@ -92,12 +92,7 @@ class AdminController extends BaseController {
 	{
 		$input = Input::all();
 		$user = array('username'=> $input['username'], 'password'=> $input['password']);
-		// dd(Auth::admin()->attempt($user));
-		if (Auth::admin()->attempt($user)) {
-			return Redirect::action('ManagementController@index');
-		}
-		elseif (Auth::user()->attempt($user)) {
-			# code...
+		if (Auth::user()->attempt($user)) {
 			return Redirect::action('ManagementController@index');
 		}
 		else{

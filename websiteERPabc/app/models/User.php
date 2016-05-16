@@ -31,10 +31,16 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	{
 		return $this->belongsToMany('Department', 'dep_user_regencies', 'user_id', 'dep_id');
 	}
+	
 	public function regencies()
 	{
 		return $this->belongsToMany('Regency', 'dep_user_regencies', 'user_id', 'regency_id');
 	}
+
+	public function role()
+    {
+        return $this->belongsTo('Role', 'role_id', 'id');
+    }
 
 	public static function checkPermission($id)
 	{

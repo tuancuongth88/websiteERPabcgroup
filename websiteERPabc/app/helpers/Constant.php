@@ -35,3 +35,15 @@ define('TASK_STATUS_1', 1);
 define('TASK_STATUS_2', 2);
 //Tạm dừng
 define('TASK_STATUS_3', 3);
+//permission status
+//Toàn quyền
+define('PERMISSION_1', 1);
+//Bình thường
+define('PERMISSION_2', 2);
+//status check xac nhan dong y tham gia du an hay task?
+// dong y
+define('ASSIGN_STATUS_1', 1);
+// tu choi
+define('ASSIGN_STATUS_2', 2);
+// cho xac nhan
+define('ASSIGN_STATUS_3', 3);

@@ -33,6 +33,9 @@ Route::group(['prefix' => 'admin'], function () {
 	
 	Route::resource('/regency', 'RegencyController');
 	Route::resource('/resouce', 'ResouceController');
+
+	Route::post('/comment/{modelName}/{modelId}', 'CommentController@comment');
+
 	//quan ly du an
 	Route::get('/project/search', 'ProjectController@search');
 	Route::post('/project/assignProjectUser', 'ProjectController@assignProjectUser');
@@ -44,8 +47,13 @@ Route::group(['prefix' => 'admin'], function () {
 	//task
 	Route::get('/task/search', 'TaskController@search');
 	Route::post('/task/assignTaskUser', 'TaskController@assignTaskUser');
-	Route::get('/task/{status}', 'TaskController@index');
+	Route::get('/task/filter/{status}', 'TaskController@filter');
+	Route::post('/task/comment/{modelId}', 'TaskController@comment');
+
 	Route::resource('/task', 'TaskController');
+
+
+	// Route::resource('/comment', 'CommentController');
 });
 // Route::group(
 // 	['prefix' => 'user'], function(){

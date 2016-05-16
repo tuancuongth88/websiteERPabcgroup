@@ -37,12 +37,13 @@
 							<!-- <td>{{-- $value->id --}}</td> -->
 							<td>{{ $value->name }}</td>
 							<td>{{ $value->percent }}</td>
-							<td>{{ date('d-m-Y', strtotime($value->start)) }}</td>
-							<td>{{ date('d-m-Y', strtotime($value->end)) }}</td>
+							<td>{{ Common::getDateTimeString($value->start) }}</td>
+							<td>{{ Common::getDateTimeString($value->end) }}</td>
 							<td>{{ CommonUser::getUsernameById($value->user_id) }}</td>
 							<td>{{ CommonOption::getFieldTextByModel('Project', $value->project_id, 'name') }}</td>
 							<td>{{ CommonOption::getStatusTaskValue($value->status) }}</td>
 							<td>
+								<a href="{{ action('TaskController@show', $value->id) }}" class="btn btn-primary">View</a>
 								<a href="{{ action('TaskController@edit', $value->id) }}" class="btn btn-primary">Sửa</a>
 								{{ Form::open(array('method'=>'DELETE', 'action' => array('TaskController@destroy', $value->id), 'style' => 'display: inline-block;')) }}
 									<button class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa?');">Xóa</button>

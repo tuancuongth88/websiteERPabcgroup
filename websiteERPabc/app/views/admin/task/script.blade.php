@@ -1,17 +1,7 @@
 <style>
-	.assign {
-		
-	}
 	.assign td,
 	.assign th {
 		padding: 5px;
-	}
-	.assignBoxPermission input[type=checkbox] {
-		vertical-align: text-top;
-	}
-	.assignBoxPermission label {
-		margin-left: 10px;
-		cursor: pointer;
 	}
 	a.assignBtn {
 		cursor: pointer;
@@ -31,10 +21,6 @@
 		var taskUserKey = $('input[name^="taskUserKey"]').map(function () {
 			return this.value;
 		}).get();
-		// var taskUserKey = $('input[name=taskUserKey]').val();
-		// if(!taskUserKey) {
-		// 	taskUserKey = [];
-		// }
 		$.ajax(
 		{
 			type : 'post',
