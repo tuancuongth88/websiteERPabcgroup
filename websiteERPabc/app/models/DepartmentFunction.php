@@ -7,20 +7,20 @@ use Illuminate\Auth\Reminders\RemindableInterface;
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
 
-class DepRegencyPerFun extends Eloquent {
+class DepartmentFunction extends Eloquent {
 	/**
 	 * The database table used by the model.
 	 *
 	 * @var string
 	 */
-	protected $table = 'dep_regency_per_user';
+	protected $table = 'department_function';
 
 	/** 
 	 * The attributes excluded from the model's JSON form. 
 	 *
 	 * @var array 
 	 */
-	protected $fillable = array('dep_id', 'regency_id', 'permission_id');
+	protected $fillable = array('dep_id', 'function_id');
 		 
 }
   

@@ -12,7 +12,7 @@ class AddMoreFieldUserIdDepRegencyPerFunsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::table('dep_regency_per_funs', function(Blueprint $table) {
+		Schema::table('dep_regency_per_user', function(Blueprint $table) {
             $table->integer('user_id')->after('id')->nullable();
         });
 	}
