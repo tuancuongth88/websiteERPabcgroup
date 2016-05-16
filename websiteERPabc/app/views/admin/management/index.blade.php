@@ -23,6 +23,7 @@
 				<th>ID</th>
 				<th>Tài khoản</th>
 				<th>Số điện thoại</th>
+				<th>Phòng ban liên quan</th>
 				<th>Action</th>
 			</tr>
 			@foreach($data as $key => $value)
@@ -30,6 +31,7 @@
 				<td>{{ $value->id }}</td>
 				<td>{{ $value->username }}</td>
 				<td>{{ $value->phone }}</td>
+				<td>{{ CommonUser::getDepartmentUser($value->id) }}</td>
 				<td >
 				@if(User::checkPermission($value->id))
 					<a href="{{ action('ManagementController@edit', $value->id) }}" class="btn btn-primary">Sửa</a>

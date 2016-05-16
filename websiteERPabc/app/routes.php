@@ -25,7 +25,7 @@ Route::group(['prefix' => 'admin'], function () {
 	Route::post('/management/updatePassword/{id}', array('uses' =>'ManagementController@updatePassword', 'as' => 'updatePassword'));
 	Route::post('/management/assignDepartmentUser', 'ManagementController@assignDepartmentUser');
 	// Route của ajax manager
-	Route::post('/management/loadUserFunction', 'ManagementController@loadUserFunction');
+	Route::post('/management/loadRegency', 'ManagementController@loadRegency');
 	Route::resource('/management', 'ManagementController');
 	// search
 	Route::get('/deparment/search', array('uses' => 'DeparmentController@search'));
@@ -49,8 +49,11 @@ Route::group(['prefix' => 'admin'], function () {
 	Route::post('/task/assignTaskUser', 'TaskController@assignTaskUser');
 	Route::get('/task/filter/{status}', 'TaskController@filter');
 	Route::post('/task/comment/{modelId}', 'TaskController@comment');
-
 	Route::resource('/task', 'TaskController');
+
+	Route::get('/report/search', 'ReportController@search');
+	Route::post('/report/assignReportUser', 'ReportController@assignReportUser');
+	Route::resource('/report', 'ReportController');
 
 
 	// Route::resource('/comment', 'CommentController');

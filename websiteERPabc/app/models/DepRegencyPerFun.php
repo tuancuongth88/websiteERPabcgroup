@@ -20,7 +20,6 @@ class DepRegencyPerFun extends Eloquent {
 	 *
 	 * @var array 
 	 */
-	protected $fillable = array('dep_id', 'regency_id', 'permission_id');
-		 
+	protected $fillable = array('dep_id', 'regency_id', 'permission_id', 'status', 'user_id');
+
 }
-  

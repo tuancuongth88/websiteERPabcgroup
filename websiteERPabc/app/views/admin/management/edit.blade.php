@@ -25,6 +25,14 @@
 							</div>
 					</div>
 					<div class="form-group">
+						<label for="role_id">Loại tài khoản</label>
+						<div class="row">
+							<div class="col-sm-6">
+								{{ Form::select('role_id', [null => 'Lựa chọn'] +  CommonUser::getOptionRole(), $data->role_id, array('class' => 'form-control')) }}
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
 						<div class="row">
 							<div class="col-sm-3">
 								<label for="name">Tên đầy đủ</label>
@@ -88,7 +96,10 @@
 						<div class="row">
 							<div class="col-sm-6">
 								{{ Form::file('personal_file')}}
-								<a href="{{ url(PROFILE.'/'.$data->id.'/file'. '/' . $data->personal_file)}}">Xem file</a>
+								@if($data->personal_file)
+								<a href="{{ url(PROFILE.'/'.$data->id.'/file'. '/' . $data->personal_file)}}">Xem file
+								</a>
+								@endif
 							</div>
 						</div>
 					</div>
@@ -97,7 +108,9 @@
 						<div class="row">
 							<div class="col-sm-6">
 								{{ Form::file('medical_file')}}
+								@if($data->medical_file)
 								<a href="{{ url(PROFILE.'/'.$data->id.'/file'. '/' . $data->medical_file)}}">Xem file</a>
+								@endif
 							</div>
 						</div>
 					</div>
@@ -106,7 +119,9 @@
 						<div class="row">
 							<div class="col-sm-6">
 								{{ Form::file('curriculum_vitae_file')}}
+								@if($data->curriculum_vitae_file)
 								<a href="{{ url(PROFILE.'/'.$data->id.'/file'. '/' . $data->curriculum_vitae_file)}}">Xem file</a>
+								@endif
 							</div>
 						</div>
 					</div>
@@ -167,7 +182,7 @@
 						<label for="type">Loại hợp đồng</label>
 						<div class="row">
 							<div class="col-sm-6">
-									{{ Form::select('type_id', CommonOption::getOptionAllModel('Type'), $data->type_id, array('class' => 'form-control')) }}
+									{{ Form::select('type_id', CommonOption::getOptionAllModel('TypeUser'), $data->type_id, array('class' => 'form-control')) }}
 							</div>
 						</div>
 					</div>
@@ -218,10 +233,13 @@
 										@foreach(CommonUser::getDepUserRegency($data->id) as $departmentUserKey => $values)
 										<tr id = "assignRow_{{ $departmentUserKey }}">
 											<td>
-												{{ Form::select('dep_id['.$departmentUserKey.']', CommonProject::getModelArray('Department', 'name', 'id'), $values->dep_id, array('class' => 'form-control', 'style' => 'width: 120px;')) }}
+												{{ Form::select('dep_id['.$departmentUserKey.']', ['0' => 'lựa chọn'] + CommonProject::getModelArray('Department', 'name', 'id'), $values->dep_id, array('class' => 'form-control', 'style' => 'width: 120px;')) }}
 											</td>
 											<td>
-												{{ Form::select('regency_id['.$departmentUserKey.']', Regency::lists('name', 'id'), $values->regency_id, array('class' => 'form-control','style' => 'width: 120px;')) }}
+												{{ Form::select('regency_id['.$departmentUserKey.']', ['0' => 'lựa chọn']+ Regency::lists('name', 'id'), $values->regency_id, array('class' => 'form-control','style' => 'width: 120px;')) }}
+											</td>
+											<td>
+												{{ Form::select('per_id['.$departmentUserKey.']', CommonOption::getPermissionArray(),  $values->permission_id, array('class' => 'form-control', 'style' => 'width: 120px;')) }}
 											</td>
 											<td>
 												<a onclick="removeAssignProjectUser({{ $departmentUserKey }})" class="removeAssignBtn">Xóa</a>

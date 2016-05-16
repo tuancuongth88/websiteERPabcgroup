@@ -45,19 +45,19 @@ class RegencyController extends AdminController {
 			if ($input['parent_id'] == '') {
 				$input['parent_id'] = null;
 			}
-			$array = CommonOption::getKeyFromArray($input['dep_id']);
+			// $array = CommonOption::getKeyFromArray($input['dep_id']);
 			$id = CommonNormal::create($input);
-			Regency::find($id)->departments()->attach($array);
+			// Regency::find($id)->departments()->attach($array);
 			//cuongnt add permission
 			// dd($input);
-			foreach ($array as $key => $valuedep) {
-				$inputdepregencyPerFun['dep_id'] = $valuedep;
-				$inputdepregencyPerFun['regency_id'] = $id;
-				foreach ($input['per_id'][$valuedep] as  $valueper) {
-					$inputdepregencyPerFun['permission_id'] = $valueper;
-					DepRegencyPerFun::create($inputdepregencyPerFun);
-				}
-			}
+			// foreach ($array as $key => $valuedep) {
+			// 	$inputdepregencyPerFun['dep_id'] = $valuedep;
+			// 	$inputdepregencyPerFun['regency_id'] = $id;
+			// 	foreach ($input['per_id'][$valuedep] as  $valueper) {
+			// 		$inputdepregencyPerFun['permission_id'] = $valueper;
+			// 		DepRegencyPerFun::create($inputdepregencyPerFun);
+			// 	}
+			// }
 			return Redirect::action('RegencyController@index');
 		}
 	}
@@ -84,6 +84,7 @@ class RegencyController extends AdminController {
 	public function edit($id)
 	{
 		$data = Regency::find($id);
+		// dd($data ->toArray);
 		return View::make('admin.regency.edit')->with(compact('data'));
 	}
 
@@ -108,19 +109,7 @@ class RegencyController extends AdminController {
 			if ($input['parent_id'] == '') {
 				$input['parent_id'] = null;
 			}
-			$array = CommonOption::getKeyFromArray($input['dep_id']);
-			Regency::find($id)->departments()->sync($array);
 			CommonNormal::update($id, $input);
-			DepRegencyPerFun::where('regency_id', $id)->delete();
-			//CUONGNT ADD 
-			foreach ($array as $key => $valuedep) {
-				$inputdepregencyPerFun['dep_id'] = $valuedep;
-				$inputdepregencyPerFun['regency_id'] = $id;
-				foreach ($input['per_id'][$valuedep] as  $valueper) {
-					$inputdepregencyPerFun['permission_id'] = $valueper;
-					DepRegencyPerFun::create($inputdepregencyPerFun);
-				}
-			}
 			return Redirect::action('RegencyController@index') ;
 		}
 	}
@@ -134,10 +123,9 @@ class RegencyController extends AdminController {
 	 */
 	public function destroy($id)
 	{
+		$imputUpdateDepUser = DepRegencyPerUser::where('regency_id', $id)->whereNotNull('user_id')->update(['regency_id' => null]);
 		CommonOption::deleteParent('Regency', $id);
-		Regency::find($id)->departments()->detach();
 		CommonNormal::delete($id);
-		DepRegencyPerFun::where('regency_id', $id)->delete();
 		return Redirect::action('RegencyController@index') ;
 	}
 
