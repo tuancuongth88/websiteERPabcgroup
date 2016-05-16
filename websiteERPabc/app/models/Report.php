@@ -22,7 +22,11 @@ class Report extends Eloquent {
 	 *
 	 * @var array
 	 */
-	protected $fillable = array('name', 'project_id', 'status', 'start', 'end', 'description', 'percent', 'user_id');
+	protected $fillable = array('name', 'type_report_id', 'user_id', 'status', 'description');
     protected $dates = ['deleted_at'];
-   
+
+   	public function users()
+    {
+        return $this->belongsToMany('User', 'report_users', 'report_id', 'receiver_id');
+    }
 }

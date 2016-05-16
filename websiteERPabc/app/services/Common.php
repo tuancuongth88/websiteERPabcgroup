@@ -32,6 +32,9 @@ class Common {
 	{
 		$user = Auth::user()->get();
 		if($user) {
+			if ($user->role_id == ROLE_ADMIN) {
+				return true;
+			}
 			$dep = DepRegencyPerFun::where('user_id', $user->id)
 					->groupBy('dep_id')
 					->lists('dep_id');
