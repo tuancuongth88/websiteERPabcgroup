@@ -25,6 +25,14 @@
 							</div>
 					</div>
 					<div class="form-group">
+						<label for="role_id">Loại tài khoản</label>
+						<div class="row">
+							<div class="col-sm-6">
+								{{ Form::select('role_id', [null => 'Lựa chọn'] +  CommonUser::getOptionRole(), $data->role_id, array('class' => 'form-control')) }}
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
 						<div class="row">
 							<div class="col-sm-3">
 								<label for="name">Tên đầy đủ</label>
@@ -88,7 +96,10 @@
 						<div class="row">
 							<div class="col-sm-6">
 								{{ Form::file('personal_file')}}
-								<a href="{{ url(PROFILE.'/'.$data->id.'/file'. '/' . $data->personal_file)}}">Xem file</a>
+								@if($data->personal_file)
+								<a href="{{ url(PROFILE.'/'.$data->id.'/file'. '/' . $data->personal_file)}}">Xem file
+								</a>
+								@endif
 							</div>
 						</div>
 					</div>
@@ -97,7 +108,9 @@
 						<div class="row">
 							<div class="col-sm-6">
 								{{ Form::file('medical_file')}}
+								@if($data->medical_file)
 								<a href="{{ url(PROFILE.'/'.$data->id.'/file'. '/' . $data->medical_file)}}">Xem file</a>
+								@endif
 							</div>
 						</div>
 					</div>
@@ -106,7 +119,9 @@
 						<div class="row">
 							<div class="col-sm-6">
 								{{ Form::file('curriculum_vitae_file')}}
+								@if($data->curriculum_vitae_file)
 								<a href="{{ url(PROFILE.'/'.$data->id.'/file'. '/' . $data->curriculum_vitae_file)}}">Xem file</a>
+								@endif
 							</div>
 						</div>
 					</div>
