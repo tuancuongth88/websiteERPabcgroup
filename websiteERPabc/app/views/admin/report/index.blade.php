@@ -7,7 +7,7 @@
 @section('content')
 <div class="row margin-bottom">
 	<div class="col-xs-12">
-		<a href="{{ action('TaskController@create') }}" class="btn btn-primary">Thêm mới</a>
+		<a href="{{ action('ReportController@create') }}" class="btn btn-primary">Thêm mới</a>
 	</div>
 </div>
 @include('admin.report.search')
@@ -37,9 +37,9 @@
 							<td>{{ CommonOption::getFieldTextByModel('Project', $value->project_id, 'name') }}</td>
 							<td>{{ CommonOption::getStatusTaskValue($value->status) }}</td>
 							<td>
-								<a href="{{ action('TaskController@show', $value->id) }}" class="btn btn-primary">View</a>
-								<a href="{{ action('TaskController@edit', $value->id) }}" class="btn btn-primary">Sửa</a>
-								{{ Form::open(array('method'=>'DELETE', 'action' => array('TaskController@destroy', $value->id), 'style' => 'display: inline-block;')) }}
+								<a href="{{ action('ReportController@show', $value->id) }}" class="btn btn-primary">View</a>
+								<a href="{{ action('ReportController@edit', $value->id) }}" class="btn btn-primary">Sửa</a>
+								{{ Form::open(array('method'=>'DELETE', 'action' => array('ReportController@destroy', $value->id), 'style' => 'display: inline-block;')) }}
 									<button class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa?');">Xóa</button>
 								{{ Form::close() }}
 							</td>

@@ -1,6 +1,7 @@
 <?php
 //default reset password 
 define('ADMIN', 1);
+define('USER', 2);
 //phan trang
 define('PAGINATE', 20);
 //define upload user avatar
@@ -47,3 +48,6 @@ define('ASSIGN_STATUS_1', 1);
 define('ASSIGN_STATUS_2', 2);
 // cho xac nhan
 define('ASSIGN_STATUS_3', 3);
+// quyen
+define('ROLE_ADMIN', 1);
+define('ROLE_USER', 2);

@@ -15,6 +15,7 @@
 			<li><a href="{{ action('DeparmentController@index') }}"><i class="fa fa-laptop"></i> <span>Quản lý phòng ban</span></a></li>
 			<li><a href="{{ action('ReportController@index') }}"><i class="fa fa-laptop"></i> <span>Quản lý báo cáo</span></a></li>
 			<li><a href="{{ action('RegencyController@index') }}"><i class="fa fa-laptop"></i> <span>Quản lý chức vụ</span></a></li>
+			<li><a href="{{ action('TaskController@index') }}"><i class="fa fa-list"></i> <span>Quản lý công việc</span></a></li>
 			<li class="treeview">
 				<a href="#"><i class="fa fa-list"></i> <span>Quản lý công việc</span> <i class="fa fa-angle-left pull-right"></i></a>
 				<ul class="treeview-menu">

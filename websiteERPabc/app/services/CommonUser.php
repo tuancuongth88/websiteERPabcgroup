@@ -20,26 +20,18 @@ class CommonUser
 		//cân phải check xem đa validate department chua. cac phòng ban có bị trùng nhau khong đã check quyền chưa
 		$inputDepartment = $input['dep_id'];
 		$inputRegency = $input['regency_id'];
-		// $inputPer = $input['per_id'];
+		$inputPer = $input['per_id'];
 		foreach ($inputDepartment as $key => $value) {
 			$inputDepartRegency['dep_id'] = $inputDepartment[$key];
 			$inputDepartRegency['regency_id'] = $inputRegency[$key];
 			$inputDepartRegency['user_id'] = $id;
-			DepUserRegency::create($inputDepartRegency);
-			
-			// foreach ($inputPer[$key] as $k => $v) {
-				
-
-			// 	//chưa làm phần phần quyền
-				
-			// 	// $inputDepartRegency['per_id'] = $v;
-				
-			// }
+			$inputDepartRegency['permission_id'] = $inputPer[$key];
+			DepRegencyPerUser::create($inputDepartRegency);
 		}
 	}
 	public static function getDepUserRegency($id)
 	{
-		return DepUserRegency::where('user_id', $id)->get();
+		return DepRegencyPerUser::where('user_id', $id)->get();
 	}
 
 	public static function getObjectFromAuth()
@@ -57,6 +49,20 @@ class CommonUser
 			$username = CommonOption::getFieldTextByModel('User', $userId, 'username');
 			return $username;
 		}
+	}
+	public static function checkUserIsExit($username)
+	{
+		$user = User::where('username', $username)->get();
+		if(is_array($user))
+			return true;
+		return false;
+	}
+	public static function getOptionRole(){
+		return Role::lists('name', 'id');
+		// return array(
+		// 	ROLE_ADMIN => 'Quản trị',
+		// 	ROLE_USER => 'Nhân viên',
+		// );
 	}
 
 }

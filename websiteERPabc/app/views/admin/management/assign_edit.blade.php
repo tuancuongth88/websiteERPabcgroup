@@ -5,7 +5,6 @@
 		{{ Form::hidden('departmentUserKey', $departmentUserKey) }}
 	</td>
 	<td>
-		
 		{{ Form::select('regency_id['.$departmentUserKey.']', Regency::lists('name', 'id'), $data->pivot->regency_id, array('class' => 'form-control','style' => 'width: 120px;')) }}
 	</td>
 	<td class="assignBoxPermission">

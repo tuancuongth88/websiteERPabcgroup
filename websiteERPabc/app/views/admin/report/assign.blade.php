@@ -1,12 +1,9 @@
-<tr id="assignRow_{{ $taskUserKey }}">
+<tr id="assignRow_{{ $reportUserKey }}">
 	<td>
-		{{ Form::select('user_id['.$taskUserKey.']', CommonProject::getModelArray('User', 'username', 'id'), null, array('class' => 'form-control', 'style' => 'width: 120px;')) }}
-		{{ Form::hidden('taskUserKey[]', $taskUserKey) }}
+		{{ Form::select('user_id['.$reportUserKey.']', ['' => 'Lựa chọn'] + User::lists('username', 'id'), null, array('class' => 'form-control', 'style' => 'width: 120px;')) }}
+		{{ Form::hidden('reportUserKey[]', $reportUserKey) }}
 	</td>
 	<td>
-		{{ Form::select('per_id['.$taskUserKey.']', CommonOption::getPermissionArray(), null, array('class' => 'form-control', 'style' => 'width: 120px;')) }}
-	</td>
-	<td>
-		<a onclick="return confirm('Bạn có chắc chắn muốn xóa?')?removeAssignTaskUser({{ $taskUserKey }}):false;" class="removeAssignBtn">Xóa</a>
+		<a onclick="return confirm('Bạn có chắc chắn muốn xóa?')?removeAssignTaskUser({{ $reportUserKey }}):false;" class="removeAssignBtn">Xóa</a>
 	</td>
 </tr>

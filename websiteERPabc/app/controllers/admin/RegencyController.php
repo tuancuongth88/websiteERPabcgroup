@@ -109,10 +109,19 @@ class RegencyController extends AdminController {
 				$input['parent_id'] = null;
 			}
 			$array = CommonOption::getKeyFromArray($input['dep_id']);
+			$imputUpdateDepUser = DepUserRegency::where('regency_id', $id)->whereNotNull('user_id')->get();
+			foreach ($imputUpdateDepUser as $key => $value) {
+				foreach ($array as $keyarr => $valuearr) {
+					if($value->dep_id !=$valuearr && in_array($valuearr, $imputUpdateDepUser->lists('dep_id')))
+					{
+						DepUserRegency::where('dep_id', $value->dep_id)->where('regency_id', $id)->whereNotNull('user_id')->update(['regency_id' => null]);
+					}
+				}
+			}
 			Regency::find($id)->departments()->sync($array);
 			CommonNormal::update($id, $input);
 			DepRegencyPerFun::where('regency_id', $id)->delete();
-			//CUONGNT ADD 
+			//CUONGNT ADD
 			foreach ($array as $key => $valuedep) {
 				$inputdepregencyPerFun['dep_id'] = $valuedep;
 				$inputdepregencyPerFun['regency_id'] = $id;

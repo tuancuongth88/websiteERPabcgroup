@@ -9,11 +9,17 @@ class ReportController extends AdminController {
 	 */
 	public function index()
 	{
-		$user = Auth::user()->get();
-		$data = Report::orderBy('id', 'desc');
-		$data = $data->paginate(PAGINATE);
-		//show ra báo cáo của những người dưới chức vụ của mình và báo cáo của mình,
-		// không được thấy báo cáo của người khác
+		$userId = User::getUserIdByAuth();
+		if (User::getUserIdByAuth() == ADMIN) {
+			$data = Report::orderBy('id', 'desc');
+			$data = $data->paginate(PAGINATE);
+		}
+		if (User::getUserIdByAuth() == USER) {
+			$userReports = Report::where('user_id', $userId)->lists('id');
+			$receiverReports = ReportUser::where('receiver_id', $userId)->lists('report_id');
+			$listReports = $userReports + $receiverReports;
+			$data = Report::whereIn('id', $listReports)->get();
+		}
 		return View::make('admin.report.index')->with(compact('data'));
 	}
 
@@ -205,16 +211,17 @@ class ReportController extends AdminController {
 		return Redirect::action('ReportController@index')->with('message', 'Xóa thành công');
 	}
 
-	public function assignTaskUser()
+	public function assignReportUser()
 	{
-		$taskUserKeys = Input::get('taskUserKey');
-		if($taskUserKeys == '') {
-			$taskUserKey = 0;
+		$reportUserKeys = Input::get('reportUserKey');
+		// return $reportUserKeys;
+		if($reportUserKeys == '') {
+			$reportUserKey = 0;
 		} else {
-			$taskUserKey = max($taskUserKeys);
-			$taskUserKey++;
+			$reportUserKey = max($reportUserKeys);
+			$reportUserKey++;
 		}
-		return View::make('admin.report.assign')->with(compact('taskUserKey'));
+		return View::make('admin.report.assign')->with(compact('reportUserKey'));
 	}
 	public function comment($taskId)
 	{

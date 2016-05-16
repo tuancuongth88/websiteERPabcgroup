@@ -1,16 +1,13 @@
 <div class="margin-bottom">
 	{{ Form::open(array('action' => 'TaskController@search', 'method' => 'GET')) }}
 		<div class="input-group" style="width: 150px; display:inline-block;">
-			<label>Tên công việc</label>
+			<label>Tên báo cáo</label>
 		  	<input type="text" name="name" class="form-control" placeholder="Tên" />
 		</div>
+		
 		<div class="input-group" style="width: 150px; display:inline-block;">
-			<label>Trạng thái</label>
-			 {{ Form::select('status', ['' => 'Tất cả'] + CommonOption::getStatusTaskArray(), null, array('class' => 'form-control')) }}
-		</div>
-		<div class="input-group" style="width: 150px; display:inline-block;">
-			<label>Dự án</label>
-			 {{ Form::select('project_id', ['' => 'Tất cả'] + CommonProject::getModelArray('Project', 'name', 'id'), null, array('class' => 'form-control')) }}
+			<label>Thể loại</label>
+			 {{ Form::select('type_report_id', ['' => 'Tất cả'] + TypeReport::lists('name', 'id'), null, array('class' => 'form-control')) }}
 		</div>
 		<div class="input-group" style="width: 150px; display:inline-block;">
 			<label>Người tạo</label>

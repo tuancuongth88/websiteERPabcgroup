@@ -16,36 +16,37 @@
 		
 	})(jQuery);
 
-	function assignTaskUser()
+	function assignReportUser()
 	{
-		var taskUserKey = $('input[name^="taskUserKey"]').map(function () {
+		var reportUserKey = $('input[name^="reportUserKey"]').map(function () {
 			return this.value;
 		}).get();
 		$.ajax(
 		{
 			type : 'post',
-			url : '{{ url("admin/task/assignTaskUser") }}',
+			url : '{{ url("admin/report/assignReportUser") }}',
 			data : {
-				'taskUserKey' : taskUserKey,
+				'reportUserKey' : reportUserKey,
 			},
 			beforeSend: function() {
 	            $('.assignBtn').html('Đang load...');
 	        },
 			success: function(responseText)
 			{
+				console.log(responseText);
 				$('.assignBtn').html('Thêm thành viên');
 				// var object = document.getElementById("assignBox").childNodes[1];
 				// object.innerHTML = responseText;
 				$('#assignBox').append(responseText);
-				// taskUserKey++;
-				// $('input[name=taskUserKey]').val(taskUserKey);
+				// reportUserKey++;
+				// $('input[name=reportUserKey]').val(reportUserKey);
 			}
 		});
 	}
 
-	function removeAssignTaskUser(taskUserKey)
+	function removeassignReportUser(reportUserKey)
 	{
-		$('#assignRow_'+taskUserKey).remove();
+		$('#assignRow_'+reportUserKey).remove();
 	}
 
 </script>

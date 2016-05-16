@@ -24,7 +24,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	 * @var array
 	 */
 	protected $hidden = array('password', 'remember_token');
-	protected $fillable = array('email', 'password', 'username', 'name' , 'phone', 'address', 'avatar', 'fullname', 'dep_id', 'regency_id', 'status', 'date_of_birth', 'sex', 'ethnic', 'identity_card', 'current_address', 'personal_file', 'medical_file', 'curriculum_vitae_file', 'degree', 'skyper', 'number_tax', 'number_insure', 'marriage', 'note', 'type_id', 'salary', 'start_time', 'end_time');
+	protected $fillable = array('email', 'password', 'username', 'name' , 'phone', 'address', 'avatar', 'fullname', 'dep_id', 'regency_id', 'status', 'date_of_birth', 'sex', 'ethnic', 'identity_card', 'current_address', 'personal_file', 'medical_file', 'curriculum_vitae_file', 'degree', 'skyper', 'number_tax', 'number_insure', 'marriage', 'note', 'type_id', 'salary', 'start_time', 'end_time', 'role_id');
 	 protected $dates = ['deleted_at'];
 
 	public function department()
@@ -41,7 +41,21 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
     {
         return $this->belongsTo('Role', 'role_id', 'id');
     }
-
+    public static function isAdmin()
+    {
+    	$roleId = Auth::user()->get()->role_id;
+    	if ($roleId == ADMIN) {
+    		return ADMIN;
+    	}
+    	if ($roleId == USER) {
+    		return USER;
+    	}
+    	return null;
+    }
+    public static function getUserIdByAuth()
+    {
+    	return Auth::user()->get()->id;
+    }
 	public static function checkPermission($id)
 	{
 		if(!Admin::isAdmin()){

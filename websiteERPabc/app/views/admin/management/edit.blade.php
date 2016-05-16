@@ -167,7 +167,7 @@
 						<label for="type">Loại hợp đồng</label>
 						<div class="row">
 							<div class="col-sm-6">
-									{{ Form::select('type_id', CommonOption::getOptionAllModel('Type'), $data->type_id, array('class' => 'form-control')) }}
+									{{ Form::select('type_id', CommonOption::getOptionAllModel('TypeUser'), $data->type_id, array('class' => 'form-control')) }}
 							</div>
 						</div>
 					</div>
@@ -218,10 +218,13 @@
 										@foreach(CommonUser::getDepUserRegency($data->id) as $departmentUserKey => $values)
 										<tr id = "assignRow_{{ $departmentUserKey }}">
 											<td>
-												{{ Form::select('dep_id['.$departmentUserKey.']', CommonProject::getModelArray('Department', 'name', 'id'), $values->dep_id, array('class' => 'form-control', 'style' => 'width: 120px;')) }}
+												{{ Form::select('dep_id['.$departmentUserKey.']', ['0' => 'lựa chọn'] + CommonProject::getModelArray('Department', 'name', 'id'), $values->dep_id, array('class' => 'form-control', 'style' => 'width: 120px;')) }}
 											</td>
 											<td>
-												{{ Form::select('regency_id['.$departmentUserKey.']', Regency::lists('name', 'id'), $values->regency_id, array('class' => 'form-control','style' => 'width: 120px;')) }}
+												{{ Form::select('regency_id['.$departmentUserKey.']', ['0' => 'lựa chọn']+ Regency::lists('name', 'id'), $values->regency_id, array('class' => 'form-control','style' => 'width: 120px;')) }}
+											</td>
+											<td>
+												{{ Form::select('per_id['.$departmentUserKey.']', CommonOption::getPermissionArray(),  $values->permission_id, array('class' => 'form-control', 'style' => 'width: 120px;')) }}
 											</td>
 											<td>
 												<a onclick="removeAssignProjectUser({{ $departmentUserKey }})" class="removeAssignBtn">Xóa</a>
