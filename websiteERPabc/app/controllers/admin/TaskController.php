@@ -83,17 +83,19 @@ class TaskController extends AdminController {
 			//tao moi 
 			$taskId = Task::create($inputTask)->id;
 			//save user
-			$inputUser = $input['user_id'];
-			$inputPer = $input['per_id'];
-			foreach ($inputUser as $key => $value) {
-				$inputTaskUser['user_id'] = $inputUser[$key];
-				$inputTaskUser['task_id'] = $taskId;
-				$inputTaskUser['per_id'] = $inputPer[$key];
-				$inputTaskUser['status'] = ASSIGN_STATUS_3;
-				if($user) {
-					$inputTaskUser['assign_id'] = $user->id;
+			if(isset($input['user_id'])) {
+				$inputUser = $input['user_id'];
+				$inputPer = $input['per_id'];
+				foreach ($inputUser as $key => $value) {
+					$inputTaskUser['user_id'] = $inputUser[$key];
+					$inputTaskUser['task_id'] = $taskId;
+					$inputTaskUser['per_id'] = $inputPer[$key];
+					$inputTaskUser['status'] = ASSIGN_STATUS_3;
+					if($user) {
+						$inputTaskUser['assign_id'] = $user->id;
+					}
+					TaskUser::create($inputTaskUser);
 				}
-				TaskUser::create($inputTaskUser);
 			}
 			return Redirect::action('TaskController@index')->with('message', 'Tạo mới thành công');
         }
@@ -161,23 +163,25 @@ class TaskController extends AdminController {
 					'status' => $inputTask['status'],
 				));
 			//save user
-			$inputUser = $input['user_id'];
-			$inputPer = $input['per_id'];
-			foreach ($inputUser as $key => $value) {
-				$taskUser = TaskUser::where('task_id', $id)
-					->where('user_id', $inputUser[$key])
-					->first();
-				$inputTaskUser['per_id'] = $inputPer[$key];
-				if($taskUser) {
-					$taskUser->update($inputTaskUser);
-				} else {
-					$inputTaskUser['task_id'] = $id;
-					$inputTaskUser['user_id'] = $inputUser[$key];
-					$inputTaskUser['status'] = ASSIGN_STATUS_3;
-					if($user) {
-						$inputTaskUser['assign_id'] = $user->id;
+			if(isset($input['user_id'])) {
+				$inputUser = $input['user_id'];
+				$inputPer = $input['per_id'];
+				foreach ($inputUser as $key => $value) {
+					$taskUser = TaskUser::where('task_id', $id)
+						->where('user_id', $inputUser[$key])
+						->first();
+					$inputTaskUser['per_id'] = $inputPer[$key];
+					if($taskUser) {
+						$taskUser->update($inputTaskUser);
+					} else {
+						$inputTaskUser['task_id'] = $id;
+						$inputTaskUser['user_id'] = $inputUser[$key];
+						$inputTaskUser['status'] = ASSIGN_STATUS_3;
+						if($user) {
+							$inputTaskUser['assign_id'] = $user->id;
+						}
+						TaskUser::create($inputTaskUser);
 					}
-					TaskUser::create($inputTaskUser);
 				}
 			}
 			return Redirect::action('TaskController@index')->with('message', 'Sửa thành công');

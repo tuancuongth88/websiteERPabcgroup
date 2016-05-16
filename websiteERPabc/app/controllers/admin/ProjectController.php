@@ -52,19 +52,21 @@ class ProjectController extends AdminController {
 			//tao moi project
 			$projectId = Project::create($inputProject)->id;
 			//save project_user
-			$inputUser = $input['user_id'];
-			$inputTempRole = $input['temp_role_id'];
-			$inputPer = $input['per_id'];
-			foreach ($inputUser as $key => $value) {
-				$inputProjectUser['user_id'] = $inputUser[$key];
-				$inputProjectUser['temp_role_id'] = $inputTempRole[$key];
-				$inputProjectUser['project_id'] = $projectId;
-				$inputProjectUser['per_id'] = $inputPer[$key];
-				$inputProjectUser['status'] = ASSIGN_STATUS_3;
-				if($user) {
-					$inputProjectUser['assign_id'] = $user->id;
+			if(isset($input['user_id'])) {
+				$inputUser = $input['user_id'];
+				$inputTempRole = $input['temp_role_id'];
+				$inputPer = $input['per_id'];
+				foreach ($inputUser as $key => $value) {
+					$inputProjectUser['user_id'] = $inputUser[$key];
+					$inputProjectUser['temp_role_id'] = $inputTempRole[$key];
+					$inputProjectUser['project_id'] = $projectId;
+					$inputProjectUser['per_id'] = $inputPer[$key];
+					$inputProjectUser['status'] = ASSIGN_STATUS_3;
+					if($user) {
+						$inputProjectUser['assign_id'] = $user->id;
+					}
+					ProjectUser::create($inputProjectUser);
 				}
-				ProjectUser::create($inputProjectUser);
 			}
 			return Redirect::action('ProjectController@index')->with('message', 'Tạo mới thành công');
         }
@@ -129,25 +131,27 @@ class ProjectController extends AdminController {
 					'status' => $inputProject['status'],
 				));
 			//save project_user
-			$inputUser = $input['user_id'];
-			$inputTempRole = $input['temp_role_id'];
-			$inputPer = $input['per_id'];
-			foreach ($inputUser as $key => $value) {
-				$projectUser = ProjectUser::where('project_id', $id)
-					->where('user_id', $inputPer[$key])
-					->first();
-				$inputProjectUser['per_id'] = $inputPer[$key];
-				$inputProjectUser['temp_role_id'] = $inputTempRole[$key];
-				if($projectUser) {
-					$projectUser->update($inputProjectUser);
-				} else {
-					$inputProjectUser['user_id'] = $inputUser[$key];
-					$inputProjectUser['project_id'] = $id;
-					$inputProjectUser['status'] = ASSIGN_STATUS_3;
-					if($user) {
-						$inputProjectUser['assign_id'] = $user->id;
+			if(isset($input['user_id'])) {
+				$inputUser = $input['user_id'];
+				$inputTempRole = $input['temp_role_id'];
+				$inputPer = $input['per_id'];
+				foreach ($inputUser as $key => $value) {
+					$projectUser = ProjectUser::where('project_id', $id)
+						->where('user_id', $inputPer[$key])
+						->first();
+					$inputProjectUser['per_id'] = $inputPer[$key];
+					$inputProjectUser['temp_role_id'] = $inputTempRole[$key];
+					if($projectUser) {
+						$projectUser->update($inputProjectUser);
+					} else {
+						$inputProjectUser['user_id'] = $inputUser[$key];
+						$inputProjectUser['project_id'] = $id;
+						$inputProjectUser['status'] = ASSIGN_STATUS_3;
+						if($user) {
+							$inputProjectUser['assign_id'] = $user->id;
+						}
+						ProjectUser::create($inputProjectUser);	
 					}
-					ProjectUser::create($inputProjectUser);	
 				}
 			}
 			return Redirect::action('ProjectController@index')->with('message', 'Sửa thành công');
@@ -163,7 +167,15 @@ class ProjectController extends AdminController {
 	 */
 	public function destroy($id)
 	{
-		//
+		$checkProjectUser = ProjectUser::where('project_id', $id)
+			->first();
+		$checkProjectTask = Task::where('project_id', $id)
+			->first();
+		if($checkProjectUser || $checkProjectTask) {
+			return Redirect::action('ProjectController@index')->with('error', 'Dự án đang hoạt động. Không thể xóa!');
+		}
+		CommonNormal::delete($id);
+		return Redirect::action('ProjectController@index')->with('message', 'Đã xóa');
 	}
 
 	public function assignProjectUser()
