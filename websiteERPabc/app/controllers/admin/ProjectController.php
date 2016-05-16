@@ -132,17 +132,17 @@ class ProjectController extends AdminController {
 			$inputUser = $input['user_id'];
 			$inputTempRole = $input['temp_role_id'];
 			$inputPer = $input['per_id'];
-			$projectUser = ProjectUser::where('project_id', $id)
-					->where('user_id', $inputUser)
-					->first();
 			foreach ($inputUser as $key => $value) {
+				$projectUser = ProjectUser::where('project_id', $id)
+					->where('user_id', $inputPer[$key])
+					->first();
 				$inputProjectUser['per_id'] = $inputPer[$key];
+				$inputProjectUser['temp_role_id'] = $inputTempRole[$key];
 				if($projectUser) {
 					$projectUser->update($inputProjectUser);
 				} else {
 					$inputProjectUser['user_id'] = $inputUser[$key];
 					$inputProjectUser['project_id'] = $id;
-					$inputProjectUser['temp_role_id'] = $inputTempRole[$key];
 					$inputProjectUser['status'] = ASSIGN_STATUS_3;
 					if($user) {
 						$inputProjectUser['assign_id'] = $user->id;

@@ -163,10 +163,10 @@ class TaskController extends AdminController {
 			//save user
 			$inputUser = $input['user_id'];
 			$inputPer = $input['per_id'];
-			$taskUser = TaskUser::where('task_id', $id)
-					->where('user_id', $inputUser)
-					->first();
 			foreach ($inputUser as $key => $value) {
+				$taskUser = TaskUser::where('task_id', $id)
+					->where('user_id', $inputUser[$key])
+					->first();
 				$inputTaskUser['per_id'] = $inputPer[$key];
 				if($taskUser) {
 					$taskUser->update($inputTaskUser);
