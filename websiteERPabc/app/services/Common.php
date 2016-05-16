@@ -28,5 +28,9 @@ class Common {
 		}
 		return '';
 	}
+	public static function checkViewSideBar()
+	{
+		
+	}
 
 }
