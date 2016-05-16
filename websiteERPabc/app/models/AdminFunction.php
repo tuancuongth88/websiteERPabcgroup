@@ -25,5 +25,4 @@ class AdminFunction extends Eloquent {
 	protected $fillable = array('name', 'description');
     protected $dates = ['deleted_at'];
 
-   
 }

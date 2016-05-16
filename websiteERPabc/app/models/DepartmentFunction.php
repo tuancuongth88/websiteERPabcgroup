@@ -21,6 +21,5 @@ class DepartmentFunction extends Eloquent {
 	 * @var array 
 	 */
 	protected $fillable = array('dep_id', 'function_id');
-		 
+
 }
-  

@@ -50,3 +50,11 @@ define('ASSIGN_STATUS_3', 3);
 // quyen
 define('ROLE_ADMIN', 1);
 define('ROLE_USER', 2);
+//functions position
+define('FUNCTION_USER', 1);
+define('FUNCTION_DEPARTMENT', 2);
+define('FUNCTION_REGENCY', 3);
+define('FUNCTION_TASK', 4);
+define('FUNCTION_PROJECT', 5);
+define('FUNCTION_TEMPROLE', 6);
+define('FUNCTION_PROJECTSTATUS', 7);

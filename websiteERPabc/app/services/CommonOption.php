@@ -122,4 +122,23 @@ class CommonOption {
 		return $array[$permission];
 	}
 
+	public static function getFunctionArray()
+	{
+		return array(
+				FUNCTION_USER => 'Quản lý nhân viên',
+				FUNCTION_DEPARTMENT => 'Quản lý phòng ban',
+				FUNCTION_REGENCY => 'Quản lý chức vụ',
+				FUNCTION_TASK => 'Quản lý công việc',
+				FUNCTION_PROJECT => 'Quản lý dự án',
+				FUNCTION_TEMPROLE => 'Quản lý vai trò dự án',
+				FUNCTION_PROJECTSTATUS => 'Quản lý trạng thái dự án',
+			);
+	}
+
+	public static function getFunctionValue($function)
+	{
+		$array = self::getFunctionArray();
+		return $array[$function];
+	}
+
 }
