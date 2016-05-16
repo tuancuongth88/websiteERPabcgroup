@@ -7,7 +7,7 @@ use Illuminate\Auth\Reminders\RemindableInterface;
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
 
-class DepRegencyPerFun extends Eloquent {
+class DepRegencyPerUser extends Eloquent {
 	/**
 	 * The database table used by the model.
 	 *
@@ -20,7 +20,7 @@ class DepRegencyPerFun extends Eloquent {
 	 *
 	 * @var array 
 	 */
-	protected $fillable = array('dep_id', 'regency_id', 'permission_id');
+	protected $fillable = array('user_id', 'dep_id', 'regency_id', 'permission_id');
 		 
 }
   

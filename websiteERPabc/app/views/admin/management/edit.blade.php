@@ -167,7 +167,7 @@
 						<label for="type">Loại hợp đồng</label>
 						<div class="row">
 							<div class="col-sm-6">
-									{{ Form::select('type_id', CommonOption::getOptionAllModel('Type'), $data->type_id, array('class' => 'form-control')) }}
+									{{ Form::select('type_id', CommonOption::getOptionAllModel('TypeUser'), $data->type_id, array('class' => 'form-control')) }}
 							</div>
 						</div>
 					</div>
@@ -211,6 +211,7 @@
 										<tr>
 											<th>Phòng ban</th>
 											<th>Chức vụ</th>
+											<th>Quyền hạn</th>
 										</tr>
 									</thead>
 									<tbody id="assignBox">
@@ -221,6 +222,9 @@
 											</td>
 											<td>
 												{{ Form::select('regency_id['.$departmentUserKey.']', ['0' => 'lựa chọn']+ Regency::lists('name', 'id'), $values->regency_id, array('class' => 'form-control','style' => 'width: 120px;')) }}
+											</td>
+											<td>
+												{{ Form::select('per_id['.$departmentUserKey.']', CommonOption::getPermissionArray(),  $values->permission_id, array('class' => 'form-control', 'style' => 'width: 120px;')) }}
 											</td>
 											<td>
 												<a onclick="removeAssignProjectUser({{ $departmentUserKey }})" class="removeAssignBtn">Xóa</a>

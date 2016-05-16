@@ -20,17 +20,18 @@ class CommonUser
 		//cân phải check xem đa validate department chua. cac phòng ban có bị trùng nhau khong đã check quyền chưa
 		$inputDepartment = $input['dep_id'];
 		$inputRegency = $input['regency_id'];
-		// $inputPer = $input['per_id'];
+		$inputPer = $input['per_id'];
 		foreach ($inputDepartment as $key => $value) {
 			$inputDepartRegency['dep_id'] = $inputDepartment[$key];
 			$inputDepartRegency['regency_id'] = $inputRegency[$key];
 			$inputDepartRegency['user_id'] = $id;
-			DepUserRegency::create($inputDepartRegency);
+			$inputDepartRegency['permission_id'] = $inputPer[$key];
+			DepRegencyPerUser::create($inputDepartRegency);
 		}
 	}
 	public static function getDepUserRegency($id)
 	{
-		return DepUserRegency::where('user_id', $id)->get();
+		return DepRegencyPerUser::where('user_id', $id)->get();
 	}
 
 	public static function getObjectFromAuth()

@@ -61,6 +61,7 @@ class ManagementController extends AdminController {
 			$input_User = Input::only('name', 'email', 'username', 'password', 'phone','date_of_birth', 'sex', 'ethnic', 'identity_card', 'current_address', 'address','personal_file', 'medical_file', 'curriculum_vitae_file', 'degree', 'skyper', 'number_tax', 'number_insure', 'marriage', 'note', 'type_id', 'salary', 'start_time', 'end_time', 'avatar');
 			// $input_User = $input;
 			$input_User['password'] = Hash::make($input_User['password']);
+			$input_User['status'] = ASSIGN_STATUS_3;
 			$id = CommonNormal::create($input_User);
 			$input_User_file = Input::only('avatar', 'personal_file', 'medical_file', 'curriculum_vitae_file');
 			//xu ly upload file
@@ -141,7 +142,8 @@ class ManagementController extends AdminController {
 			$input_User['curriculum_vitae_file'] = CommonUser::uploadAction('curriculum_vitae_file', PROFILE.'/'.$id.'/file');
 			CommonNormal::update($id, $input_User);
 			//update phòng ban
-			User::find($id)->department()->detach();
+			// User::find($id)->department()->detach();
+			DepRegencyPerUser::where('user_id', $id)->delete();
 			CommonUser::insertDepartment($id, $input);
 			return Redirect::action('ManagementController@index') ;
 		}
@@ -156,7 +158,7 @@ class ManagementController extends AdminController {
 	 */
 	public function destroy($id)
 	{
-		User::find($id)->department()->detach();
+		DepRegencyPerUser::where('user_id', $id)->delete();
 		CommonNormal::delete($id);
 		return Redirect::action('ManagementController@index') ;
 	}
