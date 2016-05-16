@@ -40,14 +40,16 @@ class CommonNormal
 		if($name == 'resouce') {
 			return 'Resouce';
 		}
-		if($name == 'deparment') 
+		if($name == 'deparment') {
 			return 'Department';
-		if($name == 'depFunction')
+		}
+		if($name == 'depFunction') {
 			return 'DepRegencyPerFun';	
+		}
 		if($name == 'tempRole') {
 			return 'TempRole';
 		}
-		if($name == 'projects') {
+		if($name == 'project') {
 			return 'Project';
 		}
 		if($name == 'projectStatus') {

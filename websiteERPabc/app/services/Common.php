@@ -16,4 +16,21 @@ class Common {
 		$comment['status'] = $input['status'];
 		return Comment::create($comment)->id;
 	}
+	public static function getDateTimeString($datetime, $option = null)
+	{
+		if(!empty($datetime)) {
+			if($option) {
+				$date = date('d-m-Y H:i:s', strtotime($datetime));	
+			} else {
+				$date = date('d-m-Y', strtotime($datetime));
+			}
+			return $date;	
+		}
+		return '';
+	}
+	public static function checkViewSideBar()
+	{
+		
+	}
+
 }

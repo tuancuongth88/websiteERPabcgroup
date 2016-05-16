@@ -103,8 +103,13 @@ class ProjectStatusController extends AdminController {
 	 */
 	public function destroy($id)
 	{
+		$checkStatusProject = Project::where('status', $id)
+			->first();
+		if($checkStatusProject) {
+			return Redirect::action('ProjectStatusController@index')->with('error', 'Trạng thái đang được sử dụng. Không thể xóa!');	
+		}
 		CommonNormal::delete($id);
-		return Redirect::action('ProjectStatusController@index');
+		return Redirect::action('ProjectStatusController@index')->with('message', 'Đã xóa');
 	}
 
 

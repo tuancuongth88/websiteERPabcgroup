@@ -6,21 +6,24 @@ use Illuminate\Auth\Reminders\RemindableTrait;
 use Illuminate\Auth\Reminders\RemindableInterface;
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
+class TypeTask extends Eloquent {
 
-class DepRegencyPerFun extends Eloquent {
+	use SoftDeletingTrait;
+
 	/**
 	 * The database table used by the model.
 	 *
 	 * @var string
 	 */
-	protected $table = 'dep_regency_per_user';
+	protected $table = 'type_tasks';
 
-	/** 
-	 * The attributes excluded from the model's JSON form. 
+	/**
+	 * The attributes excluded from the model's JSON form.
 	 *
-	 * @var array 
+	 * @var array
 	 */
-	protected $fillable = array('dep_id', 'regency_id', 'permission_id');
-		 
+	protected $fillable = array('name', 'status');
+    protected $dates = ['deleted_at'];
+
+   
 }
-  

@@ -40,9 +40,9 @@
 							<td>{{ CommonOption::getFieldTextByModel('ProjectStatus', $value->status, 'name') }}</td>
 							<td>
 								<a href="{{ action('ProjectController@edit', $value->id) }}" class="btn btn-primary">Sửa</a>
-								{{-- Form::open(array('method'=>'DELETE', 'action' => array('ProjectController@destroy', $value->id), 'style' => 'display: inline-block;')) --}}
-									<!-- <button class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa?');">Xóa</button> -->
-								{{-- Form::close() --}}
+								{{ Form::open(array('method'=>'DELETE', 'action' => array('ProjectController@destroy', $value->id), 'style' => 'display: inline-block;')) }}
+									<button class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa?');">Xóa</button>
+								{{ Form::close() }}
 							</td>
 						</tr>
 					@endforeach

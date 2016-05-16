@@ -27,10 +27,10 @@ class Department extends Eloquent {
     
  	public function adminfunctions()
     {
-        return $this->belongsToMany('AdminFunction', 'dep_regency_per_funs', 'dep_id', 'function_id');
+        return $this->belongsToMany('AdminFunction', 'department_function', 'dep_id', 'function_id');
     }
     public function users()
     {
-        return $this->belongsToMany('User', 'dep_user_regencies', 'dep_id', 'user_id');
+        return $this->belongsToMany('User', 'dep_regency_per_user', 'dep_id', 'user_id');
     }
 }

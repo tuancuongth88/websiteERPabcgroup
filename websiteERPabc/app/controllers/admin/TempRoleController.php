@@ -103,8 +103,13 @@ class TempRoleController extends AdminController {
 	 */
 	public function destroy($id)
 	{
+		$checkTempRoleProjectUser = ProjectUser::where('temp_role_id', $id)
+			->first();
+		if($checkTempRoleProjectUser) {
+			return Redirect::action('TempRoleController@index')->with('error', 'Vai trò đang được sử dụng. Không thể xóa!');	
+		}
 		CommonNormal::delete($id);
-		return Redirect::action('TempRoleController@index');
+		return Redirect::action('TempRoleController@index')->with('message', 'Đã xóa');
 	}
 
 

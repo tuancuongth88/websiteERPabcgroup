@@ -23,22 +23,23 @@
 					</div>
 				</div>
 			</div>
-			 {{ Form::open(array('action' => ['TaskController@comment', $task->id], 'method' => 'POST')) }}
-				<div class="box-body">
-					<div class="form-group">
-						<label>Chi tiết</label>
-						<div class="row">
-							<div class="col-sm-6">
-								{{ Form::textarea('description', '', array('class' => 'form-control', 'rows' => 5)) }}
+
+				{{ Form::open(array('action' => ['TaskController@comment', $task->id], 'method' => 'POST')) }}
+					<div class="box-body">
+						<div class="form-group">
+							<label>Chi tiết</label>
+							<div class="row">
+								<div class="col-sm-6">
+									{{ Form::textarea('description', '', array('class' => 'form-control', 'rows' => 5)) }}
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-				<div class="box-footer">
-					{{ Form::submit('Lưu lại', array('class' => 'btn btn-primary')) }}
-				</div>
-			{{ Form::close() }}
-
+					<div class="box-footer">
+						{{ Form::submit('Lưu lại', array('class' => 'btn btn-primary')) }}
+					</div>
+				{{ Form::close() }}
+				
 			@include('admin.comment.index', array('modelName' => 'Task', 'modelId' => $task->id))
 
 		</div>
