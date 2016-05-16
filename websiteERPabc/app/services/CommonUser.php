@@ -63,5 +63,13 @@ class CommonUser
 			ROLE_USER => 'Nhân viên',
 		);
 	}
+	public static function getDepartmentUser($id){
+		$department = Department::WhereIn('id', DepRegencyPerUser::where('user_id', $id)->lists('dep_id'))->get();
+		$nameDepartment = '';
+		foreach ($department as $key => $value) {
+			$nameDepartment = $nameDepartment.$value->name.'-';
+		}
+		return  $nameDepartment;
+	}
 
 }

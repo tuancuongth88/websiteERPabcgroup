@@ -162,7 +162,7 @@
 						<label for="type">Loại hợp đồng</label>
 						<div class="row">
 							<div class="col-sm-6">
-									{{ Form::select('type_id', CommonOption::getOptionAllModel('Type'), $data->type_id, array('class' => 'form-control', 'disabled')) }}
+									{{ Form::select('type_id', CommonOption::getOptionAllModel('TypeUser'), $data->type_id, array('class' => 'form-control', 'disabled')) }}
 							</div>
 						</div>
 					</div>
@@ -204,10 +204,13 @@
 										@foreach(CommonUser::getDepUserRegency($data->id) as $departmentUserKey => $values)
 										<tr id = "assignRow_{{ $departmentUserKey }}">
 											<td>
-												{{ Form::select('dep_id['.$departmentUserKey.']', CommonProject::getModelArray('Department', 'name', 'id'), $values->dep_id, array('class' => 'form-control', 'style' => 'width: 120px;','disabled')) }}
+												{{ Form::select('dep_id['.$departmentUserKey.']', [null => 'Lựa chọn'] + CommonProject::getModelArray('Department', 'name', 'id'), $values->dep_id, array('class' => 'form-control', 'style' => 'width: 120px;','disabled')) }}
 											</td>
 											<td>
-												{{ Form::select('regency_id['.$departmentUserKey.']', Regency::lists('name', 'id'), $values->regency_id, array('class' => 'form-control','style' => 'width: 120px;', 'disabled')) }}
+												{{ Form::select('regency_id['.$departmentUserKey.']', [null => 'Lựa chọn'] +Regency::lists('name', 'id'), $values->regency_id, array('class' => 'form-control','style' => 'width: 120px;', 'disabled')) }}
+											</td>
+											<td>
+												{{ Form::select('regency_id['.$departmentUserKey.']', [null => 'Lựa chọn'] + CommonOption::getPermissionArray(), $values->permission_id, array('class' => 'form-control','style' => 'width: 120px;', 'disabled')) }}
 											</td>
 										</tr>
 										@endforeach
