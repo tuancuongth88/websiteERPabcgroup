@@ -49,9 +49,9 @@ Route::group(['prefix' => 'admin'], function () {
 	Route::post('/task/assignTaskUser', 'TaskController@assignTaskUser');
 	Route::get('/task/filter/{status}', 'TaskController@filter');
 	Route::post('/task/comment/{modelId}', 'TaskController@comment');
-
 	Route::resource('/task', 'TaskController');
 
+	Route::get('/report/search', 'ReportController@search');
 	Route::post('/report/assignReportUser', 'ReportController@assignReportUser');
 	Route::resource('/report', 'ReportController');
 

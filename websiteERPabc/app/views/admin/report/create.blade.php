@@ -16,7 +16,7 @@
 			{{ Form::open(array('action' => 'ReportController@store')) }}
 				<div class="box-body">
 					<div class="form-group">
-						<label>Tên công việc</label>
+						<label>Tên báo cáo</label>
 						<div class="row">
 							<div class="col-sm-6">
 								{{ Form::text('name', null, array('class' => 'form-control')) }}
@@ -27,7 +27,7 @@
 						<label>Thể loại</label>
 						<div class="row">
 							<div class="col-sm-6">
-								{{ Form::select('project_id', TypeReport::lists('name', 'id'), null, array('class' => 'form-control')) }}
+								{{ Form::select('type_report_id', TypeReport::lists('name', 'id'), null, array('class' => 'form-control')) }}
 							</div>
 						</div>
 					</div>

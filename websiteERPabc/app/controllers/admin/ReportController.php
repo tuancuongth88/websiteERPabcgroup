@@ -10,48 +10,41 @@ class ReportController extends AdminController {
 	public function index()
 	{
 		$userId = User::getUserIdByAuth();
-		if (User::getUserIdByAuth() == ADMIN) {
+		if (User::isAdmin() == ROLE_ADMIN) {
 			$data = Report::orderBy('id', 'desc');
 			$data = $data->paginate(PAGINATE);
 		}
-		if (User::getUserIdByAuth() == USER) {
+		if (User::isAdmin() == ROLE_USER) {
 			$userReports = Report::where('user_id', $userId)->lists('id');
 			$receiverReports = ReportUser::where('receiver_id', $userId)->lists('report_id');
 			$listReports = $userReports + $receiverReports;
-			$data = Report::whereIn('id', $listReports)->get();
+			$data = Report::whereIn('id', $listReports)->paginate(PAGINATE);
 		}
-		return View::make('admin.report.index')->with(compact('data'));
-	}
-
-	public function filter($status = null)
-	{
-		$user = Auth::user()->get();
-		$data = Task::orderBy('id', 'desc');
-		if($user) {
-			$data = $data->where('user_id', $user->id);
-		}
-		switch ($status) {
-			case TASK_STATUS_1:
-				$data = $data->where('status', TASK_STATUS_1);
-				break;
-			case TASK_STATUS_2:
-				$data = $data->where('status', TASK_STATUS_2);
-				break;
-			case TASK_STATUS_3:
-				$data = $data->where('status', TASK_STATUS_3);
-				break;
-			
-			default:
-				# code...
-				break;
-		}
-		$data = $data->paginate(PAGINATE);
 		return View::make('admin.report.index')->with(compact('data'));
 	}
 
 	public function search()
 	{
-		$data = CommonTask::search();
+		$input = Input::all();
+		$data = Report::where(function ($query) use ($input)
+		{
+			if($input['name'] != '') {
+				$query = $query->where('name', 'like', '%'.$input['name'].'%');
+			}
+			if($input['start'] != '') {
+				$query = $query->where('created_at', '>=', $input['start']);
+			}
+			if($input['end'] != '') {
+				$query = $query->where('created_at', '<=', $input['end']);
+			}
+			if($input['type_report_id'] != '') {
+				$query = $query->where('type_report_id', $input['type_report_id']);
+			}
+			if($input['user_id'] != '') {
+				$query = $query->where('user_id', $input['user_id']);
+			}
+			
+		})->orderBy('name', 'asc')->paginate(PAGINATE);
 		return View::make('admin.report.index')->with(compact('data'));
 	}
 
@@ -83,29 +76,15 @@ class ReportController extends AdminController {
 			return Redirect::action('ReportController@create')
 	            ->withErrors($validator);
         } else {
-        	$user = Auth::user()->get();
-        	if($user) {
-				$userId = $user->id;
-			} else {
-				$userId = NULL;
-			}
-			$inputTask = Input::except('_token', 'user_id', 'per_id');
-			//tao moi
-			$inputTask['user_id'] = $userId;
-			$taskId = Task::create($inputTask)->id;
-			//save user
-			if(isset($input['user_id'])) {
-				$inputUser = $input['user_id'];
-				$inputPer = $input['per_id'];
-				foreach ($inputUser as $key => $value) {
-					$inputTaskUser['user_id'] = $inputUser[$key];
-					$inputTaskUser['task_id'] = $taskId;
-					$inputTaskUser['per_id'] = $inputPer[$key];
-					$inputTaskUser['status'] = ASSIGN_STATUS_3;
-					$inputTaskUser['assign_id'] = $userId;
-					TaskUser::create($inputTaskUser);
-				}
-			}
+        	$userId = User::getUserIdByAuth();
+        	$inputReport['name'] = $input['name'];
+        	$inputReport['type_report_id'] = $input['type_report_id'];
+        	$inputReport['description'] = $input['description'];
+        	$inputReport['user_id'] = $userId;
+        	$inputReport['status'] = ACTIVE;
+        	$reportId = Report::create($inputReport)->id;
+        	$report = Report::find($reportId);
+        	$report->users()->attach($input['user_id']);
 			return Redirect::action('ReportController@index')->with('message', 'Tạo mới thành công');
         }
 	}
@@ -119,9 +98,8 @@ class ReportController extends AdminController {
 	 */
 	public function show($id)
 	{
-		$task = Task::find($id);
-		// dd(1);
-		return View::make('admin.report.show')->with(compact('task'));
+		$report = Report::find($id);
+		return View::make('admin.report.show')->with(compact('report'));
 	}
 
 
@@ -133,11 +111,7 @@ class ReportController extends AdminController {
 	 */
 	public function edit($id)
 	{
-		$data = Task::find($id);
-		$taskUser = TaskUser::where('task_id', $data->id)
-						->groupBy('user_id')
-						->get();
-		return View::make('admin.report.edit')->with(compact('data', 'taskUser'));
+
 	}
 
 
@@ -149,51 +123,7 @@ class ReportController extends AdminController {
 	 */
 	public function update($id)
 	{
-		$rules = array(
-			'name' => 'required',
-		);
-		$input = Input::except('_token');
-		$validator = Validator::make($input, $rules);
-		if($validator->fails()) {
-			return Redirect::action('ReportController@edit', $id)
-	            ->withErrors($validator);
-        } else {
-        	$user = Auth::user()->get();
-        	if($user) {
-				$userId = $user->id;
-			} else {
-				$userId = NULL;
-			}
-			$inputTask = Input::except('_token', 'user_id', 'per_id');
-			//sua task
-			$task = Task::find($id);
-			$task->update(array(
-					'name' => $inputTask['name'],
-					'project_id' => $inputTask['project_id'],
-					'start' => $inputTask['start'],
-					'end' => $inputTask['end'],
-					'percent' => $inputTask['percent'],
-					'description' => $inputTask['description'],
-					'status' => $inputTask['status'],
-				));
-			//save user
-			if(isset($input['user_id'])) {
-				//xoa truoc khi cap nhat lai
-				TaskUser::where('task_id', $id)
-						->delete();
-				$inputUser = $input['user_id'];
-				$inputPer = $input['per_id'];
-				foreach ($inputUser as $key => $value) {
-					$inputTaskUser['per_id'] = $inputPer[$key];
-					$inputTaskUser['task_id'] = $id;
-					$inputTaskUser['user_id'] = $inputUser[$key];
-					$inputTaskUser['status'] = ASSIGN_STATUS_3;
-					$inputTaskUser['assign_id'] = $userId;
-					TaskUser::create($inputTaskUser);
-				}
-			}
-			return Redirect::action('ReportController@index')->with('message', 'Sửa thành công');
-        }
+		
 	}
 
 
@@ -205,9 +135,9 @@ class ReportController extends AdminController {
 	 */
 	public function destroy($id)
 	{
-		TaskUser::where('task_id', $id)
-			->delete();
-		Task::find($id)->delete();
+		$report = Report::find($id);
+		$report->users()->detach();
+		$report->delete();
 		return Redirect::action('ReportController@index')->with('message', 'Xóa thành công');
 	}
 
@@ -222,13 +152,6 @@ class ReportController extends AdminController {
 			$reportUserKey++;
 		}
 		return View::make('admin.report.assign')->with(compact('reportUserKey'));
-	}
-	public function comment($taskId)
-	{
-		$input = Input::except('_token');
-		$input['status'] = ACTIVE;
-		$commentId = Common::insertComment('Task', $taskId, $input);
-		return Redirect::action('ReportController@index');
 	}
 
 }

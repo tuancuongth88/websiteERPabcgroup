@@ -22,7 +22,7 @@
 			<div class="box-body table-responsive no-padding">
 				<table class="table table-hover">
 					<tr>
-						<!-- <th>ID</th> -->
+						<th>ID</th>
 						<th>Tên báo cáo</th>
 						<th>Thể loại</th>
 						<th>Người báo cáo</th>
@@ -30,18 +30,17 @@
 					</tr>
 					@foreach($data as $key => $value)
 						<tr>
-							<!-- <td>{{-- $value->id --}}</td> -->
+							<td>{{ $value->id }}</td>
 							<td>{{ $value->name }}</td>
-							<td>{{ $value->percent }}</td>
-							<td>{{ CommonUser::getUsernameById($value->user_id) }}</td>
-							<td>{{ CommonOption::getFieldTextByModel('Project', $value->project_id, 'name') }}</td>
-							<td>{{ CommonOption::getStatusTaskValue($value->status) }}</td>
+							<td>{{ TypeReport::find($value->type_report_id)->name }}</td>
+							<td>{{ User::find($value->user_id)->username }}</td>
 							<td>
 								<a href="{{ action('ReportController@show', $value->id) }}" class="btn btn-primary">View</a>
-								<a href="{{ action('ReportController@edit', $value->id) }}" class="btn btn-primary">Sửa</a>
+								@if(User::isAdmin() == ROLE_ADMIN)
 								{{ Form::open(array('method'=>'DELETE', 'action' => array('ReportController@destroy', $value->id), 'style' => 'display: inline-block;')) }}
 									<button class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa?');">Xóa</button>
 								{{ Form::close() }}
+								@endif
 							</td>
 						</tr>
 					@endforeach

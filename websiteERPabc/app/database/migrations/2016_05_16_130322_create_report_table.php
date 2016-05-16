@@ -15,6 +15,7 @@ class CreateReportTable extends Migration {
 		Schema::create('reports', function(Blueprint $table) {
             $table->increments('id');
             $table->string('name', 256)->nullable();
+            $table->text('description', 256)->nullable();
             $table->integer('type_report_id')->nullable();
             $table->integer('user_id')->nullable();
             $table->integer('status')->nullable();

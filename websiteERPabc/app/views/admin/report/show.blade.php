@@ -7,7 +7,7 @@
 
 <div class="row margin-bottom">
 	<div class="col-xs-12">
-		<a href="{{ action('TaskController@index') }}" class="btn btn-success">Danh sách</a>
+		<a href="{{ action('ReportController@index') }}" class="btn btn-success">Danh sách</a>
 	</div>
 </div>
 <div class="row">
@@ -15,32 +15,28 @@
 		<div class="box box-primary">
 			<div class="box-body">
 				<div class="form-group">
-					<label>Tên task</label>
+					<label>Tên báo cáo</label>
 					<div class="row">
 						<div class="col-sm-6">
-							{{ $task->name }}
+							{{ $report->name }}
 						</div>
 					</div>
 				</div>
 			</div>
-
-				{{ Form::open(array('action' => ['TaskController@comment', $task->id], 'method' => 'POST')) }}
-					<div class="box-body">
-						<div class="form-group">
-							<label>Chi tiết</label>
-							<div class="row">
-								<div class="col-sm-6">
-									{{ Form::textarea('description', '', array('class' => 'form-control', 'rows' => 5)) }}
-								</div>
-							</div>
+			<div class="box-body">
+				<div class="form-group">
+					<label>Nội dung</label>
+					<div class="row">
+						<div class="col-sm-6">
+							{{ $report->description }}
 						</div>
 					</div>
-					<div class="box-footer">
-						{{ Form::submit('Lưu lại', array('class' => 'btn btn-primary')) }}
-					</div>
-				{{ Form::close() }}
-				
-			@include('admin.comment.index', array('modelName' => 'Task', 'modelId' => $task->id))
+				</div>
+			</div>
+			<div class="box-footer">
+				<a href="{{ action('ReportController@index') }}" class="btn btn-primary">Quay lại</a>
+			</div>
+			@include('admin.comment.index', array('modelName' => 'Task', 'modelId' => $report->id))
 
 		</div>
 	</div>
