@@ -37,8 +37,8 @@
 							<!-- <td>{{-- $value->id --}}</td> -->
 							<td>{{ $value->name }}</td>
 							<td>{{ $value->percent }}</td>
-							<td>{{ date('d-m-Y', strtotime($value->start)) }}</td>
-							<td>{{ date('d-m-Y', strtotime($value->end)) }}</td>
+							<td>{{ Common::getDateTimeString($value->start) }}</td>
+							<td>{{ Common::getDateTimeString($value->end) }}</td>
 							<td>{{ CommonUser::getUsernameById($value->user_id) }}</td>
 							<td>{{ CommonOption::getFieldTextByModel('Project', $value->project_id, 'name') }}</td>
 							<td>{{ CommonOption::getStatusTaskValue($value->status) }}</td>
