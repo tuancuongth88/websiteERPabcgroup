@@ -20,27 +20,7 @@ class TaskController extends AdminController {
 
 	public function filter($status = null)
 	{
-		$user = Auth::user()->get();
-		$data = Task::orderBy('id', 'desc');
-		if($user) {
-			$data = $data->where('user_id', $user->id);
-		}
-		switch ($status) {
-			case TASK_STATUS_1:
-				$data = $data->where('status', TASK_STATUS_1);
-				break;
-			case TASK_STATUS_2:
-				$data = $data->where('status', TASK_STATUS_2);
-				break;
-			case TASK_STATUS_3:
-				$data = $data->where('status', TASK_STATUS_3);
-				break;
-			
-			default:
-				# code...
-				break;
-		}
-		$data = $data->paginate(PAGINATE);
+		$data = CommonTask::filterTask($status, 1);
 		return View::make('admin.task.index')->with(compact('data'));
 	}
 
@@ -200,8 +180,11 @@ class TaskController extends AdminController {
 	 */
 	public function destroy($id)
 	{
-		TaskUser::where('task_id', $id)
-			->delete();
+		$checkTaskUser = TaskUser::where('task_id', $id)
+			->first();
+		if($checkTaskUser) {
+			return Redirect::action('TaskController@index')->with('error', 'Công việc đang thực hiện. Không thể xóa!');
+		}
 		Task::find($id)->delete();
 		return Redirect::action('TaskController@index')->with('message', 'Xóa thành công');
 	}
@@ -224,5 +207,24 @@ class TaskController extends AdminController {
 		$commentId = Common::insertComment('Task', $taskId, $input);
 		return Redirect::action('TaskController@index');
 	}
+	public function accept($id)
+	{
+		$task = Task::find($id);
+		if($task) {
+			$task->update(['status' => ASSIGN_STATUS_1]);
+		}
+		$url = Request::url();
+		return Redirect::to($url);
+	}
+	public function refuse($id)
+	{
+		$task = Task::find($id);
+		if($task) {
+			$task->update(['status' => ASSIGN_STATUS_2]);
+		}
+		$url = Request::url();
+		return Redirect::to($url);
+	}
+
 
 }

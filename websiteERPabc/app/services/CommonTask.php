@@ -56,4 +56,34 @@ class CommonTask {
 		return $data;
 	}
 
+	public static function filterTask($status, $paginate = null)
+	{
+		$user = Auth::user()->get();
+		$data = Task::orderBy('id', 'desc');
+		if($user) {
+			$data = $data->where('user_id', $user->id);
+		}
+		switch ($status) {
+			case TASK_STATUS_1:
+				$data = $data->where('status', TASK_STATUS_1);
+				break;
+			case TASK_STATUS_2:
+				$data = $data->where('status', TASK_STATUS_2);
+				break;
+			case TASK_STATUS_3:
+				$data = $data->where('status', TASK_STATUS_3);
+				break;
+			
+			default:
+				# code...
+				break;
+		}
+		if($paginate) {
+			$data = $data->paginate(PAGINATE);	
+		} else {
+			$data = $data->get();			
+		}
+		return $data;
+	}
+
 }

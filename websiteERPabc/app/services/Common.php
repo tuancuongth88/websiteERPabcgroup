@@ -46,5 +46,17 @@ class Common {
 		}
 		return false;
 	}
+	public static function checkModelUserStatus($model1, $model2, $relateField, $userId, $status)
+	{
+		$data = DB::table($model1)->join($model2, $model2.'.'.$relateField, '=', $model1.'.id')
+			->select($model1.'.*')
+			->where($model2.'.user_id', $userId)
+			->where($model2.'.status', $status)
+			->get();
+		if($data) {
+			return $data;
+		}
+		return null;
+	}
 
 }
