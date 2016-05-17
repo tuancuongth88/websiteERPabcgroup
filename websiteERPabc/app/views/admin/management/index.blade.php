@@ -9,7 +9,7 @@
 	<div class="col-xs-12">
 		<a href="{{ action('ManagementController@create') }}" class="btn btn-primary">Thêm tài khoản nhân viên</a>
 		@if(User::isAdmin() == ROLE_ADMIN)
-			<a href="{{ action('ManagementController@create') }}" class="btn btn-primary">Thêm tài khoản Admin</a>
+			<a href="{{  action('ManagementController@createadmin') }}" class="btn btn-primary">Thêm tài khoản Admin</a>
 		@endif
 	</div>
 </div>

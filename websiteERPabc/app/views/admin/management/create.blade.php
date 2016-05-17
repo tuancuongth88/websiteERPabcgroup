@@ -29,16 +29,6 @@
 							</div>
 						</div>
 					</div>
-					@if(User::isAdmin())
-					<div class="form-group">
-						<label for="address">Loại tài khoản</label>
-						<div class="row">
-							<div class="col-sm-6">
-								{{ Form::select('role_id', [null => 'Lựa chọn'] +  CommonUser::getOptionRole(), null, array('class' => 'form-control')) }}
-							</div>
-						</div>
-					</div>
-					@endif
 					<div class="form-group">
 						<div class="row">
 							<div class="col-sm-3">
