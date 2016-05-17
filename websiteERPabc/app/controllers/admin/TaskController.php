@@ -9,16 +9,19 @@ class TaskController extends AdminController {
 	 */
 	public function index()
 	{
-		$userId = CommonUser::getUserId();
+		$user = Auth::user()->get();
 		$data = Task::join('task_users', 'task_users.task_id', '=', 'tasks.id')
-			->select('tasks.*');
-		if($userId) {
-			$data = $data->where('tasks.user_id', $userId);
-			$data = $data->where('task_users.user_id', $userId);
-			$data = $data->where('task_users.assign_id', $userId);
+			->select('tasks.*', 'task_users.status as task_users_status')
+			->where('task_users.status', '!=', ASSIGN_STATUS_2);
+		if($user) {
+			if($user->role_id != ROLE_ADMIN) {
+				$data = $data->where('tasks.user_id', $user->id);
+				$data = $data->orWhere('task_users.user_id', $user->id);
+				$data = $data->orWhere('task_users.assign_id', $user->id);
+			}
 		}
-		$data = $data->orderBy('tasks.id', 'desc')
-		 			->paginate(PAGINATE);
+		$data = $data->distinct()->groupBy('tasks.id')
+			->orderBy('tasks.id', 'desc')->paginate(PAGINATE);
 		return View::make('admin.task.index')->with(compact('data'));
 	}
 
@@ -75,8 +78,12 @@ class TaskController extends AdminController {
 					$inputTaskUser['user_id'] = $inputUser[$key];
 					$inputTaskUser['task_id'] = $taskId;
 					$inputTaskUser['per_id'] = $inputPer[$key];
-					$inputTaskUser['status'] = ASSIGN_STATUS_3;
 					$inputTaskUser['assign_id'] = $userId;
+					if($inputUser[$key] == $userId) {
+						$inputTaskUser['status'] = ASSIGN_STATUS_1;	
+					} else {
+						$inputTaskUser['status'] = ASSIGN_STATUS_3;
+					}
 					TaskUser::create($inputTaskUser);
 				}
 			}
@@ -153,11 +160,15 @@ class TaskController extends AdminController {
 				$inputUser = $input['user_id'];
 				$inputPer = $input['per_id'];
 				foreach ($inputUser as $key => $value) {
-					$inputTaskUser['per_id'] = $inputPer[$key];
-					$inputTaskUser['task_id'] = $id;
 					$inputTaskUser['user_id'] = $inputUser[$key];
-					$inputTaskUser['status'] = ASSIGN_STATUS_3;
+					$inputTaskUser['task_id'] = $id;
+					$inputTaskUser['per_id'] = $inputPer[$key];
 					$inputTaskUser['assign_id'] = $userId;
+					if($inputUser[$key] == $userId) {
+						$inputTaskUser['status'] = ASSIGN_STATUS_1;	
+					} else {
+						$inputTaskUser['status'] = ASSIGN_STATUS_3;
+					}
 					TaskUser::create($inputTaskUser);
 				}
 			}

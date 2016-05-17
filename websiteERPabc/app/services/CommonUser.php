@@ -82,5 +82,15 @@ class CommonUser
 		}
 		return $userId;
 	}
+	public static function getUserRole()
+	{
+		$user = Auth::user()->get();
+    	if($user) {
+			$userRole = $user->role_id;
+		} else {
+			$userRole = NULL;
+		}
+		return $userRole;	
+	}
 
 }
