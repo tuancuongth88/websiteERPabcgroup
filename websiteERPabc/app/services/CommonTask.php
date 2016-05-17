@@ -58,26 +58,31 @@ class CommonTask {
 
 	public static function filterTask($status, $paginate = null)
 	{
-		$user = Auth::user()->get();
-		$data = Task::orderBy('id', 'desc');
-		if($user) {
-			$data = $data->where('user_id', $user->id);
+		$userId = CommonUser::getUserId();
+		$data = Task::join('task_users', 'task_users.task_id', '=', 'tasks.id')
+			->select('tasks.*')
+			->where('task_users.status', ASSIGN_STATUS_1);
+		if($userId) {
+			$data = $data->where('tasks.user_id', $userId);
+			$data = $data->where('task_users.user_id', $userId);
+			$data = $data->where('task_users.assign_id', $userId);
 		}
 		switch ($status) {
 			case TASK_STATUS_1:
-				$data = $data->where('status', TASK_STATUS_1);
+				$data = $data->where('tasks.status', TASK_STATUS_1);
 				break;
 			case TASK_STATUS_2:
-				$data = $data->where('status', TASK_STATUS_2);
+				$data = $data->where('tasks.status', TASK_STATUS_2);
 				break;
 			case TASK_STATUS_3:
-				$data = $data->where('status', TASK_STATUS_3);
+				$data = $data->where('tasks.status', TASK_STATUS_3);
 				break;
 			
 			default:
 				# code...
 				break;
 		}
+		$data = $data->orderBy('tasks.id', 'desc');
 		if($paginate) {
 			$data = $data->paginate(PAGINATE);	
 		} else {

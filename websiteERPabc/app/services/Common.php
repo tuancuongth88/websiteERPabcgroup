@@ -49,7 +49,7 @@ class Common {
 		}
 		return false;
 	}
-	public static function checkModelUserStatus($model1, $model2, $relateField, $userId, $status)
+	public static function getModelUserStatus($model1, $model2, $relateField, $userId, $status)
 	{
 		$data = DB::table($model1)->join($model2, $model2.'.'.$relateField, '=', $model1.'.id')
 			->select($model1.'.*')

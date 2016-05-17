@@ -9,12 +9,16 @@ class TaskController extends AdminController {
 	 */
 	public function index()
 	{
-		$user = Auth::user()->get();
-		$data = Task::orderBy('id', 'desc');
-		if($user) {
-			$data = $data->where('user_id', $user->id);
+		$userId = CommonUser::getUserId();
+		$data = Task::join('task_users', 'task_users.task_id', '=', 'tasks.id')
+			->select('tasks.*');
+		if($userId) {
+			$data = $data->where('tasks.user_id', $userId);
+			$data = $data->where('task_users.user_id', $userId);
+			$data = $data->where('task_users.assign_id', $userId);
 		}
-		$data = $data->paginate(PAGINATE);
+		$data = $data->orderBy('tasks.id', 'desc')
+		 			->paginate(PAGINATE);
 		return View::make('admin.task.index')->with(compact('data'));
 	}
 
@@ -58,12 +62,7 @@ class TaskController extends AdminController {
 			return Redirect::action('TaskController@create')
 	            ->withErrors($validator);
         } else {
-        	$user = Auth::user()->get();
-        	if($user) {
-				$userId = $user->id;
-			} else {
-				$userId = NULL;
-			}
+        	$userId = CommonUser::getUserId();
 			$inputTask = Input::except('_token', 'user_id', 'per_id');
 			//tao moi
 			$inputTask['user_id'] = $userId;
@@ -133,12 +132,7 @@ class TaskController extends AdminController {
 			return Redirect::action('TaskController@edit', $id)
 	            ->withErrors($validator);
         } else {
-        	$user = Auth::user()->get();
-        	if($user) {
-				$userId = $user->id;
-			} else {
-				$userId = NULL;
-			}
+        	$userId = CommonUser::getUserId();
 			$inputTask = Input::except('_token', 'user_id', 'per_id');
 			//sua task
 			$task = Task::find($id);
@@ -209,20 +203,26 @@ class TaskController extends AdminController {
 	}
 	public function accept($id)
 	{
-		$task = Task::find($id);
+		$userId = CommonUser::getUserId();
+		$task = TaskUser::where('task_id', $id)
+			->where('user_id', $userId)
+			->first();
 		if($task) {
 			$task->update(['status' => ASSIGN_STATUS_1]);
 		}
-		$url = Request::url();
+		$url = $_SERVER['HTTP_REFERER'];
 		return Redirect::to($url);
 	}
 	public function refuse($id)
 	{
-		$task = Task::find($id);
+		$userId = CommonUser::getUserId();
+		$task = TaskUser::where('task_id', $id)
+			->where('user_id', $userId)
+			->first();
 		if($task) {
 			$task->update(['status' => ASSIGN_STATUS_2]);
 		}
-		$url = Request::url();
+		$url = $_SERVER['HTTP_REFERER'];
 		return Redirect::to($url);
 	}
 

@@ -9,18 +9,13 @@ class DashboardController extends AdminController {
 	 */
 	public function index()
 	{
-		$user = Auth::user()->get();
-		if($user) {
-			$userId = $user->id;
-		} else {
-			$userId = NULL;
-		}
+		$userId = CommonUser::getUserId();
 		//task cong viec dang lam
 		$task = CommonTask::filterTask(TASK_STATUS_1);
 		//task duoc assign, cho dong y
-		$taskAssign = Common::checkModelUserStatus('tasks', 'task_users', 'task_id', $userId, ASSIGN_STATUS_3);
+		$taskAssign = Common::getModelUserStatus('tasks', 'task_users', 'task_id', $userId, ASSIGN_STATUS_3);
 		//project duoc assign, cho dong y
-		$projectAssign = Common::checkModelUserStatus('projects', 'project_users', 'project_id', $userId, ASSIGN_STATUS_3);
+		$projectAssign = Common::getModelUserStatus('projects', 'project_users', 'project_id', $userId, ASSIGN_STATUS_3);
 		return View::make('admin.dashboard.index')->with(compact('task', 'taskAssign', 'projectAssign'));
 	}
 

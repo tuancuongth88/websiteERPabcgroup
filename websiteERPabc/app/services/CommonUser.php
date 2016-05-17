@@ -72,5 +72,15 @@ class CommonUser
 		}
 		return  $nameDepartment;
 	}
+	public static function getUserId()
+	{
+		$user = Auth::user()->get();
+    	if($user) {
+			$userId = $user->id;
+		} else {
+			$userId = NULL;
+		}
+		return $userId;
+	}
 
 }

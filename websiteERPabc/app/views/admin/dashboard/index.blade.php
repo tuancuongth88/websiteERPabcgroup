@@ -26,7 +26,7 @@
 						<th>Dự án</th>
 						<th>Action</th>
 					</tr>
-					@foreach($task as $key => $value)
+					@foreach($taskAssign as $key => $value)
 						<tr>
 							<!-- <td>{{-- $value->id --}}</td> -->
 							<td>{{ $value->name }}</td>

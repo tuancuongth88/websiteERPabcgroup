@@ -47,12 +47,7 @@ class ProjectController extends AdminController {
 			return Redirect::action('ProjectController@create')
 	            ->withErrors($validator);
         } else {
-        	$user = Auth::user()->get();
-        	if($user) {
-				$userId = $user->id;
-			} else {
-				$userId = NULL;
-			}
+        	$userId = CommonUser::getUserId();
 			$inputProject = Input::except('_token', 'user_id', 'temp_role_id', 'per_id');
 			//tao moi project
 			$inputProject['user_id'] = $userId;
@@ -122,12 +117,7 @@ class ProjectController extends AdminController {
 			return Redirect::action('ProjectController@edit', $id)
 	            ->withErrors($validator);
         } else {
-        	$user = Auth::user()->get();
-        	if($user) {
-				$userId = $user->id;
-			} else {
-				$userId = NULL;
-			}
+        	$userId = CommonUser::getUserId();
 			$inputProject = Input::except('_token', 'user_id', 'temp_role_id', 'per_id');
 			//sua project
 			$project = Project::find($id);
