@@ -36,7 +36,6 @@
 			<div class="box-footer">
 				<a href="{{ action('ReportController@index') }}" class="btn btn-primary">Quay lại</a>
 			</div>
-			@include('admin.comment.index', array('modelName' => 'Task', 'modelId' => $report->id))
 
 		</div>
 	</div>

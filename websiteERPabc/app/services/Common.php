@@ -49,5 +49,43 @@ class Common {
 		}
 		return false;
 	}
+	public static function getModelUserStatus($model1, $model2, $relateField, $userId, $status)
+	{
+		$data = DB::table($model1)->join($model2, $model2.'.'.$relateField, '=', $model1.'.id')
+			->select($model1.'.*')
+			->where($model2.'.user_id', $userId)
+			->where($model2.'.status', $status)
+			->get();
+		if($data) {
+			return $data;
+		}
+		return null;
+	}
+	public static function checkModelUserFunction($modelName, $modelId, $field)
+	{
+		$user = Auth::user()->get();
+		if($user) {
+			if($user->role_id == ROLE_ADMIN) {
+				return true;
+			}
+			$data = $modelName::where($field, $modelId)
+				->where('user_id', $user->id)
+				->where('status', ASSIGN_STATUS_1)
+				->first();
+			if($data) {
+				$perId = $data->per_id;
+				if($perId == PERMISSION_1) {
+					return true;
+				} else {
+					return false;
+				}
+			}
+		}
+		return false;
+	}
+	public static function checkModelUserStatus($modelName, $modelId, $field)
+	{
+		//
+	}
 
 }

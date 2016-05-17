@@ -24,14 +24,25 @@
 								{{ Form::text('username', $data->username, array('class'=> 'form-control', 'id'=> 'username', 'placeholder'=> 'Tên tài khoản'))}}
 							</div>
 					</div>
-					<div class="form-group">
-						<label for="role_id">Loại tài khoản</label>
-						<div class="row">
-							<div class="col-sm-6">
-								{{ Form::select('role_id', [null => 'Lựa chọn'] +  CommonUser::getOptionRole(), $data->role_id, array('class' => 'form-control')) }}
+					@if(User::isAdmin())
+						<div class="form-group">
+							<label for="role_id">Loại tài khoản</label>
+							<div class="row">
+								<div class="col-sm-6">
+									{{ Form::select('role_id', [null => 'Lựa chọn'] +  CommonUser::getOptionRole(), $data->role_id, array('class' => 'form-control')) }}
+								</div>
 							</div>
 						</div>
-					</div>
+					@else
+						<div class="form-group">
+							<label for="role_id">Loại tài khoản</label>
+							<div class="row">
+								<div class="col-sm-6">
+									{{ Form::select('role_id', [null => 'Lựa chọn'] +  CommonUser::getOptionRole(), $data->role_id, array('class' => 'form-control', 'disabled')) }}
+								</div>
+							</div>
+						</div>
+					@endif
 					<div class="form-group">
 						<div class="row">
 							<div class="col-sm-3">
@@ -60,7 +71,7 @@
 								{{ Form::text('ethnic', $data->ethnic, array('class'=> 'form-control', 'id'=> 'name', 'placeholder'=> 'Dân tộc'))}}
 							</div>
 							<div class="col-sm-3">
-								<label for="name">Giới tinh</label><br>
+								<label for="name">Giới tính</label><br>
 								{{ Form::radio('sex', SEX_MALE, $data->sex == SEX_MALE ? true : false)}} Nam
 								{{ Form::radio('sex', SEX_FEMALE, $data->sex == SEX_FEMALE ? true : false)}} Nữ
 								{{ Form::radio('sex', SEX_ORTHER, $data->sex == SEX_ORTHER ? true : false)}} Khác
@@ -229,26 +240,48 @@
 											<th>Quyền hạn</th>
 										</tr>
 									</thead>
+									@if(User::isAdmin() == ROLE_ADMIN)
+										<tbody id="assignBox">
+											@foreach(CommonUser::getDepUserRegency($data->id) as $departmentUserKey => $values)
+											<tr id = "assignRow_{{ $departmentUserKey }}">
+												<td>
+													{{ Form::select('dep_id['.$departmentUserKey.']', ['0' => 'lựa chọn'] + CommonProject::getModelArray('Department', 'name', 'id'), $values->dep_id, array('class' => 'form-control', 'style' => 'width: 120px;')) }}
+												</td>
+												<td>
+													{{ Form::select('regency_id['.$departmentUserKey.']', ['0' => 'lựa chọn']+ Regency::lists('name', 'id'), $values->regency_id, array('class' => 'form-control','style' => 'width: 120px;')) }}
+												</td>
+												<td>
+													{{ Form::select('per_id['.$departmentUserKey.']', CommonOption::getPermissionArray(),  $values->permission_id, array('class' => 'form-control', 'style' => 'width: 120px;')) }}
+												</td>
+												<td>
+													<a onclick="removeAssignProjectUser({{ $departmentUserKey }})" class="removeAssignBtn">Xóa</a>
+												</td>
+											</tr>
+											@endforeach
+										</tbody>
+									@else
 									<tbody id="assignBox">
-										@foreach(CommonUser::getDepUserRegency($data->id) as $departmentUserKey => $values)
-										<tr id = "assignRow_{{ $departmentUserKey }}">
-											<td>
-												{{ Form::select('dep_id['.$departmentUserKey.']', ['0' => 'lựa chọn'] + CommonProject::getModelArray('Department', 'name', 'id'), $values->dep_id, array('class' => 'form-control', 'style' => 'width: 120px;')) }}
-											</td>
-											<td>
-												{{ Form::select('regency_id['.$departmentUserKey.']', ['0' => 'lựa chọn']+ Regency::lists('name', 'id'), $values->regency_id, array('class' => 'form-control','style' => 'width: 120px;')) }}
-											</td>
-											<td>
-												{{ Form::select('per_id['.$departmentUserKey.']', CommonOption::getPermissionArray(),  $values->permission_id, array('class' => 'form-control', 'style' => 'width: 120px;')) }}
-											</td>
-											<td>
-												<a onclick="removeAssignProjectUser({{ $departmentUserKey }})" class="removeAssignBtn">Xóa</a>
-											</td>
-										</tr>
-										@endforeach
-									</tbody>
+											@foreach(CommonUser::getDepUserRegency($data->id) as $departmentUserKey => $values)
+											<tr id = "assignRow_{{ $departmentUserKey }}">
+												<td>
+													{{ Form::select('dep_id['.$departmentUserKey.']', ['0' => 'lựa chọn'] + CommonProject::getModelArray('Department', 'name', 'id'), $values->dep_id, array('class' => 'form-control', 'style' => 'width: 120px;', 'disabled')) }}
+												</td>
+												<td>
+													{{ Form::select('regency_id['.$departmentUserKey.']', ['0' => 'lựa chọn']+ Regency::lists('name', 'id'), $values->regency_id, array('class' => 'form-control','style' => 'width: 120px;', 'disabled')) }}
+												</td>
+												<td>
+													{{ Form::select('per_id['.$departmentUserKey.']', CommonOption::getPermissionArray(),  $values->permission_id, array('class' => 'form-control', 'style' => 'width: 120px;', 'disabled')) }}
+												</td>
+												<td>
+												</td>
+											</tr>
+											@endforeach
+										</tbody>
+									@endif
 								</table>
+								@if(User::isAdmin() == ROLE_ADMIN)
 								<a onclick="assignDepartmentUser()" class="assignBtn">Thêm phòng ban</a>
+								@endif
 							</div>
 						</div>
 					</div>				

@@ -1,18 +1,22 @@
-<?php 
+<?php
 
-class AdminController extends BaseController {
-	public function __construct() 
-	{
-		$this->beforeFilter('admin', array('except'=>array('login', 'doLogin')));
-	}
+class DashboardController extends AdminController {
+
 	/**
 	 * Display a listing of the resource.
 	 *
 	 * @return Response
 	 */
-	public function index() 
+	public function index()
 	{
-		return View::make('admin.layout.login');
+		$userId = CommonUser::getUserId();
+		//task cong viec dang lam
+		$task = CommonTask::filterTask(TASK_STATUS_1);
+		//task duoc assign, cho dong y
+		$taskAssign = Common::getModelUserStatus('tasks', 'task_users', 'task_id', $userId, ASSIGN_STATUS_3);
+		//project duoc assign, cho dong y
+		$projectAssign = Common::getModelUserStatus('projects', 'project_users', 'project_id', $userId, ASSIGN_STATUS_3);
+		return View::make('admin.dashboard.index')->with(compact('task', 'taskAssign', 'projectAssign'));
 	}
 
 
@@ -84,27 +88,6 @@ class AdminController extends BaseController {
 	{
 		//
 	}
-    public function login()
-	{
-		return View::make('admin.layout.login');
-	}
-	public function doLogin()
-	{
-		$input = Input::all();
-		$user = array('username'=> $input['username'], 'password'=> $input['password']);
-		if (Auth::user()->attempt($user)) {
-			return Redirect::action('DashboardController@index');
-		}
-		else{
-			return View::make('admin.layout.login')->with(compact('message','Sai username hoặc password'));
-		}
-	}
 
-	public function logout()
-	{
-		Auth::logout();
-		Session::flush();
-		return Redirect::route('admin.login');
-	}
 
 }

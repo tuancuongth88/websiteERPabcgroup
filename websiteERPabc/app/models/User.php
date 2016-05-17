@@ -38,10 +38,27 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	}
 
 	public function role()
-    {
-        return $this->belongsTo('Role', 'role_id', 'id');
-    }
+	{
+		return $this->belongsTo('Role', 'role_id', 'id');
+	}
 
+	// public static function isAdmin(){
+	// 	$user = User::find(Auth::user()->get()->id);
+	// 	if($user->role_id == ROLE_ADMIN){
+	// 		return true;
+	// 	}
+	// 	else if($user->role_id == ROLE_USER) {
+	// 		return false;
+	// 	}
+	// 	return false;
+	// }
+	public static function getCurrentUser($id)
+	{
+		$user_id_current  = Auth::user()->get()->id;
+			if($user_id_current == $id)
+				return true;
+		return false;
+	}
     public function reports()
 	{
 		return $this->belongsToMany('Report', 'report_users', 'receiver_id', 'report_id');
@@ -68,7 +85,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
     }
 	public static function checkPermission($id)
 	{
-		if(!Admin::isAdmin()){
+		if(self::isAdmin() == ROLE_USER){
 			$user_id_current  = Auth::user()->get()->id;
 			if($user_id_current == $id)
 				return true;
@@ -76,4 +93,41 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		}
 		return true;
 	}
+	public static function checkRoleFunction($id, $model= null)
+	{
+			$listDepartment_ID = DepRegencyPerUser::where('user_id', $id)->lists('dep_id');
+			$listFunction_id = DepartmentFunction::whereIn('dep_id', $listDepartment_ID)->lists('function_id');
+			$listFunction = AdminFunction::whereIn('id', $listFunction_id)->get();
+			$function_array = array();
+			foreach ($listFunction as $key => $value) {
+				// if($value->id == QUANLYHOSOCANHAN)
+					$function_array = 	['name' => $value->name] + ['id' => $value->id];
+			}
+			return $function_array;
+	}
+	public static function getRoleUser($id, $model= null)
+	{
+		if(self::isAdmin())
+			return USER_ADMIN;
+		if(checkRoleFunction()) 
+
+		if(self::getCurrentUser($id))
+			return USER_PROFILE;
+		else 
+			return USER_ORTHER;
+	}
+	public static function checkPermissionFunction($funId)
+	{
+		// dd($funId);
+		$userId = Auth::user()->get()->id;
+		$arrayDep = DepartmentFunction::where('function_id', $funId)->lists('dep_id');
+		$check = DepRegencyPerUser::where('user_id', $userId)
+			->where('permission_id', 1)
+			->whereIn('dep_id', $arrayDep)->get();
+		if(count($check) > 0){
+			return true;
+		}
+		return false;
+	}
+		
 }

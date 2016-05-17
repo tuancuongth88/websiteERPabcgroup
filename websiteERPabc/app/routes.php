@@ -39,6 +39,8 @@ Route::group(['prefix' => 'admin'], function () {
 	//quan ly du an
 	Route::get('/project/search', 'ProjectController@search');
 	Route::post('/project/assignProjectUser', 'ProjectController@assignProjectUser');
+	Route::get('/project/accept/{id}', 'ProjectController@accept');
+	Route::get('/project/refuse/{id}', 'ProjectController@refuse');
 	Route::resource('/project', 'ProjectController');
 	//trang thai du an
 	Route::resource('/projectStatus', 'ProjectStatusController');
@@ -49,11 +51,16 @@ Route::group(['prefix' => 'admin'], function () {
 	Route::post('/task/assignTaskUser', 'TaskController@assignTaskUser');
 	Route::get('/task/filter/{status}', 'TaskController@filter');
 	Route::post('/task/comment/{modelId}', 'TaskController@comment');
+	Route::get('/task/accept/{id}', 'TaskController@accept');
+	Route::get('/task/refuse/{id}', 'TaskController@refuse');
 	Route::resource('/task', 'TaskController');
 
 	Route::get('/report/search', 'ReportController@search');
 	Route::post('/report/assignReportUser', 'ReportController@assignReportUser');
 	Route::resource('/report', 'ReportController');
+
+	Route::resource('/dashboard', 'DashboardController');
+	Route::resource('/type_report', 'TypeReportController');
 
 
 	// Route::resource('/comment', 'CommentController');

@@ -47,7 +47,7 @@
 						<div class="row">
 							<div class="col-sm-3">
 								<label for="name">Dân tộc</label>
-								{{ Form::label('ethnic',$data->ethnic, array('class'=> 'form-control'))}}
+								{{ Form::label('', $data->ethnic, array('class'=> 'form-control'))}}
 							</div>
 							<div class="col-sm-3">
 								<label for="name">Giới tinh</label><br>
@@ -61,7 +61,7 @@
 						<label for="name">Số chứng minh thư</label>
 						<div class="row">
 							<div class="col-sm-6">
-								{{ Form::label('identity_card',$data->identity_card, array('class'=> 'form-control'))}}
+								{{ Form::label('',$data->identity_card, array('class'=> 'form-control'))}}
 							</div>
 						</div>
 					</div>
@@ -69,7 +69,7 @@
 						<label for="address">Địa chỉ thường trú</label>
 						<div class="row">
 							<div class="col-sm-6">
-								{{ Form::label('address',$data->address, array('class'=> 'form-control'))}}
+								{{ Form::label('',$data->address, array('class'=> 'form-control'))}}
 							</div>
 						</div>
 					</div>
@@ -77,7 +77,7 @@
 						<div class="row">
 							<div class="col-sm-6">
 								<label for="current_address">Địa chỉ tạm trú</label>
-									{{ Form::label('current_address',$data->current_address, array('class'=> 'form-control'))}}
+									{{ Form::label('',$data->current_address, array('class'=> 'form-control'))}}
 							</div>
 						</div>
 					</div>
@@ -109,7 +109,7 @@
 						<div class="row">
 							<div class="col-sm-3">
 								<label for="degree">Bằng cấp</label>
-								{{ Form::label('degree',$data->degree, array('class'=> 'form-control'))}}
+								{{ Form::label('',$data->degree, array('class'=> 'form-control'))}}
 							</div>
 							<div class="col-sm-3">
 								<label for="email">Email</label>

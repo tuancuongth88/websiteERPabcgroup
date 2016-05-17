@@ -72,5 +72,30 @@ class CommonUser
 		}
 		return  $nameDepartment;
 	}
+	public static function getInput($input)
+	{
+		return Input::only('name', 'email', 'username', 'phone','date_of_birth', 'sex', 'ethnic', 'identity_card', 'current_address', 'address', 'degree', 'skyper', 'number_tax', 'number_insure', 'marriage', 'note', 'type_id', 'salary', 'start_time', 'end_time', 'avatar', 'role_id');
+		
+	}
+	public static function getUserId()
+	{
+		$user = Auth::user()->get();
+    	if($user) {
+			$userId = $user->id;
+		} else {
+			$userId = NULL;
+		}
+		return $userId;
+	}
+	public static function getUserRole()
+	{
+		$user = Auth::user()->get();
+    	if($user) {
+			$userRole = $user->role_id;
+		} else {
+			$userRole = NULL;
+		}
+		return $userRole;	
+	}
 
 }
