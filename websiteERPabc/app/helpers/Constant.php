@@ -51,7 +51,16 @@ define('ASSIGN_STATUS_3', 3);
 // quyen
 define('ROLE_ADMIN', 1);
 define('ROLE_USER', 2);
-//functions position
+//chuc nang
+define('QUANLYHOSOCANHAN', 1);
+define('QUANLYPROJECT', 2);
+define('QUANLYCONGVIEC', 3);
+define('QUANLYCHUCVU', 4);
+//quyen user khi dang nhap
+define('USER_ADMIN', 1);
+define('USER_FULLROLE', 2);
+define('USER_PROFILE', 3);
+define('USER_ORTHER', 4);
 define('FUNCTION_USER', 1);
 define('FUNCTION_DEPARTMENT', 2);
 define('FUNCTION_REGENCY', 3);

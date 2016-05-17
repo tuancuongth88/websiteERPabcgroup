@@ -29,6 +29,7 @@
 							</div>
 						</div>
 					</div>
+					@if(User::isAdmin())
 					<div class="form-group">
 						<label for="address">Loại tài khoản</label>
 						<div class="row">
@@ -37,6 +38,7 @@
 							</div>
 						</div>
 					</div>
+					@endif
 					<div class="form-group">
 						<div class="row">
 							<div class="col-sm-3">

@@ -50,7 +50,6 @@ class ManagementController extends AdminController {
 			'salary' => 'required',
 			'start_time' => 'required',
 			'end_time' => 'required',
-			'role_id' => 'required',
 		);
 		$input = Input::except('_token');
 		$validator = Validator::make($input,$rules);
@@ -58,10 +57,12 @@ class ManagementController extends AdminController {
 			return Redirect::action('ManagementController@create')
 				->withErrors($validator);
 		}else{
-			$input_User = Input::only('name', 'email', 'username', 'password', 'phone','date_of_birth', 'sex', 'ethnic', 'identity_card', 'current_address', 'address','personal_file', 'medical_file', 'curriculum_vitae_file', 'degree', 'skyper', 'number_tax', 'number_insure', 'marriage', 'note', 'type_id', 'salary', 'start_time', 'end_time', 'avatar', 'role_id');
+			$input_User = CommonUser::getInput($input);
 			// $input_User = $input;
 			$input_User['password'] = Hash::make($input_User['password']);
 			$input_User['status'] = ASSIGN_STATUS_3;
+			if(!User::isAdmin())
+				$input_User['role_id'] = ROLE_USER;
 			$id = CommonNormal::create($input_User);
 			$input_User_file = Input::only('avatar', 'personal_file', 'medical_file', 'curriculum_vitae_file');
 			//xu ly upload file
@@ -117,20 +118,6 @@ class ManagementController extends AdminController {
 		$rules = array(
 			'name' => 'required',
 			'email' => 'required|email',
-			'username' => 'required',
-			'phone' => 'required',
-			'date_of_birth' => 'required',
-			'sex' => 'required',
-			'ethnic' => 'required',
-			'identity_card' => 'required',
-			'current_address' => 'required',
-			'address' => 'required',
-			'degree' => 'required',
-			'marriage' => 'required',
-			'salary' => 'required',
-			'start_time' => 'required',
-			'end_time' => 'required',
-			'role_id' => 'required',
 		);
 		$input = Input::except('_token');
 
@@ -139,7 +126,7 @@ class ManagementController extends AdminController {
 			return Redirect::action('ManagementController@edit', $id)
 				->withErrors($validator);
 		}else{
-			$input_User = Input::only('name', 'email', 'username', 'phone','date_of_birth', 'sex', 'ethnic', 'identity_card', 'current_address', 'address', 'degree', 'skyper', 'number_tax', 'number_insure', 'marriage', 'note', 'type_id', 'salary', 'start_time', 'end_time', 'role_id');
+			$input_User = CommonUser::getInput($input);
 			$input_User_file = Input::only('avatar', 'personal_file', 'medical_file', 'curriculum_vitae_file');
 			//xu ly upload file
 			//upload file avata

@@ -38,10 +38,29 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	}
 
 	public function role()
-    {
-        return $this->belongsTo('Role', 'role_id', 'id');
-    }
+	{
+		return $this->belongsTo('Role', 'role_id', 'id');
+	}
 
+<<<<<<< HEAD
+	public static function isAdmin(){
+		$user = User::find(Auth::user()->get()->id);
+		if($user->role_id == ROLE_ADMIN){
+			return true;
+		}
+		else if($user->role_id == ROLE_USER) {
+			return false;
+		}
+		return false;
+	}
+	public static function getCurrentUser($id)
+	{
+		$user_id_current  = Auth::user()->get()->id;
+			if($user_id_current == $id)
+				return true;
+		return false;
+	}
+=======
     public function reports()
 	{
 		return $this->belongsToMany('Report', 'report_users', 'receiver_id', 'report_id');
@@ -66,14 +85,38 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
     	}
     	return null;
     }
+>>>>>>> 2e9824693c40ce0a7caa1745bd50b30734433588
 	public static function checkPermission($id)
 	{
-		if(!Admin::isAdmin()){
+		if(!User::isAdmin()){
 			$user_id_current  = Auth::user()->get()->id;
 			if($user_id_current == $id)
 				return true;
 			return false;
 		}
 		return true;
+	}
+	public static function checkRoleFunction($id, $model= null)
+	{
+			$listDepartment_ID = DepRegencyPerUser::where('user_id', $id)->lists('dep_id');
+			$listFunction_id = DepartmentFunction::whereIn('dep_id', $listDepartment_ID)->lists('function_id');
+			$listFunction = AdminFunction::whereIn('id', $listFunction_id)->get();
+			$function_array = array();
+			foreach ($listFunction as $key => $value) {
+				// if($value->id == QUANLYHOSOCANHAN)
+					$function_array = 	['name' => $value->name] + ['id' => $value->id];
+			}
+			return $function_array;
+	}
+	public static function getRoleUser($id, $model= null)
+	{
+		if(self::isAdmin())
+			return USER_ADMIN;
+		if(checkRoleFunction()) 
+
+		if(self::getCurrentUser($id))
+			return USER_PROFILE;
+		else 
+			return USER_ORTHER;
 	}
 }
