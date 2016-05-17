@@ -11,7 +11,7 @@ class ProjectController extends AdminController {
 	{
 		$user = Auth::user()->get();
 		$data = Project::join('project_users', 'project_users.project_id', '=', 'projects.id')
-			->select('projects.*', 'project_users.status as project_users_status')
+			->select('projects.*')
 			->where('project_users.status', '!=', ASSIGN_STATUS_2);
 		if($user) {
 			if($user->role_id != ROLE_ADMIN) {

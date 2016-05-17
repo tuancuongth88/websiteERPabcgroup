@@ -43,12 +43,12 @@
 							<td>{{ Common::getDateTimeString($value->end) }}</td>
 							<td>{{ CommonOption::getFieldTextByModel('ProjectStatus', $value->status, 'name') }}</td>
 							<td>
-								@if($value->project_users_status == ASSIGN_STATUS_1 && Common::checkModelUserFunction('ProjectUser', $value->id, 'project_id'))
+								@if(Common::checkModelUserStatus('ProjectUser', $value->id, 'project_id') == ASSIGN_STATUS_1 && Common::checkModelUserFunction('ProjectUser', $value->id, 'project_id'))
 									<a href="{{ action('ProjectController@edit', $value->id) }}" class="btn btn-primary">Sửa</a>
 									{{ Form::open(array('method'=>'DELETE', 'action' => array('ProjectController@destroy', $value->id), 'style' => 'display: inline-block;')) }}
 										<button class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa?');">Xóa</button>
 									{{ Form::close() }}
-								@elseif($value->project_users_status == ASSIGN_STATUS_3)
+								@elseif(Common::checkModelUserStatus('ProjectUser', $value->id, 'project_id') == ASSIGN_STATUS_3)
 									<a href="{{ action('ProjectController@accept', $value->id) }}" class="btn btn-success">Đồng ý</a>
 									<a href="{{ action('ProjectController@refuse', $value->id) }}" class="btn btn-danger">Từ chối</a>
 								@endif
