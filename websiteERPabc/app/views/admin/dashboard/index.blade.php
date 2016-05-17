@@ -36,7 +36,6 @@
 							<td>{{ CommonUser::getUsernameById($value->user_id) }}</td>
 							<td>{{ CommonOption::getFieldTextByModel('Project', $value->project_id, 'name') }}</td>
 							<td>
-								<a href="{{ action('TaskController@show', $value->id) }}" class="btn btn-primary">View</a>
 								<a href="{{ action('TaskController@accept', $value->id) }}" class="btn btn-success">Đồng ý</a>
 								<a href="{{ action('TaskController@refuse', $value->id) }}" class="btn btn-danger">Từ chối</a>
 							</td>

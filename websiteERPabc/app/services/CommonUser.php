@@ -72,12 +72,10 @@ class CommonUser
 		}
 		return  $nameDepartment;
 	}
-<<<<<<< HEAD
 	public static function getInput($input)
 	{
 		return Input::only('name', 'email', 'username', 'phone','date_of_birth', 'sex', 'ethnic', 'identity_card', 'current_address', 'address', 'degree', 'skyper', 'number_tax', 'number_insure', 'marriage', 'note', 'type_id', 'salary', 'start_time', 'end_time', 'avatar', 'role_id');
-		
-=======
+	}
 	public static function getUserId()
 	{
 		$user = Auth::user()->get();
@@ -97,7 +95,6 @@ class CommonUser
 			$userRole = NULL;
 		}
 		return $userRole;	
->>>>>>> 2e9824693c40ce0a7caa1745bd50b30734433588
 	}
 
 }
