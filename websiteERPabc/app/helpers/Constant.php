@@ -61,6 +61,7 @@ define('USER_ADMIN', 1);
 define('USER_FULLROLE', 2);
 define('USER_PROFILE', 3);
 define('USER_ORTHER', 4);
+//functions position
 define('FUNCTION_USER', 1);
 define('FUNCTION_DEPARTMENT', 2);
 define('FUNCTION_REGENCY', 3);

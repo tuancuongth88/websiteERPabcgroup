@@ -5,11 +5,15 @@
 @stop
 
 @section('content')
+
+@if(User::isAdmin() == ROLE_ADMIN)
 <div class="row margin-bottom">
 	<div class="col-xs-12">
 		<a href="{{ action('TaskController@create') }}" class="btn btn-primary">Thêm mới</a>
 	</div>
 </div>
+@endif
+
 @include('admin.task.search')
 <div class="row">
 	<div class="col-xs-12">
@@ -44,7 +48,7 @@
 							<td>{{ CommonOption::getStatusTaskValue($value->status) }}</td>
 							<td>
 								<a href="{{ action('TaskController@show', $value->id) }}" class="btn btn-primary">View</a>
-								@if($value->task_users_status == ASSIGN_STATUS_1)
+								@if($value->task_users_status == ASSIGN_STATUS_1 && Common::checkModelUserFunction('TaskUser', $value->id, 'task_id'))
 									<a href="{{ action('TaskController@edit', $value->id) }}" class="btn btn-primary">Sửa</a>
 									{{ Form::open(array('method'=>'DELETE', 'action' => array('TaskController@destroy', $value->id), 'style' => 'display: inline-block;')) }}
 										<button class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa?');">Xóa</button>
