@@ -9,7 +9,19 @@ class ProjectController extends AdminController {
 	 */
 	public function index()
 	{
-		$data = Project::orderBy('id', 'desc')->paginate(PAGINATE);
+		$user = Auth::user()->get();
+		$data = Project::join('project_users', 'project_users.project_id', '=', 'projects.id')
+			->select('projects.*', 'project_users.status as project_users_status')
+			->where('project_users.status', '!=', ASSIGN_STATUS_2);
+		if($user) {
+			if($user->role_id != ROLE_ADMIN) {
+				$data = $data->where('projects.user_id', $user->id);
+				$data = $data->orWhere('project_users.user_id', $user->id);
+				$data = $data->orWhere('project_users.assign_id', $user->id);
+			}
+		}
+		$data = $data->distinct()->groupBy('projects.id')
+			->orderBy('projects.id', 'desc')->paginate(PAGINATE);
 		return View::make('admin.project.index')->with(compact('data'));
 	}
 
@@ -62,8 +74,12 @@ class ProjectController extends AdminController {
 					$inputProjectUser['temp_role_id'] = $inputTempRole[$key];
 					$inputProjectUser['project_id'] = $projectId;
 					$inputProjectUser['per_id'] = $inputPer[$key];
-					$inputProjectUser['status'] = ASSIGN_STATUS_3;
 					$inputProjectUser['assign_id'] = $userId;
+					if($inputUser[$key] == $userId) {
+						$inputProjectUser['status'] = ASSIGN_STATUS_1;	
+					} else {
+						$inputProjectUser['status'] = ASSIGN_STATUS_3;
+					}
 					ProjectUser::create($inputProjectUser);
 				}
 			}
@@ -142,8 +158,12 @@ class ProjectController extends AdminController {
 					$inputProjectUser['temp_role_id'] = $inputTempRole[$key];
 					$inputProjectUser['user_id'] = $inputUser[$key];
 					$inputProjectUser['project_id'] = $id;
-					$inputProjectUser['status'] = ASSIGN_STATUS_3;
 					$inputProjectUser['assign_id'] = $userId;
+					if($inputUser[$key] == $userId) {
+						$inputProjectUser['status'] = ASSIGN_STATUS_1;	
+					} else {
+						$inputProjectUser['status'] = ASSIGN_STATUS_3;
+					}
 					ProjectUser::create($inputProjectUser);	
 				}
 			}
@@ -181,6 +201,32 @@ class ProjectController extends AdminController {
 			$projectUserKey++;
 		}
 		return View::make('admin.project.assign')->with(compact('projectUserKey'));
+	}
+
+	public function accept($id)
+	{
+		$userId = CommonUser::getUserId();
+		$projectUser = ProjectUser::where('project_id', $id)
+			->where('user_id', $userId)
+			->first();
+		if($projectUser) {
+			$projectUser->update(['status' => ASSIGN_STATUS_1]);
+		}
+		$url = $_SERVER['HTTP_REFERER'];
+		return Redirect::to($url);
+	}
+
+	public function refuse($id)
+	{
+		$userId = CommonUser::getUserId();
+		$projectUser = ProjectUser::where('project_id', $id)
+			->where('user_id', $userId)
+			->first();
+		if($projectUser) {
+			$projectUser->update(['status' => ASSIGN_STATUS_2]);
+		}
+		$url = $_SERVER['HTTP_REFERER'];
+		return Redirect::to($url);
 	}
 
 }

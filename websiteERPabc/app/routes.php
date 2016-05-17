@@ -39,6 +39,8 @@ Route::group(['prefix' => 'admin'], function () {
 	//quan ly du an
 	Route::get('/project/search', 'ProjectController@search');
 	Route::post('/project/assignProjectUser', 'ProjectController@assignProjectUser');
+	Route::get('/project/accept/{id}', 'ProjectController@accept');
+	Route::get('/project/refuse/{id}', 'ProjectController@refuse');
 	Route::resource('/project', 'ProjectController');
 	//trang thai du an
 	Route::resource('/projectStatus', 'ProjectStatusController');
