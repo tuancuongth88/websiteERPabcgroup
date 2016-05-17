@@ -7,7 +7,10 @@
 @include('admin.management.search')
 <div class="row margin-bottom">
 	<div class="col-xs-12">
-		<a href="{{ action('ManagementController@create') }}" class="btn btn-primary">Thêm</a>
+		<a href="{{ action('ManagementController@create') }}" class="btn btn-primary">Thêm tài khoản nhân viên</a>
+		@if(User::isAdmin() == ROLE_ADMIN)
+			<a href="{{ action('ManagementController@create') }}" class="btn btn-primary">Thêm tài khoản Admin</a>
+		@endif
 	</div>
 </div>
 <div class="row">
@@ -33,9 +36,9 @@
 				<td>{{ $value->phone }}</td>
 				<td>{{ CommonUser::getDepartmentUser($value->id) }}</td>
 				<td >
-				@if(User::checkPermission($value->id))
+				@if(User::checkPermission($value->id) || User::checkPermissionFunction(FUNCTION_USER))
 					<a href="{{ action('ManagementController@edit', $value->id) }}" class="btn btn-primary">Sửa</a>
-					@if(User::isAdmin())
+					@if(User::isAdmin() == ROLE_ADMIN)
 						{{ Form::open(array('method'=>'DELETE', 'action' => array('ManagementController@destroy', $value->id), 'style' => 'display: inline-block;')) }}
 						<button class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa?');">Xóa</button>
 						{{ Form::close() }}

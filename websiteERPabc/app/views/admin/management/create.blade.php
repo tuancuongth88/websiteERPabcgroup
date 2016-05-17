@@ -233,3 +233,4 @@
 </div>
 @include('admin.management.scriptmanager')
 @stop
+

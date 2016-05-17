@@ -59,7 +59,8 @@ class ManagementController extends AdminController {
 		}else{
 			$input_User = CommonUser::getInput($input);
 			// $input_User = $input;
-			$input_User['password'] = Hash::make($input_User['password']);
+			$input_User['password'] = Hash::make($input['password']);
+			$inputUser['role_id'] = ROLE_USER;
 			$input_User['status'] = ASSIGN_STATUS_3;
 			if(!User::isAdmin())
 				$input_User['role_id'] = ROLE_USER;
