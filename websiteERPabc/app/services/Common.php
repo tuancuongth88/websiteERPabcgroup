@@ -72,7 +72,6 @@ class Common {
 				->where('user_id', $user->id)
 				->where('status', ASSIGN_STATUS_1)
 				->first();
-			dd($data->toArray());
 			if($data) {
 				$perId = $data->per_id;
 				if($perId == PERMISSION_1) {
@@ -88,6 +87,9 @@ class Common {
 	{
 		$user = Auth::user()->get();
 		if($user) {
+			if($user->role_id == ROLE_ADMIN) {
+				return ASSIGN_STATUS_1;
+			}
 			$data = $modelName::where($field, $modelId)
 				->where('user_id', $user->id)
 				->first();
