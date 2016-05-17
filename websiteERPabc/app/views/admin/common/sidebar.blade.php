@@ -5,11 +5,10 @@
 		<ul class="sidebar-menu">
 			<li class="header">Menu</li>
 
-			@if(Admin::isAdmin())
+			@if(User::isAdmin())
 				<li><a href="{{ action('ManagementController@index') }}"><i class="fa fa-user"></i> <span>Quản lý Users</span></a></li>
-			@endif
-			@if(!Admin::isAdmin())
-				<li><a href="{{ action('ManagementController@index') }}"><i class="fa fa-user"></i> <span>Danh sach nhân viên</span></a></li>
+			@else
+				<li><a href="{{ action('ManagementController@index') }}"><i class="fa fa-user"></i> <span>Danh sách nhân viên</span></a></li>
 			@endif
 
 			<li><a href="{{ action('DeparmentController@index') }}"><i class="fa fa-laptop"></i> <span>Quản lý phòng ban</span></a></li>

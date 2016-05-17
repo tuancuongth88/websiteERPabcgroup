@@ -35,9 +35,11 @@
 				<td >
 				@if(User::checkPermission($value->id))
 					<a href="{{ action('ManagementController@edit', $value->id) }}" class="btn btn-primary">Sửa</a>
-					{{ Form::open(array('method'=>'DELETE', 'action' => array('ManagementController@destroy', $value->id), 'style' => 'display: inline-block;')) }}
-					<button class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa?');">Xóa</button>
-					{{ Form::close() }}
+					@if(User::isAdmin())
+						{{ Form::open(array('method'=>'DELETE', 'action' => array('ManagementController@destroy', $value->id), 'style' => 'display: inline-block;')) }}
+						<button class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa?');">Xóa</button>
+						{{ Form::close() }}
+					@endif
 					<a href="{{ action('ManagementController@resPassword', $value->id) }}" class="btn btn-primary">Đổi mật khẩu</a>
 				@endif
 				<a href="{{ action('ManagementController@show', $value->id) }}" class="btn btn-primary">Xem</a>
