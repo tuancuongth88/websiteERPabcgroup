@@ -48,8 +48,33 @@
 			@endif
 
 			@if(count($projectAssign) > 0)
-			<div class="box-body">
-				
+			<div class="box-body table-responsive">
+				<h4>Dự án chờ đồng ý tham gia</h4>
+				<table class="table table-hover">
+					<tr>
+						<!-- <th>ID</th> -->
+						<th>Tên dự án</th>
+						<th>Tiến độ (%)</th>
+						<th>Ngày bắt đầu</th>
+						<th>Ngày kết thúc</th>
+						<th>Trạng thái</th>
+						<th>Action</th>
+					</tr>
+					@foreach($projectAssign as $key => $value)
+						<tr>
+							<!-- <td>{{-- $value->id --}}</td> -->
+							<td>{{ $value->name }}</td>
+							<td>{{ $value->percent }}</td>
+							<td>{{ date('d-m-Y', strtotime($value->start)) }}</td>
+							<td>{{ date('d-m-Y', strtotime($value->end)) }}</td>
+							<td>{{ CommonOption::getFieldTextByModel('ProjectStatus', $value->status, 'name') }}</td>
+							<td>
+								<a href="{{ action('ProjectController@accept', $value->id) }}" class="btn btn-success">Đồng ý</a>
+								<a href="{{ action('ProjectController@refuse', $value->id) }}" class="btn btn-danger">Từ chối</a>
+							</td>
+						</tr>
+					@endforeach
+				</table>
 			</div>
 			<hr />
 			@endif
