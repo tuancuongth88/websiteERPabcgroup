@@ -35,8 +35,8 @@
 							<!-- <td>{{-- $value->id --}}</td> -->
 							<td>{{ $value->name }}</td>
 							<td>{{ $value->percent }}</td>
-							<td>{{ date('d-m-Y', strtotime($value->start)) }}</td>
-							<td>{{ date('d-m-Y', strtotime($value->end)) }}</td>
+							<td>{{ Common::getDateTimeString($value->start) }}</td>
+							<td>{{ Common::getDateTimeString($value->end) }}</td>
 							<td>{{ CommonOption::getFieldTextByModel('ProjectStatus', $value->status, 'name') }}</td>
 							<td>
 								@if($value->project_users_status == ASSIGN_STATUS_1)
