@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class DropDepUserRegenciesTable extends Migration {
+class InsertProjectUserId extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,7 +12,9 @@ class DropDepUserRegenciesTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::drop('dep_user_regencies');
+		Schema::table('projects', function(Blueprint $table) {
+			$table->integer('user_id')->after('id')->nullable();
+		});
 	}
 
 	/**

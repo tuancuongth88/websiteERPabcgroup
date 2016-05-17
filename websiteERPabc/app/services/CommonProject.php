@@ -44,22 +44,41 @@ class CommonProject {
 	public static function search()
 	{
 		$input = Input::all();
-		$data = Project::where(function ($query) use ($input)
+		$data = Project::join('project_users', 'project_users.project_id', '=', 'projects.id')
+			->select('projects.*')
+			->where(function ($query) use ($input)
 		{
 			if($input['name'] != '') {
-				$query = $query->where('name', 'like', '%'.$input['name'].'%');
+				$query = $query->where('projects.name', 'like', '%'.$input['name'].'%');
 			}
 			if($input['start'] != '') {
-				$query = $query->where('start', '>=', $input['start']);
+				$query = $query->where('projects.start', '>=', $input['start']);
 			}
 			if($input['end'] != '') {
-				$query = $query->where('end', '<=', $input['end']);
+				$query = $query->where('projects.end', '<=', $input['end']);
 			}
 			if($input['status'] != '') {
-				$query = $query->where('status', $input['status']);
+				$query = $query->where('projects.status', $input['status']);
+			}
+			$user = Auth::user()->get();
+			if($user) {
+				if($user->role_id == ROLE_ADMIN) {
+					if(!empty($input['user_id'])) {
+						$query = $query->where('projects.user_id', $input['user_id']);
+					}
+					if(!empty($input['assign_id'])) {
+						$query = $query->where('projects.user_id', $input['assign_id']);
+						$query = $query->orWhere('project_users.user_id', $input['assign_id']);
+						$query = $query->orWhere('project_users.assign_id', $input['assign_id']);
+					}
+				} else {
+					$query = $query->where('projects.user_id', $user->id);
+					$query = $query->orWhere('project_users.user_id', $user->id);
+					$query = $query->orWhere('project_users.assign_id', $user->id);
+				}
 			}
 
-		})->orderBy('name', 'asc')->paginate(PAGINATE);
+		})->distinct()->orderBy('projects.name', 'asc')->paginate(PAGINATE);
 		return $data;
 	}
 

@@ -10,37 +10,24 @@ class TaskController extends AdminController {
 	public function index()
 	{
 		$user = Auth::user()->get();
-		$data = Task::orderBy('id', 'desc');
+		$data = Task::join('task_users', 'task_users.task_id', '=', 'tasks.id')
+			->select('tasks.*', 'task_users.status as task_users_status')
+			->where('task_users.status', '!=', ASSIGN_STATUS_2);
 		if($user) {
-			$data = $data->where('user_id', $user->id);
+			if($user->role_id != ROLE_ADMIN) {
+				$data = $data->where('tasks.user_id', $user->id);
+				$data = $data->orWhere('task_users.user_id', $user->id);
+				$data = $data->orWhere('task_users.assign_id', $user->id);
+			}
 		}
-		$data = $data->paginate(PAGINATE);
+		$data = $data->distinct()->groupBy('tasks.id')
+			->orderBy('tasks.id', 'desc')->paginate(PAGINATE);
 		return View::make('admin.task.index')->with(compact('data'));
 	}
 
 	public function filter($status = null)
 	{
-		$user = Auth::user()->get();
-		$data = Task::orderBy('id', 'desc');
-		if($user) {
-			$data = $data->where('user_id', $user->id);
-		}
-		switch ($status) {
-			case TASK_STATUS_1:
-				$data = $data->where('status', TASK_STATUS_1);
-				break;
-			case TASK_STATUS_2:
-				$data = $data->where('status', TASK_STATUS_2);
-				break;
-			case TASK_STATUS_3:
-				$data = $data->where('status', TASK_STATUS_3);
-				break;
-			
-			default:
-				# code...
-				break;
-		}
-		$data = $data->paginate(PAGINATE);
+		$data = CommonTask::filterTask($status, 1);
 		return View::make('admin.task.index')->with(compact('data'));
 	}
 
@@ -78,12 +65,7 @@ class TaskController extends AdminController {
 			return Redirect::action('TaskController@create')
 	            ->withErrors($validator);
         } else {
-        	$user = Auth::user()->get();
-        	if($user) {
-				$userId = $user->id;
-			} else {
-				$userId = NULL;
-			}
+        	$userId = CommonUser::getUserId();
 			$inputTask = Input::except('_token', 'user_id', 'per_id');
 			//tao moi
 			$inputTask['user_id'] = $userId;
@@ -96,8 +78,12 @@ class TaskController extends AdminController {
 					$inputTaskUser['user_id'] = $inputUser[$key];
 					$inputTaskUser['task_id'] = $taskId;
 					$inputTaskUser['per_id'] = $inputPer[$key];
-					$inputTaskUser['status'] = ASSIGN_STATUS_3;
 					$inputTaskUser['assign_id'] = $userId;
+					if($inputUser[$key] == $userId) {
+						$inputTaskUser['status'] = ASSIGN_STATUS_1;	
+					} else {
+						$inputTaskUser['status'] = ASSIGN_STATUS_3;
+					}
 					TaskUser::create($inputTaskUser);
 				}
 			}
@@ -153,12 +139,7 @@ class TaskController extends AdminController {
 			return Redirect::action('TaskController@edit', $id)
 	            ->withErrors($validator);
         } else {
-        	$user = Auth::user()->get();
-        	if($user) {
-				$userId = $user->id;
-			} else {
-				$userId = NULL;
-			}
+        	$userId = CommonUser::getUserId();
 			$inputTask = Input::except('_token', 'user_id', 'per_id');
 			//sua task
 			$task = Task::find($id);
@@ -179,11 +160,15 @@ class TaskController extends AdminController {
 				$inputUser = $input['user_id'];
 				$inputPer = $input['per_id'];
 				foreach ($inputUser as $key => $value) {
-					$inputTaskUser['per_id'] = $inputPer[$key];
-					$inputTaskUser['task_id'] = $id;
 					$inputTaskUser['user_id'] = $inputUser[$key];
-					$inputTaskUser['status'] = ASSIGN_STATUS_3;
+					$inputTaskUser['task_id'] = $id;
+					$inputTaskUser['per_id'] = $inputPer[$key];
 					$inputTaskUser['assign_id'] = $userId;
+					if($inputUser[$key] == $userId) {
+						$inputTaskUser['status'] = ASSIGN_STATUS_1;	
+					} else {
+						$inputTaskUser['status'] = ASSIGN_STATUS_3;
+					}
 					TaskUser::create($inputTaskUser);
 				}
 			}
@@ -200,8 +185,11 @@ class TaskController extends AdminController {
 	 */
 	public function destroy($id)
 	{
-		TaskUser::where('task_id', $id)
-			->delete();
+		$checkTaskUser = TaskUser::where('task_id', $id)
+			->first();
+		if($checkTaskUser) {
+			return Redirect::action('TaskController@index')->with('error', 'Công việc đang thực hiện. Không thể xóa!');
+		}
 		Task::find($id)->delete();
 		return Redirect::action('TaskController@index')->with('message', 'Xóa thành công');
 	}
@@ -224,5 +212,30 @@ class TaskController extends AdminController {
 		$commentId = Common::insertComment('Task', $taskId, $input);
 		return Redirect::action('TaskController@index');
 	}
+	public function accept($id)
+	{
+		$userId = CommonUser::getUserId();
+		$task = TaskUser::where('task_id', $id)
+			->where('user_id', $userId)
+			->first();
+		if($task) {
+			$task->update(['status' => ASSIGN_STATUS_1]);
+		}
+		$url = $_SERVER['HTTP_REFERER'];
+		return Redirect::to($url);
+	}
+	public function refuse($id)
+	{
+		$userId = CommonUser::getUserId();
+		$task = TaskUser::where('task_id', $id)
+			->where('user_id', $userId)
+			->first();
+		if($task) {
+			$task->update(['status' => ASSIGN_STATUS_2]);
+		}
+		$url = $_SERVER['HTTP_REFERER'];
+		return Redirect::to($url);
+	}
+
 
 }

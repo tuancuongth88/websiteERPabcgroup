@@ -5,15 +5,27 @@
 		<ul class="sidebar-menu">
 			<li class="header">Menu</li>
 
+<<<<<<< HEAD
 			@if(User::isAdmin())
 				<li><a href="{{ action('ManagementController@index') }}"><i class="fa fa-user"></i> <span>Quản lý Users</span></a></li>
+=======
+			<li><a href="{{ action('DashboardController@index') }}"><i class="fa fa-dashboard"></i> <span>Bảng tin</span></a></li>
+
+			@if(Common::checkUserFunction(FUNCTION_USER))
+				<li><a href="{{ action('ManagementController@index') }}"><i class="fa fa-user"></i> <span>Quản lý nhân viên</span></a></li>
+>>>>>>> 2e9824693c40ce0a7caa1745bd50b30734433588
 			@else
 				<li><a href="{{ action('ManagementController@index') }}"><i class="fa fa-user"></i> <span>Danh sách nhân viên</span></a></li>
 			@endif
 
+			<li><a href="{{ action('ReportController@index') }}"><i class="fa fa-laptop"></i> <span>Quản lý báo cáo</span></a></li>
+			@if(User::isAdmin() == ROLE_ADMIN)
+				<li><a href="{{ action('TypeReportController@index') }}"><i class="fa fa-laptop"></i> <span>Thể loại báo cáo</span></a></li>
+			@endif
 			<li><a href="{{ action('DeparmentController@index') }}"><i class="fa fa-laptop"></i> <span>Quản lý phòng ban</span></a></li>
+
 			<li><a href="{{ action('RegencyController@index') }}"><i class="fa fa-laptop"></i> <span>Quản lý chức vụ</span></a></li>
-			<li><a href="{{ action('TaskController@index') }}"><i class="fa fa-list"></i> <span>Quản lý công việc</span></a></li>
+
 			<li class="treeview">
 				<a href="#"><i class="fa fa-list"></i> <span>Quản lý công việc</span> <i class="fa fa-angle-left pull-right"></i></a>
 				<ul class="treeview-menu">
@@ -23,6 +35,7 @@
 					<li><a href="{{ action('TaskController@filter', TASK_STATUS_2) }}"><i class="fa fa-circle-o"></i> <span>Đã hoàn thành</span></a></li>
 				</ul>
 			</li>
+
 			<li class="treeview">
 				<a href="#"><i class="fa fa-laptop"></i> <span>Quản lý dự án</span> <i class="fa fa-angle-left pull-right"></i></a>
 				<ul class="treeview-menu">
@@ -31,6 +44,7 @@
 					<li><a href="{{ action('ProjectStatusController@index') }}"><i class="fa fa-circle-o"></i> <span>Quản lý trạng thái dự án</span></a></li>
 				</ul>
 			</li>
+
 		</ul>
 	</section>
 	<!-- /.sidebar -->

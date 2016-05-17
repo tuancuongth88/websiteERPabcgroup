@@ -55,6 +55,10 @@ class CommonNormal
 		if($name == 'projectStatus') {
 			return 'ProjectStatus';
 		}
+		if($name == 'task') {
+			return 'Task';
+		}
+
 	}
 
 }

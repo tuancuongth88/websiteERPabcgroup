@@ -27,7 +27,7 @@
 						<label>Ngày bắt đầu</label>
 						<div class="row">
 							<div class="col-sm-6">
-								{{ Form::text('start', $data->start, array('class' => 'form-control', 'id' => 'start_date')) }}
+								{{ Form::text('start', $data->start, array('class' => 'form-control', 'id' => 'datepickerStartdate')) }}
 							</div>
 						</div>
 					</div>
@@ -35,7 +35,7 @@
 						<label>Ngày kết thúc</label>
 						<div class="row">
 							<div class="col-sm-6">
-								{{ Form::text('end', $data->end, array('class' => 'form-control', 'id' => 'end_date')) }}
+								{{ Form::text('end', $data->end, array('class' => 'form-control', 'id' => 'datepickerEnddate')) }}
 							</div>
 						</div>
 					</div>

@@ -42,6 +42,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		return $this->belongsTo('Role', 'role_id', 'id');
 	}
 
+<<<<<<< HEAD
 	public static function isAdmin(){
 		$user = User::find(Auth::user()->get()->id);
 		if($user->role_id == ROLE_ADMIN){
@@ -59,6 +60,32 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 				return true;
 		return false;
 	}
+=======
+    public function reports()
+	{
+		return $this->belongsToMany('Report', 'report_users', 'receiver_id', 'report_id');
+	}
+
+    public static function isAdmin()
+    {
+    	$roleId = Auth::user()->get()->role_id;
+    	if ($roleId == ROLE_ADMIN) {
+    		return ROLE_ADMIN;
+    	}
+    	if ($roleId == ROLE_USER) {
+    		return ROLE_USER;
+    	}
+    	return null;
+    }
+    public static function getUserIdByAuth()
+    {
+    	$user = Auth::user()->get();
+    	if ($user) {
+    		return $user->id;
+    	}
+    	return null;
+    }
+>>>>>>> 2e9824693c40ce0a7caa1745bd50b30734433588
 	public static function checkPermission($id)
 	{
 		if(!User::isAdmin()){
