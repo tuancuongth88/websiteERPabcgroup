@@ -16,7 +16,9 @@ class DashboardController extends AdminController {
 		$taskAssign = Common::getModelUserStatus('tasks', 'task_users', 'task_id', $userId, ASSIGN_STATUS_3);
 		//project duoc assign, cho dong y
 		$projectAssign = Common::getModelUserStatus('projects', 'project_users', 'project_id', $userId, ASSIGN_STATUS_3);
-		return View::make('admin.dashboard.index')->with(compact('task', 'taskAssign', 'projectAssign'));
+		//deparement đươc assign, cho dong y
+		$depAssign = Common::getModelUserStatus('departments', 'dep_regency_per_user', 'dep_id', $userId, ASSIGN_STATUS_3);
+		return View::make('admin.dashboard.index')->with(compact('task', 'taskAssign', 'projectAssign', 'depAssign'));
 	}
 
 

@@ -237,6 +237,11 @@
 												<td>
 													<a onclick="removeAssignProjectUser({{ $departmentUserKey }})" class="removeAssignBtn">Xóa</a>
 												</td>
+												<td>
+													@if($values->status == ASSIGN_STATUS_2)
+														<label style="color: red">Tài khoản này từ chối vào phòng ban</label>
+													@endif
+												</td>
 											</tr>
 											@endforeach
 										</tbody>
@@ -254,6 +259,11 @@
 													{{ Form::select('per_id['.$departmentUserKey.']', CommonOption::getPermissionArray(),  $values->permission_id, array('class' => 'form-control', 'style' => 'width: 120px;', 'disabled')) }}
 												</td>
 												<td>
+												</td>
+												<td>
+													@if($values->status == ASSIGN_STATUS_2)
+														<label style="color: red">Tài khoản này từ chối vào phòng ban</label>
+													@endif
 												</td>
 											</tr>
 											@endforeach

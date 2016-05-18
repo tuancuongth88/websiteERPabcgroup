@@ -15,20 +15,30 @@ class CommonUser
 				return $filename;
 			}
 		}
-	//update phong ban
-	public static function insertDepartment($id, $input){
+	//insert phong ban
+	public static function insertDepartment($id, $input, $arraystatus = null, $arrayDep = null){
 		//cân phải check xem đa validate department chua. cac phòng ban có bị trùng nhau khong đã check quyền chưa
 		$inputDepartment = $input['dep_id'];
 		$inputRegency = $input['regency_id'];
 		$inputPer = $input['per_id'];
 		foreach ($inputDepartment as $key => $value) {
-			$inputDepartRegency['dep_id'] = $inputDepartment[$key];
+			$inputDepartment = $value;
+			$inputDepartRegency['dep_id'] = $value;
 			$inputDepartRegency['regency_id'] = $inputRegency[$key];
 			$inputDepartRegency['user_id'] = $id;
 			$inputDepartRegency['permission_id'] = $inputPer[$key];
+			if(is_array($arraystatus)){
+				if(in_array($inputDepartment, $arrayDep))
+					$inputDepartRegency['status'] = $arraystatus[$inputDepartment];
+				else 
+					$inputDepartRegency['status'] = ASSIGN_STATUS_3;	
+			}else{
+				$inputDepartRegency['status'] = ASSIGN_STATUS_3;
+			}
 			DepRegencyPerUser::create($inputDepartRegency);
 		}
 	}
+
 	public static function getDepUserRegency($id)
 	{
 		return DepRegencyPerUser::where('user_id', $id)->get();
@@ -53,7 +63,7 @@ class CommonUser
 	public static function checkUserIsExit($username)
 	{
 		$user = User::where('username', $username)->get();
-		if(is_array($user))
+		if(count($user))
 			return true;
 		return false;
 	}

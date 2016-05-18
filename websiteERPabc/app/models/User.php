@@ -95,17 +95,25 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	}
 
 	
-	public static function checkPermissionFunction($funId)
+	public static function checkPermissionFunction($funId, $per_id = null)
 	{
 		// dd($funId);
 		$userId = Auth::user()->get()->id;
 		$arrayDep = DepartmentFunction::where('function_id', $funId)->lists('dep_id');
 		$check = DepRegencyPerUser::where('user_id', $userId)
-			->where('permission_id', 1)
+			->where('permission_id', $per_id == PERMISSION_2 ? PERMISSION_2 : PERMISSION_1)
 			->whereIn('dep_id', $arrayDep)->get();
 		if(count($check) > 0){
 			return true;
 		}
+		return false;
+	}
+
+	public static function checkUserIsAdmin($id)
+	{
+		$user = User::find($id);
+		if($user->role_id == ROLE_ADMIN)
+			return true;
 		return false;
 	}
 		
