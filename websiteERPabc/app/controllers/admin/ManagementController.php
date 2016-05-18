@@ -62,8 +62,7 @@ class ManagementController extends AdminController {
 			$input_User['password'] = Hash::make($input['password']);
 			$inputUser['role_id'] = ROLE_USER;
 			$input_User['status'] = ASSIGN_STATUS_3;
-			if(!User::isAdmin())
-				$input_User['role_id'] = ROLE_USER;
+			$input_User['role_id'] = ROLE_USER;
 			$id = CommonNormal::create($input_User);
 			$input_User_file = Input::only('avatar', 'personal_file', 'medical_file', 'curriculum_vitae_file');
 			//xu ly upload file
@@ -216,6 +215,32 @@ class ManagementController extends AdminController {
 			$data = User::orderBy('id', 'desc')->paginate(PAGINATE);
 		}
 		return View::make('admin.management.index')->with(compact('data'));
+	}
+
+	public function createadmin()
+	{
+		return View::make('admin.management.create_admin');
+	}
+
+	public function doCreateadmin()
+	{
+		$rules = array(
+			'password'   => 'required',
+			'username' => 'required',
+		);
+		$input = Input::except('_token');
+		$validator = Validator::make($input,$rules);
+		if($validator->fails()) {
+			return Redirect::action('ManagementController@createadmin')
+				->withErrors($validator)
+				->withInput(Input::except('password'));
+		} 
+		else 
+		{
+			$input['role_id'] = ROLE_ADMIN;
+			CommonNormal::create($input);
+			return Redirect::action('ManagementController@index')->with('message', 'Thêm mới admin thành công');
+		}
 	}
 
 }
