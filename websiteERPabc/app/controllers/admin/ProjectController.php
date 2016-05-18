@@ -147,33 +147,26 @@ class ProjectController extends AdminController {
 				));
 			//save project_user
 			if(isset($input['user_id'])) {
-				$projectUserId = ProjectUser::where('project_id', $id)
-					->lists('user_id');
-				$projectUserIdStatus = ProjectUser::where('project_id', $id)
-					->lists('user_id', 'status');
+				$assignId = ProjectUser::where('project_id', $id)->first()->assign_id;
+				$listUserStatus = ProjectUser::where('project_id', $id)->lists('status', 'user_id');
 				//xoa truoc khi cap nhat lai
-				ProjectUser::where('project_id', $id)
-						->delete();
+				ProjectUser::where('project_id', $id)->delete();
 				$inputUser = $input['user_id'];
 				$inputTempRole = $input['temp_role_id'];
 				$inputPer = $input['per_id'];
 				foreach ($inputUser as $key => $value) {
-					$inputUserId = $inputUser[$key];
 					$inputProjectUser['per_id'] = $inputPer[$key];
 					$inputProjectUser['temp_role_id'] = $inputTempRole[$key];
-					$inputProjectUser['user_id'] = $inputUserId;
 					$inputProjectUser['project_id'] = $id;
-					$inputProjectUser['assign_id'] = $userId;
-					if($inputUserId == $userId) {
-						$inputProjectUser['status'] = ASSIGN_STATUS_1;	
-					} else {
-						if(in_array($inputUserId, $projectUserId)) {
-							$inputProjectUser['status'] = $projectUserIdStatus[$inputUserId];
-						} else {
-							$inputProjectUser['status'] = ASSIGN_STATUS_3;	
-						}
+					$inputProjectUser['assign_id'] = $assignId;
+					if (isset($listUserStatus[$value])) {
+						$inputProjectUser['status'] = $listUserStatus[$value];
 					}
-					ProjectUser::create($inputProjectUser);
+					else {
+						$inputProjectUser['status'] = ASSIGN_STATUS_3;
+					}
+					$inputProjectUser['user_id'] = $inputUser[$key];
+					ProjectUser::create($inputProjectUser);	
 				}
 			}
 			return Redirect::action('ProjectController@index')->with('message', 'Sửa thành công');
