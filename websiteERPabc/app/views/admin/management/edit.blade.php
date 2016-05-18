@@ -178,7 +178,7 @@
 							</div>
 						</div>
 					</div>
-					@if(Admin::isAdmin())
+					@if(User::isAdmin() == ROLE_ADMIN || User::checkPermissionFunction(FUNCTION_USER))
 					<div class="form-group">
 						<label for="type">Ngạch, bậc lương</label>
 						<div class="row">
@@ -187,7 +187,7 @@
 							</div>
 						</div>
 					</div>
-					@elseif(User::checkPermission($data->id))
+					@elseif(User::checkPermission($data->id) )
 					<div class="form-group">
 						<label for="type">Ngạch, bậc lương</label>
 						<div class="row">
@@ -221,7 +221,7 @@
 											<th>Quyền hạn</th>
 										</tr>
 									</thead>
-									@if(User::isAdmin() == ROLE_ADMIN)
+									@if(User::isAdmin() == ROLE_ADMIN || User::checkPermissionFunction(FUNCTION_USER))
 										<tbody id="assignBox">
 											@foreach(CommonUser::getDepUserRegency($data->id) as $departmentUserKey => $values)
 											<tr id = "assignRow_{{ $departmentUserKey }}">
@@ -260,7 +260,7 @@
 										</tbody>
 									@endif
 								</table>
-								@if(User::isAdmin() == ROLE_ADMIN)
+								@if(User::isAdmin() == ROLE_ADMIN || User::checkPermissionFunction(FUNCTION_USER))
 								<a onclick="assignDepartmentUser()" class="assignBtn">Thêm phòng ban</a>
 								@endif
 							</div>
