@@ -36,12 +36,12 @@ class ManagementController extends AdminController {
 		$rules = array(
 			'name' => 'required',
 			'email' => 'required|email',
-			'username' => 'required',
+			'username' => 'required|unique:users',
 			'password' => 'required',
 			'phone' => 'required',
 			'date_of_birth' => 'required',
 			'sex' => 'required',
-			'ethnic' => 'required',
+			// 'ethnic' => 'required',
 			'identity_card' => 'required',
 			'current_address' => 'required',
 			'address' => 'required',
@@ -57,9 +57,9 @@ class ManagementController extends AdminController {
 			return Redirect::action('ManagementController@create')
 				->withErrors($validator);
 		}else{
-			if(CommonUser::checkUserIsExit($input_User['username'])){
-				return Redirect::action('ManagementController@create')->with('warning', 'Tài khoản này đã tồn tại nhập tài khoản khác!');
-			}
+			// if(CommonUser::checkUserIsExit($input['username'])){
+			// 	return Redirect::action('ManagementController@create')->with('warning', 'Tài khoản này đã tồn tại nhập tài khoản khác!');
+			// }
 			$input_User = CommonUser::getInput($input);
 			// $input_User = $input;
 			$input_User['password'] = Hash::make($input['password']);
@@ -79,7 +79,9 @@ class ManagementController extends AdminController {
 			$input_User['curriculum_vitae_file'] = CommonUser::uploadAction('curriculum_vitae_file', PROFILE.'/'.$id.'/file');
 			CommonNormal::update($id, $input_User);
 			//insert phong ban
-			CommonUser::insertDepartment($id, $input, ASSIGN_STATUS_3);
+			if (isset($input['dep_id'])) {
+				CommonUser::insertDepartment($id, $input, ASSIGN_STATUS_3);
+			}
 			return Redirect::action('ManagementController@index');	
 		}
 	}
@@ -150,7 +152,9 @@ class ManagementController extends AdminController {
 			$departmentUserId = DepRegencyPerUser::where('user_id', $id)
 					->lists('dep_id');
 			DepRegencyPerUser::where('user_id', $id)->delete();
-			CommonUser::insertDepartment($id, $input, $projectDepartIDStatus, $departmentUserId);
+			if (isset($input['dep_id'])) {
+				CommonUser::insertDepartment($id, $input, $projectDepartIDStatus, $departmentUserId);
+			}
 			return Redirect::action('ManagementController@index')->with('message', 'Cập nhật tài khoản thành công') ;
 		}
 	}
