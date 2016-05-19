@@ -226,10 +226,10 @@
 											@foreach(CommonUser::getDepUserRegency($data->id) as $departmentUserKey => $values)
 											<tr id = "assignRow_{{ $departmentUserKey }}">
 												<td>
-													{{ Form::select('dep_id['.$departmentUserKey.']', ['0' => 'lựa chọn'] + CommonProject::getModelArray('Department', 'name', 'id'), $values->dep_id, array('class' => 'form-control', 'style' => 'width: 120px;')) }}
+													{{ Form::select('dep_id['.$departmentUserKey.']', CommonProject::getModelArray('Department', 'name', 'id'), $values->dep_id, array('class' => 'form-control', 'style' => 'width: 120px;')) }}
 												</td>
 												<td>
-													{{ Form::select('regency_id['.$departmentUserKey.']', ['0' => 'lựa chọn']+ Regency::lists('name', 'id'), $values->regency_id, array('class' => 'form-control','style' => 'width: 120px;')) }}
+													{{ Form::select('regency_id['.$departmentUserKey.']',  Regency::lists('name', 'id'), $values->regency_id, array('class' => 'form-control','style' => 'width: 120px;')) }}
 												</td>
 												<td>
 													{{ Form::select('per_id['.$departmentUserKey.']', CommonOption::getPermissionArray(),  $values->permission_id, array('class' => 'form-control', 'style' => 'width: 120px;')) }}
@@ -250,10 +250,10 @@
 											@foreach(CommonUser::getDepUserRegency($data->id) as $departmentUserKey => $values)
 											<tr id = "assignRow_{{ $departmentUserKey }}">
 												<td>
-													{{ Form::select('dep_id['.$departmentUserKey.']', ['0' => 'lựa chọn'] + CommonProject::getModelArray('Department', 'name', 'id'), $values->dep_id, array('class' => 'form-control', 'style' => 'width: 120px;', 'disabled')) }}
+													{{ Form::select('dep_id['.$departmentUserKey.']', CommonProject::getModelArray('Department', 'name', 'id'), $values->dep_id, array('class' => 'form-control', 'style' => 'width: 120px;', 'disabled')) }}
 												</td>
 												<td>
-													{{ Form::select('regency_id['.$departmentUserKey.']', ['0' => 'lựa chọn']+ Regency::lists('name', 'id'), $values->regency_id, array('class' => 'form-control','style' => 'width: 120px;', 'disabled')) }}
+													{{ Form::select('regency_id['.$departmentUserKey.']', Regency::lists('name', 'id'), $values->regency_id, array('class' => 'form-control','style' => 'width: 120px;', 'disabled')) }}
 												</td>
 												<td>
 													{{ Form::select('per_id['.$departmentUserKey.']', CommonOption::getPermissionArray(),  $values->permission_id, array('class' => 'form-control', 'style' => 'width: 120px;', 'disabled')) }}
