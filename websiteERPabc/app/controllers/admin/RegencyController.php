@@ -123,9 +123,16 @@ class RegencyController extends AdminController {
 	 */
 	public function destroy($id)
 	{
-		$imputUpdateDepUser = DepRegencyPerUser::where('regency_id', $id)->whereNotNull('user_id')->update(['regency_id' => null]);
-		CommonOption::deleteParent('Regency', $id);
-		CommonNormal::delete($id);
+		$countRegency = DepRegencyPerUser::where('regency_id', $id)->get();
+		if(count($countRegency) >0 )
+		{
+			return Redirect::action('RegencyController@index')->with('message', 'chức vụ này đãng có người sử dụng!') ;
+		}else
+		{
+		// $imputUpdateDepUser = DepRegencyPerUser::where('regency_id', $id)->whereNotNull('user_id')->update(['regency_id' => null]);
+			CommonOption::deleteParent('Regency', $id);
+			CommonNormal::delete($id);
+		}
 		return Redirect::action('RegencyController@index') ;
 	}
 
