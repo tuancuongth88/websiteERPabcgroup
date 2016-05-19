@@ -29,7 +29,7 @@
 					<li><a href="{{ action('TaskController@filter', TASK_STATUS_2) }}"><i class="fa fa-circle-o"></i> <span>Đã hoàn thành</span></a></li>
 				</ul>
 			</li>
-			@if(User::isAdmin() == ROLE_ADMIN || User::checkPermissionFunction(QUANLYPROJECT, PERMISSION_2))
+			@if(User::isAdmin() == ROLE_ADMIN || User::checkPermissionFunction(QUANLYPROJECT))
 				<li class="treeview">
 					<a href="#"><i class="fa fa-laptop"></i> <span>Quản lý dự án</span> <i class="fa fa-angle-left pull-right"></i></a>
 					<ul class="treeview-menu">

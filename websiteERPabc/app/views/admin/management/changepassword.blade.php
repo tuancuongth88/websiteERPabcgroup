@@ -1,6 +1,6 @@
 @extends('admin.layout.default')
 @section('title')
-{{ $title='Sửa User' }}
+{{ $title='Sửa mật khẩu' }}
 @stop
 
 @section('content')

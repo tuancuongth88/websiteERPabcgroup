@@ -34,6 +34,7 @@ class DeparmentController extends AdminController {
 	{
 		$rules = array(
 			'name' => 'required',
+			'function_id' => 'required'
 		); 
 		$input = Input::except('_token');
 		//check validation
@@ -89,8 +90,10 @@ class DeparmentController extends AdminController {
 	{
 		$rules = array(
 			'name' => 'required',
+			'function_id' => 'required'
 		);
 		$input = Input::except('_token');
+		// dd($input);
 		$validator = Validator::make($input,$rules);
 		if($validator->fails()) {
 			return Redirect::action('DeparmentController@edit', $id)
