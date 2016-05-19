@@ -57,7 +57,7 @@ class ManagementController extends AdminController {
 			return Redirect::action('ManagementController@create')
 				->withErrors($validator);
 		}else{
-			if(CommonUser::checkUserIsExit($input_User['username'])){
+			if(CommonUser::checkUserIsExit($input['username'])){
 				return Redirect::action('ManagementController@create')->with('warning', 'Tài khoản này đã tồn tại nhập tài khoản khác!');
 			}
 			$input_User = CommonUser::getInput($input);
