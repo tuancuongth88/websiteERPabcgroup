@@ -69,7 +69,10 @@ Route::group(['prefix' => 'admin'], function () {
 
 	Route::resource('/dashboard', 'DashboardController');
 	Route::resource('/type_report', 'TypeReportController');
-
+//  Quản lý thể loại nhân viên
+	Route::resource('/user_type', 'UserTypeController');
+	// Quản lý tiền lương
+	Route::resource('/salary', 'SalaryUserController');
 
 	// Route::resource('/comment', 'CommentController');
 });
