@@ -126,7 +126,7 @@ class RegencyController extends AdminController {
 		$countRegency = DepRegencyPerUser::where('regency_id', $id)->get();
 		if(count($countRegency) >0 )
 		{
-			return Redirect::action('RegencyController@index')->with('message', 'chức vụ này đãng có người sử dụng!') ;
+			return Redirect::action('RegencyController@index')->with('message', 'chức vụ này đang có người sử dụng!') ;
 		}else
 		{
 		// $imputUpdateDepUser = DepRegencyPerUser::where('regency_id', $id)->whereNotNull('user_id')->update(['regency_id' => null]);

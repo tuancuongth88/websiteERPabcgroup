@@ -5,21 +5,17 @@ class FunctionTableSeeder extends Seeder {
 	public function run()
 	{
 		AdminFunction::create([
-					'name' => 'Quản lý hồ sơ cá nhân',
-					'description'=>'Quản lý hồ sơ cá nhân',
-			]);
+			'name' => 'Quản lý nhân viên',
+		]);
 		AdminFunction::create([
-					'name' => 'Quản lý project',
-					'description'=>'quan ly du an',
-			]);
+			'name' => 'Quản lý báo cáo',
+		]);
 		AdminFunction::create([
-					'name' => 'Quản lý công việc',
-					'description'=>'quan ly work_plan',
-			]);
+			'name' => 'Quản lý công việc',
+		]);
 		AdminFunction::create([
-					'name' => 'Quản lý chức vụ',
-					'description'=>'quan ly regencies',
-			]);
+			'name' => 'Quản lý dự án',
+		]);
 	}
 
 }
