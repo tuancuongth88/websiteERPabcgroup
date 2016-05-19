@@ -20,6 +20,14 @@ Route::group(['prefix' => 'admin'], function () {
 	Route::post('/login', array('uses' => 'AdminController@doLogin'));
 	Route::get('/logout', array('uses' => 'AdminController@logout',  'as' => 'admin.logout'));
 	Route::resource('/', 'AdminController');
+
+	Route::get('/management/accept/{id}', 'ManagementController@accept');
+	Route::get('/management/refuse/{id}', 'ManagementController@refuse');
+	Route::get('/management/createadmin/', array('uses' => 'ManagementController@createadmin', 'as'  => 'createadmin'));
+	Route::post('/management/createadmin/', array('uses' => 'ManagementController@doCreateadmin'));
+	Route::get('/management/showadmin/{id}', array('uses' => 'ManagementController@showadmin', 'as'  => 'showadmin'));
+	Route::get('/management/updateadmin/{id}', array('uses' => 'ManagementController@updateadmin', 'as'  => 'updateadmin'));
+	Route::post('/management/doUpdateadmin/{id}', array('uses' => 'ManagementController@doUpdateadmin', 'as' => 'doUpdateadmin'));
 	Route::get('/management/search/', array('uses' => 'ManagementController@search'));
 	Route::get('/management/respassword/{id}', array('uses' => 'ManagementController@resPassword',  'as' => 'resPassword'));
 	Route::post('/management/updatePassword/{id}', array('uses' =>'ManagementController@updatePassword', 'as' => 'updatePassword'));

@@ -11,7 +11,7 @@ class TaskController extends AdminController {
 	{
 		$user = Auth::user()->get();
 		$data = Task::join('task_users', 'task_users.task_id', '=', 'tasks.id')
-			->select('tasks.*', 'task_users.status as task_users_status')
+			->select('tasks.*')
 			->where('task_users.status', '!=', ASSIGN_STATUS_2);
 		if($user) {
 			if($user->role_id != ROLE_ADMIN) {
@@ -154,6 +154,8 @@ class TaskController extends AdminController {
 				));
 			//save user
 			if(isset($input['user_id'])) {
+				$assignId = TaskUser::where('task_id', $id)->first()->assign_id;
+				$listUserStatus = TaskUser::where('task_id', $id)->lists('status', 'user_id');
 				//xoa truoc khi cap nhat lai
 				TaskUser::where('task_id', $id)
 						->delete();
@@ -163,10 +165,11 @@ class TaskController extends AdminController {
 					$inputTaskUser['user_id'] = $inputUser[$key];
 					$inputTaskUser['task_id'] = $id;
 					$inputTaskUser['per_id'] = $inputPer[$key];
-					$inputTaskUser['assign_id'] = $userId;
-					if($inputUser[$key] == $userId) {
-						$inputTaskUser['status'] = ASSIGN_STATUS_1;	
-					} else {
+					$inputTaskUser['assign_id'] = $assignId;
+					if (isset($listUserStatus[$value])) {
+						$inputTaskUser['status'] = $listUserStatus[$value];
+					}
+					else {
 						$inputTaskUser['status'] = ASSIGN_STATUS_3;
 					}
 					TaskUser::create($inputTaskUser);

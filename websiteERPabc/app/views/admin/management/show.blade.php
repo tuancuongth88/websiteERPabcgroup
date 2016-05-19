@@ -20,18 +20,18 @@
 						<div class="row">
 							<div class="col-sm-3">
 								<label for="username">Tài khoản</label>
-								{{ Form::label('username',$data->username, array('class'=> 'form-control'))}}
+								{{ Form::label('',$data->username, array('class'=> 'form-control'))}}
 							</div>
 					</div>
 					<div class="form-group">
 						<div class="row">
 							<div class="col-sm-3">
 								<label for="name">Tên đầy đủ</label>
-								{{ Form::label('name',$data->name, array('class'=> 'form-control'))}}
+								{{ Form::label('',$data->name, array('class'=> 'form-control'))}}
 							</div>
 							<div class="col-sm-3">
 								<label for="name">Ngày tháng năm sinh</label>
-									{{ Form::label('date_of_birth',$data->date_of_birth, array('class'=> 'form-control'))}}
+									{{ Form::label('',$data->date_of_birth, array('class'=> 'form-control'))}}
 							</div>
 						</div>
 					</div>
@@ -85,7 +85,9 @@
 						<label for="name">Sơ yếu lý lịch</label>
 						<div class="row">
 							<div class="col-sm-6">
+							@if($data->personal_file)
 								<a href="{{ url(PROFILE.'/'.$data->id.'/file'. '/' . $data->personal_file)}}">Xem file</a>
+							@endif
 							</div>
 						</div>
 					</div>
@@ -93,7 +95,9 @@
 						<label for="name">Giấy khám sức khỏe</label>
 						<div class="row">
 							<div class="col-sm-6">
+							@if($data->medical_file)
 								<a href="{{ url(PROFILE.'/'.$data->id.'/file'. '/' . $data->medical_file)}}">Xem file</a>
+							@endif
 							</div>
 						</div>
 					</div>
@@ -101,7 +105,9 @@
 						<label for="name">Hồ sơ CV</label>
 						<div class="row">
 							<div class="col-sm-6">
+							@if($data->curriculum_vitae_file)
 								<a href="{{ url(PROFILE.'/'.$data->id.'/file'. '/' . $data->curriculum_vitae_file)}}">Xem file</a>
+							@endif
 							</div>
 						</div>
 					</div>
@@ -113,7 +119,7 @@
 							</div>
 							<div class="col-sm-3">
 								<label for="email">Email</label>
-									{{ Form::label('email',$data->email, array('class'=> 'form-control'))}}
+									{{ Form::label('',$data->email, array('class'=> 'form-control'))}}
 							</div>
 						</div>
 					</div>
@@ -121,11 +127,11 @@
 						<div class="row">
 							<div class="col-sm-3">
 								<label for="phone">Số điện thoại</label>
-								{{ Form::label('phone',$data->phone, array('class'=> 'form-control'))}}
+								{{ Form::label('',$data->phone, array('class'=> 'form-control'))}}
 							</div>
 							<div class="col-sm-3">
 								<label for="skype">Skype</label>
-									{{ Form::label('skyper',$data->skyper, array('class'=> 'form-control'))}}
+									{{ Form::label('',$data->skyper, array('class'=> 'form-control'))}}
 							</div>
 						</div>
 					</div>
@@ -133,11 +139,11 @@
 						<div class="row">
 							<div class="col-sm-3">
 								<label for="number_tax">Mã số thuế</label>
-								{{ Form::label('number_tax',$data->number_tax, array('class'=> 'form-control'))}}
+								{{ Form::label('',$data->number_tax, array('class'=> 'form-control'))}}
 							</div>
 							<div class="col-sm-3">
 								<label for="number_insure">Mã số bảo hiểm</label>
-									{{ Form::label('number_insure',$data->number_insure, array('class'=> 'form-control'))}}
+									{{ Form::label('',$data->number_insure, array('class'=> 'form-control'))}}
 							</div>
 						</div>
 					</div>
@@ -154,7 +160,7 @@
 						<label for="note">Note</label>
 						<div class="row">
 							<div class="col-sm-6">
-								{{ Form::label('note',$data->note, array('class'=> 'form-control'))}}
+								{{ Form::label('',$data->note, array('class'=> 'form-control'))}}
 							</div>
 						</div>
 					</div>
@@ -171,7 +177,7 @@
 						<label for="type">Ngạch, bậc lương</label>
 						<div class="row">
 							<div class="col-sm-6">
-									{{ Form::label('salary',$data->salary, array('class'=> 'form-control'))}}
+									{{ Form::label('',$data->salary, array('class'=> 'form-control'))}}
 							</div>
 						</div>
 					</div>
@@ -180,11 +186,11 @@
 						<div class="row">
 							<div class="col-sm-3">
 								<label for="start_time">Thời gian bắt đầu</label>
-								{{ Form::label('start_time',$data->start_time, array('class'=> 'form-control'))}}
+								{{ Form::label('',$data->start_time, array('class'=> 'form-control'))}}
 							</div>
 							<div class="col-sm-3">
 								<label for="end_time">Thời gian kết thúc </label>
-									{{ Form::label('end_time',$data->end_time, array('class'=> 'form-control'))}}
+									{{ Form::label('',$data->end_time, array('class'=> 'form-control'))}}
 							</div>
 						</div>
 					</div>

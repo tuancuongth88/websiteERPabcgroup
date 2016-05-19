@@ -5,14 +5,16 @@
 
 @section('content')
 @include('admin.management.search')
-<div class="row margin-bottom">
-	<div class="col-xs-12">
-		<a href="{{ action('ManagementController@create') }}" class="btn btn-primary">Thêm tài khoản nhân viên</a>
-		@if(User::isAdmin() == ROLE_ADMIN)
-			<a href="{{ action('ManagementController@create') }}" class="btn btn-primary">Thêm tài khoản Admin</a>
-		@endif
+@if(User::isAdmin() == ROLE_ADMIN || User::checkPermissionFunction(FUNCTION_USER))
+	<div class="row margin-bottom">
+		<div class="col-xs-12">
+			<a href="{{ action('ManagementController@create') }}" class="btn btn-primary">Thêm tài khoản nhân viên</a>
+			@if(User::isAdmin() == ROLE_ADMIN)
+				<a href="{{  action('ManagementController@createadmin') }}" class="btn btn-primary">Thêm tài khoản Admin</a>
+			@endif
+		</div>
 	</div>
-</div>
+@endif
 <div class="row">
 	<div class="col-xs-12">
 	  <div class="box">
@@ -37,15 +39,25 @@
 				<td>{{ CommonUser::getDepartmentUser($value->id) }}</td>
 				<td >
 				@if(User::checkPermission($value->id) || User::checkPermissionFunction(FUNCTION_USER))
-					<a href="{{ action('ManagementController@edit', $value->id) }}" class="btn btn-primary">Sửa</a>
-					@if(User::isAdmin() == ROLE_ADMIN)
-						{{ Form::open(array('method'=>'DELETE', 'action' => array('ManagementController@destroy', $value->id), 'style' => 'display: inline-block;')) }}
-						<button class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa?');">Xóa</button>
-						{{ Form::close() }}
+					@if(!User::checkUserIsAdmin($value->id) || User::isAdmin() == ROLE_ADMIN)
+							@if(User::checkUserIsAdmin($value->id))
+								<a href="{{ action('ManagementController@updateadmin', $value->id) }}" class="btn btn-primary">Sửa</a>
+							@else
+								<a href="{{ action('ManagementController@edit', $value->id) }}" class="btn btn-primary">Sửa</a>
+							@endif
+							@if(User::isAdmin() == ROLE_ADMIN)
+								{{ Form::open(array('method'=>'DELETE', 'action' => array('ManagementController@destroy', $value->id), 'style' => 'display: inline-block;')) }}
+								<button class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa?');">Xóa</button>
+								{{ Form::close() }}
+							@endif
+							<a href="{{ action('ManagementController@resPassword', $value->id) }}" class="btn btn-primary">Đổi mật khẩu</a>
+						@endif
 					@endif
-					<a href="{{ action('ManagementController@resPassword', $value->id) }}" class="btn btn-primary">Đổi mật khẩu</a>
+				@if(User::checkUserIsAdmin($value->id))
+					<a href="{{ action('ManagementController@showadmin', $value->id) }}" class="btn btn-primary">Xem</a>
+				@else
+					<a href="{{ action('ManagementController@show', $value->id) }}" class="btn btn-primary">Xem</a>
 				@endif
-				<a href="{{ action('ManagementController@show', $value->id) }}" class="btn btn-primary">Xem</a>
 			  </td>
 			</tr>
 			@endforeach

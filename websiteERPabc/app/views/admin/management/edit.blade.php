@@ -24,25 +24,6 @@
 								{{ Form::text('username', $data->username, array('class'=> 'form-control', 'id'=> 'username', 'placeholder'=> 'Tên tài khoản'))}}
 							</div>
 					</div>
-					@if(User::isAdmin())
-						<div class="form-group">
-							<label for="role_id">Loại tài khoản</label>
-							<div class="row">
-								<div class="col-sm-6">
-									{{ Form::select('role_id', [null => 'Lựa chọn'] +  CommonUser::getOptionRole(), $data->role_id, array('class' => 'form-control')) }}
-								</div>
-							</div>
-						</div>
-					@else
-						<div class="form-group">
-							<label for="role_id">Loại tài khoản</label>
-							<div class="row">
-								<div class="col-sm-6">
-									{{ Form::select('role_id', [null => 'Lựa chọn'] +  CommonUser::getOptionRole(), $data->role_id, array('class' => 'form-control', 'disabled')) }}
-								</div>
-							</div>
-						</div>
-					@endif
 					<div class="form-group">
 						<div class="row">
 							<div class="col-sm-3">
@@ -197,7 +178,7 @@
 							</div>
 						</div>
 					</div>
-					@if(Admin::isAdmin())
+					@if(User::isAdmin() == ROLE_ADMIN || User::checkPermissionFunction(FUNCTION_USER))
 					<div class="form-group">
 						<label for="type">Ngạch, bậc lương</label>
 						<div class="row">
@@ -206,7 +187,7 @@
 							</div>
 						</div>
 					</div>
-					@elseif(User::checkPermission($data->id))
+					@elseif(User::checkPermission($data->id) )
 					<div class="form-group">
 						<label for="type">Ngạch, bậc lương</label>
 						<div class="row">
@@ -240,7 +221,7 @@
 											<th>Quyền hạn</th>
 										</tr>
 									</thead>
-									@if(User::isAdmin() == ROLE_ADMIN)
+									@if(User::isAdmin() == ROLE_ADMIN || User::checkPermissionFunction(FUNCTION_USER))
 										<tbody id="assignBox">
 											@foreach(CommonUser::getDepUserRegency($data->id) as $departmentUserKey => $values)
 											<tr id = "assignRow_{{ $departmentUserKey }}">
@@ -255,6 +236,11 @@
 												</td>
 												<td>
 													<a onclick="removeAssignProjectUser({{ $departmentUserKey }})" class="removeAssignBtn">Xóa</a>
+												</td>
+												<td>
+													@if($values->status == ASSIGN_STATUS_2)
+														<label style="color: red">Tài khoản này từ chối vào phòng ban</label>
+													@endif
 												</td>
 											</tr>
 											@endforeach
@@ -274,12 +260,17 @@
 												</td>
 												<td>
 												</td>
+												<td>
+													@if($values->status == ASSIGN_STATUS_2)
+														<label style="color: red">Tài khoản này từ chối vào phòng ban</label>
+													@endif
+												</td>
 											</tr>
 											@endforeach
 										</tbody>
 									@endif
 								</table>
-								@if(User::isAdmin() == ROLE_ADMIN)
+								@if(User::isAdmin() == ROLE_ADMIN || User::checkPermissionFunction(FUNCTION_USER))
 								<a onclick="assignDepartmentUser()" class="assignBtn">Thêm phòng ban</a>
 								@endif
 							</div>

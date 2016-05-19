@@ -11,7 +11,7 @@ class ProjectController extends AdminController {
 	{
 		$user = Auth::user()->get();
 		$data = Project::join('project_users', 'project_users.project_id', '=', 'projects.id')
-			->select('projects.*', 'project_users.status as project_users_status')
+			->select('projects.*')
 			->where('project_users.status', '!=', ASSIGN_STATUS_2);
 		if($user) {
 			if($user->role_id != ROLE_ADMIN) {
@@ -147,23 +147,25 @@ class ProjectController extends AdminController {
 				));
 			//save project_user
 			if(isset($input['user_id'])) {
+				$assignId = ProjectUser::where('project_id', $id)->first()->assign_id;
+				$listUserStatus = ProjectUser::where('project_id', $id)->lists('status', 'user_id');
 				//xoa truoc khi cap nhat lai
-				ProjectUser::where('project_id', $id)
-						->delete();
+				ProjectUser::where('project_id', $id)->delete();
 				$inputUser = $input['user_id'];
 				$inputTempRole = $input['temp_role_id'];
 				$inputPer = $input['per_id'];
 				foreach ($inputUser as $key => $value) {
 					$inputProjectUser['per_id'] = $inputPer[$key];
 					$inputProjectUser['temp_role_id'] = $inputTempRole[$key];
-					$inputProjectUser['user_id'] = $inputUser[$key];
 					$inputProjectUser['project_id'] = $id;
-					$inputProjectUser['assign_id'] = $userId;
-					if($inputUser[$key] == $userId) {
-						$inputProjectUser['status'] = ASSIGN_STATUS_1;	
-					} else {
+					$inputProjectUser['assign_id'] = $assignId;
+					if (isset($listUserStatus[$value])) {
+						$inputProjectUser['status'] = $listUserStatus[$value];
+					}
+					else {
 						$inputProjectUser['status'] = ASSIGN_STATUS_3;
 					}
+					$inputProjectUser['user_id'] = $inputUser[$key];
 					ProjectUser::create($inputProjectUser);	
 				}
 			}

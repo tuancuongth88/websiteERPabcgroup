@@ -85,7 +85,19 @@ class Common {
 	}
 	public static function checkModelUserStatus($modelName, $modelId, $field)
 	{
-		//
+		$user = Auth::user()->get();
+		if($user) {
+			if($user->role_id == ROLE_ADMIN) {
+				return ASSIGN_STATUS_1;
+			}
+			$data = $modelName::where($field, $modelId)
+				->where('user_id', $user->id)
+				->first();
+			if($data) {
+				return $data->status;
+			}
+		}
+		return NULL;
 	}
 
 }

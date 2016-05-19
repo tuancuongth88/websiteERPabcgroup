@@ -48,12 +48,12 @@
 							<td>{{ CommonOption::getStatusTaskValue($value->status) }}</td>
 							<td>
 								<a href="{{ action('TaskController@show', $value->id) }}" class="btn btn-primary">View</a>
-								@if($value->task_users_status == ASSIGN_STATUS_1 && Common::checkModelUserFunction('TaskUser', $value->id, 'task_id'))
+								@if(Common::checkModelUserStatus('TaskUser', $value->id, 'task_id') == ASSIGN_STATUS_1 && Common::checkModelUserFunction('TaskUser', $value->id, 'task_id'))
 									<a href="{{ action('TaskController@edit', $value->id) }}" class="btn btn-primary">Sửa</a>
 									{{ Form::open(array('method'=>'DELETE', 'action' => array('TaskController@destroy', $value->id), 'style' => 'display: inline-block;')) }}
 										<button class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa?');">Xóa</button>
 									{{ Form::close() }}
-								@elseif($value->task_users_status == ASSIGN_STATUS_3)
+								@elseif(Common::checkModelUserStatus('TaskUser', $value->id, 'task_id') == ASSIGN_STATUS_3)
 									<a href="{{ action('TaskController@accept', $value->id) }}" class="btn btn-success">Đồng ý</a>
 									<a href="{{ action('TaskController@refuse', $value->id) }}" class="btn btn-danger">Từ chối</a>
 								@endif

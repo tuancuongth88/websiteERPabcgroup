@@ -57,13 +57,15 @@ class ManagementController extends AdminController {
 			return Redirect::action('ManagementController@create')
 				->withErrors($validator);
 		}else{
+			if(CommonUser::checkUserIsExit($input_User['username'])){
+				return Redirect::action('ManagementController@create')->with('warning', 'Tài khoản này đã tồn tại nhập tài khoản khác!');
+			}
 			$input_User = CommonUser::getInput($input);
 			// $input_User = $input;
 			$input_User['password'] = Hash::make($input['password']);
 			$inputUser['role_id'] = ROLE_USER;
 			$input_User['status'] = ASSIGN_STATUS_3;
-			if(!User::isAdmin())
-				$input_User['role_id'] = ROLE_USER;
+			$input_User['role_id'] = ROLE_USER;
 			$id = CommonNormal::create($input_User);
 			$input_User_file = Input::only('avatar', 'personal_file', 'medical_file', 'curriculum_vitae_file');
 			//xu ly upload file
@@ -77,7 +79,7 @@ class ManagementController extends AdminController {
 			$input_User['curriculum_vitae_file'] = CommonUser::uploadAction('curriculum_vitae_file', PROFILE.'/'.$id.'/file');
 			CommonNormal::update($id, $input_User);
 			//insert phong ban
-			CommonUser::insertDepartment($id, $input);
+			CommonUser::insertDepartment($id, $input, ASSIGN_STATUS_3);
 			return Redirect::action('ManagementController@index');	
 		}
 	}
@@ -144,8 +146,11 @@ class ManagementController extends AdminController {
 			$input_User['curriculum_vitae_file'] = CommonUser::uploadAction('curriculum_vitae_file', PROFILE.'/'.$id.'/file');
 			CommonNormal::update($id, $input_User);
 			//update phòng ban
+			$projectDepartIDStatus = DepRegencyPerUser::where('user_id',  $id)->lists('status', 'dep_id');
+			$departmentUserId = DepRegencyPerUser::where('user_id', $id)
+					->lists('dep_id');
 			DepRegencyPerUser::where('user_id', $id)->delete();
-			CommonUser::insertDepartment($id, $input);
+			CommonUser::insertDepartment($id, $input, $projectDepartIDStatus, $departmentUserId);
 			return Redirect::action('ManagementController@index')->with('message', 'Cập nhật tài khoản thành công') ;
 		}
 	}
@@ -216,6 +221,93 @@ class ManagementController extends AdminController {
 			$data = User::orderBy('id', 'desc')->paginate(PAGINATE);
 		}
 		return View::make('admin.management.index')->with(compact('data'));
+	}
+
+	public function createadmin()
+	{
+		return View::make('admin.management.create_admin');
+	}
+
+	public function doCreateadmin()
+	{
+		$rules = array(
+			'password'   => 'required',
+			'username' => 'required',
+		);
+		$input = Input::except('_token');
+		$validator = Validator::make($input,$rules);
+		if($validator->fails()) {
+			return Redirect::action('ManagementController@createadmin')
+				->withErrors($validator)
+				->withInput(Input::except('password'));
+		} 
+		else 
+		{
+			if(CommonUser::checkUserIsExit($input['username'])){
+				return Redirect::action('ManagementController@createadmin')->with('warning', 'Tài khoản này đã tồn tại nhập tài khoản khác!');
+			}
+			$input['role_id'] = ROLE_ADMIN;
+			CommonNormal::create($input);
+			return Redirect::action('ManagementController@index')->with('message', 'Thêm mới admin thành công');
+		}
+	}
+
+	public function updateadmin($id)
+	{
+		$data = User::find($id);
+		return View::make('admin.management.edit_admin')->with(compact('data'));
+	}
+
+	public function doUpdateadmin($id)
+	{
+		$rules = array(
+			'username' => 'required',
+		);
+		$input = Input::except('_token');
+		$validator = Validator::make($input,$rules);
+		if($validator->fails()) {
+			return Redirect::action('ManagementController@updateadmin', $id)
+				->withErrors($validator);
+		} 
+		else 
+		{
+			if(CommonUser::checkUserIsExit($input_User['username']))
+				return Redirect::action('ManagementController@create')->with('message', 'tài khoản này đã tồn tại nhập tài khoản khác!');
+			CommonNormal::update($id, $input, 'User');
+			return Redirect::action('ManagementController@index')->with('message', 'Cập nhật admin thành công');
+		}
+	}
+
+	public function showadmin($id)
+	{
+		$data = User::find($id);
+		return View::make('admin.management.show_admin')->with(compact('data'));
+	}
+	//
+	public function accept($id)
+	{
+		$userId = CommonUser::getUserId();
+		$projectUser = DepRegencyPerUser::where('dep_id', $id)
+			->where('user_id', $userId)
+			->first();
+		if($projectUser) {
+			$projectUser->update(['status' => ASSIGN_STATUS_1]);
+		}
+		$url = $_SERVER['HTTP_REFERER'];
+		return Redirect::to($url);
+	}
+
+	public function refuse($id)
+	{
+		$userId = CommonUser::getUserId();
+		$projectUser = DepRegencyPerUser::where('dep_id', $id)
+			->where('user_id', $userId)
+			->first();
+		if($projectUser) {
+			$projectUser->update(['status' => ASSIGN_STATUS_2]);
+		}
+		$url = $_SERVER['HTTP_REFERER'];
+		return Redirect::to($url);
 	}
 
 }

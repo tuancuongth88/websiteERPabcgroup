@@ -24,5 +24,9 @@ class Task extends Eloquent {
 	 */
 	protected $fillable = array('name', 'project_id', 'status', 'start', 'end', 'description', 'percent', 'user_id');
     protected $dates = ['deleted_at'];
-   
+
+    public function users()
+    {
+        return $this->belongsToMany('User', 'task_users', 'task_id', 'assign_id');
+    }
 }
