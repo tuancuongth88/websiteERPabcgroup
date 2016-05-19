@@ -32,7 +32,7 @@
 						<td>{{ $value->id }}</td>
 						<td>{{ $value->name }}</td> 
 						<td>{{ CommonOption::getNameOption('Department', $value) }}</td>
-						<td>{{ CommonCount::count('DepRegencyPerUser', $value->id, 'dep_id') }}</td>
+						<td>{{ CommonCount::countUserOnDep('DepRegencyPerUser', $value->id, 'dep_id', ASSIGN_STATUS_1, 'status') }}</td>
 						<td>
 							<a href="{{ action('DeparmentController@edit', $value->id) }}" class="btn btn-primary">Sửa</a>
 							{{ Form::open(array('method'=>'DELETE', 'action' => array('DeparmentController@destroy', $value->id), 'style' => 'display: inline-block;')) }}

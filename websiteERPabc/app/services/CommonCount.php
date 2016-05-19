@@ -6,4 +6,9 @@ class CommonCount {
 		$ob = $model::where($field, $modelId)->get();
 		return count($ob);
 	}
+	public static function countUserOnDep($model, $modelId, $field, $modelStatus, $fieldStatus)
+	{
+		$ob = $model::where($field, $modelId)->where($fieldStatus, $modelStatus)->get();
+		return count($ob);
+	}
 }
