@@ -34,7 +34,7 @@ class DeparmentController extends AdminController {
 	{
 		$rules = array(
 			'name' => 'required',
-			'function_id' => 'required'
+			// 'function_id' => 'required'
 		); 
 		$input = Input::except('_token');
 		//check validation

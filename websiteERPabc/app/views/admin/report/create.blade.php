@@ -42,6 +42,13 @@
 					<div class="form-group">
 						<label>Gửi đến</label>
 						<div class="row">
+							<div class="col-sm-6">
+								<p>Tất cả
+								{{ Form::checkbox('send_all') }}
+								</p>
+							</div>
+						</div>
+						<div class="row">
 							<div class="col-sm-12">
 								<table class="assign" cellpadding="5px">
 									<thead>

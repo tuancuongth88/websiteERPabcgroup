@@ -17,8 +17,9 @@ class ReportController extends AdminController {
 		if (User::isAdmin() == ROLE_USER) {
 			$userReports = Report::where('user_id', $userId)->lists('id');
 			$receiverReports = ReportUser::where('receiver_id', $userId)->lists('report_id');
-			$listReports = $userReports + $receiverReports;
-			$data = Report::whereIn('id', $listReports)->paginate(PAGINATE);
+			$listReports = array_merge($userReports, $receiverReports);
+			$data = Report::whereIn('id', $listReports)
+				->paginate(PAGINATE);
 		}
 		return View::make('admin.report.index')->with(compact('data'));
 	}
@@ -76,6 +77,7 @@ class ReportController extends AdminController {
 			return Redirect::action('ReportController@create')
 	            ->withErrors($validator);
         } else {
+        	// dd($input);
         	$userId = User::getUserIdByAuth();
         	$inputReport['name'] = $input['name'];
         	$inputReport['type_report_id'] = $input['type_report_id'];
@@ -84,7 +86,13 @@ class ReportController extends AdminController {
         	$inputReport['status'] = ACTIVE;
         	$reportId = Report::create($inputReport)->id;
         	$report = Report::find($reportId);
-        	$report->users()->attach($input['user_id']);
+        	if (isset($input['send_all'])) {
+        		$input['user_id'] = User::lists('id');
+        		$report->users()->attach($input['user_id']);
+        	}
+        	else {
+        		$report->users()->attach($input['user_id']);
+        	}
 			return Redirect::action('ReportController@index')->with('message', 'Tạo mới thành công');
         }
 	}
