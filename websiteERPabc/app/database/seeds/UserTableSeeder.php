@@ -21,6 +21,7 @@ class UserTableSeeder extends Seeder {
 					'avatar' => 'a1.jpg',
 					'status'=>'1',
 					'role_id'=>'2',
+					'salary_id'=>'1',
 			]);
 		User::create([
 					'email'=>'si@gmail.com',
@@ -30,6 +31,7 @@ class UserTableSeeder extends Seeder {
 					'avatar' => 'a2.jpg',
 					'status'=>'1',
 					'role_id'=>'2',
+					'salary_id'=>'2',
 					]);
 		User::create([
 					'email'=>'dung@gmail.com',
@@ -39,6 +41,7 @@ class UserTableSeeder extends Seeder {
 					'avatar' => 'a3.jpg',
 					'status'=>'1',
 					'role_id'=>'2',
+					'salary_id'=>'3',
 			]);
 	}
 }
