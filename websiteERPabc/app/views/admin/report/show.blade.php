@@ -1,6 +1,6 @@
 @extends('admin.layout.default')
 @section('title')
-{{ $title='Sửa công việc' }}
+{{ $title='Xem báo cáo' }}
 @stop
 
 @section('content')

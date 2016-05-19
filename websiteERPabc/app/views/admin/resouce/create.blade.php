@@ -1,6 +1,6 @@
 @extends('admin.layout.default')
 @section('title')
-{{ $title='Thêm mới chức vụ' }}
+{{ $title='Thêm mới tài nguyên' }}
 @stop
 
 @section('content')

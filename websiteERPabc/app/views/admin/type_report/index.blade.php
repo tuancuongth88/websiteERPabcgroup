@@ -1,7 +1,7 @@
 @extends('admin.layout.default')
 
 @section('title')
-{{ $title='Danh sách thể loại' }}
+{{ $title='Danh sách thể loại báo cáo' }}
 @stop
 
 @section('content')
