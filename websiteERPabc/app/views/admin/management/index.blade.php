@@ -51,6 +51,7 @@
 								{{ Form::close() }}
 							@endif
 							<a href="{{ action('ManagementController@resPassword', $value->id) }}" class="btn btn-primary">Đổi mật khẩu</a>
+							<a href="{{ action('ManagementController@changePermissionUser', $value->id) }}" class="btn btn-primary">Phân quyền</a>
 						@endif
 					@endif
 				@if(User::checkUserIsAdmin($value->id))

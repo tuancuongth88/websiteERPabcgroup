@@ -218,7 +218,7 @@
 										<tr>
 											<th>Phòng ban</th>
 											<th>Chức vụ</th>
-											<th>Quyền hạn</th>
+											<th>Người quản lý</th>
 										</tr>
 									</thead>
 									@if(User::isAdmin() == ROLE_ADMIN || User::checkPermissionFunction(FUNCTION_USER))
@@ -232,7 +232,7 @@
 													{{ Form::select('regency_id['.$departmentUserKey.']',  Regency::lists('name', 'id'), $values->regency_id, array('class' => 'form-control','style' => 'width: 120px;')) }}
 												</td>
 												<td>
-													{{ Form::select('per_id['.$departmentUserKey.']', CommonOption::getPermissionArray(),  $values->permission_id, array('class' => 'form-control', 'style' => 'width: 120px;')) }}
+													{{ Form::select('user_id['.$departmentUserKey.']', CommonOption::getListUser(),  $values->parent_user_id, array('class' => 'form-control', 'style' => 'width: 120px;')) }}
 												</td>
 												<td>
 													<a onclick="removeAssignProjectUser({{ $departmentUserKey }})" class="removeAssignBtn">Xóa</a>
@@ -256,7 +256,7 @@
 													{{ Form::select('regency_id['.$departmentUserKey.']', Regency::lists('name', 'id'), $values->regency_id, array('class' => 'form-control','style' => 'width: 120px;', 'disabled')) }}
 												</td>
 												<td>
-													{{ Form::select('per_id['.$departmentUserKey.']', CommonOption::getPermissionArray(),  $values->permission_id, array('class' => 'form-control', 'style' => 'width: 120px;', 'disabled')) }}
+													{{ Form::select('per_id['.$departmentUserKey.']', CommonOption::getListUser(),  $values->parent_user_id, array('class' => 'form-control', 'style' => 'width: 120px;', 'disabled')) }}
 												</td>
 												<td>
 												</td>

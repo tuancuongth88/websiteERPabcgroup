@@ -20,28 +20,29 @@ class CommonUser
 		//cân phải check xem đa validate department chua. cac phòng ban có bị trùng nhau khong đã check quyền chưa
 		$inputDepartment = $input['dep_id'];
 		$inputRegency = $input['regency_id'];
-		$inputPer = $input['per_id'];
+		$inputPer = $input['user_id'];
 		foreach ($inputDepartment as $key => $value) {
 			$inputDepartment = $value;
 			$inputDepartRegency['dep_id'] = $value;
 			$inputDepartRegency['regency_id'] = $inputRegency[$key];
 			$inputDepartRegency['user_id'] = $id;
-			$inputDepartRegency['permission_id'] = $inputPer[$key];
-			if(is_array($arraystatus)){
-				if(in_array($inputDepartment, $arrayDep))
-					$inputDepartRegency['status'] = $arraystatus[$inputDepartment];
-				else 
-					$inputDepartRegency['status'] = ASSIGN_STATUS_3;	
-			}else{
-				$inputDepartRegency['status'] = ASSIGN_STATUS_3;
-			}
-			DepRegencyPerUser::create($inputDepartRegency);
+			$inputDepartRegency['parent_user_id'] = $inputPer[$key];
+			$inputDepartRegency['status'] = ASSIGN_STATUS_1;
+			// if(is_array($arraystatus)){
+			// 	if(in_array($inputDepartment, $arrayDep))
+			// 		$inputDepartRegency['status'] = $arraystatus[$inputDepartment];
+			// 	else 
+			// 		$inputDepartRegency['status'] = ASSIGN_STATUS_3;	
+			// }else{
+			// 	$inputDepartRegency['status'] = ASSIGN_STATUS_3;
+			// }
+			DepRegencyUserParent::create($inputDepartRegency);
 		}
 	}
 
 	public static function getDepUserRegency($id)
 	{
-		return DepRegencyPerUser::where('user_id', $id)->get();
+		return DepRegencyUserParent::where('user_id', $id)->get();
 	}
 
 	public static function getObjectFromAuth()
@@ -75,7 +76,7 @@ class CommonUser
 		// );
 	}
 	public static function getDepartmentUser($id){
-		$department = Department::WhereIn('id', DepRegencyPerUser::where('user_id', $id)->lists('dep_id'))->get();
+		$department = Department::WhereIn('id', DepRegencyUserParent::where('user_id', $id)->lists('dep_id'))->get();
 		$nameDepartment = '';
 		foreach ($department as $key => $value) {
 			$nameDepartment = $nameDepartment.$value->name.'-';
