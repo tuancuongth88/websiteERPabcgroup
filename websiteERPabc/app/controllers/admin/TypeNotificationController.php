@@ -1,6 +1,6 @@
 <?php
 
-class TypeReportController extends AdminController {
+class TypeNotificationController extends AdminController {
 
 	/**
 	 * Display a listing of the resource.
@@ -9,8 +9,8 @@ class TypeReportController extends AdminController {
 	 */
 	public function index()
 	{
-		$data = TypeReport::orderBy('id', 'desc')->paginate(PAGINATE);
-		return View::make('admin.type_report.index')->with(compact('data'));
+		$data = TypeNotification::orderBy('id', 'desc')->paginate(PAGINATE);
+		return View::make('admin.type_notification.index')->with(compact('data'));
 	}
 
 
@@ -21,7 +21,7 @@ class TypeReportController extends AdminController {
 	 */
 	public function create()
 	{
-		return View::make('admin.type_report.create');
+		return View::make('admin.type_notification.create');
 	}
 
 
@@ -38,11 +38,11 @@ class TypeReportController extends AdminController {
 		$input = Input::except('_token');
 		$validator = Validator::make($input, $rules);
 		if($validator->fails()) {
-			return Redirect::action('TypeReportController@create')
+			return Redirect::action('TypeNotificationController@create')
 	            ->withErrors($validator);
         } else {
-			TypeReport::create($input);
-			return Redirect::action('TypeReportController@index');	
+			TypeNotification::create($input);
+			return Redirect::action('TypeNotificationController@index');	
         }
 	}
 
@@ -67,8 +67,8 @@ class TypeReportController extends AdminController {
 	 */
 	public function edit($id)
 	{
-		$data = TypeReport::find($id);
-		return View::make('admin.type_report.edit')->with(compact('data'));
+		$data = TypeNotification::find($id);
+		return View::make('admin.type_notification.edit')->with(compact('data'));
 	}
 
 
@@ -84,14 +84,14 @@ class TypeReportController extends AdminController {
 			'name' => 'required',
 		);
 		$input = Input::except('_token');
-		$typeReport = TypeReport::find($id);
+		$typeReport = TypeNotification::find($id);
 		$validator = Validator::make($input, $rules);
 		if($validator->fails()) {
-			return Redirect::action('TypeReportController@edit', $id)
+			return Redirect::action('TypeNotificationController@edit', $id)
 	            ->withErrors($validator);
         }else{
         	$typeReport->update($input);
-        	return Redirect::action('TypeReportController@index');
+        	return Redirect::action('TypeNotificationController@index');
         }
 	}
 
@@ -104,12 +104,12 @@ class TypeReportController extends AdminController {
 	 */
 	public function destroy($id)
 	{
-		$typeReport = TypeReport::find($id);
-		if ($typeReport) {
-			$typeReport->delete();
-			return Redirect::action('TypeReportController@index')->with('message', 'Đã xóa');
+		$typeNotification = TypeNotification::find($id);
+		if ($typeNotification) {
+			$typeNotification->delete();
+			return Redirect::action('TypeNotificationController@index')->with('message', 'Đã xóa');
 		}
-		return Redirect::action('TypeReportController@index')->with('message', 'Lỗi không thể xoá');
+		return Redirect::action('TypeNotificationController@index')->with('message', 'Lỗi không thể xoá');
 	}
 
 

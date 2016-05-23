@@ -7,16 +7,16 @@
 
 <div class="row margin-bottom">
 	<div class="col-xs-12">
-		<a href="{{ action('ReportController@index') }}" class="btn btn-success">Danh sách</a>
+		<a href="{{ action('NotificationController@index') }}" class="btn btn-success">Danh sách</a>
 	</div>
 </div>
 <div class="row">
 	<div class="col-xs-12">
 		<div class="box box-primary">
-			{{ Form::open(array('action' => 'ReportController@store')) }}
+			{{ Form::open(array('action' => 'NotificationController@store')) }}
 				<div class="box-body">
 					<div class="form-group">
-						<label>Tên báo cáo</label>
+						<label>Tên thông báo</label>
 						<div class="row">
 							<div class="col-sm-6">
 								{{ Form::text('name', null, array('class' => 'form-control')) }}
@@ -27,7 +27,7 @@
 						<label>Thể loại</label>
 						<div class="row">
 							<div class="col-sm-6">
-								{{ Form::select('type_report_id', TypeReport::lists('name', 'id'), null, array('class' => 'form-control')) }}
+								{{ Form::select('type_notification_id', TypeNotification::lists('name', 'id'), null, array('class' => 'form-control')) }}
 							</div>
 						</div>
 					</div>
@@ -40,6 +40,22 @@
 						</div>
 					</div>
 					<div class="form-group">
+						<label>Gửi đến</label>
+						<div class="row">
+							<div class="col-sm-6">
+								<p>Tất cả
+								{{ Form::checkbox('send_all') }}
+								</p>
+							</div>
+						</div>
+						<div class="form-group">
+							<label>Gửi đến phòng ban</label>
+							<div class="row">
+								<div class="col-sm-6">
+									{{ Form::select('dep_id[]', Department::lists('name', 'id'), null, array('class' => 'form-control', 'multiple' => 'true')) }}
+								</div>
+							</div>
+						</div>
 						<div class="row">
 							<div class="col-sm-12">
 								<table class="assign" cellpadding="5px">
