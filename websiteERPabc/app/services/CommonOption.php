@@ -141,5 +141,10 @@ class CommonOption {
 		$array = self::getFunctionArray();
 		return $array[$function];
 	}
+	public static function getListUser()
+	{
+		$lstUser = User::lists('username', 'id');
+		return $lstUser;
+	}
 
 }

@@ -57,9 +57,7 @@ class ManagementController extends AdminController {
 			return Redirect::action('ManagementController@create')
 				->withErrors($validator);
 		}else{
-			// if(CommonUser::checkUserIsExit($input['username'])){
-			// 	return Redirect::action('ManagementController@create')->with('warning', 'Tài khoản này đã tồn tại nhập tài khoản khác!');
-			// }
+			
 			$input_User = CommonUser::getInput($input);
 			// $input_User = $input;
 			$input_User['password'] = Hash::make($input['password']);
@@ -148,10 +146,10 @@ class ManagementController extends AdminController {
 			$input_User['curriculum_vitae_file'] = CommonUser::uploadAction('curriculum_vitae_file', PROFILE.'/'.$id.'/file');
 			CommonNormal::update($id, $input_User);
 			//update phòng ban
-			$projectDepartIDStatus = DepRegencyPerUser::where('user_id',  $id)->lists('status', 'dep_id');
-			$departmentUserId = DepRegencyPerUser::where('user_id', $id)
+			$projectDepartIDStatus = DepRegencyUserParent::where('user_id',  $id)->lists('status', 'dep_id');
+			$departmentUserId = DepRegencyUserParent::where('user_id', $id)
 					->lists('dep_id');
-			DepRegencyPerUser::where('user_id', $id)->delete();
+			DepRegencyUserParent::where('user_id', $id)->delete();
 			if (isset($input['dep_id'])) {
 				CommonUser::insertDepartment($id, $input, $projectDepartIDStatus, $departmentUserId);
 			}
@@ -168,7 +166,7 @@ class ManagementController extends AdminController {
 	 */
 	public function destroy($id)
 	{
-		DepRegencyPerUser::where('user_id', $id)->delete();
+		DepRegencyUserParent::where('user_id', $id)->delete();
 		CommonNormal::delete($id);
 		return Redirect::action('ManagementController@index') ;
 	}
@@ -236,7 +234,7 @@ class ManagementController extends AdminController {
 	{
 		$rules = array(
 			'password'   => 'required',
-			'username' => 'required',
+			'username' => 'required|unique:users',
 		);
 		$input = Input::except('_token');
 		$validator = Validator::make($input,$rules);
@@ -312,6 +310,21 @@ class ManagementController extends AdminController {
 		}
 		$url = $_SERVER['HTTP_REFERER'];
 		return Redirect::to($url);
+	}
+
+	public function changePermissionUser($id)
+	{
+		$data = User::find($id);
+		return View::make('admin.management.changepermission')->with(compact('data'));
+	}
+	public function assignFunPerUser()
+	{
+		$departmentUserKey = Input::get('departmentUserKey');
+		return View::make('admin.management.assignFun')->with(compact('departmentUserKey'));
+	}
+	public function doChangePermissionUser($id)
+	{
+		
 	}
 
 }

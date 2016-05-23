@@ -70,3 +70,11 @@ define('FUNCTION_PROJECT', 5);
 define('FUNCTION_TEMPROLE', 6);
 define('FUNCTION_PROJECTSTATUS', 7);
 define('FUNCTION_REPORT', 8);
+//button
+define('CREATE', 1);
+define('EDIT', 2);
+define('DELETED', 3);
+define('VIEW', 4);
+define('ADD_DEPARTMENT', 5);
+define('ADD_SALARY', 6);
+

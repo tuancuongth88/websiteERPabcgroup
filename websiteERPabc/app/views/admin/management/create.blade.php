@@ -201,7 +201,7 @@
 										<tr>
 											<th>Phòng ban</th>
 											<th>Chức vụ</th>
-											<th>Quyền hạn</th>
+											<th>Người quản lý</th>
 										</tr>
 									</thead>
 									<tbody id="assignBox">

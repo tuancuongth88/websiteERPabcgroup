@@ -50,6 +50,32 @@
 			}
 		});
 	}
+	function assignFunUser()
+	{
+		var departmentUserKey = $('input[name=departmentUserKey]').val();
+		if(!departmentUserKey) {
+			departmentUserKey = 0;
+		}
+		$.ajax(
+		{
+			type : 'post',
+			url : '{{ url("admin/management/assignFunPerUser") }}',
+			data : {
+				'departmentUserKey' : departmentUserKey,
+			},
+			beforeSend: function() {
+				$('.assignBtn').html('Đang load...');
+			},
+			success: function(responseText)
+			{
+				$('.assignBtn').html('Thêm phòng ban');
+				console.log(responseText);
+				$('#assignBox').append(responseText);
+				departmentUserKey++;
+				$('input[name=departmentUserKey]').val(departmentUserKey);
+			}
+		});
+	}
 	function removeAssignProjectUser(projectUserKey)
 	{
 		$('#assignRow_'+projectUserKey).remove();

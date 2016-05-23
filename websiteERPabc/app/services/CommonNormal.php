@@ -58,6 +58,9 @@ class CommonNormal
 		if($name == 'task') {
 			return 'Task';
 		}
+		if($name == 'user_type') {
+			return 'TypeUser';
+		}
 
 	}
 
