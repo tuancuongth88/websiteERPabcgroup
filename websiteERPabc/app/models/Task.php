@@ -22,7 +22,7 @@ class Task extends Eloquent {
 	 *
 	 * @var array
 	 */
-	protected $fillable = array('name', 'project_id', 'status', 'start', 'end', 'description', 'percent', 'user_id');
+	protected $fillable = array('name', 'project_id', 'status', 'start', 'end', 'description', 'percent', 'user_id', 'file_attach');
     protected $dates = ['deleted_at'];
 
     public function users()
