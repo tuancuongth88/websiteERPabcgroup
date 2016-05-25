@@ -177,11 +177,10 @@ class ManagementController extends AdminController {
 		return View::make('admin.management.assign')->with(compact('departmentUserKey'));
 	}
 
-	public function loadRegency()
+	public function loadButton()
 	{
-		$dep_id = Input::get('dep_id');
-		$listID = DepUserRegency::whereIn('dep_id', $dep_id)->lists('regency_id');
-		$data = Regency::whereIn('id', $listID)->lists('name', 'id');
+		$fun_id = Input::get('fun_id');
+		$data = ButtonFunction::where('function_id', $fun_id)->lists('name', 'id');
 		return Response::json($data);
 	}
 
@@ -324,7 +323,8 @@ class ManagementController extends AdminController {
 	}
 	public function doChangePermissionUser($id)
 	{
-		
+		$input = Input::all();
+		dd($input);
 	}
 
 }

@@ -21,9 +21,7 @@
 	(function($){
 		
 	})(jQuery);
-	$(function () {
-	  loadRegency();
-	});
+
 	function assignDepartmentUser()
 	{
 		var departmentUserKey = $('input[name=departmentUserKey]').val();
@@ -69,8 +67,8 @@
 			success: function(responseText)
 			{
 				$('.assignBtn').html('Thêm phòng ban');
-				console.log(responseText);
-				$('#assignBox').append(responseText);
+				$('#assignBoxFun').append(responseText);
+				loadButton(departmentUserKey);
 				departmentUserKey++;
 				$('input[name=departmentUserKey]').val(departmentUserKey);
 			}
@@ -80,23 +78,23 @@
 	{
 		$('#assignRow_'+projectUserKey).remove();
 	}
-	function loadRegency(projectUserKey)
+	function loadButton(projectUserKey)
 	{
-		var dep_id = $('select[name^="dep_id"]').map(function () {
-			return this.value;
-		}).get();
-			$.ajax({
-				type: 'POST',
-				data: {
-					dep_id:dep_id
-				},
-				url: '{{ url("admin/management/loadRegency") }}',
-				success:function(data) {
-				$('select[name^="regency_id"]').empty();
+		var fun_id = $('#fun_id_'+projectUserKey).val();
+		$.ajax({
+			type: 'POST',
+			data: {
+				'fun_id': fun_id
+			},
+			url: '{{ url("admin/management/loadButton") }}',
+			success:function(data) {
+				console.log(data);
+				$('#button_id_'+projectUserKey).empty();
 					$.each(data ,function(index, value){
-						$('select[name^="regency_id"]').append('<option value="'+ index+'" >'+value+'</option>');
-					});
-				}
-			});	
+						$('#button_id_'+projectUserKey).append('<option value="'+ index+'" >'+value+'</option>');
+				});
+			}
+		});	
 	}
+
 </script>

@@ -36,7 +36,7 @@ Route::group(['prefix' => 'admin'], function () {
 	Route::post('/management/updatePassword/{id}', array('uses' =>'ManagementController@updatePassword', 'as' => 'updatePassword'));
 	Route::post('/management/assignDepartmentUser', 'ManagementController@assignDepartmentUser');
 	// Route của ajax manager
-	Route::post('/management/loadRegency', 'ManagementController@loadRegency');
+	Route::post('/management/loadButton', 'ManagementController@loadButton');
 	Route::resource('/management', 'ManagementController');
 	// search
 	Route::get('/deparment/search', array('uses' => 'DeparmentController@search'));

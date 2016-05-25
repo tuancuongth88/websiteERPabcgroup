@@ -81,7 +81,10 @@ class CommonOption {
 	{
 		return $model::where('status', '=', 1)->lists('name', 'id');
 	}
-
+	public static function getOptionFromModel($model)
+	{
+		return $model::lists('name', 'id');
+	}
 	public static function getFieldTextByModel($modelName, $modelId, $field)
 	{
 		$data = $modelName::find($modelId);
