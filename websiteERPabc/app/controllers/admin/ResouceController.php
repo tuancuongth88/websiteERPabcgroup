@@ -34,7 +34,6 @@ class ResouceController extends AdminController {
 	{
 		$rules = array(
 			'name' => 'required',
-
 		);
 		$input = Input::except('_token');
 		$validator = Validator::make($input,$rules);

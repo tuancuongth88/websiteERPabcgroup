@@ -61,7 +61,8 @@ class CommonNormal
 		if($name == 'user_type') {
 			return 'TypeUser';
 		}
-
+		if($name == 'salary')
+			return 'SalaryUser';
 	}
 
 }

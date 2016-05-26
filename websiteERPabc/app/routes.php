@@ -72,8 +72,8 @@ Route::group(['prefix' => 'admin'], function () {
 //  Quản lý thể loại nhân viên
 	Route::resource('/user_type', 'UserTypeController');
 	// Quản lý tiền lương
+	Route::get('/salary/searchabc', 'SalaryUserController@searchabc');
 	Route::resource('/salary', 'SalaryUserController');
-
 	// Route::resource('/comment', 'CommentController');
 });
 // Route::group(
