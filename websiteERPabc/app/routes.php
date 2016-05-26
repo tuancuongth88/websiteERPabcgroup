@@ -21,6 +21,9 @@ Route::group(['prefix' => 'admin'], function () {
 	Route::get('/logout', array('uses' => 'AdminController@logout',  'as' => 'admin.logout'));
 	Route::resource('/', 'AdminController');
 
+	Route::post('/management/assignFunPerUser', 'ManagementController@assignFunPerUser');
+	Route::get('/management/changepermission/{id}', array('uses' =>'ManagementController@changePermissionUser', 'as' => 'changepermission'));
+	Route::post('/management/changepermission/{id}', array('uses' => 'ManagementController@doChangePermissionUser'));
 	Route::get('/management/accept/{id}', 'ManagementController@accept');
 	Route::get('/management/refuse/{id}', 'ManagementController@refuse');
 	Route::get('/management/createadmin/', array('uses' => 'ManagementController@createadmin', 'as'  => 'createadmin'));
@@ -33,7 +36,7 @@ Route::group(['prefix' => 'admin'], function () {
 	Route::post('/management/updatePassword/{id}', array('uses' =>'ManagementController@updatePassword', 'as' => 'updatePassword'));
 	Route::post('/management/assignDepartmentUser', 'ManagementController@assignDepartmentUser');
 	// Route của ajax manager
-	Route::post('/management/loadRegency', 'ManagementController@loadRegency');
+	Route::post('/management/loadButton', 'ManagementController@loadButton');
 	Route::resource('/management', 'ManagementController');
 	// search
 	Route::get('/deparment/search', array('uses' => 'DeparmentController@search'));

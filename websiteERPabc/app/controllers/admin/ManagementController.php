@@ -57,9 +57,7 @@ class ManagementController extends AdminController {
 			return Redirect::action('ManagementController@create')
 				->withErrors($validator);
 		}else{
-			// if(CommonUser::checkUserIsExit($input['username'])){
-			// 	return Redirect::action('ManagementController@create')->with('warning', 'Tài khoản này đã tồn tại nhập tài khoản khác!');
-			// }
+			
 			$input_User = CommonUser::getInput($input);
 			// $input_User = $input;
 			$input_User['password'] = Hash::make($input['password']);
@@ -148,10 +146,10 @@ class ManagementController extends AdminController {
 			$input_User['curriculum_vitae_file'] = CommonUser::uploadAction('curriculum_vitae_file', PROFILE.'/'.$id.'/file');
 			CommonNormal::update($id, $input_User);
 			//update phòng ban
-			$projectDepartIDStatus = DepRegencyPerUser::where('user_id',  $id)->lists('status', 'dep_id');
-			$departmentUserId = DepRegencyPerUser::where('user_id', $id)
+			$projectDepartIDStatus = DepRegencyUserParent::where('user_id',  $id)->lists('status', 'dep_id');
+			$departmentUserId = DepRegencyUserParent::where('user_id', $id)
 					->lists('dep_id');
-			DepRegencyPerUser::where('user_id', $id)->delete();
+			DepRegencyUserParent::where('user_id', $id)->delete();
 			if (isset($input['dep_id'])) {
 				CommonUser::insertDepartment($id, $input, $projectDepartIDStatus, $departmentUserId);
 			}
@@ -168,7 +166,7 @@ class ManagementController extends AdminController {
 	 */
 	public function destroy($id)
 	{
-		DepRegencyPerUser::where('user_id', $id)->delete();
+		DepRegencyUserParent::where('user_id', $id)->delete();
 		CommonNormal::delete($id);
 		return Redirect::action('ManagementController@index') ;
 	}
@@ -179,11 +177,10 @@ class ManagementController extends AdminController {
 		return View::make('admin.management.assign')->with(compact('departmentUserKey'));
 	}
 
-	public function loadRegency()
+	public function loadButton()
 	{
-		$dep_id = Input::get('dep_id');
-		$listID = DepUserRegency::whereIn('dep_id', $dep_id)->lists('regency_id');
-		$data = Regency::whereIn('id', $listID)->lists('name', 'id');
+		$fun_id = Input::get('fun_id');
+		$data = ButtonFunction::where('function_id', $fun_id)->lists('name', 'id');
 		return Response::json($data);
 	}
 
@@ -236,7 +233,7 @@ class ManagementController extends AdminController {
 	{
 		$rules = array(
 			'password'   => 'required',
-			'username' => 'required',
+			'username' => 'required|unique:users',
 		);
 		$input = Input::except('_token');
 		$validator = Validator::make($input,$rules);
@@ -312,6 +309,37 @@ class ManagementController extends AdminController {
 		}
 		$url = $_SERVER['HTTP_REFERER'];
 		return Redirect::to($url);
+	}
+
+	public function changePermissionUser($id)
+	{
+		$data = User::find($id);
+		$dataPermission = FunButtonUser::where('user_id', $id)->get();
+		return View::make('admin.management.changepermission')->with(compact('data', 'dataPermission'));
+	}
+	public function assignFunPerUser()
+	{
+		$departmentUserKey = Input::get('departmentUserKey');
+		return View::make('admin.management.assignFun')->with(compact('departmentUserKey'));
+	}
+	public function doChangePermissionUser($id)
+	{
+		$input = Input::except('_token');
+		// dd($input);
+		//delete tao bo truoc khi cap nhat
+		FunButtonUser::where('user_id', $id)->delete();
+
+		$inputFun_id = $input['fun_id'];
+		$inputButton_id = $input['button_id'];
+		foreach ($inputFun_id as $key => $value) {
+			$inputdata['fun_id'] = $value;
+			$inputdata['user_id'] = $id;
+			foreach ($inputButton_id[$key] as $keybutton => $valuebutton) {
+				$inputdata['button_id'] = $valuebutton;
+				FunButtonUser::create($inputdata);
+			}
+		}
+		return Redirect::action('ManagementController@index');
 	}
 
 }
