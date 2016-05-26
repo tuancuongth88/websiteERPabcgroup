@@ -32,15 +32,30 @@
 								<table class="assign" cellpadding="5px">
 									<thead>
 										<tr>
-											<th>Phòng ban</th>
+											<th>Chức năng</th>
 											<th>Chọn quyền</th>
 										</tr>
 									</thead>
 									<tbody id="assignBoxFun">
-										
+										@if($dataPermission)
+											@foreach($dataPermission as $key => $value)
+											<tr id = "assignRow_{{ $key }}">
+												<td>
+													{{ Form::select('fun_id['.$key.']', CommonOption::getOptionFromModel('AdminFunction'), $value->fun_id, array('class' => 'form-control', 'onchange' => 'loadButton('.$key.')', 'id' => 'fun_id_'.$key, 'style' => 'width: 200px;')) }}
+													{{ Form::hidden('key', $key) }}
+												</td>
+												<td>
+													{{ Form::select('button_id['.$key.'][]', [], null, array('id' => 'button_id_'.$key, 'multiple' => true, 'style' => 'width: 200px;')) }}
+												</td>
+												<td>
+													<a onclick="removeAssignProjectUser({{ $key }})" class="removeAssignBtn">Xóa</a>
+												</td>
+											</tr>
+											@endforeach
+										@endif
 									</tbody>
 								</table>
-								<a onclick="assignFunUser()" class="assignBtn">Thêm phòng ban</a>
+								<a onclick="assignFunUser()" class="assignBtn">Thêm chức năng</a>
 							</div>
 						</div>
 					</div>	

@@ -314,7 +314,8 @@ class ManagementController extends AdminController {
 	public function changePermissionUser($id)
 	{
 		$data = User::find($id);
-		return View::make('admin.management.changepermission')->with(compact('data'));
+		$dataPermission = FunButtonUser::where('user_id', $id)->get();
+		return View::make('admin.management.changepermission')->with(compact('data', 'dataPermission'));
 	}
 	public function assignFunPerUser()
 	{
@@ -323,8 +324,22 @@ class ManagementController extends AdminController {
 	}
 	public function doChangePermissionUser($id)
 	{
-		$input = Input::all();
-		dd($input);
+		$input = Input::except('_token');
+		// dd($input);
+		//delete tao bo truoc khi cap nhat
+		FunButtonUser::where('user_id', $id)->delete();
+
+		$inputFun_id = $input['fun_id'];
+		$inputButton_id = $input['button_id'];
+		foreach ($inputFun_id as $key => $value) {
+			$inputdata['fun_id'] = $value;
+			$inputdata['user_id'] = $id;
+			foreach ($inputButton_id[$key] as $keybutton => $valuebutton) {
+				$inputdata['button_id'] = $valuebutton;
+				FunButtonUser::create($inputdata);
+			}
+		}
+		return Redirect::action('ManagementController@index');
 	}
 
 }

@@ -4,7 +4,7 @@
 		{{ Form::hidden('departmentUserKey', $departmentUserKey) }}
 	</td>
 	<td>
-		{{ Form::select('button_id['.$departmentUserKey.']', [], [2,6], array('id' => 'button_id_'.$departmentUserKey, 'multiple' => true, 'style' => 'width: 200px;')) }}
+		{{ Form::select('button_id['.$departmentUserKey.'][]', [], null, array('id' => 'button_id_'.$departmentUserKey, 'multiple' => true, 'style' => 'width: 200px;')) }}
 	</td>
 	<td>
 		<a onclick="removeAssignProjectUser({{ $departmentUserKey }})" class="removeAssignBtn">Xóa</a>
