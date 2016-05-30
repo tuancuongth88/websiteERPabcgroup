@@ -41,7 +41,14 @@ class TypeReportController extends AdminController {
 			return Redirect::action('TypeReportController@create')
 	            ->withErrors($validator);
         } else {
-			TypeReport::create($input);
+			$typeId = TypeReport::create($input)->id;
+			if ($input['dep_id'] != 0) {
+				$input['url'] = CommonUser::uploadAction('url', REPORT_FORMAT.'/'.$typeId);
+			}
+			else {
+				$input['url'] = CommonUser::uploadAction('url', REPORT_FORMAT);
+			}
+			TypeReport::find($typeId)->update($input);
 			return Redirect::action('TypeReportController@index');	
         }
 	}
@@ -90,6 +97,12 @@ class TypeReportController extends AdminController {
 			return Redirect::action('TypeReportController@edit', $id)
 	            ->withErrors($validator);
         }else{
+			if ($input['dep_id'] != 0) {
+				$input['url'] = CommonUser::uploadAction('url', REPORT_FORMAT.'/'.$id, $typeReport->url);
+			}
+			else {
+				$input['url'] = CommonUser::uploadAction('url', REPORT_FORMAT, $typeReport->url);
+			}
         	$typeReport->update($input);
         	return Redirect::action('TypeReportController@index');
         }
@@ -104,13 +117,12 @@ class TypeReportController extends AdminController {
 	 */
 	public function destroy($id)
 	{
-		$checkTempRoleProjectUser = ProjectUser::where('temp_role_id', $id)
-			->first();
-		if($checkTempRoleProjectUser) {
-			return Redirect::action('TypeReportController@index')->with('error', 'Vai trò đang được sử dụng. Không thể xóa!');	
+		$typeReport = TypeReport::find($id);
+		if ($typeReport) {
+			$typeReport->delete();
+			return Redirect::action('TypeReportController@index')->with('message', 'Đã xóa');
 		}
-		CommonNormal::delete($id);
-		return Redirect::action('TypeReportController@index')->with('message', 'Đã xóa');
+		return Redirect::action('TypeReportController@index')->with('message', 'Lỗi không thể xoá');
 	}
 
 

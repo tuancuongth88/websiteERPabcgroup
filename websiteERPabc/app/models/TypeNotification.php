@@ -6,21 +6,23 @@ use Illuminate\Auth\Reminders\RemindableTrait;
 use Illuminate\Auth\Reminders\RemindableInterface;
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
+class TypeNotification extends Eloquent {
 
-class DepRegencyPerUser extends Eloquent {
+	use SoftDeletingTrait;
+
 	/**
 	 * The database table used by the model.
 	 *
 	 * @var string
 	 */
-	protected $table = 'dep_regency_per_user';
+	protected $table = 'type_notifications';
 
-	/** 
-	 * The attributes excluded from the model's JSON form. 
+	/**
+	 * The attributes excluded from the model's JSON form.
 	 *
-	 * @var array 
+	 * @var array
 	 */
-	protected $fillable = array('user_id', 'dep_id', 'regency_id', 'permission_id', 'status');
-		 
+	protected $fillable = array('name', 'status');
+    protected $dates = ['deleted_at'];
+   
 }
-  

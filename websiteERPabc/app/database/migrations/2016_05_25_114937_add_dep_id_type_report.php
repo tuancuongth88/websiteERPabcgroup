@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddMoreFieldStatusDepRegencyPerUserTable extends Migration {
+class AddDepIdTypeReport extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,8 +12,9 @@ class AddMoreFieldStatusDepRegencyPerUserTable extends Migration {
 	 */
 	public function up()
 	{
-			Schema::table('dep_regency_per_user', function(Blueprint $table) {
-			$table->integer('status')->after('permission_id')->nullable();
+		Schema::table('type_reports', function(Blueprint $table) {
+			$table->integer('dep_id')->after('id')->nullable();
+			$table->string('url', 256)->after('id')->nullable();
 		});
 	}
 

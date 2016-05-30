@@ -35,22 +35,6 @@
 				</div>
 			  </div>
 			</div>
-			<div class="form-group">
-			  <label for="name">Quyền hạn</label>
-				<div class="row">
-					<div class="col-sm-6">
-						@if($functions = CommonOption::getOptionModel('AdminFunction'))
-							@foreach($functions as $key => $value)
-							<p>
-								{{ Form::checkbox('function[]', $key, false, array('id' => 'function_'.$key))
-	 }}
-	 						<label for="{{ 'function_'.$key }}">{{ $value }}</label>
-	 						</p>
-							@endforeach
-						@endif
-					</div>
-				</div>
-		  	</div>
 			<!-- /.box-body -->
 			<div class="box-footer">
 				<input type="submit" class="btn btn-primary" value="Lưu lại" />

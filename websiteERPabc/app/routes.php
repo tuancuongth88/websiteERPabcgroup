@@ -68,10 +68,15 @@ Route::group(['prefix' => 'admin'], function () {
 
 	Route::get('/report/search', 'ReportController@search');
 	Route::post('/report/assignReportUser', 'ReportController@assignReportUser');
+	Route::post('/report/getFormatTypeReport', 'ReportController@getFormatTypeReport');
 	Route::resource('/report', 'ReportController');
+	Route::resource('/notification', 'NotificationController');
 
 	Route::resource('/dashboard', 'DashboardController');
 	Route::resource('/type_report', 'TypeReportController');
+	
+	Route::resource('/type_notification', 'TypeNotificationController');
+
 //  Quản lý thể loại nhân viên
 	Route::resource('/user_type', 'UserTypeController');
 	// Quản lý tiền lương

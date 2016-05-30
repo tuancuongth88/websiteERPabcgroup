@@ -99,5 +99,22 @@ class Common {
 		}
 		return NULL;
 	}
-
+	public static function checkPermissionUser($funId, $buttonId)
+	{
+		$userId = CommonUser::getUserId();
+		$userRole = CommonUser::getUserRole();
+		if ($userRole == ROLE_ADMIN) {
+			return true;
+		}
+		if ($userRole == ROLE_USER) {
+			$check = FunButtonUser::where('user_id', $userId)
+				->where('button_id', $buttonId)
+				->where('fun_id', $funId)
+				->first();
+			if ($check) {
+				return true;
+			}
+			return false;
+		}
+	}	
 }

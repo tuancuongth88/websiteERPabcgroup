@@ -21,6 +21,13 @@ class DepRegencyUserParent extends Eloquent {
 	 * @var array 
 	 */
 	protected $fillable = array('user_id', 'dep_id', 'regency_id', 'status', 'parent_user_id');
-		 
+
+	public static function getOptionDep()
+	{
+		$option = self::where('user_id', User::getUserIdByAuth())->lists('dep_id');
+		$dep = Department::whereIn('id', $option)->lists('name', 'id');
+		return $dep;
+
+	}
 }
   

@@ -1,13 +1,13 @@
 @extends('admin.layout.default')
 
 @section('title')
-{{ $title='Quản lý báo cáo' }}
+{{ $title='Quản lý thông báo' }}
 @stop
 
 @section('content')
 <div class="row margin-bottom">
 	<div class="col-xs-12">
-		<a href="{{ action('ReportController@create') }}" class="btn btn-primary">Thêm mới</a>
+		<a href="{{ action('NotificationController@create') }}" class="btn btn-primary">Thêm mới</a>
 	</div>
 </div>
 @include('admin.report.search')
@@ -15,7 +15,7 @@
 	<div class="col-xs-12">
 		<div class="box">
 			<div class="box-header">
-				<h3 class="box-title">Danh sách báo cáo</h3>
+				<h3 class="box-title">Danh sách thông báo</h3>
 				<span> (Tổng số: {{ count($data) }})</span>
 			</div>
 			<!-- /.box-header -->
@@ -23,25 +23,21 @@
 				<table class="table table-hover">
 					<tr>
 						<th>ID</th>
-						<th>Tên báo cáo</th>
+						<th>Tên thông báo</th>
 						<th>Thể loại</th>
-						<th>Người báo cáo</th>
+						<th>Người gửi thông báo</th>
 						<th>Action</th>
 					</tr>
 					@foreach($data as $key => $value)
 						<tr>
 							<td>{{ $value->id }}</td>
 							<td>{{ $value->name }}</td>
-							@if($typeReport = TypeReport::find($value->type_report_id))
-								<td>{{ $typeReport->name }}</td>
-							@else
-								<td></td>
-							@endif
+							<td>{{ TypeNotification::find($value->type_notification_id)->name }}</td>
 							<td>{{ User::find($value->user_id)->username }}</td>
 							<td>
-								<a href="{{ action('ReportController@show', $value->id) }}" class="btn btn-primary">View</a>
+								<a href="{{ action('NotificationController@show', $value->id) }}" class="btn btn-primary">View</a>
 								@if(User::isAdmin() == ROLE_ADMIN)
-								{{ Form::open(array('method'=>'DELETE', 'action' => array('ReportController@destroy', $value->id), 'style' => 'display: inline-block;')) }}
+								{{ Form::open(array('method'=>'DELETE', 'action' => array('NotificationController@destroy', $value->id), 'style' => 'display: inline-block;')) }}
 									<button class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa?');">Xóa</button>
 								{{ Form::close() }}
 								@endif

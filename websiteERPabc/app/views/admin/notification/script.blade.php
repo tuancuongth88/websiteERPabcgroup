@@ -48,23 +48,5 @@
 	{
 		$('#assignRow_'+reportUserKey).remove();
 	}
-	function changeTypeReport()
-	{
-		var type_report_id = $('select[name^="type_report_id"]').val();
-		$.ajax(
-		{
-			type : 'post',
-			url : '{{ url("admin/report/getFormatTypeReport") }}',
-			data : {
-				'type_report_id' : type_report_id,
-			},
-			success: function(responseText)
-			{
-				// var a = document.getElementById('url_format_type_report');
-				// a.href = responseText;
-				$('#report_normal_id').html(responseText);
-			}
-		});
-	}
 
 </script>

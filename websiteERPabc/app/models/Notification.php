@@ -6,7 +6,7 @@ use Illuminate\Auth\Reminders\RemindableTrait;
 use Illuminate\Auth\Reminders\RemindableInterface;
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
-class Report extends Eloquent {
+class Notification extends Eloquent {
 
 	use SoftDeletingTrait;
 
@@ -15,18 +15,18 @@ class Report extends Eloquent {
 	 *
 	 * @var string
 	 */
-	protected $table = 'reports';
+	protected $table = 'notifications';
 
 	/**
 	 * The attributes excluded from the model's JSON form.
 	 *
 	 * @var array
 	 */
-	protected $fillable = array('name', 'type_report_id', 'user_id', 'status', 'description', 'link_url');
+	protected $fillable = array('name', 'type_notification_id', 'user_id', 'status', 'description', 'link_url');
     protected $dates = ['deleted_at'];
 
    	public function users()
     {
-        return $this->belongsToMany('User', 'report_users', 'report_id', 'receiver_id');
+        return $this->belongsToMany('User', 'notification_users', 'notification_id', 'receiver_id');
     }
 }

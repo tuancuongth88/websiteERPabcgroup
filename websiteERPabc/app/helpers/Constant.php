@@ -26,6 +26,10 @@ define('SINGLE', 1);
 define('MARRIAG', 2);
 //upload file
 define('PROFILE', '/users');
+//upload file cho format bao cao
+define('REPORT_FORMAT', '/reports/format');
+//upload file cho thong bao
+define('NOTIFICATION_FILE', '/notification/files');
 //if upload file
 define('IS_UPLOAD_FILE', 1);
 define('IS_UPLOAD_UNIQUE', 1);
@@ -63,13 +67,13 @@ define('USER_PROFILE', 3);
 define('USER_ORTHER', 4);
 //functions position
 define('FUNCTION_USER', 1);
-define('FUNCTION_DEPARTMENT', 2);
-define('FUNCTION_REGENCY', 3);
-define('FUNCTION_TASK', 4);
-define('FUNCTION_PROJECT', 5);
-define('FUNCTION_TEMPROLE', 6);
-define('FUNCTION_PROJECTSTATUS', 7);
-define('FUNCTION_REPORT', 8);
+define('FUNCTION_REPORT', 2);
+define('FUNCTION_TASK', 3);
+define('FUNCTION_PROJECT', 4);
+// define('FUNCTION_DEPARTMENT', 2);
+// define('FUNCTION_REGENCY', 3);
+// define('FUNCTION_TEMPROLE', 6);
+// define('FUNCTION_PROJECTSTATUS', 7);
 //button
 define('CREATE', 1);
 define('EDIT', 2);
