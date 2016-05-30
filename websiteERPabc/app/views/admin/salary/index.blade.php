@@ -1,41 +1,40 @@
 @extends('admin.layout.default')
 
 @section('title')
-{{ $title='Quản lý phòng ban' }}
+{{ $title='Quản lý lương nhân viên' }}
 @stop
-
 @section('content')
-@include('admin.department.search')
+@include('admin.salary.search')
 <div class="row margin-bottom">
 	<div class="col-xs-12">
-	<a href="{{ action('DeparmentController@create') }}" class="btn btn-primary">Thêm phòng</a>
+	<a href="{{ action('SalaryUserController@create') }}" class="btn btn-primary">Thêm mức lương</a>
 	</div>
 </div>
 <div class="row">
 	<div class="col-xs-12">
 		<div class="box">
 			<div class="box-header">
-				<h3 class="box-title">Danh sách phòng</h3>
+				<h3 class="box-title">Danh sách lương nhân viên</h3>
 			</div>
 			<!-- /.box-header -->
 			<div class="box-body table-responsive no-padding">
 				<table class="table table-hover">
 					<tr>
 						<th>ID</th>
-						<th>Tên phòng</th>
-						<th>Parent</th>
-						<th>Số người</th>
+						<th>Mức lương</th>
+						<th>Tên nhân viên</th>
+						<th>Phòng ban</th>
 						<th>Action</th> 
 					</tr>
 					@foreach($data as $key => $value)
 					<tr>
 						<td>{{ $value->id }}</td>
-						<td>{{ $value->name }}</td> 
-						<td>{{ CommonOption::getNameOption('Department', $value) }}</td>
-						<td>{{ CommonCount::countUserOnDep('DepRegencyPerUser', $value->id, 'dep_id', ASSIGN_STATUS_1, 'status') }}</td>
+						<td>{{ $value->salary }}</td> 
+						<td>{{ User::where('salary_id', $value->id)->where('role_id', 2)-> first()->username}} </td>
+						<td> {{ CommonCount::count('User', $value->id, 'salary_id') }} </td>
 						<td>
-							<a href="{{ action('DeparmentController@edit', $value->id) }}" class="btn btn-primary">Sửa</a>
-							{{ Form::open(array('method'=>'DELETE', 'action' => array('DeparmentController@destroy', $value->id), 'style' => 'display: inline-block;')) }}
+							<a href="{{ action('SalaryUserController@edit', $value->id) }}" class="btn btn-primary">Sửa</a>
+							{{ Form::open(array('method'=>'DELETE', 'action' => array('SalaryUserController@destroy', $value->id), 'style' => 'display: inline-block;')) }}
 							<button class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa?');">Xóa</button>
 							{{ Form::close() }}
 						</td>

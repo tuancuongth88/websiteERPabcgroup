@@ -177,11 +177,10 @@ class ManagementController extends AdminController {
 		return View::make('admin.management.assign')->with(compact('departmentUserKey'));
 	}
 
-	public function loadRegency()
+	public function loadButton()
 	{
-		$dep_id = Input::get('dep_id');
-		$listID = DepUserRegency::whereIn('dep_id', $dep_id)->lists('regency_id');
-		$data = Regency::whereIn('id', $listID)->lists('name', 'id');
+		$fun_id = Input::get('fun_id');
+		$data = ButtonFunction::where('function_id', $fun_id)->lists('name', 'id');
 		return Response::json($data);
 	}
 
@@ -315,7 +314,8 @@ class ManagementController extends AdminController {
 	public function changePermissionUser($id)
 	{
 		$data = User::find($id);
-		return View::make('admin.management.changepermission')->with(compact('data'));
+		$dataPermission = FunButtonUser::where('user_id', $id)->get();
+		return View::make('admin.management.changepermission')->with(compact('data', 'dataPermission'));
 	}
 	public function assignFunPerUser()
 	{
@@ -324,7 +324,22 @@ class ManagementController extends AdminController {
 	}
 	public function doChangePermissionUser($id)
 	{
-		
+		$input = Input::except('_token');
+		// dd($input);
+		//delete tao bo truoc khi cap nhat
+		FunButtonUser::where('user_id', $id)->delete();
+
+		$inputFun_id = $input['fun_id'];
+		$inputButton_id = $input['button_id'];
+		foreach ($inputFun_id as $key => $value) {
+			$inputdata['fun_id'] = $value;
+			$inputdata['user_id'] = $id;
+			foreach ($inputButton_id[$key] as $keybutton => $valuebutton) {
+				$inputdata['button_id'] = $valuebutton;
+				FunButtonUser::create($inputdata);
+			}
+		}
+		return Redirect::action('ManagementController@index');
 	}
 
 }

@@ -6,13 +6,11 @@
 
 @section('content')
 
-@if(User::isAdmin() == ROLE_ADMIN)
 <div class="row margin-bottom">
 	<div class="col-xs-12">
 		<a href="{{ action('TaskController@create') }}" class="btn btn-primary">Thêm mới</a>
 	</div>
 </div>
-@endif
 
 @include('admin.task.search')
 <div class="row">
