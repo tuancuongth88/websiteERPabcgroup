@@ -35,7 +35,7 @@
 						<label>Phòng ban</label>
 						<div class="row">
 							<div class="col-sm-6">
-								{{ Form::select('dep_id', [0 => 'Lựa chọn'] + Department::lists('name', 'id'), null, array('class' => 'form-control')) }}
+								{{ Form::select('dep_id', [0 => 'Chung'] + Department::lists('name', 'id'), null, array('class' => 'form-control')) }}
 							</div>
 						</div>
 					</div>

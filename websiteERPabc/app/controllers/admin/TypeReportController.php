@@ -42,7 +42,12 @@ class TypeReportController extends AdminController {
 	            ->withErrors($validator);
         } else {
 			$typeId = TypeReport::create($input)->id;
-			$input['url'] = CommonUser::uploadAction('url', REPORT_FORMAT.'/'.$typeId);
+			if ($input['dep_id'] != 0) {
+				$input['url'] = CommonUser::uploadAction('url', REPORT_FORMAT.'/'.$typeId);
+			}
+			else {
+				$input['url'] = CommonUser::uploadAction('url', REPORT_FORMAT);
+			}
 			TypeReport::find($typeId)->update($input);
 			return Redirect::action('TypeReportController@index');	
         }
@@ -92,7 +97,12 @@ class TypeReportController extends AdminController {
 			return Redirect::action('TypeReportController@edit', $id)
 	            ->withErrors($validator);
         }else{
-			$input['url'] = CommonUser::uploadAction('url', REPORT_FORMAT.'/'.$id, $typeReport->url);
+			if ($input['dep_id'] != 0) {
+				$input['url'] = CommonUser::uploadAction('url', REPORT_FORMAT.'/'.$id, $typeReport->url);
+			}
+			else {
+				$input['url'] = CommonUser::uploadAction('url', REPORT_FORMAT, $typeReport->url);
+			}
         	$typeReport->update($input);
         	return Redirect::action('TypeReportController@index');
         }

@@ -26,7 +26,7 @@
 					</div>
 					<div class="form-group">
 						<label>Format</label>
-						<a href="{{ url(REPORT_FORMAT.'/'. $data->id . '/' . $data->url) }}">Xem file</a>
+							<a href="{{ url(REPORT_FORMAT.'/'. $data->id . '/' . $data->url) }}">Xem file</a>
 						<div class="row">
 							<div class="col-sm-6">
 								{{ Form::file('url') }}
@@ -37,7 +37,7 @@
 						<label>Phòng ban</label>
 						<div class="row">
 							<div class="col-sm-6">
-								{{ Form::select('dep_id', [0 => 'Lựa chọn'] + Department::lists('name', 'id'), $data->dep_id, array('class' => 'form-control')) }}
+								{{ Form::select('dep_id', [0 => 'Chung'] + Department::lists('name', 'id'), $data->dep_id, array('class' => 'form-control')) }}
 							</div>
 						</div>
 					</div>

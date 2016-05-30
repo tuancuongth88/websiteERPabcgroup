@@ -27,15 +27,12 @@
 						<label>Thể loại</label>
 						<div class="row">
 							<div class="col-sm-6">
-								{{ Form::select('type_report_id', TypeReport::lists('name', 'id'), null, array('class' => 'form-control', 'onchange' => 'changeTypeReport()')) }}
+								{{ Form::select('type_report_id', [0 => 'Lựa chọn'] + TypeReport::lists('name', 'id'), null, array('class' => 'form-control', 'onchange' => 'changeTypeReport()')) }}
 							</div>
 						</div>
 					</div>
 
-					@include('admin.report.report_normal')
-					
-					@include('admin.report.report_department')
-
+					<div id = "report_normal_id"></div>
 					<div class="form-group">
 						<label>Nội dung</label>
 						<div class="row">

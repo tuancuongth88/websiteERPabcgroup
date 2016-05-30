@@ -77,7 +77,7 @@ class CommonUser
 		// );
 	}
 	public static function getDepartmentUser($id){
-		$department = Department::WhereIn('id', DepRegencyUserParent::where('user_id', $id)->lists('dep_id'))->get();
+		$department = Department::whereIn('id', DepRegencyUserParent::where('user_id', $id)->lists('dep_id'))->get();
 		$nameDepartment = '';
 		foreach ($department as $key => $value) {
 			$nameDepartment = $nameDepartment.$value->name.'-';
@@ -125,7 +125,30 @@ class CommonUser
 		$listFun = FunButtonUser::where('user_id', $id)->where('fun_id', $fun_id)->lists('button_id');
 		return $listFun ;
 	}	
+	public static function getDepartmentIdByUser()
+	{
+		$userId = self::getUserId();
+		if ($userId) {
+			$departmentId = DepRegencyUserParent::where('user_id', $userId)->lists('dep_id');
+			return $departmentId;
+		}
+		return null;
 
+	}
+	public static function getFormatReportDepartmentUser()
+	{
+		if (self::getUserRole() == ROLE_USER) {
+			$departmentId = self::getDepartmentIdByUser();
+			$listFormat = TypeReport::whereIn('dep_id', $departmentId)->lists('url', 'dep_id');
+			return $listFormat;
+		}
+		if (self::getUserRole() == ROLE_ADMIN) {
+			$departmentId = DepRegencyUserParent::lists('dep_id');
+			$listFormat = TypeReport::whereIn('dep_id', $departmentId)->lists('url', 'dep_id');
+			return $listFormat;
+		}
 		
+
+	}
 
 }

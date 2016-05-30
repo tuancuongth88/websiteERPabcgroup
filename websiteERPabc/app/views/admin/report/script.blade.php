@@ -60,8 +60,9 @@
 			},
 			success: function(responseText)
 			{
-				var a = document.getElementById('url_format_type_report');
-				a.href = responseText;
+				// var a = document.getElementById('url_format_type_report');
+				// a.href = responseText;
+				$('#report_normal_id').html(responseText);
 			}
 		});
 	}
