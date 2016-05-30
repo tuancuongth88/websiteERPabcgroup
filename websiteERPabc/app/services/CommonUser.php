@@ -1,7 +1,7 @@
 <?php
 class CommonUser
 {
-	public static function uploadAction($fileUpload, $pathUpload)
+	public static function uploadAction($fileUpload, $pathUpload, $name = null)
 		{
 			if(Input::hasFile($fileUpload)){
 				$file = Input::file($fileUpload);
@@ -14,6 +14,7 @@ class CommonUser
 				$uploadSuccess = $file->move($pathUpload, $filename);
 				return $filename;
 			}
+			return $name;
 		}
 	//insert phong ban
 	public static function insertDepartment($id, $input, $arraystatus = null, $arrayDep = null){

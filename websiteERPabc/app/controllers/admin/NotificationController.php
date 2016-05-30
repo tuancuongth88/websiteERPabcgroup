@@ -72,13 +72,11 @@ class NotificationController extends AdminController {
 			'name' => 'required',
 		);
 		$input = Input::except('_token');
-		dd($input);
 		$validator = Validator::make($input, $rules);
 		if($validator->fails()) {
 			return Redirect::action('NotificationController@create')
 	            ->withErrors($validator);
         } else {
-        	// dd($input);
         	$userId = User::getUserIdByAuth();
         	$inputReport['name'] = $input['name'];
         	$inputReport['type_notification_id'] = $input['type_notification_id'];
@@ -87,25 +85,31 @@ class NotificationController extends AdminController {
         	$inputReport['status'] = ACTIVE;
         	$notificationId = Notification::create($inputReport)->id;
         	$notification = Notification::find($notificationId);
-        	if (isset($input['send_all'])) {
-        		$input['user_id'] = User::lists('id');
-        		$notification->users()->attach($input['user_id']);
-        	}
-        	if (isset($input['user_id'])) {
-        		$notification->users()->attach($input['user_id']);
-        	}
-        	if (isset($input['dep_id'])) {
-        		foreach ($input['dep_id'] as $value) {
-        			$dep = Department::find($value);
-        			// $dep->users()->
-        		}
-        		dd($input['dep_id']);
-        	}
-        	dd(555);
+        	$listUserId = $this->getListUserId($input);
+        	$notification->users()->attach($listUserId);
 			return Redirect::action('NotificationController@index')->with('message', 'Tạo mới thành công');
         }
 	}
+	public function getListUserId($input)
+	{
+		$listUserId = [];
+		if (isset($input['send_all'])) {
+			$listUserId = array_merge($listUserId, User::lists('id'));
+		}
+		if (isset($input['user_id'])) {
+			$listUserId = array_merge($listUserId, $input['user_id']);
 
+		}
+		if (isset($input['dep_id'])) {
+			// dd(4);
+        	$dep = DepRegencyUserParent::whereIn('dep_id', $input['dep_id'])->lists('user_id');
+        	$listUserId = array_merge($listUserId, $dep);
+		}
+		$adminId = User::where('role_id', ROLE_ADMIN)->lists('id');
+		$listUserId = array_merge($listUserId, $adminId);
+		// dd($listUserId);
+		return $listUserId;
+	}
 
 	/**
 	 * Display the specified resource.
@@ -152,9 +156,9 @@ class NotificationController extends AdminController {
 	 */
 	public function destroy($id)
 	{
-		$report = Notification::find($id);
-		$report->users()->detach();
-		$report->delete();
+		$notification = Notification::find($id);
+		$notification->users()->detach();
+		$notification->delete();
 		return Redirect::action('NotificationController@index')->with('message', 'Xóa thành công');
 	}
 

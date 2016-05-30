@@ -26,6 +26,8 @@ define('SINGLE', 1);
 define('MARRIAG', 2);
 //upload file
 define('PROFILE', '/users');
+//upload file cho format bao cao
+define('REPORT_FORMAT', '/reports/format');
 //if upload file
 define('IS_UPLOAD_FILE', 1);
 define('IS_UPLOAD_UNIQUE', 1);

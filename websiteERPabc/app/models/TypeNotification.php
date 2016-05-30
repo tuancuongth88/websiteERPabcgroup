@@ -6,7 +6,7 @@ use Illuminate\Auth\Reminders\RemindableTrait;
 use Illuminate\Auth\Reminders\RemindableInterface;
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
-class TypeReport extends Eloquent {
+class TypeNotification extends Eloquent {
 
 	use SoftDeletingTrait;
 
@@ -15,14 +15,14 @@ class TypeReport extends Eloquent {
 	 *
 	 * @var string
 	 */
-	protected $table = 'type_reports';
+	protected $table = 'type_notifications';
 
 	/**
 	 * The attributes excluded from the model's JSON form.
 	 *
 	 * @var array
 	 */
-	protected $fillable = array('name', 'status', 'dep_id', 'url');
+	protected $fillable = array('name', 'status');
     protected $dates = ['deleted_at'];
    
 }

@@ -32,7 +32,11 @@
 						<tr>
 							<td>{{ $value->id }}</td>
 							<td>{{ $value->name }}</td>
-							<td>{{ TypeReport::find($value->type_report_id)->name }}</td>
+							@if($typeReport = TypeReport::find($value->type_report_id))
+								<td>{{ $typeReport->name }}</td>
+							@else
+								<td></td>
+							@endif
 							<td>{{ User::find($value->user_id)->username }}</td>
 							<td>
 								<a href="{{ action('ReportController@show', $value->id) }}" class="btn btn-primary">View</a>
