@@ -125,6 +125,12 @@ class CommonUser
 		return $listFun ;
 	}	
 
-		
+	public static function checkFuntionUser($model, $modelId, $field)
+	{	
+		if(!isAdmin()){
+
+		}
+		return $listFun ;
+	}		
 
 }

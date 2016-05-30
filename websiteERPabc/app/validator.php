@@ -11,4 +11,11 @@ Validator::extend('salary', function($attribute, $value, $parameters)
 	}
 	return true;
 });
-
+Validator::extend('addFuntion', function($attribute, $value, $parameters)
+{
+	$buttonFuntion = ButtonFunction::find($value);
+	if ($buttonFuntion->name) {
+		return false;
+	}
+	return true;
+});
