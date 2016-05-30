@@ -289,9 +289,9 @@ class ManagementController extends AdminController {
 	public function accept($id)
 	{
 		$userId = CommonUser::getUserId();
-		$projectUser = DepRegencyPerUser::where('dep_id', $id)
-			->where('user_id', $userId)
-			->first();
+		// $projectUser = DepRegencyPerUser::where('dep_id', $id)
+		// 	->where('user_id', $userId)
+		// 	->first();
 		if($projectUser) {
 			$projectUser->update(['status' => ASSIGN_STATUS_1]);
 		}
@@ -302,9 +302,9 @@ class ManagementController extends AdminController {
 	public function refuse($id)
 	{
 		$userId = CommonUser::getUserId();
-		$projectUser = DepRegencyPerUser::where('dep_id', $id)
-			->where('user_id', $userId)
-			->first();
+		// $projectUser = DepRegencyPerUser::where('dep_id', $id)
+		// 	->where('user_id', $userId)
+		// 	->first();
 		if($projectUser) {
 			$projectUser->update(['status' => ASSIGN_STATUS_2]);
 		}
