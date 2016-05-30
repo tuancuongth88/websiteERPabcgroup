@@ -47,9 +47,7 @@ class DeparmentController extends AdminController {
 			if ($input['parent_id'] == '') {
         		$input['parent_id'] = null;
         	}
-			$array = CommonOption::getKeyFromArray($input['function']);
         	$id = CommonNormal::create($input);
-        	Department::find($id)->adminfunctions()->attach($input['function']);
 			return Redirect::action('DeparmentController@index');
 		}
 	}
@@ -90,7 +88,6 @@ class DeparmentController extends AdminController {
 	{
 		$rules = array(
 			'name' => 'required',
-			'function_id' => 'required'
 		);
 		$input = Input::except('_token');
 		// dd($input);
@@ -102,8 +99,8 @@ class DeparmentController extends AdminController {
 			if ($input['parent_id'] == '') {
         		$input['parent_id'] = null;
         	}
-			$array = CommonOption::getKeyFromArray($input['function_id']);
-        	Department::find($id)->adminfunctions()->sync($array);
+			// $array = CommonOption::getKeyFromArray($input['function_id']);
+   //      	Department::find($id)->adminfunctions()->sync($array);
         	CommonNormal::update($id, $input);
 			return Redirect::action('DeparmentController@index') ;
 		}
@@ -116,12 +113,6 @@ class DeparmentController extends AdminController {
 	 */
 	public function destroy($id)
 	{
-		CommonOption::deleteParent('Department', $id);
-		//delete record in the dep_regency_per_funs table where dep_id = $id
-		Department::find($id)->adminfunctions()->detach();
-		//delete record in the dep_user_regencies table where dep_id = $id
-		Department::find($id)->users()->detach();
-		//delete record in the departments table where id = id
 		CommonNormal::delete($id);
 		return Redirect::action('DeparmentController@index') ;
 	}

@@ -133,8 +133,14 @@ class CommonUser
 			return $departmentId;
 		}
 		return null;
+    }
+	public static function checkFuntionUser($model, $modelId, $field)
+	{	
+		if(!isAdmin()){
 
-	}
+		}
+		return $listFun ;
+	}		
 	public static function getFormatReportDepartmentUser()
 	{
 		if (self::getUserRole() == ROLE_USER) {

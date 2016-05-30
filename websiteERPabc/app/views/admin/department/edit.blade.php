@@ -33,20 +33,6 @@
 				</div>
 			  </div>
 			</div>
-			<div class="form-group">
-			  <label for="name">Quyền hạn</label>
-				<div class="row">
-				  	<div class="col-sm-6">
-						@foreach(AdminFunction::lists('name', 'id') as $key =>$value)
-						<p>
-							{{ Form::checkbox("function_id[$key]",
-							CommonOption::checkValueCheckbox('DepartmentFunction', $key, $data->id,  'function_id', 'dep_id'), CommonOption::checkOptionCheckbox('DepartmentFunction', $key, $data->id, 'function_id', 'dep_id')) }}
-	 					<label for="{{ 'function_'.$key }}">{{ $value }}</label>
-	 					</p>
-						@endforeach
-				 	 </div>
-				</div>
-			</div>
 		  </div>
 		  <!-- /.box-body -->
 

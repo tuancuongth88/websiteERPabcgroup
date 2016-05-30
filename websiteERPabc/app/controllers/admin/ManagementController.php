@@ -333,6 +333,15 @@ class ManagementController extends AdminController {
 	public function doChangePermissionUser($id)
 	{
 		$input = Input::except('_token');
+		// dd($input);
+		$rules = array(
+			'button_id'   => 'required',
+		);
+		$validator = Validator::make($input,$rules);
+		if($validator->fails()) {
+			return Redirect::action('ManagementController@doChangePermissionUser', $id)
+				->withErrors($validator);
+		} 
 		//delete tao bo truoc khi cap nhat
 		FunButtonUser::where('user_id', $id)->delete();
 

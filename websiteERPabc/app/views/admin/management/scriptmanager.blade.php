@@ -77,9 +77,9 @@
 			}
 		});
 	}
-	function removeAssignFuction(functionKey)
+	function removeAssignFuction(projectUserkey)
 	{
-		$('#assignRow_'+functionKey).remove();
+		$('#assignRow_'+projectUserkey).remove();
 	}
 	function loadButton(functionKey)
 	{
