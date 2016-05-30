@@ -1,6 +1,6 @@
 @extends('admin.layout.default')
 @section('title')
-{{ $title='Xem báo cáo' }}
+{{ $title='Xem thông báo' }}
 @stop
 
 @section('content')
@@ -15,10 +15,10 @@
 		<div class="box box-primary">
 			<div class="box-body">
 				<div class="form-group">
-					<label>Tên báo cáo</label>
+					<label>Tên thông báo</label>
 					<div class="row">
 						<div class="col-sm-6">
-							{{ $report->name }}
+							{{ $notification->name }}
 						</div>
 					</div>
 				</div>
@@ -28,7 +28,15 @@
 					<label>Nội dung</label>
 					<div class="row">
 						<div class="col-sm-6">
-							{{ $report->description }}
+							{{ $notification->description }}
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label>File đính kèm</label>
+					<div class="row">
+						<div class="col-sm-10">
+							<a href="{{ url(NOTIFICATION_FILE.'/'.$notification->link_url)}}">Xem file đính kèm</a>
 						</div>
 					</div>
 				</div>

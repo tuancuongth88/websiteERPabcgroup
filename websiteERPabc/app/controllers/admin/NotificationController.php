@@ -78,12 +78,14 @@ class NotificationController extends AdminController {
 	            ->withErrors($validator);
         } else {
         	$userId = User::getUserIdByAuth();
-        	$inputReport['name'] = $input['name'];
-        	$inputReport['type_notification_id'] = $input['type_notification_id'];
-        	$inputReport['description'] = $input['description'];
-        	$inputReport['user_id'] = $userId;
-        	$inputReport['status'] = ACTIVE;
-        	$notificationId = Notification::create($inputReport)->id;
+        	$inputNotification['name'] = $input['name'];
+        	$inputNotification['type_notification_id'] = $input['type_notification_id'];
+        	$inputNotification['description'] = $input['description'];
+        	$inputNotification['user_id'] = $userId;
+        	$inputNotification['status'] = ACTIVE;
+        	// dd($input);
+        	$inputNotification['link_url'] = CommonUser::uploadAction('link_url', NOTIFICATION_FILE);
+        	$notificationId = Notification::create($inputNotification)->id;
         	$notification = Notification::find($notificationId);
         	$listUserId = $this->getListUserId($input);
         	$notification->users()->attach($listUserId);
@@ -119,8 +121,8 @@ class NotificationController extends AdminController {
 	 */
 	public function show($id)
 	{
-		$report = Notification::find($id);
-		return View::make('admin.notification.show')->with(compact('report'));
+		$notification = Notification::find($id);
+		return View::make('admin.notification.show')->with(compact('notification'));
 	}
 
 

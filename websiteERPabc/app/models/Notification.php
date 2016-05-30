@@ -22,7 +22,7 @@ class Notification extends Eloquent {
 	 *
 	 * @var array
 	 */
-	protected $fillable = array('name', 'type_notification_id', 'user_id', 'status', 'description');
+	protected $fillable = array('name', 'type_notification_id', 'user_id', 'status', 'description', 'link_url');
     protected $dates = ['deleted_at'];
 
    	public function users()

@@ -28,6 +28,8 @@ define('MARRIAG', 2);
 define('PROFILE', '/users');
 //upload file cho format bao cao
 define('REPORT_FORMAT', '/reports/format');
+//upload file cho thong bao
+define('NOTIFICATION_FILE', '/notification/files');
 //if upload file
 define('IS_UPLOAD_FILE', 1);
 define('IS_UPLOAD_UNIQUE', 1);

@@ -1,6 +1,6 @@
 @extends('admin.layout.default')
 @section('title')
-{{ $title='Thêm mới báo cáo' }}
+{{ $title='Thêm mới thông báo' }}
 @stop
 
 @section('content')
@@ -13,7 +13,7 @@
 <div class="row">
 	<div class="col-xs-12">
 		<div class="box box-primary">
-			{{ Form::open(array('action' => 'NotificationController@store')) }}
+			{{ Form::open(array('action' => 'NotificationController@store', 'files' => true)) }}
 				<div class="box-body">
 					<div class="form-group">
 						<label>Tên thông báo</label>
@@ -34,8 +34,16 @@
 					<div class="form-group">
 						<label>Nội dung</label>
 						<div class="row">
-							<div class="col-sm-6">
-								{{ Form::textarea('description', null, array('class' => 'form-control', 'rows' => 5)) }}
+							<div class="col-sm-10">
+								{{ Form::textarea('description', null, array('class' => 'form-control', 'id' => 'editor1')) }}
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label>File đính kèm</label>
+						<div class="row">
+							<div class="col-sm-10">
+								{{ Form::file('link_url') }}
 							</div>
 						</div>
 					</div>
@@ -80,4 +88,5 @@
 	</div>
 </div>
 @include('admin.report.script')
+@include('admin.common.ckeditor')
 @stop

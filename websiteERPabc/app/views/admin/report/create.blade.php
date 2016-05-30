@@ -40,7 +40,7 @@
 						<label>Nội dung</label>
 						<div class="row">
 							<div class="col-sm-6">
-								{{ Form::textarea('description', null, array('class' => 'form-control', 'rows' => 5)) }}
+								{{ Form::textarea('description', null, array('class' => 'form-control', 'id' => 'editor1')) }}
 							</div>
 						</div>
 					</div>
@@ -56,7 +56,7 @@
 									<tbody id="assignBox">
 									</tbody>
 								</table>
-								<a onclick="assignReportUser()" class="assignBtn">Thêm thành viên</a>
+								<a onclick="assignReportUser()" class="assignBtn">Gửi đến thành viên</a>
 							</div>
 						</div>
 					</div>
@@ -69,4 +69,5 @@
 	</div>
 </div>
 @include('admin.report.script')
+@include('admin.common.ckeditor')
 @stop
