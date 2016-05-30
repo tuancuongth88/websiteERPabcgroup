@@ -4,16 +4,12 @@ class ButtonUserTableSeeder extends Seeder {
 
 	public function run()
 	{
-		$button = array('Thêm phòng ban');
-		$function = array(5);
+		$button = array('Thêm phòng ban','Sửa lương', 'Sưa hợp đồng', 'Sửa bằng cấp');
 		foreach ($button as $value) {
-			foreach ($function as $v) {
 				ButtonFunction::create([
 					'name'=> $value,
-					'function_id'=> $v,
+					'function_id'=> 1,
 				]);
-			}
-			
 		}
 	
 	}

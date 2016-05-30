@@ -174,6 +174,7 @@ class ManagementController extends AdminController {
 	public function assignDepartmentUser()
 	{
 		$departmentUserKey = Input::get('departmentUserKey');
+		// dd($departmentUserKey);
 		return View::make('admin.management.assign')->with(compact('departmentUserKey'));
 	}
 
@@ -315,17 +316,23 @@ class ManagementController extends AdminController {
 	{
 		$data = User::find($id);
 		$dataPermission = FunButtonUser::where('user_id', $id)->get();
+		// dd($dataPermission->toArray());
 		return View::make('admin.management.changepermission')->with(compact('data', 'dataPermission'));
 	}
 	public function assignFunPerUser()
 	{
-		$departmentUserKey = Input::get('departmentUserKey');
-		return View::make('admin.management.assignFun')->with(compact('departmentUserKey'));
+		$functionKey = Input::get('functionKey');
+		if($functionKey == '') {
+			$functionKey = 0;
+		} else {
+			$functionKey = max($functionKey);
+			$functionKey++;
+		}
+		return View::make('admin.management.assignFun')->with(compact('functionKey'));
 	}
 	public function doChangePermissionUser($id)
 	{
 		$input = Input::except('_token');
-		// dd($input);
 		//delete tao bo truoc khi cap nhat
 		FunButtonUser::where('user_id', $id)->delete();
 
