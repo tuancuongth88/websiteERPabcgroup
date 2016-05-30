@@ -79,4 +79,5 @@ define('DELETED', 3);
 define('VIEW', 4);
 define('ADD_DEPARTMENT', 5);
 define('ADD_SALARY', 6);
-
+define('ADD_OFFICIAL', 7);
+define('ADD_QUALIFICATIONS', 8);

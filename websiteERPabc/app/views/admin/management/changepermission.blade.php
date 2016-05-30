@@ -38,17 +38,17 @@
 									</thead>
 									<tbody id="assignBoxFun">
 										@if($dataPermission)
-											@foreach($dataPermission as $key => $value)
+											@foreach(CommonUser::getFunUser($data->id) as $key => $value)
 											<tr id = "assignRow_{{ $key }}">
 												<td>
-													{{ Form::select('fun_id['.$key.']', CommonOption::getOptionFromModel('AdminFunction'), $value->fun_id, array('class' => 'form-control', 'onchange' => 'loadButton('.$key.')', 'id' => 'fun_id_'.$key, 'style' => 'width: 200px;')) }}
-													{{ Form::hidden('key', $key) }}
+													{{ Form::select('fun_id['.$key.']', CommonOption::getOptionFromModel('AdminFunction'), $value->id, array('class' => 'form-control', 'onchange' => 'loadButton('.$key.')', 'id' => 'fun_id_'.$key, 'style' => 'width: 200px;')) }}
+													{{ Form::hidden('functionKey[]', $key) }}
 												</td>
 												<td>
-													{{ Form::select('button_id['.$key.'][]', [], null, array('id' => 'button_id_'.$key, 'multiple' => true, 'style' => 'width: 200px;')) }}
+													{{ Form::select('button_id['.$key.'][]', CommonUser::getButton($value->id),CommonUser::getSelectFunUser($data->id, $value->id), array('id' => 'button_id_'.$key, 'multiple' => true, 'style' => 'width: 200px;')) }}
 												</td>
 												<td>
-													<a onclick="removeAssignProjectUser({{ $key }})" class="removeAssignBtn">Xóa</a>
+													<a onclick="removeAssignFuction({{ $key }})" class="removeAssignBtn">Xóa</a>
 												</td>
 											</tr>
 											@endforeach

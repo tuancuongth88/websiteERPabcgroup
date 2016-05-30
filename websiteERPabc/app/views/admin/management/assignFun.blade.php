@@ -1,12 +1,12 @@
-<tr id = "assignRow_{{ $departmentUserKey }}">
+<tr id = "assignRow_{{ $functionKey }}">
 	<td>
-		{{ Form::select('fun_id['.$departmentUserKey.']', CommonOption::getOptionFromModel('AdminFunction'), null, array('class' => 'form-control', 'onchange' => 'loadButton('.$departmentUserKey.')', 'id' => 'fun_id_'.$departmentUserKey, 'style' => 'width: 200px;')) }}
-		{{ Form::hidden('departmentUserKey', $departmentUserKey) }}
+		{{ Form::select('fun_id['.$functionKey.']', CommonOption::getOptionFromModel('AdminFunction'), null, array('class' => 'form-control', 'onchange' => 'loadButton('.$functionKey.')', 'id' => 'fun_id_'.$functionKey, 'style' => 'width: 200px;')) }}
+		{{ Form::hidden('functionKey', $functionKey) }}
 	</td>
 	<td>
-		{{ Form::select('button_id['.$departmentUserKey.'][]', [], null, array('id' => 'button_id_'.$departmentUserKey, 'multiple' => true, 'style' => 'width: 200px;')) }}
+		{{ Form::select('button_id['.$functionKey.'][]', [], null, array('id' => 'button_id_'.$functionKey, 'multiple' => true, 'style' => 'width: 200px;')) }}
 	</td>
 	<td>
-		<a onclick="removeAssignProjectUser({{ $departmentUserKey }})" class="removeAssignBtn">Xóa</a>
+		<a onclick="removeAssignFuction({{ $functionKey }})" class="removeAssignBtn">Xóa</a>
 	</td>
 </tr>

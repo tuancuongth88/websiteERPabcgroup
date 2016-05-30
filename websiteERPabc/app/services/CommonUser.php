@@ -40,7 +40,7 @@ class CommonUser
 			DepRegencyUserParent::create($inputDepartRegency);
 		}
 	}
-
+ 
 	public static function getDepUserRegency($id)
 	{
 		return DepRegencyUserParent::where('user_id', $id)->get();
@@ -109,5 +109,23 @@ class CommonUser
 		}
 		return $userRole;	
 	}
+	public static function getFunUser($id)
+	{	
+		$listFun = FunButtonUser::where('user_id', $id)->groupBy('fun_id')->lists('fun_id');
+
+		return AdminFunction::whereIn('id', $listFun)->get() ;
+	}	
+	public static function getButton($id)
+	{	
+		return ButtonFunction::where('function_id', $id)->lists('name', 'id') ;
+	}
+
+	public static function getSelectFunUser($id, $fun_id)
+	{	
+		$listFun = FunButtonUser::where('user_id', $id)->where('fun_id', $fun_id)->lists('button_id');
+		return $listFun ;
+	}	
+
+		
 
 }

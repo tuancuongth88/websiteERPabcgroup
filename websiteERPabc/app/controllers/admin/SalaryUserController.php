@@ -117,7 +117,7 @@ class SalaryUserController extends AdminController {
 		{
 			$input = Input::all();
 			$salarydata = SalaryUser::all();
-			if ($input['salary']) {
+			if ($input['salary'] ) {
 				$data = $salarydata::where('salary', 'LIKE', '%' . $input['salary'] . '%');
 			}
 			if($input['username']){$
@@ -126,6 +126,5 @@ class SalaryUserController extends AdminController {
 			}
 				$data = $salarydata->paginate(PAGINATE);
 			return View::make('admin.salary.index')->with(compact('data'));
-		}	
-
+		}
 }

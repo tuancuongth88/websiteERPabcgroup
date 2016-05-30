@@ -50,37 +50,40 @@
 	}
 	function assignFunUser()
 	{
-		var departmentUserKey = $('input[name=departmentUserKey]').val();
-		if(!departmentUserKey) {
-			departmentUserKey = 0;
-		}
+		var functionKey = $('input[name^="functionKey"]').map(function () {
+			return this.value;
+		}).get();
 		$.ajax(
 		{
 			type : 'post',
 			url : '{{ url("admin/management/assignFunPerUser") }}',
 			data : {
-				'departmentUserKey' : departmentUserKey,
+				'functionKey' : functionKey,
 			},
 			beforeSend: function() {
 				$('.assignBtn').html('Đang load...');
 			},
 			success: function(responseText)
 			{
-				$('.assignBtn').html('Thêm phòng ban');
+				console.log(responseText);
+				$('.assignBtn').html('Thêm chức năng');
 				$('#assignBoxFun').append(responseText);
-				loadButton(departmentUserKey);
-				departmentUserKey++;
-				$('input[name=departmentUserKey]').val(departmentUserKey);
+
+				var functionKeys = $('input[name^="functionKey"]').map(function () {
+					return this.value;
+				}).get();
+				maxFunctionKey = Math.max.apply(null, functionKeys) ;
+				loadButton(maxFunctionKey);
 			}
 		});
 	}
-	function removeAssignProjectUser(projectUserKey)
+	function removeAssignFuction(functionKey)
 	{
-		$('#assignRow_'+projectUserKey).remove();
+		$('#assignRow_'+functionKey).remove();
 	}
-	function loadButton(projectUserKey)
+	function loadButton(functionKey)
 	{
-		var fun_id = $('#fun_id_'+projectUserKey).val();
+		var fun_id = $('#fun_id_'+functionKey).val();
 		$.ajax({
 			type: 'POST',
 			data: {
@@ -89,9 +92,9 @@
 			url: '{{ url("admin/management/loadButton") }}',
 			success:function(data) {
 				console.log(data);
-				$('#button_id_'+projectUserKey).empty();
+				$('#button_id_'+functionKey).empty();
 					$.each(data ,function(index, value){
-						$('#button_id_'+projectUserKey).append('<option value="'+ index+'" >'+value+'</option>');
+						$('#button_id_'+functionKey).append('<option value="'+ index+'" >'+value+'</option>');
 				});
 			}
 		});	
