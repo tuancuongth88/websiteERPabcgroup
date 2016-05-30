@@ -134,7 +134,7 @@ class ManagementController extends AdminController {
 			//xu ly upload file
 			//upload file avata
 			if($input_User_file['avatar'])
-				$input_User['avatar'] = CommonUser::uploadAction('avatar', PROFILE.'/'.$id.'/avatar');
+				$input_User['avatar'] = CommonUser::uploadAction('avatar', PROFILE.'/'.$id.'/avatar', $user->avatar);
 			//upload file so yeu ly lich
 			if($input_User_file['personal_file'])
 				$input_User['personal_file'] = CommonUser::uploadAction('personal_file', PROFILE.'/'.$id.'/file');

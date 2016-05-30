@@ -86,7 +86,7 @@ class CommonUser
 	}
 	public static function getInput($input)
 	{
-		return Input::only('name', 'email', 'username', 'phone','date_of_birth', 'sex', 'ethnic', 'identity_card', 'current_address', 'address', 'degree', 'skyper', 'number_tax', 'number_insure', 'marriage', 'note', 'type_id', 'salary', 'start_time', 'end_time', 'avatar');
+		return Input::only('name', 'email', 'username', 'phone','date_of_birth', 'sex', 'ethnic', 'identity_card', 'current_address', 'address', 'degree', 'skyper', 'number_tax', 'number_insure', 'marriage', 'note', 'type_id', 'salary', 'start_time', 'end_time');
 		
 	}
 	public static function getUserId()
@@ -147,8 +147,31 @@ class CommonUser
 			$listFormat = TypeReport::whereIn('dep_id', $departmentId)->lists('url', 'dep_id');
 			return $listFormat;
 		}
-		
-
 	}
+	public static function getUserNameSalary($value)
+	{
+		$user = self::getUserBySalary($value);
+		if ($user) {
+			return $user->username;
+		}
+		return null;
+	}
+	public static function getUserBySalary($value)
+	{
+		$user = User::where('salary_id', $value->id)->where('role_id', ROLE_USER)->first();
+		if ($user) {
+			return $user;
+		}
+		return null;
+	}
+	public static function getDeparmentNameBySalary($value)
+	{
+		$user = self::getUserBySalary($value);
+		if ($user) {
+			$userId = $user->id;
+			return self::getDepartmentUser($userId);
+		}
+		return null;
+	}	
 
 }

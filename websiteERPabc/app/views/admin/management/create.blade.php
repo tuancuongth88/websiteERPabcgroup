@@ -173,14 +173,6 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="type">Ngạch, bậc lương</label>
-						<div class="row">
-							<div class="col-sm-6">
-									{{ Form::text('salary', null, array('class' => 'form-control', 'placeholder'=> 'Nhập mức lương')) }}
-							</div>
-						</div>
-					</div>
-					<div class="form-group">
 						<div class="row">
 							<div class="col-sm-3">
 								<label for="start_time">Thời gian bắt đầu</label>

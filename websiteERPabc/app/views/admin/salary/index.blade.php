@@ -30,8 +30,8 @@
 					<tr>
 						<td>{{ $value->id }}</td>
 						<td>{{ $value->salary }}</td> 
-						<td>{{ User::where('salary_id', $value->id)->where('role_id', 2)-> first()->username}} </td>
-						<td> {{ CommonCount::count('User', $value->id, 'salary_id') }} </td>
+						<td>{{ CommonUser::getUserNameSalary($value) }} </td>
+						<td> {{ CommonUser::getDeparmentNameBySalary($value) }} </td>
 						<td>
 							<a href="{{ action('SalaryUserController@edit', $value->id) }}" class="btn btn-primary">Sửa</a>
 							{{ Form::open(array('method'=>'DELETE', 'action' => array('SalaryUserController@destroy', $value->id), 'style' => 'display: inline-block;')) }}
