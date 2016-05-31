@@ -28,7 +28,7 @@
 					<label for="name">Tên nhân viên</label>
 						<div class="row">
 							<div class="col-sm-6">
-								{{ Form::label('user_id', User::where('salary_id', $salary->id)->first()->username, array('class' => 'form-control')) }}
+								{{ Form::label('user_id', CommonUser::getDeparmentNameBySalary($salary), array('class' => 'form-control')) }}
 							</div>
 						</div>
 				</div>

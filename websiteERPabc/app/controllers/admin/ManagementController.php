@@ -41,7 +41,6 @@ class ManagementController extends AdminController {
 			'phone' => 'required',
 			'date_of_birth' => 'required',
 			'sex' => 'required',
-			// 'ethnic' => 'required',
 			'identity_card' => 'required',
 			'current_address' => 'required',
 			'address' => 'required',
@@ -120,7 +119,6 @@ class ManagementController extends AdminController {
 	{
 		$rules = array(
 			'name' => 'required',
-			'email' => 'required|email',
 		);
 		$input = Input::except('_token');
 
@@ -133,8 +131,14 @@ class ManagementController extends AdminController {
 			$input_User_file = Input::only('avatar', 'personal_file', 'medical_file', 'curriculum_vitae_file');
 			//xu ly upload file
 			//upload file avata
+			// if (isset($input['username'])) {
+			// 	$input['username'] = $input['username'];
+			// }
+			// if (!isset($input['username'])) {
+			// 	$input['username'] = User::find($id)->username;
+			// }
 			if($input_User_file['avatar'])
-				$input_User['avatar'] = CommonUser::uploadAction('avatar', PROFILE.'/'.$id.'/avatar', $user->avatar);
+				$input_User['avatar'] = CommonUser::uploadAction('avatar', PROFILE.'/'.$id.'/avatar');
 			//upload file so yeu ly lich
 			if($input_User_file['personal_file'])
 				$input_User['personal_file'] = CommonUser::uploadAction('personal_file', PROFILE.'/'.$id.'/file');
@@ -146,11 +150,11 @@ class ManagementController extends AdminController {
 			$input_User['curriculum_vitae_file'] = CommonUser::uploadAction('curriculum_vitae_file', PROFILE.'/'.$id.'/file');
 			CommonNormal::update($id, $input_User);
 			//update phòng ban
-			$projectDepartIDStatus = DepRegencyUserParent::where('user_id',  $id)->lists('status', 'dep_id');
-			$departmentUserId = DepRegencyUserParent::where('user_id', $id)
-					->lists('dep_id');
-			DepRegencyUserParent::where('user_id', $id)->delete();
 			if (isset($input['dep_id'])) {
+				$projectDepartIDStatus = DepRegencyUserParent::where('user_id',  $id)->lists('status', 'dep_id');
+				$departmentUserId = DepRegencyUserParent::where('user_id', $id)
+					->lists('dep_id');
+				DepRegencyUserParent::where('user_id', $id)->delete();
 				CommonUser::insertDepartment($id, $input, $projectDepartIDStatus, $departmentUserId);
 			}
 			return Redirect::action('ManagementController@index')->with('message', 'Cập nhật tài khoản thành công') ;

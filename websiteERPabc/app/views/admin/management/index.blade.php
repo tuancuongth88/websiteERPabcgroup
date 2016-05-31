@@ -5,18 +5,16 @@
 
 @section('content')
 @include('admin.management.search')
-@if(User::isAdmin() == ROLE_ADMIN || User::checkPermissionFunction(FUNCTION_USER))
-	<div class="row margin-bottom">
-		<div class="col-xs-12">
-			@if(User::isAdmin() == ROLE_ADMIN || Common::checkPermissionUser(FUNCTION_USER, Config::get('button.add_user_manage')))
-				<a href="{{ action('ManagementController@create') }}" class="btn btn-primary">Thêm tài khoản nhân viên</a>
-			@endif
-			@if(User::isAdmin() == ROLE_ADMIN)
-				<a href="{{  action('ManagementController@createadmin') }}" class="btn btn-primary">Thêm tài khoản Admin</a>
-			@endif
-		</div>
+<div class="row margin-bottom">
+	<div class="col-xs-12">
+		@if(User::isAdmin() == ROLE_ADMIN || Common::checkPermissionUser(FUNCTION_USER, Config::get('button.add_user_manage')))
+			<a href="{{ action('ManagementController@create') }}" class="btn btn-primary">Thêm tài khoản nhân viên</a>
+		@endif
+		@if(User::isAdmin() == ROLE_ADMIN)
+			<a href="{{  action('ManagementController@createadmin') }}" class="btn btn-primary">Thêm tài khoản Admin</a>
+		@endif
 	</div>
-@endif
+</div>
 <div class="row">
 	<div class="col-xs-12">
 	  <div class="box">
