@@ -16,10 +16,6 @@ class SalarieUserTableSeeder extends Seeder {
 					'salary'=>'30000000',
 					'status'=>'1',
 			]);
-		SalaryUser::create([
-					'salary'=>'40000000',
-					'status'=>'1',
-			]);
 	}
 
 }

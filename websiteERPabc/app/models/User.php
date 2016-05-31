@@ -158,7 +158,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 			return;
 		}
 		if ($check == false) {
-			return 'disabled';
+			return 'readonly';
 		}
 	}
 }
