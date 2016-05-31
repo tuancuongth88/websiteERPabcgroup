@@ -129,10 +129,36 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		$advandce = Config::get('button.edit_advandce');
 		$checkNormal = Common::checkPermissionUser(FUNCTION_USER, $normal);
 		$checkAdvandce = Common::checkPermissionUser(FUNCTION_USER, $advandce);
-		if ($checkNormal || $checkAdvandce) {
+		if (User::isAdmin() == ROLE_ADMIN || $checkNormal || $checkAdvandce) {
 			return true;
 		}
 		return false;
 	}
-		
+	public static function editFunctionUserAd()
+	{
+		$advandce = Config::get('button.edit_advandce');
+		$checkAdvandce = Common::checkPermissionUser(FUNCTION_USER, $advandce);
+		if (User::isAdmin() == ROLE_ADMIN || $checkAdvandce) {
+			return true;
+		}
+		return false;
+	}	
+	public static function editPersonal($userId)
+	{
+		$check = self::editFunctionUserAd();
+		$id = self::getUserIdByAuth();
+		if ($id == $userId || $check) {
+			return true;
+		}
+		return false;
+	}
+	public static function getDisabled($check)
+	{
+		if ($check == true) {
+			return;
+		}
+		if ($check == false) {
+			return 'disabled';
+		}
+	}
 }
