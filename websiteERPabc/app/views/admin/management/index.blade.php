@@ -61,9 +61,7 @@
 				@if(User::checkUserIsAdmin($value->id))
 					<a href="{{ action('ManagementController@showadmin', $value->id) }}" class="btn btn-primary">Xem</a>
 				@else
-					@if(User::isAdmin() == ROLE_ADMIN || Common::checkPermissionUser(FUNCTION_USER, Config::get('button.user_view'))|| User::isAdmin() == User::getCurrentUser($value->id))
-						<a href="{{ action('ManagementController@show', $value->id) }}" class="btn btn-primary">Xem</a>
-					@endif
+					<a href="{{ action('ManagementController@show', $value->id) }}" class="btn btn-primary">Xem</a>
 				@endif
 			  </td>
 			</tr>
