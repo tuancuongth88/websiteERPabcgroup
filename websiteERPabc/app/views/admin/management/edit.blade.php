@@ -93,8 +93,7 @@
 							</div>
 						</div>
 					</div>
-
-					@if($checkPer)
+					@if($ad)
 						<div class="form-group">
 							<label for="name">Sơ yếu lý lịch</label>
 							<div class="row">
@@ -208,7 +207,7 @@
 							</div>
 						</div>
 					</div>
-					@include('admin.management.user_department')
+					@include('admin.management.user_department', array('checkPermission' => $ad))
 				</div>
 				<!-- /.box-body -->
 				<div class="box-footer">
