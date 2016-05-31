@@ -165,9 +165,6 @@ class ReportController extends AdminController {
 	{
 		$typeReportId = Input::get('type_report_id');
 		$typeReport = TypeReport::find($typeReportId);
-		if ($typeR) {
-			# code...
-		}
 		if ($typeReport->dep_id > 0) {
 			$url = (REPORT_FORMAT . '/' . $typeReportId . '/' . $typeReport->url);
 		}

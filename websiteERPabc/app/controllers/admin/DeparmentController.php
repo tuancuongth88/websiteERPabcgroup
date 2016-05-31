@@ -7,7 +7,7 @@ class DeparmentController extends AdminController {
 	 *
 	 * @return Response
 	 */
-	public function index()
+	public function index() 
 	{
 		$data = Department::orderBy('id', 'desc')->paginate(PAGINATE);
 		return View::make('admin.department.index')->with(compact('data'));
@@ -34,7 +34,6 @@ class DeparmentController extends AdminController {
 	{
 		$rules = array(
 			'name' => 'required',
-			// 'function_id' => 'required'
 		); 
 		$input = Input::except('_token');
 		//check validation

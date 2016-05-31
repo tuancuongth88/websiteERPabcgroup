@@ -48,6 +48,15 @@
 						</div>
 					</div>
 					<div class="form-group">
+						<label>List công việc</label>
+						<div class="row">
+							<div class="col-sm-6">
+								{{ Form::select('parent_id', [NULL => 'Không chọn'] + Task::lists('name', 'id'), null, array('class' => 'form-control')) }}
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group">
 						<label>Mô tả</label>
 						<div class="row">
 							<div class="col-sm-6">
