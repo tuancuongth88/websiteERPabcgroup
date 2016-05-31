@@ -9,6 +9,8 @@ return array(
 	'add_user_manage' => 1,
 	'edit_normal' => 31,
 	'edit_advandce' => 32,
+	'user_edit' => 5,
+	'user_view' => 13,
 	// 'manager_regency' => 24,
 	// 'manager_type' => 25,
 	// 'manager_user' => 26,
