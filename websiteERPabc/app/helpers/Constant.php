@@ -83,3 +83,7 @@ define('ADD_DEPARTMENT', 5);
 define('ADD_SALARY', 6);
 define('ADD_OFFICIAL', 7);
 define('ADD_QUALIFICATIONS', 8);
+//
+define('EDIT_FULL_NAME', 1);
+
+//

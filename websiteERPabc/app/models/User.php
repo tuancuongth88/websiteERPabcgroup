@@ -122,5 +122,17 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 			return true;
 		return false;
 	}
+
+	public static function editFunctionUser()
+	{
+		$normal = Config::get('button.edit_normal');
+		$advandce = Config::get('button.edit_advandce');
+		$checkNormal = Common::checkPermissionUser(FUNCTION_USER, $normal);
+		$checkAdvandce = Common::checkPermissionUser(FUNCTION_USER, $advandce);
+		if ($checkNormal || $checkAdvandce) {
+			return true;
+		}
+		return false;
+	}
 		
 }

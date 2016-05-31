@@ -30,24 +30,24 @@ class Common {
 	}
 	public static function checkUserFunction($functionId)
 	{
-		$user = Auth::user()->get();
-		if($user) {
-			if ($user->role_id == ROLE_ADMIN) {
-				return true;
-			}
-			$dep = DepRegencyPerFun::where('user_id', $user->id)
-					->groupBy('dep_id')
-					->lists('dep_id');
-			if($dep) {
-				$func = DepartmentFunction::whereIn('dep_id', $dep)
-							->groupBy('function_id')
-							->lists('function_id');
-				if(in_array($functionId, $func)) {
-					return true;
-				}
-			}
-		}
-		return false;
+		// $user = Auth::user()->get();
+		// if($user) {
+		// 	if ($user->role_id == ROLE_ADMIN) {
+		// 		return true;
+		// 	}
+		// 	$dep = DepRegencyPerFun::where('user_id', $user->id)
+		// 			->groupBy('dep_id')
+		// 			->lists('dep_id');
+		// 	if($dep) {
+		// 		$func = DepartmentFunction::whereIn('dep_id', $dep)
+		// 					->groupBy('function_id')
+		// 					->lists('function_id');
+		// 		if(in_array($functionId, $func)) {
+		// 			return true;
+		// 		}
+		// 	}
+		// }
+		// return false;
 	}
 	public static function getModelUserStatus($model1, $model2, $relateField, $userId, $status)
 	{

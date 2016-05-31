@@ -21,15 +21,18 @@
 						<div class="row">
 							<div class="col-sm-3">
 								<label for="username">Tài khoản</label>
-								{{ Form::text('username', $data->username, array('class'=> 'form-control', 'id'=> 'username', 'placeholder'=> 'Tên tài khoản'))}}
+								{{ Form::text('username', $data->username, array('class'=> 'form-control', 'id'=> 'username', 'placeholder'=> 'Tên tài khoản', 'disabled'))}}
 							</div>
+						</div>
 					</div>
 					<div class="form-group">
 						<div class="row">
-							<div class="col-sm-3">
-								<label for="name">Tên đầy đủ</label>
-								{{ Form::text('name', $data->name, array('class'=> 'form-control', 'id'=> 'name', 'placeholder'=> 'Tên đầy đủ'))}}
-							</div>
+							@if(User::isAdmin() == ROLE_ADMIN || Common::checkPermissionUser(FUNCTION_USER, Config::get('button.manager_salary')))
+								<div class="col-sm-3">
+									<label for="name">Tên đầy đủ</label>
+									{{ Form::text('name', $data->name, array('class'=> 'form-control', 'id'=> 'name', 'placeholder'=> 'Tên đầy đủ', 'disabled'))}}
+								</div>
+							@endif
 							<div class="col-sm-3">
 								<label for="name">Ngày tháng năm sinh</label>
 									{{ Form::text('date_of_birth', $data->date_of_birth, array('class' => 'form-control', 'id' => 'input_dateofbirth')) }}
@@ -67,6 +70,7 @@
 							</div>
 						</div>
 					</div>
+
 					<div class="form-group">
 						<label for="address">Địa chỉ thường trú</label>
 						<div class="row">
@@ -75,6 +79,7 @@
 							</div>
 						</div>
 					</div>
+
 					<div class="form-group">
 						<div class="row">
 							<div class="col-sm-6">
@@ -83,6 +88,7 @@
 							</div>
 						</div>
 					</div>
+
 					<div class="form-group">
 						<label for="name">Sơ yếu lý lịch</label>
 						<div class="row">
@@ -129,6 +135,7 @@
 							</div>
 						</div>
 					</div>
+
 					<div class="form-group">
 						<div class="row">
 							<div class="col-sm-3">
@@ -141,6 +148,7 @@
 							</div>
 						</div>
 					</div>
+
 					<div class="form-group">
 						<div class="row">
 							<div class="col-sm-3">
@@ -162,6 +170,7 @@
 							</div>
 						</div>
 					</div>
+
 					<div class="form-group">
 						<label for="note">Note</label>
 						<div class="row">
@@ -170,6 +179,7 @@
 							</div>
 						</div>
 					</div>
+
 					<div class="form-group">
 						<label for="type">Loại hợp đồng</label>
 						<div class="row">

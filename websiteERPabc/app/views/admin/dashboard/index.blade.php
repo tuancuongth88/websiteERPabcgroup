@@ -12,29 +12,7 @@
 				<h3 class="box-title">Bảng tin</h3>
 			</div>
 			<!-- approve department -->
-			@if(count($depAssign) > 0)
-			<div class="box-body table-responsive">
-				<h4>Phòng ban chờ đồng ý tham gia</h4>
-				<table class="table table-hover">
-					<tr>
-						<th>ID</th>
-						<th>Tên phòng ban</th>
-						<th>Action</th>
-					</tr>
-					@foreach($depAssign as $key => $value)
-						<tr>
-							<td>{{ $value->id }}</td>
-							<td>{{ $value->name }}</td>
-							<td>
-								<a href="{{ action('ManagementController@accept', $value->id) }}" class="btn btn-success">Đồng ý</a>
-								<a href="{{ action('ManagementController@refuse', $value->id) }}" class="btn btn-danger">Từ chối</a>
-							</td>
-						</tr>
-					@endforeach
-				</table>
-			</div>
-			<hr />
-			@endif
+			
 
 			@if(count($taskAssign) > 0)
 			<div class="box-body table-responsive">
