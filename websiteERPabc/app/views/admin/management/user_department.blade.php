@@ -24,7 +24,7 @@
 								{{ Form::select('user_id['.$departmentUserKey.']', CommonOption::getListUser(),  $values->parent_user_id, array('class' => 'form-control', 'style' => 'width: 120px;')) }}
 							</td>
 							<td>
-								<a onclick="removeAssignProjectUser({{ $departmentUserKey }})" class="removeAssignBtn">Xóa</a>
+								<a onclick="removeAssignFuction({{ $departmentUserKey }})" class="removeAssignBtn">Xóa</a>
 							</td>
 							<td>
 								@if($values->status == ASSIGN_STATUS_2)
