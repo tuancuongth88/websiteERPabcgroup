@@ -42,7 +42,9 @@
 					@if(User::checkUserIsAdmin($value->id))
 						<a href="{{ action('ManagementController@updateadmin', $value->id) }}" class="btn btn-primary">Sửa</a>
 					@else
-						<a href="{{ action('ManagementController@edit', $value->id) }}" class="btn btn-primary">Sửa</a>
+						@if(User::isAdmin() == ROLE_ADMIN || Common::checkPermissionUser(FUNCTION_USER, Config::get('button.user_edit')) || User::isAdmin() == User::getCurrentUser($value->id))
+							<a href="{{ action('ManagementController@edit', $value->id) }}" class="btn btn-primary">Sửa</a>
+						@endif
 					@endif
 					@if(User::isAdmin() == ROLE_ADMIN || Common::checkPermissionUser(FUNCTION_USER, Config::get('button.user_delete')))
 						{{ Form::open(array('method'=>'DELETE', 'action' => array('ManagementController@destroy', $value->id), 'style' => 'display: inline-block;')) }}
@@ -59,7 +61,9 @@
 				@if(User::checkUserIsAdmin($value->id))
 					<a href="{{ action('ManagementController@showadmin', $value->id) }}" class="btn btn-primary">Xem</a>
 				@else
-					<a href="{{ action('ManagementController@show', $value->id) }}" class="btn btn-primary">Xem</a>
+					@if(User::isAdmin() == ROLE_ADMIN || Common::checkPermissionUser(FUNCTION_USER, Config::get('button.user_view'))|| User::isAdmin() == User::getCurrentUser($value->id))
+						<a href="{{ action('ManagementController@show', $value->id) }}" class="btn btn-primary">Xem</a>
+					@endif
 				@endif
 			  </td>
 			</tr>
