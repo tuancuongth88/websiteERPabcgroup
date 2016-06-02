@@ -48,6 +48,14 @@
 						</div>
 					</div>
 					<div class="form-group">
+						<label>List công việc</label>
+						<div class="row">
+							<div class="col-sm-6">
+								{{ Form::select('parent_id', [NULL => 'Không chọn'] + Task::lists('name', 'id'), $data->parent_id, array('class' => 'form-control')) }}
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
 						<label>Mức độ hoàn thành (%)</label>
 						<div class="row">
 							<div class="col-sm-6">
@@ -59,7 +67,7 @@
 						<label>Mô tả</label>
 						<div class="row">
 							<div class="col-sm-6">
-								{{ Form::textarea('description', $data->description, array('class' => 'form-control', 'rows' => 5)) }}
+								{{ Form::textarea('description', $data->description, array('class' => 'form-control','id' => 'editor1')) }}
 							</div>
 						</div>
 					</div>
@@ -67,7 +75,7 @@
 						<label>Trạng thái</label>
 						<div class="row">
 							<div class="col-sm-6">
-								{{ Form::select('status', CommonOption::getStatusTaskArray(), $data->status, array('class' => 'form-control')) }}
+								{{ Form::select('task_status_id', CommonOption::getStatusTaskArray('TaskStatus', 'name', 'id'), $data->task_status_id, array('class' => 'form-control')) }}
 							</div>
 						</div>
 					</div>
@@ -98,5 +106,6 @@
 		</div>
 	</div>
 </div>
+@include('admin.common.ckeditor')
 @include('admin.task.script')
 @stop

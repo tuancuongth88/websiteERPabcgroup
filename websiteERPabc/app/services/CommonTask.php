@@ -66,7 +66,7 @@ class CommonTask {
 		return $data;
 	}
 
-	public static function filterTask($status, $paginate = null)
+	public static function filterTask($taskStatusId, $paginate = null)
 	{
 		$userId = CommonUser::getUserId();
 		$data = Task::join('task_users', 'task_users.task_id', '=', 'tasks.id')
@@ -75,21 +75,25 @@ class CommonTask {
 		if($userId) {
 			$data = $data->where('task_users.user_id', $userId);
 		}
-		switch ($status) {
-			case TASK_STATUS_1:
-				$data = $data->where('tasks.status', TASK_STATUS_1);
-				break;
-			case TASK_STATUS_2:
-				$data = $data->where('tasks.status', TASK_STATUS_2);
-				break;
-			case TASK_STATUS_3:
-				$data = $data->where('tasks.status', TASK_STATUS_3);
-				break;
-			
-			default:
-				# code...
-				break;
+		if ($taskStatusId) {
+			$data = $data->where('tasks.task_status_id', $taskStatusId);
 		}
+		// switch ($taskStatusId) {
+
+		// 	case TASK_STATUS_1:
+		// 		$data = $data->where('tasks.status', TASK_STATUS_1);
+		// 		break;
+		// 	case TASK_STATUS_2:
+		// 		$data = $data->where('tasks.status', TASK_STATUS_2);
+		// 		break;
+		// 	case TASK_STATUS_3:
+		// 		$data = $data->where('tasks.status', TASK_STATUS_3);
+		// 		break;
+			
+		// 	default:
+		// 		# code...
+		// 		break;
+		// }
 		$data = $data->distinct()->orderBy('tasks.id', 'desc');
 		if($paginate) {
 			$data = $data->paginate(PAGINATE);	
