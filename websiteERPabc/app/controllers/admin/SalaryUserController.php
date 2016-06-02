@@ -124,7 +124,7 @@ class SalaryUserController extends AdminController {
 					$query = $query->where('salaries.salary', '>=', $input['salary_start']);
 				}
 				if ($input['salary_end']) {
-					$query = $query->where('salaries.salary', '=<', $input['salary_end']);
+					$query = $query->where('salaries.salary', '<=', $input['salary_end']);
 				}
 				if ($input['username']) {
 					$query = $query->where('users.username', 'like', '%'.$input['username'].'%');

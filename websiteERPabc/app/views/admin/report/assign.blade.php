@@ -4,6 +4,6 @@
 		{{ Form::hidden('reportUserKey[]', $reportUserKey) }}
 	</td>
 	<td>
-		<a onclick="return confirm('Bạn có chắc chắn muốn xóa?')?removeAssignTaskUser({{ $reportUserKey }}):false;" class="removeAssignBtn">Xóa</a>
+		<a onclick="return confirm('Bạn có chắc chắn muốn xóa?')?removeassignReportUser({{ $reportUserKey }}):false;" class="removeAssignBtn">Xóa</a>
 	</td>
 </tr>

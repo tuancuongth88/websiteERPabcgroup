@@ -40,7 +40,6 @@
 							<!-- <td>{{-- $value->id --}}</td> -->
 							<td>{{ $value->name }}</td>
 							<td>{{ CommonOption::getNameOption('Task', $value) }}</td>
-
 							<td>{{ $value->percent }}</td>
 							<td>{{ Common::getDateTimeString($value->start) }}</td>
 							<td>{{ Common::getDateTimeString($value->end) }}</td>
