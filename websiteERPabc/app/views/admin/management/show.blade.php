@@ -172,7 +172,7 @@
 							</div>
 						</div>
 					</div>
-					@if(User::checkPermission($data->id))
+					<!-- @if(User::checkPermission($data->id))
 					<div class="form-group">
 						<label for="type">Ngạch, bậc lương</label>
 						<div class="row">
@@ -181,7 +181,7 @@
 							</div>
 						</div>
 					</div>
-					@endif
+					@endif -->
 					<div class="form-group">
 						<div class="row">
 							<div class="col-sm-3">
