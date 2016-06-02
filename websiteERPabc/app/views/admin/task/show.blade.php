@@ -74,7 +74,7 @@
 					<label>Trạng thái</label>
 					<div class="row">
 						<div class="col-sm-6">
-							{{ CommonOption::getStatusTaskArray()[$task->status] }}
+							{{ CommonOption::getStatusTaskValue('TaskStatus', 'name', 'id', $task->task_status_id) }}
 						</div>
 					</div>
 				</div>
