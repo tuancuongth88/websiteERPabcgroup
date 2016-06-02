@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder {
 		// $this->call('AdminTableSeeder');
 		// $this->call('DepartmentTableSeeder');
 		// $this->call('RegencyTableSeeder');
-		// $this->call('FunctionTableSeeder');
+		$this->call('FunctionTableSeeder');
 		// $this->call('PermissionTableSeeder');
 		// $this->call('TempRoleTableSeeder');
 		// $this->call('ProjectTableSeeder');
@@ -26,7 +26,7 @@ class DatabaseSeeder extends Seeder {
 		// $this->call('RoleTableSeeder');
 		// $this->call('SalarieUserTableSeeder');
 		// $this->call('ButtonTableSeeder');
-		// $this->call('ButtonUserTableSeeder');
+		$this->call('ButtonUserTableSeeder');
 		// $this->call('TaskStatusTableSeeder');
 		
 	}
