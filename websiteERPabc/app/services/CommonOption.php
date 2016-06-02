@@ -96,13 +96,18 @@ class CommonOption {
 		return '';
 	}
 
-	public static function getStatusTaskArray()
+	public static function getStatusTaskArray($modelName, $fieldName, $fieldValue)
 	{
-		return array(
-				TASK_STATUS_1 => 'Đang làm',
-				TASK_STATUS_2 => 'Hoàn thành',
-				TASK_STATUS_3 => 'Tạm dừng',
-			);
+		$data = $modelName::lists($fieldName, $fieldValue);
+		if($data) {
+			return $data;
+		}
+		return [];
+//		return array(
+//				TASK_STATUS_1 => 'Đang làm',
+//				TASK_STATUS_2 => 'Hoàn thành',
+//				TASK_STATUS_3 => 'Tạm dừng',
+//			);
 	}
 
 	public static function getStatusTaskValue($status)

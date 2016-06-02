@@ -6,7 +6,7 @@
 		</div>
 		<div class="input-group" style="width: 150px; display:inline-block;">
 			<label>Trạng thái</label>
-			 {{ Form::select('status', ['' => 'Tất cả'] + CommonOption::getStatusTaskArray(), null, array('class' => 'form-control')) }}
+			 {{ Form::select('status', ['' => 'Tất cả'] + CommonOption::getStatusTaskArray('TaskStatus','name','id'), null, array('class' => 'form-control')) }}
 		</div>
 		<div class="input-group" style="width: 150px; display:inline-block;">
 			<label>Dự án</label>
