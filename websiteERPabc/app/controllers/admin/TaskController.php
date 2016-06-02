@@ -12,8 +12,8 @@ class TaskController extends AdminController {
 		$user = Auth::user()->get();
 		$data = Task::join('task_users', 'task_users.task_id', '=', 'tasks.id')
 			->select('tasks.*')
-			->where('task_users.status', '!=', ASSIGN_STATUS_2)->get();
-			dd($data->toArray());
+			->where('task_users.status', '!=', ASSIGN_STATUS_2);
+			// dd($data->toArray());
 		if($user) {
 			if($user->role_id != ROLE_ADMIN) {
 				$data = $data->where('tasks.user_id', $user->id);

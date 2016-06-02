@@ -110,8 +110,9 @@ class CommonOption {
 //			);
 	}
 
-	public static function getStatusTaskValue($status)
+	public static function getStatusTaskValue($status, $id)
 	{
+		// dd($status);
 		$array = self::getStatusTaskArray();
 		return $array[$status];
 	}
