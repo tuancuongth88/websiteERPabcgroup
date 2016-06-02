@@ -13,7 +13,7 @@
 <div class="row">
 	<div class="col-xs-12">
 		<div class="box box-primary">
-			{{ Form::open(array('action' => array('TaskController@update', $data->id), 'method' => 'PUT')) }}
+			{{ Form::open(array('action' => array('TaskController@update', $data->id), 'method' => 'PUT', 'files' => true)) }}
 				<div class="box-body">
 					<div class="form-group">
 						<label>Tên công việc</label>
@@ -71,6 +71,25 @@
 							</div>
 						</div>
 					</div>
+
+					<div class="form-group">
+						<label>File đính kèm</label>
+						<div class="row">
+							<div class="col-sm-6">
+								{{ Form::file('file_attach') }}
+							</div>
+						</div>
+					</div>
+					@if($data->file_attach)
+						<div class="form-group">
+							<div class="row">
+							<div class="col-sm-10">
+								<a href="{{ url(TASK_FILE_UPLOAD . '/' . $data->id . '/' .$data->file_attach)}}">Xem file đính kèm</a>
+							</div>
+							</div>
+						</div>
+					@endif
+
 					<div class="form-group">
 						<label>Trạng thái</label>
 						<div class="row">

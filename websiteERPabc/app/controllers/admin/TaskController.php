@@ -70,7 +70,8 @@ class TaskController extends AdminController {
 			//tao moi
 			$inputTask['user_id'] = $userId;
 			$taskId = Task::create($inputTask)->id;
-			//save user
+        	$uploadFile['file_attach'] = CommonUser::uploadAction('file_attach', TASK_FILE_UPLOAD . '/' . $taskId);
+        	Task::find($taskId)->update($uploadFile);
 			// dd(22);
 			if(isset($input['user_id'])) {
 				$inputUser = $input['user_id'];
@@ -145,6 +146,7 @@ class TaskController extends AdminController {
 			$inputTask = Input::except('_token', 'user_id', 'per_id');
 			//sua task
 			$task = Task::find($id);
+        	$inputTask['file_attach'] = CommonUser::uploadAction('file_attach', TASK_FILE_UPLOAD . '/' . $id, $task->file_attach);
 			$task->update($inputTask);
 			//save user
 			if(isset($input['user_id'])) {

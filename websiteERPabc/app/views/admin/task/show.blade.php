@@ -70,6 +70,16 @@
 						</div>
 					</div>
 				</div>
+				@if($task->file_attach)
+					<div class="form-group">
+					<label>Xem file</label>
+						<div class="row">
+							<div class="col-sm-10">
+								<a href="{{ url(TASK_FILE_UPLOAD . '/' . $task->id . '/' .$task->file_attach)}}">Xem file đính kèm</a>
+							</div>
+						</div>
+					</div>
+				@endif
 				<div class="form-group">
 					<label>Trạng thái</label>
 					<div class="row">
