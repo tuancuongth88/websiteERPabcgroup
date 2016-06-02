@@ -27,7 +27,8 @@
 						<label>Thể loại</label>
 						<div class="row">
 							<div class="col-sm-6">
-								{{ Form::select('type_notification_id', TypeNotification::lists('name', 'id'), null, array('class' => 'form-control')) }}
+							
+								{{ Form::select('type_notification_id', [0 => 'Lựa chọn'] +TypeNotification::lists('name', 'id'), null, array('class' => 'form-control')) }}
 							</div>
 						</div>
 					</div>

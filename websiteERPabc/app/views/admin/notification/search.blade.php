@@ -7,7 +7,7 @@
 		
 		<div class="input-group" style="width: 150px; display:inline-block;">
 			<label>Thể loại</label>
-			 {{ Form::select('type_report_id', ['' => 'Tất cả'] + TypeReport::lists('name', 'id'), null, array('class' => 'form-control')) }}
+			 {{ Form::select('type_notification_id', ['' => 'Tất cả'] + TypeNotification::lists('name', 'id'), null, array('class' => 'form-control')) }}
 		</div>
 		<div class="input-group" style="width: 150px; display:inline-block;">
 			<label>Người tạo</label>

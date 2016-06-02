@@ -32,7 +32,11 @@
 						<tr>
 							<td>{{ $value->id }}</td>
 							<td>{{ $value->name }}</td>
-							<td>{{ TypeNotification::find($value->type_notification_id)->name }}</td>
+							@if($value->type_notification_id)
+								<td>{{ TypeNotification::find($value->type_notification_id)->name }}</td>
+							@else
+								<td>Chưa có thể loại thông báo</td>
+							@endif
 							<td>{{ User::find($value->user_id)->username }}</td>
 							<td>
 								<a href="{{ action('NotificationController@show', $value->id) }}" class="btn btn-primary">View</a>

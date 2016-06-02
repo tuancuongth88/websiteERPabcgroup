@@ -35,7 +35,7 @@
 							@if($typeReport = TypeReport::find($value->type_report_id))
 								<td>{{ $typeReport->name }}</td>
 							@else
-								<td></td>
+								<td>Chưa có thể loại báo cáo</td>
 							@endif
 							<td>{{ User::find($value->user_id)->username }}</td>
 							<td>

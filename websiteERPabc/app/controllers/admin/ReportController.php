@@ -70,6 +70,7 @@ class ReportController extends AdminController {
 	{
 		$rules = array(
 			'name' => 'required',
+			'user_id' => 'required'
 		);
 		$input = Input::except('_token');
 		$validator = Validator::make($input, $rules);
