@@ -46,7 +46,6 @@ class ManagementController extends AdminController {
 			'address' => 'required',
 			'degree' => 'required',
 			'marriage' => 'required',
-			'salary' => 'required',
 			'start_time' => 'required',
 			'end_time' => 'required',
 		);
