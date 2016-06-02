@@ -30,16 +30,6 @@
 					<li><a href="{{ action('TaskStatusController@index') }}"><i class="fa fa-circle-o"></i> <span>Quản lý trạng thái công việc</span></a></li>
 				</ul>
 			</li>
-			@if(User::isAdmin() == ROLE_ADMIN || Common::checkPermissionUser(FUNCTION_PROJECT, Config::get('button.manager_project')))
-				<li class="treeview">
-					<a href="#"><i class="fa fa-laptop"></i> <span>Quản lý dự án</span> <i class="fa fa-angle-left pull-right"></i></a>
-					<ul class="treeview-menu">
-						<!-- <li><a href="{{-- action('ProjectController@index') --}}"><i class="fa fa-circle-o"></i> <span>Quản lý dự án</span></a></li> -->
-						<li><a href="{{ action('TempRoleController@index') }}"><i class="fa fa-circle-o"></i> <span>Quản lý vai trò dự án</span></a></li>
-						<li><a href="{{ action('ProjectStatusController@index') }}"><i class="fa fa-circle-o"></i> <span>Quản lý trạng thái dự án</span></a></li>
-					</ul>
-				</li>
-			@endif
 			@if(User::isAdmin() == ROLE_ADMIN)
 				<li><a href="{{ action('UserTypeController@index') }}"><i class="fa fa-laptop"></i> <span>Quản lý thể loại nhân viên</span></a></li>
 			@endif
