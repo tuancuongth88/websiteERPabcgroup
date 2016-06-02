@@ -26,6 +26,7 @@
 					<tr>
 						<!-- <th>ID</th> -->
 						<th>Tên công việc</th>
+						<th>parent task</th>
 						<th>Tiến độ (%)</th>
 						<th>Ngày bắt đầu</th>
 						<th>Ngày kết thúc</th>
@@ -38,12 +39,14 @@
 						<tr>
 							<!-- <td>{{-- $value->id --}}</td> -->
 							<td>{{ $value->name }}</td>
+							<td>{{ CommonOption::getNameOption('Task', $value) }}</td>
+
 							<td>{{ $value->percent }}</td>
 							<td>{{ Common::getDateTimeString($value->start) }}</td>
 							<td>{{ Common::getDateTimeString($value->end) }}</td>
 							<td>{{ CommonUser::getUsernameById($value->user_id) }}</td>
 							<td>{{ CommonOption::getFieldTextByModel('Project', $value->project_id, 'name') }}</td>
-							<td>{{ CommonOption::getStatusTaskValue($value->status) }}</td>
+							<td>{{ CommonOption::getStatusTaskValue('TaskStatus', 'name', 'id', $value->id) }}</td>
 							<td>
 								<a href="{{ action('TaskController@show', $value->id) }}" class="btn btn-primary">View</a>
 								@if(Common::checkModelUserStatus('TaskUser', $value->id, 'task_id') == ASSIGN_STATUS_1 && Common::checkModelUserFunction('TaskUser', $value->id, 'task_id'))

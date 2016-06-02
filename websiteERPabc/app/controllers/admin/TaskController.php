@@ -25,9 +25,9 @@ class TaskController extends AdminController {
 		return View::make('admin.task.index')->with(compact('data'));
 	}
 
-	public function filter($status = null)
+	public function filter($taskStatusId = null)
 	{
-		$data = CommonTask::filterTask($status, 1);
+		$data = CommonTask::filterTask($taskStatusId, 1);
 		return View::make('admin.task.index')->with(compact('data'));
 	}
 
@@ -60,7 +60,6 @@ class TaskController extends AdminController {
 			'name' => 'required',
 		);
 		$input = Input::except('_token');
-		dd($input);
 		$validator = Validator::make($input, $rules);
 		if($validator->fails()) {
 			return Redirect::action('TaskController@create')
@@ -144,15 +143,7 @@ class TaskController extends AdminController {
 			$inputTask = Input::except('_token', 'user_id', 'per_id');
 			//sua task
 			$task = Task::find($id);
-			$task->update(array(
-					'name' => $inputTask['name'],
-					'project_id' => $inputTask['project_id'],
-					'start' => $inputTask['start'],
-					'end' => $inputTask['end'],
-					'percent' => $inputTask['percent'],
-					'description' => $inputTask['description'],
-					'status' => $inputTask['status'],
-				));
+			$task->update($inputTask);
 			//save user
 			if(isset($input['user_id'])) {
 				$assignId = TaskUser::where('task_id', $id)->first()->assign_id;

@@ -98,22 +98,23 @@ class CommonOption {
 
 	public static function getStatusTaskArray($modelName, $fieldName, $fieldValue)
 	{
-		$data = $modelName::lists($fieldName, $fieldValue);
-		if($data) {
-			return $data;
-		}
-		return [];
-//		return array(
-//				TASK_STATUS_1 => 'Đang làm',
-//				TASK_STATUS_2 => 'Hoàn thành',
-//				TASK_STATUS_3 => 'Tạm dừng',
-//			);
+// 		$data = $modelName::lists($fieldName, $fieldValue);
+// 		if($data) {
+// 			return $data;
+// 		}
+// 		return [];
+// //		return array(
+// //				TASK_STATUS_1 => 'Đang làm',
+// //				TASK_STATUS_2 => 'Hoàn thành',
+// //				TASK_STATUS_3 => 'Tạm dừng',
+// //			);
+		return $modelName::lists($fieldName, $fieldValue);
 	}
 
-	public static function getStatusTaskValue($status)
+	public static function getStatusTaskValue($modelName, $fieldName, $fieldValue, $key)
 	{
-		$array = self::getStatusTaskArray();
-		return $array[$status];
+		$array = self::getStatusTaskArray($modelName, $fieldName, $fieldValue);
+		return $array[$key];
 	}
 
 	public static function getPermissionArray()
