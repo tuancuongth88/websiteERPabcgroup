@@ -61,10 +61,6 @@ class TaskController extends AdminController {
 			'name' => 'required',
 		);
 		$input = Input::except('_token');
-<<<<<<< HEAD
-		// dd($input);
-=======
->>>>>>> 5c06271f0ed90e8b0833c3e3d5d939baeb60207d
 		$validator = Validator::make($input, $rules);
 		if($validator->fails()) {
 			return Redirect::action('TaskController@create')
