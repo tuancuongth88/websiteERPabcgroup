@@ -60,7 +60,15 @@
 						<label>Mô tả</label>
 						<div class="row">
 							<div class="col-sm-6">
-								{{ Form::textarea('description', null, array('class' => 'form-control', 'rows' => 5)) }}
+								{{ Form::textarea('description', null, array('class' => 'form-control', 'id' => 'editor1')) }}
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label>Format</label>
+						<div class="row">
+							<div class="col-sm-6">
+								{{ Form::file('url') }}
 							</div>
 						</div>
 					</div>
