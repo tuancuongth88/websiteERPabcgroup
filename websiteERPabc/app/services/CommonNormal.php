@@ -63,6 +63,10 @@ class CommonNormal
 		}
 		if($name == 'salary')
 			return 'SalaryUser';
+		if($name == 'taskStatus')
+		{
+			return 'TaskStatus';
+		}
 	}
 
 }

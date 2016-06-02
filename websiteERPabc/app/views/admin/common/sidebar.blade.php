@@ -17,6 +17,7 @@
 			@if(User::isAdmin() == ROLE_ADMIN)
 				<li><a href="{{ action('TypeReportController@index') }}"><i class="fa fa-laptop"></i> <span>Thể loại báo cáo</span></a></li>
 				<li><a href="{{ action('TypeNotificationController@index') }}"><i class="fa fa-laptop"></i> <span>Thể loại thông báo</span></a></li>
+				<li><a href="{{ action('TypeNotificationController@index') }}"><i class="fa fa-laptop"></i> <span>Thể loại công việc</span></a></li>
 				<li><a href="{{ action('DeparmentController@index') }}"><i class="fa fa-laptop"></i> <span>Quản lý phòng ban</span></a></li>
 				<li><a href="{{ action('RegencyController@index') }}"><i class="fa fa-laptop"></i> <span>Quản lý chức vụ</span></a></li>
 			@endif
@@ -27,6 +28,7 @@
 					<li><a href="{{ action('TaskController@filter', TASK_STATUS_1) }}"><i class="fa fa-circle-o"></i> <span>Đang làm</span></a></li>
 					<li><a href="{{ action('TaskController@filter', TASK_STATUS_3) }}"><i class="fa fa-circle-o"></i> <span>Tạm dừng</span></a></li>
 					<li><a href="{{ action('TaskController@filter', TASK_STATUS_2) }}"><i class="fa fa-circle-o"></i> <span>Đã hoàn thành</span></a></li>
+					<li><a href="{{ action('TaskStatusController@index') }}"><i class="fa fa-circle-o"></i> <span>Quản lý trạng thái công việc</span></a></li>
 				</ul>
 			</li>
 			@if(User::isAdmin() == ROLE_ADMIN || Common::checkPermissionUser(FUNCTION_PROJECT, Config::get('button.manager_project')))

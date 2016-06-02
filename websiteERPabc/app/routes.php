@@ -65,6 +65,8 @@ Route::group(['prefix' => 'admin'], function () {
 	Route::get('/task/accept/{id}', 'TaskController@accept');
 	Route::get('/task/refuse/{id}', 'TaskController@refuse');
 	Route::resource('/task', 'TaskController');
+	//trang thai cong viec
+	Route::resource('/taskStatus', 'TaskStatusController');
 
 	Route::get('/report/search', 'ReportController@search');
 	Route::post('/report/assignReportUser', 'ReportController@assignReportUser');
