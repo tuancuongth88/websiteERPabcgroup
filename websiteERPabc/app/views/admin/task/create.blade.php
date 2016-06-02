@@ -76,7 +76,7 @@
 						<label>Trạng thái</label>
 						<div class="row">
 							<div class="col-sm-6">
-								{{ Form::select('task_status_id', CommonOption::getStatusTaskArray('TaskStatus', 'name', 'id'), null, array('class' => 'form-control')) }}
+								{{ Form::select('task_status_id', [0 => 'Lựa chọn'] + TaskStatus::lists('name', 'id'), null, array('class' => 'form-control')) }}
 							</div>
 						</div>
 					</div>

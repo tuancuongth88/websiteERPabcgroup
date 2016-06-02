@@ -32,7 +32,7 @@
 						</div>
 					</div>
 				</div>
-				@if($notification->link_url))
+				@if($notification->link_url)
 					<div class="form-group">
 						<label>File đính kèm</label>
 						<div class="row">

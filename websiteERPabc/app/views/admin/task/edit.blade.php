@@ -51,7 +51,7 @@
 						<label>List công việc</label>
 						<div class="row">
 							<div class="col-sm-6">
-								{{ Form::select('parent_id', [NULL => 'Không chọn'] + Task::lists('name', 'id'), $data->parent_id, array('class' => 'form-control')) }}
+								{{ Form::select('parent_id', [0 => 'Lựa chọn'] + TaskStatus::lists('name', 'id'), $data->parent_id, array('class' => 'form-control')) }}
 							</div>
 						</div>
 					</div>

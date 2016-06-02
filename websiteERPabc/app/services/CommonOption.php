@@ -101,11 +101,13 @@ class CommonOption {
 		return $modelName::lists($fieldName, $fieldValue);
 	}
 
-	public static function getStatusTaskValue($modelName, $fieldName, $fieldValue, $key)
+	public static function getStatusTaskValue($taskStatusId)
 	{
-		$array = self::getStatusTaskArray($modelName, $fieldName, $fieldValue);
-		// dd($key);
-		return $array[$key];
+		$taskStatus = TaskStatus::find($taskStatusId);
+		if ($taskStatus) {
+			return $taskStatus->name;
+		}
+		return 'Không có trạng thái';
 	}
 
 	public static function getPermissionArray()
