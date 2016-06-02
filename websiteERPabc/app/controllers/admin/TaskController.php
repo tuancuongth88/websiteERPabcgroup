@@ -72,6 +72,7 @@ class TaskController extends AdminController {
 			$inputTask['user_id'] = $userId;
 			$taskId = Task::create($inputTask)->id;
 			//save user
+			// dd(22);
 			if(isset($input['user_id'])) {
 				$inputUser = $input['user_id'];
 				$inputPer = $input['per_id'];
@@ -88,6 +89,7 @@ class TaskController extends AdminController {
 					TaskUser::create($inputTaskUser);
 				}
 			}
+			// dd(11);
 			return Redirect::action('TaskController@index')->with('message', 'Tạo mới thành công');
         }
 	}

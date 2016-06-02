@@ -117,14 +117,20 @@ class SalaryUserController extends AdminController {
 		{
 			$input = Input::all();
 			$salarydata = SalaryUser::all();
-			if ($input['salary'] ) {
-				$data = $salarydata::where('salary', 'LIKE', '%' . $input['salary'] . '%');
-			}
-			if($input['username']){$
-				$listIdUser = User::where('username', 'LIKE', '%'. $input['username'] . '%')->lists('salary_id');
-				$data = $salarydata::whereIn('id', $listIdUser);
-			}
-				$data = $salarydata->paginate(PAGINATE);
+			$data = SalaryUser::join('users', 'users.salary_id', '=', 'salaries.id')
+				->select('salaries.*', 'users.username')
+				->where(function ($query) use ($input) {
+				if ($input['salary_start']) {
+					$query = $query->where('salaries.salary', '>=', $input['salary_start']);
+				}
+				if ($input['salary_end']) {
+					$query = $query->where('salaries.salary', '=<', $input['salary_end']);
+				}
+				if ($input['username']) {
+					$query = $query->where('users.username', 'like', '%'.$input['username'].'%');
+				}
+
+			})->paginate(PAGINATE);
 			return View::make('admin.salary.index')->with(compact('data'));
 		}
 }
