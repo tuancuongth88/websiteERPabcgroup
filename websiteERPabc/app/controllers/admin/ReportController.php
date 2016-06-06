@@ -70,6 +70,7 @@ class ReportController extends AdminController {
 	{
 		$rules = array(
 			'name' => 'required',
+			'user_id' => 'required'
 		);
 		$input = Input::except('_token');
 		$validator = Validator::make($input, $rules);
@@ -165,12 +166,18 @@ class ReportController extends AdminController {
 	{
 		$typeReportId = Input::get('type_report_id');
 		$typeReport = TypeReport::find($typeReportId);
-		if ($typeReport->dep_id > 0) {
-			$url = (REPORT_FORMAT . '/' . $typeReportId . '/' . $typeReport->url);
+		if ($typeReport->url) {
+			if ($typeReport->dep_id > 0) {
+				$url = (REPORT_FORMAT . '/' . $typeReportId . '/' . $typeReport->url);
+			}
+			else {
+				$url = (REPORT_FORMAT . '/' . $typeReport->url);
+			}
 		}
 		else {
-			$url = (REPORT_FORMAT . '/' . $typeReport->url);
+			$url = '';
 		}
+		
 		return View::make('admin.report.report_normal')->with(compact('url'));
 	}
 

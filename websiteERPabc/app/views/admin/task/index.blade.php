@@ -45,7 +45,7 @@
 							<td>{{ Common::getDateTimeString($value->end) }}</td>
 							<td>{{ CommonUser::getUsernameById($value->user_id) }}</td>
 							<td>{{ CommonOption::getFieldTextByModel('Project', $value->project_id, 'name') }}</td>
-							<td>{{ CommonOption::getStatusTaskValue('TaskStatus', 'name', 'id', $value->task_status_id) }}</td>
+							<td>{{ CommonOption::getStatusTaskValue($value->task_status_id) }}</td>
 							<td>
 								<a href="{{ action('TaskController@show', $value->id) }}" class="btn btn-primary">View</a>
 								@if(Common::checkModelUserStatus('TaskUser', $value->id, 'task_id') == ASSIGN_STATUS_1 && Common::checkModelUserFunction('TaskUser', $value->id, 'task_id'))

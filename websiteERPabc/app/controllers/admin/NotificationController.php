@@ -77,6 +77,7 @@ class NotificationController extends AdminController {
 			return Redirect::action('NotificationController@create')
 	            ->withErrors($validator);
         } else {
+        	// dd(555555);
         	$userId = User::getUserIdByAuth();
         	$inputNotification['name'] = $input['name'];
         	$inputNotification['type_notification_id'] = $input['type_notification_id'];
@@ -86,9 +87,13 @@ class NotificationController extends AdminController {
         	// dd($input);
         	$inputNotification['link_url'] = CommonUser::uploadAction('link_url', NOTIFICATION_FILE);
         	$notificationId = Notification::create($inputNotification)->id;
+        	// dd(555);
         	$notification = Notification::find($notificationId);
+        	// dd(66);
         	$listUserId = $this->getListUserId($input);
+        	// dd(44);
         	$notification->users()->attach($listUserId);
+        	// dd(11);
 			return Redirect::action('NotificationController@index')->with('message', 'Tạo mới thành công');
         }
 	}

@@ -117,4 +117,8 @@ class Common {
 			return false;
 		}
 	}	
+	public static function getListTask($taskId)
+	{
+		return Task::where('id', '!=', $taskId)->lists('name', 'id');
+	}
 }

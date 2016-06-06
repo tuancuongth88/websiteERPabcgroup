@@ -30,6 +30,7 @@ define('PROFILE', '/users');
 define('REPORT_FORMAT', '/reports/format');
 //upload file cho thong bao
 define('NOTIFICATION_FILE', '/notification/files');
+define('TASK_FILE_UPLOAD', '/tasks');
 //if upload file
 define('IS_UPLOAD_FILE', 1);
 define('IS_UPLOAD_UNIQUE', 1);

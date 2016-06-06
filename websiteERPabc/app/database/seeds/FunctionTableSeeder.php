@@ -13,9 +13,9 @@ class FunctionTableSeeder extends Seeder {
 		AdminFunction::create([
 			'name' => 'Quản lý công việc',
 		]);
-		AdminFunction::create([
-			'name' => 'Quản lý dự án',
-		]);
+		// AdminFunction::create([
+		// 	'name' => 'Quản lý dự án',
+		// ]);
 	}
 
 }

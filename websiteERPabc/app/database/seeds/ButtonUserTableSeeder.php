@@ -13,7 +13,7 @@ class ButtonUserTableSeeder extends Seeder {
 				'function_id'=> 1,
 			]);
 		}
-		ButtonFunction::create(['name' => 'Quản lý dự án', 'function_id' => 4]);
+		ButtonFunction::create(['name' => 'Quản lý dự án', 'function_id' => 1]);
 		ButtonFunction::create(['name' => 'Đổi mật khẩu', 'function_id' => 1]);
 		ButtonFunction::create(['name' => 'Sửa thông thường', 'function_id' => 1]);
 		ButtonFunction::create(['name' => 'Sửa nâng cao', 'function_id' => 1]);

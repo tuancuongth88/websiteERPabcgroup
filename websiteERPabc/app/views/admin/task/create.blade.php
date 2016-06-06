@@ -13,7 +13,7 @@
 <div class="row">
 	<div class="col-xs-12">
 		<div class="box box-primary">
-			{{ Form::open(array('action' => 'TaskController@store')) }}
+			{{ Form::open(array('action' => 'TaskController@store', 'files' => true)) }}
 				<div class="box-body">
 					<div class="form-group">
 						<label>Tên công việc</label>
@@ -73,10 +73,18 @@
 						</div>
 					</div>
 					<div class="form-group">
+						<label>File đính kèm</label>
+						<div class="row">
+							<div class="col-sm-10">
+								{{ Form::file('file_attach') }}
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
 						<label>Trạng thái</label>
 						<div class="row">
 							<div class="col-sm-6">
-								{{ Form::select('task_status_id', CommonOption::getStatusTaskArray('TaskStatus', 'name', 'id'), null, array('class' => 'form-control')) }}
+								{{ Form::select('task_status_id', [0 => 'Lựa chọn'] + TaskStatus::lists('name', 'id'), null, array('class' => 'form-control')) }}
 							</div>
 						</div>
 					</div>
