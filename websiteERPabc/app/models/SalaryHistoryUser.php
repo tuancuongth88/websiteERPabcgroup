@@ -6,7 +6,7 @@ use Illuminate\Auth\Reminders\RemindableTrait;
 use Illuminate\Auth\Reminders\RemindableInterface;
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
-class SalaryUser extends Eloquent {
+class SalaryHistoryUser extends Eloquent {
 
 	use SoftDeletingTrait;
 
@@ -15,14 +15,14 @@ class SalaryUser extends Eloquent {
 	 *
 	 * @var string
 	 */
-	protected $table = 'salaries';
+	protected $table = 'salary_history';
 
 	/**
 	 * The attributes excluded from the model's JSON form.
 	 *
 	 * @var array
 	 */
-	protected $fillable = array('userId', 'salary',  'descript' ,'status');
+	protected $fillable = array('salaryId', 'user_update',  'model_name' , 'model_id' ,'status', 'start_date', 'note_user_update', 'salary_odl', 'salary_new', 'not_update', 'persend', 'upprove_id');
     protected $dates = ['deleted_at'];
 
    
