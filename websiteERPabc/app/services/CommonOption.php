@@ -104,6 +104,7 @@ class CommonOption {
 	public static function getStatusTaskValue($modelName, $fieldName, $fieldValue, $key)
 	{
 		$array = self::getStatusTaskArray($modelName, $fieldName, $fieldValue);
+		// dd($key);
 		return $array[$key];
 	}
 

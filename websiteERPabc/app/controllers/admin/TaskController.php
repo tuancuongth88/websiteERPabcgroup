@@ -183,11 +183,12 @@ class TaskController extends AdminController {
 	 */
 	public function destroy($id)
 	{
-		$checkTaskUser = TaskUser::where('task_id', $id)
-			->first();
-		if($checkTaskUser) {
-			return Redirect::action('TaskController@index')->with('error', 'Công việc đang thực hiện. Không thể xóa!');
-		}
+		// $checkTaskUser = TaskUser::where('task_id', $id)
+		// 	->first();
+		// if($checkTaskUser) {
+		// 	return Redirect::action('TaskController@index')->with('error', 'Công việc đang thực hiện. Không thể xóa!');
+		// }
+		TaskUser::where('task_id', $id)->delete();
 		Task::find($id)->delete();
 		return Redirect::action('TaskController@index')->with('message', 'Xóa thành công');
 	}

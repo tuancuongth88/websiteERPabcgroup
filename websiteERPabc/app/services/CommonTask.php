@@ -76,7 +76,12 @@ class CommonTask {
 			$data = $data->where('task_users.user_id', $userId);
 		}
 		if ($taskStatusId) {
-			$data = $data->where('tasks.task_status_id', $taskStatusId);
+			if (is_array($taskStatusId)) {
+				$data = $data->whereIn('tasks.task_status_id', $taskStatusId);
+			}
+			else {
+				$data = $data->where('tasks.task_status_id', $taskStatusId);
+			}
 		}
 		// switch ($taskStatusId) {
 

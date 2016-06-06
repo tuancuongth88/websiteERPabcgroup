@@ -46,7 +46,6 @@ class ManagementController extends AdminController {
 			'address' => 'required',
 			'degree' => 'required',
 			'marriage' => 'required',
-			// 'salary' => 'required',
 			'start_time' => 'required',
 			'end_time' => 'required',
 		);
@@ -66,7 +65,7 @@ class ManagementController extends AdminController {
 			$id = CommonNormal::create($input_User);
 			$input_User_file = Input::only('avatar', 'personal_file', 'medical_file', 'curriculum_vitae_file');
 			//xu ly upload file
-			//upload file avata
+			//upload file avatar
 			$input_User['avatar'] = CommonUser::uploadAction('avatar', PROFILE.'/'.$id.'/avatar');
 			//upload file so yeu ly lich
 			$input_User['personal_file'] = CommonUser::uploadAction('personal_file', PROFILE.'/'.$id.'/file');
@@ -157,7 +156,7 @@ class ManagementController extends AdminController {
 				DepRegencyUserParent::where('user_id', $id)->delete();
 				CommonUser::insertDepartment($id, $input, $projectDepartIDStatus, $departmentUserId);
 			}
-			return Redirect::action('ManagementController@index')->with('message', 'Cập nhật tài khoản thành công') ;
+			return Redirect::action('ManagementController@index')->with('message', 'Cập nhật tài khoản thành công');
 		}
 	}
 

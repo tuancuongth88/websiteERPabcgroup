@@ -32,14 +32,16 @@
 						</div>
 					</div>
 				</div>
-				<div class="form-group">
-					<label>File đính kèm</label>
-					<div class="row">
-						<div class="col-sm-10">
-							<a href="{{ url(NOTIFICATION_FILE.'/'.$notification->link_url)}}">Xem file đính kèm</a>
+				@if($notification->link_url))
+					<div class="form-group">
+						<label>File đính kèm</label>
+						<div class="row">
+							<div class="col-sm-10">
+								<a href="{{ url(NOTIFICATION_FILE.'/'.$notification->link_url)}}">Xem file đính kèm</a>
+							</div>
 						</div>
 					</div>
-				</div>
+				@endif
 			</div>
 			<div class="box-footer">
 				<a href="{{ action('NotificationController@index') }}" class="btn btn-primary">Quay lại</a>

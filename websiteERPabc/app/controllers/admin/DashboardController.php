@@ -11,7 +11,8 @@ class DashboardController extends AdminController {
 	{
 		$userId = CommonUser::getUserId();
 		//task cong viec dang lam
-		$task = CommonTask::filterTask(TASK_STATUS_1);
+		$listTask = TaskStatus::lists('id');
+		$task = CommonTask::filterTask($listTask);
 		//task duoc assign, cho dong y
 		$taskAssign = Common::getModelUserStatus('tasks', 'task_users', 'task_id', $userId, ASSIGN_STATUS_3);
 		//project duoc assign, cho dong y

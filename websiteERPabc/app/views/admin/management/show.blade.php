@@ -172,16 +172,6 @@
 							</div>
 						</div>
 					</div>
-					<!-- @if(User::checkPermission($data->id))
-					<div class="form-group">
-						<label for="type">Ngạch, bậc lương</label>
-						<div class="row">
-							<div class="col-sm-6">
-									{{ Form::label('',$data->salary, array('class'=> 'form-control'))}}
-							</div>
-						</div>
-					</div>
-					@endif -->
 					<div class="form-group">
 						<div class="row">
 							<div class="col-sm-3">
