@@ -18,6 +18,8 @@ class CreateSalaryTable extends Migration {
             $table->string('description', 256)->nullable();
             $table->integer('status')->nullable();
             $table->integer('user_id')->nullable();
+            $table->integer('dep_id')->nullable();
+            $table->integer('regency_id')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
