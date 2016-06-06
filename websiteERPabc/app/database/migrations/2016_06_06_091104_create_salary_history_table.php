@@ -14,7 +14,7 @@ class CreateSalaryHistoryTable extends Migration {
 	{
 		Schema::create('salary_history', function(Blueprint $table) {
             $table->increments('id');
-            $table->integer('salaryId', 256)->nullable();
+            $table->integer('salaryId')->nullable();
             $table->string('user_update', 256)->nullable();
             $table->string('model_name', 256)->nullable();
             $table->integer('model_id')->nullable();
