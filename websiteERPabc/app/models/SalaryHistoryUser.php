@@ -22,7 +22,9 @@ class SalaryHistoryUser extends Eloquent {
 	 *
 	 * @var array
 	 */
-	protected $fillable = array('salaryId', 'user_update',  'model_name' , 'model_id' ,'status', 'start_date', 'note_user_update', 'salary_odl', 'salary_new', 'not_update', 'persend', 'upprove_id');
+	protected $fillable = array('salary_id', 'user_proposal', 'model_name', 'model_id',
+		'status', 'start_date', 'note_user_update', 'salary_old', 'salary_new', 
+		'note_reject', 'percent', 'approve_id', 'approve_date', 'type');
     protected $dates = ['deleted_at'];
 
    

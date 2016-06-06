@@ -11,6 +11,8 @@ return array(
 	'edit_advandce' => 32,
 	'user_edit' => 5,
 	'user_view' => 13,
+	'manage_salary_user' => 17,
+	'manage_salary_approve' => 18,
 	// 'manager_regency' => 24,
 	// 'manager_type' => 25,
 	// 'manager_user' => 26,
