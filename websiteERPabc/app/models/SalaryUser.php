@@ -22,7 +22,7 @@ class SalaryUser extends Eloquent {
 	 *
 	 * @var array
 	 */
-	protected $fillable = array('userId', 'salary',  'descript' ,'status');
+	protected $fillable = array('user_id', 'salary', 'description', 'status');
     protected $dates = ['deleted_at'];
 
    

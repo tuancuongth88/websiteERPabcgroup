@@ -9,6 +9,12 @@ class SalaryUserController extends AdminController {
 	 */
 	public function index()
 	{
+		// if ($userId = ADMIN) {
+		// 	return View::make('admin.salary.approve');
+		// }
+		// if ($check == true) {
+		// 	# code...
+		// }
 		$data = SalaryUser::orderBy('id', 'desc')->paginate(PAGINATE);
 		return View::make('admin.salary.index')->with(compact('data'));
 	}
