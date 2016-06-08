@@ -1,5 +1,4 @@
 <?php
-
 class SalaryUserController extends AdminController {
 
 	/**
@@ -27,7 +26,10 @@ class SalaryUserController extends AdminController {
 	 */
 	public function create()
 	{
-		return View::make('admin.salary.create');
+		$data = User::select('id', 'name')->get()->toArray();
+		// $beta = DepRegencyUserParent::select('user_id', 'regency_id', 'dep_id')->get()->toArray()
+		// dd($beta);
+		return View::make('admin.salary.create')->with(compact('data'));
 	}
 
 
@@ -139,4 +141,5 @@ class SalaryUserController extends AdminController {
 			})->paginate(PAGINATE);
 			return View::make('admin.salary.index')->with(compact('data'));
 		}
+	
 }
