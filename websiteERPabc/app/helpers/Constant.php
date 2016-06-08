@@ -14,6 +14,7 @@ define('SUCCESS', 'Success');
 //active inactive
 define('ACTIVE', 1);
 define('INACTIVE', 2);
+define('WAITING', 3);
 //value checkbox
 define('CHECKED', 1);
 define('NOT_CHECKED', 0);
@@ -66,6 +67,11 @@ define('USER_ADMIN', 1);
 define('USER_FULLROLE', 2);
 define('USER_PROFILE', 3);
 define('USER_ORTHER', 4);
+// de xuat
+define('PROPOSAL_USER_NEW', 1);
+define('PROPOSAL_USER', 2);
+define('PROPOSAL_DEP', 3);
+define('PROPOSAL_REGENCY', 4);
 //functions position
 define('FUNCTION_USER', 1);
 define('FUNCTION_REPORT', 2);

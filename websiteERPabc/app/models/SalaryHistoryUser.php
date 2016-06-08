@@ -24,7 +24,7 @@ class SalaryHistoryUser extends Eloquent {
 	 */
 	protected $fillable = array('salary_id', 'user_proposal', 'model_name', 'model_id',
 		'status', 'start_date', 'note_user_update', 'salary_old', 'salary_new', 
-		'note_reject', 'percent', 'approve_id', 'approve_date', 'type');
+		'note_reject', 'percent', 'approve_id', 'approve_date', 'type', 'type_salary');
     protected $dates = ['deleted_at'];
 
    

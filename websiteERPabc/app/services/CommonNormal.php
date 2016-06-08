@@ -67,6 +67,10 @@ class CommonNormal
 		{
 			return 'TaskStatus';
 		}
+		if($name == 'storeAll')
+		{
+			return 'storeAll';
+		}
 	}
 
 }

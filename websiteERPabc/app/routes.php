@@ -83,6 +83,9 @@ Route::group(['prefix' => 'admin'], function () {
 	Route::resource('/user_type', 'UserTypeController');
 	// Quản lý tiền lương
 	Route::get('/salary/searchabc', 'SalaryUserController@searchabc');
+	Route::get('/salary/createAll', 'SalaryUserController@createAll');
+	Route::post('/salary/storeAll', 'SalaryUserController@storeAll');
+	Route::post('/salary/getFormatTypeSalary', 'SalaryUserController@getFormatTypeSalary');
 	Route::resource('/salary', 'SalaryUserController');
 	// Route::resource('/comment', 'CommentController');
 });

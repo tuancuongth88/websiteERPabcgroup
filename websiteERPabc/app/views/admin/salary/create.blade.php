@@ -34,7 +34,7 @@
 				</div>
 
 				<div class="form-group">
-					<label>Tên nhân viên</label>
+					<label>Tên phòng ban và chức vụ</label>
 					<div class="row">
 						<div class="col-sm-6">
 						{{ Form::select('user_id', User::where('role_id', '!=', ROLE_ADMIN)->whereNull('salary_id')->lists('username', 'id'), null, array('class' => 'form-control')) }}

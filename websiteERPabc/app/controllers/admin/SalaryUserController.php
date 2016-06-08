@@ -1,6 +1,6 @@
 <?php
 
-class SalaryUserController extends AdminController {
+class SalaryUserController extends BaseController {
 
 	/**
 	 * Display a listing of the resource.
@@ -30,6 +30,11 @@ class SalaryUserController extends AdminController {
 		return View::make('admin.salary.create');
 	}
 
+	public function createAll()
+	{
+		return View::make('admin.salary.create_all_user');
+	}
+	
 
 	/**
 	 * Store a newly created resource in storage.
@@ -56,6 +61,41 @@ class SalaryUserController extends AdminController {
 	}
 
 
+	public function storeAll()
+	{
+		$input = Input::except('_token');
+		$rules = array(
+			// 'salary' => 'required|integer|min:100000',
+			'percent' => 'required',
+			'start_date' => 'required',
+		);
+		$validator = Validator::make($input, $rules);
+		if($validator->fails()) {
+			return Redirect::action('SalaryUserController@createAll')
+				->withInput($input)
+	            ->withErrors($validator);
+        } else {
+        	$input['status'] = WAITING;
+        	$input['user_proposal'] = CommonUser::getUserId();
+        	$input['start_date'] = $input['start_date'];
+        	$type_model = $input['type_dep_regency'];
+        	if($type_model == DEP)
+        		$input['model_name'] = 'Department';
+        	if($type_model == REGENCY)
+        		$input['model_name'] = 'Regency';
+        	$input['model_id'] = $input['model_id'];
+        	$input['type_salary'] = $input['type_salary'];
+        	$type = $input['type_dep_regency'];
+        	if ($type == DEP) {
+        		$input['type'] = TYPE_DEP;
+        	}
+        	if ($type == REGENCY) {
+        		$input['type'] = TYPE_REGENCY;
+        	}
+        	$salaryAllId = SalaryHistoryUser::create($input);
+			return Redirect::action('SalaryUserController@index');	
+        }
+	}
 	/**
 	 * Display the specified resource.
 	 *
@@ -120,23 +160,35 @@ class SalaryUserController extends AdminController {
 	}
 
 	public function searchabc()
-		{
-			$input = Input::all();
-			$salarydata = SalaryUser::all();
-			$data = SalaryUser::join('users', 'users.salary_id', '=', 'salaries.id')
-				->select('salaries.*', 'users.username')
-				->where(function ($query) use ($input) {
-				if ($input['salary_start']) {
-					$query = $query->where('salaries.salary', '>=', $input['salary_start']);
-				}
-				if ($input['salary_end']) {
-					$query = $query->where('salaries.salary', '<=', $input['salary_end']);
-				}
-				if ($input['username']) {
-					$query = $query->where('users.username', 'like', '%'.$input['username'].'%');
-				}
+	{
+		$input = Input::all();
+		$salarydata = SalaryUser::all();
+		$data = SalaryUser::join('users', 'users.salary_id', '=', 'salaries.id')
+			->select('salaries.*', 'users.username')
+			->where(function ($query) use ($input) {
+			if ($input['salary_start']) {
+				$query = $query->where('salaries.salary', '>=', $input['salary_start']);
+			}
+			if ($input['salary_end']) {
+				$query = $query->where('salaries.salary', '<=', $input['salary_end']);
+			}
+			if ($input['username']) {
+				$query = $query->where('users.username', 'like', '%'.$input['username'].'%');
+			}
 
-			})->paginate(PAGINATE);
-			return View::make('admin.salary.index')->with(compact('data'));
+		})->paginate(PAGINATE);
+		return View::make('admin.salary.index')->with(compact('data'));
+	}
+	public function getFormatTypeSalary()
+	{
+		$typesalary = Input::get('type_dep_regency');
+		$data = array();
+		if($typesalary == 1)
+		{
+			$data = Department::lists('name', 'id');
 		}
+		if($typesalary == 2)
+			$data = Regency::lists('name', 'id');	
+		return View::make('admin.salary.salary_normal')->with(compact('data'));
+	}
 }

@@ -8,7 +8,7 @@
 <div class="row margin-bottom">
 	<div class="col-xs-12">
 	<a href="{{ action('SalaryUserController@create') }}" class="btn btn-primary">Đề xuất lương cá nhân</a>
-	<a href="{{ action('SalaryUserController@create') }}" class="btn btn-primary">Đề xuất lương công ty</a>
+	<a href="{{ action('SalaryUserController@createAll') }}" class="btn btn-primary">Đề xuất lương công ty</a>
 	</div>
 
 </div>
@@ -26,7 +26,7 @@
 						<th>Mức lương</th>
 						<th>Tên nhân viên</th>
 						<th>Phòng ban</th>
-						<th>Action</th> 
+						<!-- <th>Action</th>  -->
 					</tr>
 					@foreach($data as $key => $value)
 					<tr>
@@ -34,12 +34,12 @@
 						<td>{{ $value->salary }}</td> 
 						<td>{{ CommonUser::getUserNameSalary($value) }} </td>
 						<td> {{ CommonUser::getDeparmentNameBySalary($value) }} </td>
-						<td>
+						<!-- <td>
 							<a href="{{ action('SalaryUserController@edit', $value->id) }}" class="btn btn-primary">Sửa</a>
 							{{ Form::open(array('method'=>'DELETE', 'action' => array('SalaryUserController@destroy', $value->id), 'style' => 'display: inline-block;')) }}
 							<button class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa?');">Xóa</button>
 							{{ Form::close() }}
-						</td>
+						</td> -->
 					</tr>
 					@endforeach
 				</table>
