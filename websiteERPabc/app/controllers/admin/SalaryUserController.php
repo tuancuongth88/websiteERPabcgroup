@@ -53,7 +53,9 @@ class SalaryUserController extends AdminController {
 			$depRegencyUser = DepRegencyUserParent::find($input['dep_regency_id']);
       		$depId = $depRegencyUser->dep_id;
       		$regencyId = $depRegencyUser->regency_id;
-      		$inputSalary = ['salary' => $input['salary'],
+      		$inputSalary = [
+      			'salary' => $input['salary'],
+      			'salary_origin' => $input['salary_origin'],
       			'status' => SALARY_PROPOSAL,
       			'user_id' => $userId,
       			'dep_id' => $depId,
@@ -61,6 +63,7 @@ class SalaryUserController extends AdminController {
       		];
       		$salaryId = SalaryUser::create($inputSalary)->id;
         	//create new recored history salary in the table: salary_histories: status : 4
+   			
    			dd($salaryId);
 
    //      	$input['status'] = SALARY_PROPOSAL;

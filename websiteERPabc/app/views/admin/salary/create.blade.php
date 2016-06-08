@@ -14,7 +14,15 @@
 				{{ Form::open(array('action' => 'SalaryUserController@store')) }}
 				<div class="box-body">
 					<div class="form-group">
-						<label>Mức lương nhân viên</label>
+						<label>Mức lương cơ bản</label>
+						<div class="row">
+							<div class="col-sm-6">
+								{{ Form::text('salary_origin', null, array('class' => 'form-control')) }}
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label>Mức lương phụ cấp nhân viên</label>
 						<div class="row">
 							<div class="col-sm-6">
 								{{ Form::text('salary', null, array('class' => 'form-control')) }}
