@@ -39,6 +39,7 @@ class SalaryUserController extends AdminController {
 	public function store()
 	{
 		$input = Input::except('_token');
+		dd($input);
 		$rules = array(
 			'salary' => 'required|integer|min:100000',
 		);
@@ -120,23 +121,28 @@ class SalaryUserController extends AdminController {
 	}
 
 	public function searchabc()
-		{
-			$input = Input::all();
-			$salarydata = SalaryUser::all();
-			$data = SalaryUser::join('users', 'users.salary_id', '=', 'salaries.id')
-				->select('salaries.*', 'users.username')
-				->where(function ($query) use ($input) {
-				if ($input['salary_start']) {
-					$query = $query->where('salaries.salary', '>=', $input['salary_start']);
-				}
-				if ($input['salary_end']) {
-					$query = $query->where('salaries.salary', '<=', $input['salary_end']);
-				}
-				if ($input['username']) {
-					$query = $query->where('users.username', 'like', '%'.$input['username'].'%');
-				}
+	{
+		$input = Input::all();
+		$salarydata = SalaryUser::all();
+		$data = SalaryUser::join('users', 'users.salary_id', '=', 'salaries.id')
+			->select('salaries.*', 'users.username')
+			->where(function ($query) use ($input) {
+			if ($input['salary_start']) {
+				$query = $query->where('salaries.salary', '>=', $input['salary_start']);
+			}
+			if ($input['salary_end']) {
+				$query = $query->where('salaries.salary', '<=', $input['salary_end']);
+			}
+			if ($input['username']) {
+				$query = $query->where('users.username', 'like', '%'.$input['username'].'%');
+			}
 
-			})->paginate(PAGINATE);
-			return View::make('admin.salary.index')->with(compact('data'));
-		}
+		})->paginate(PAGINATE);
+		return View::make('admin.salary.index')->with(compact('data'));
+	}
+	public function ajaxGetUser()
+	{
+		$list = CommonSalary::getListNoSalaryUser();
+		return Response::json(array('data' => $list));
+	}
 }

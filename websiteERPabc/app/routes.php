@@ -83,6 +83,7 @@ Route::group(['prefix' => 'admin'], function () {
 	Route::resource('/user_type', 'UserTypeController');
 	// Quản lý tiền lương
 	Route::get('/salary/searchabc', 'SalaryUserController@searchabc');
+	Route::get('/salary/ajax/getUser', 'SalaryUserController@ajaxGetUser');
 	Route::resource('/salary', 'SalaryUserController');
 	// Route::resource('/comment', 'CommentController');
 });
