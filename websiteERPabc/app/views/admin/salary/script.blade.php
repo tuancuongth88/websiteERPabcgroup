@@ -1,25 +1,36 @@
-<link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-<link rel="stylesheet" href="/resources/demos/style.css">
 <script>
-$.getJSON('/salary/ajax/getUser', function(data) {
-	tempJson = data;
-	$("#tags").autocomplete({
-	    minLength: 2,
-	    dataType: 'json',
-	    source: tempJson,
-	    select: function (event,ui){
-			$('input[name="user-id"]').val(ui.item.label);
-			// $('input[name="your-hidden-field"]').val(ui.item.value);
-			return false;
-		}
+	$(document).ready(function () {
+		searchName();
 	});
-});
-
+	function searchName() {
+		var user =[
+					@foreach($data as $value)
+						{{ "'".$value['username']."'"."," }}
+					@endforeach
+				];
+		$('#user_salary').autocomplete({
+			source: user,
+			minLength: 0,
+			scroll: true
+		}).focus(function () {
+			$(this).autocomplete("search", "");
+		});
+	}
+	function getDep()
+	{
+		user = document.getElementById('user_salary');
+		username = user.value;
+		$.ajax(
+		{
+			type : 'post',
+			url : '{{ url("admin/salary/ajax/getUser") }}',
+			data : {
+				'username' : username,
+			},
+			success: function(responseText)
+			{
+				$('#assignBox').append(responseText);
+			}
+		});
+	}
 </script>
-<!--  
-<div class="ui-widget">
-<label for="tags">Tags: </label>
-<input id="tags">
-</div> -->

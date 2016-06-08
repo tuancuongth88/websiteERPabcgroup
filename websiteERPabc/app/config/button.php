@@ -2,7 +2,7 @@
 
 return array(	
 	'manager_project' => 29,
-	'manager_salary' => 21,
+	'manager_salary' => 16,
 	'manager_permission' => 28,
 	'user_delete' => 9,
 	'change_password' => 30,
@@ -11,7 +11,7 @@ return array(
 	'edit_advandce' => 32,
 	'user_edit' => 5,
 	'user_view' => 13,
-	'manage_salary_user' => 17,
+	'manage_salary_propose' => 17,
 	'manage_salary_approve' => 18,
 	// 'manager_regency' => 24,
 	// 'manager_type' => 25,

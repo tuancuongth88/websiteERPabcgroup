@@ -7,8 +7,10 @@
 @include('admin.salary.search')
 <div class="row margin-bottom">
 	<div class="col-xs-12">
-	<a href="{{ action('SalaryUserController@create') }}" class="btn btn-primary">Thêm mức lương</a>
+	<a href="{{ action('SalaryUserController@create') }}" class="btn btn-primary">Đề xuất lương cá nhân</a>
+	<a href="{{ action('SalaryUserController@create') }}" class="btn btn-primary">Đề xuất lương công ty</a>
 	</div>
+
 </div>
 <div class="row">
 	<div class="col-xs-12">

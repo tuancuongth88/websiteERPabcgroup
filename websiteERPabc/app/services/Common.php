@@ -121,5 +121,12 @@ class Common {
 	{
 		return Task::where('id', '!=', $taskId)->lists('name', 'id');
 	}
-	
+	public static function getUserIdByUserName($username)
+	{
+		$user = User::where('username', $username)->first();
+		if ($user) {
+			return $userId = $user->id;
+		}
+		return null;
+	}
 }

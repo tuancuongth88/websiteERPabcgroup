@@ -87,4 +87,10 @@ define('ADD_QUALIFICATIONS', 8);
 //
 define('EDIT_FULL_NAME', 1);
 
+//status for salary:
+define('SALARY_APPROVE', 1);
+define('SALARY_EDIT', 2);
+define('SALARY_REJECT', 3);
+define('SALARY_PROPOSAL', 4);
+
 //

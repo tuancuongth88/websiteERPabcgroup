@@ -13,6 +13,9 @@ class FunctionTableSeeder extends Seeder {
 		AdminFunction::create([
 			'name' => 'Quản lý công việc',
 		]);
+		AdminFunction::create([
+			'name' => 'Quản lý lương nhân viên',
+		]);
 		// AdminFunction::create([
 		// 	'name' => 'Quản lý dự án',
 		// ]);
