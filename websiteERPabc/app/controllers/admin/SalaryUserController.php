@@ -1,6 +1,6 @@
 <?php
 
-class SalaryUserController extends BaseController {
+class SalaryUserController extends AdminController {
 
 	/**
 	 * Display a listing of the resource.
@@ -27,7 +27,8 @@ class SalaryUserController extends BaseController {
 	 */
 	public function create()
 	{
-		return View::make('admin.salary.create');
+		$data = User::select('id', 'username')->get()->toArray();
+		return View::make('admin.salary.create')->with(compact('data'));
 	}
 
 	public function createAll()
@@ -53,10 +54,28 @@ class SalaryUserController extends BaseController {
 				->withInput($input)
 	            ->withErrors($validator);
         } else {
-        	$input['status'] = ACTIVE;
-        	$salaryId = SalaryUser::create(['salary' => $input['salary']])->id;
-        	User::find($input['user_id'])->update(['salary_id' => $salaryId]);
-			return Redirect::action('SalaryUserController@index');	
+        	//create new record salary in the table: salaries: status: 4
+			$userId = Common::getUserIdByUserName($input['username']);
+			$depRegencyUser = DepRegencyUserParent::find($input['dep_regency_id']);
+      		$depId = $depRegencyUser->dep_id;
+      		$regencyId = $depRegencyUser->regency_id;
+      		$inputSalary = [
+      			'salary' => $input['salary'],
+      			'salary_origin' => $input['salary_origin'],
+      			'status' => SALARY_PROPOSAL,
+      			'user_id' => $userId,
+      			'dep_id' => $depId,
+      			'regency_id' => $regencyId,
+      		];
+      		$salaryId = SalaryUser::create($inputSalary)->id;
+        	//create new recored history salary in the table: salary_histories: status : 4
+   			
+   			dd($salaryId);
+
+   //      	$input['status'] = SALARY_PROPOSAL;
+   //      	$salaryId = SalaryUser::create(['salary' => $input['salary']])->id;
+   //      	User::find($input['user_id'])->update(['salary_id' => $salaryId]);
+			// return Redirect::action('SalaryUserController@index');	
         }
 	}
 
@@ -75,24 +94,26 @@ class SalaryUserController extends BaseController {
 				->withInput($input)
 	            ->withErrors($validator);
         } else {
-        	$input['status'] = WAITING;
+        	$input['status'] = SALARY_PROPOSAL;
         	$input['user_proposal'] = CommonUser::getUserId();
         	$input['start_date'] = $input['start_date'];
         	$type_model = $input['type_dep_regency'];
-        	if($type_model == DEP)
-        		$input['model_name'] = 'Department';
-        	if($type_model == REGENCY)
-        		$input['model_name'] = 'Regency';
+
+        	// if($type_model == PROPOSAL_DEP) {
+	        // 	$input['model_name'] = 'Department';
+	        // 	$input['type'] = PROPOSAL_DEP;
+        	// }
+
+        	// if($type_model == PROPOSAL_REGENCY) {
+	        // 	$input['model_name'] = 'Regency';
+	        // 	$input['type'] = PROPOSAL_REGENCY;
+        	// }
+        	$input['model_name'] = CommonSalary::getModelName($input);
+        	$input['type'] = CommonSalary::getType($input);
         	$input['model_id'] = $input['model_id'];
         	$input['type_salary'] = $input['type_salary'];
-        	$type = $input['type_dep_regency'];
-        	if ($type == DEP) {
-        		$input['type'] = TYPE_DEP;
-        	}
-        	if ($type == REGENCY) {
-        		$input['type'] = TYPE_REGENCY;
-        	}
-        	$salaryAllId = SalaryHistoryUser::create($input);
+        	
+        	SalaryHistoryUser::create($input);
 			return Redirect::action('SalaryUserController@index');	
         }
 	}
@@ -183,12 +204,22 @@ class SalaryUserController extends BaseController {
 	{
 		$typesalary = Input::get('type_dep_regency');
 		$data = array();
-		if($typesalary == 1)
+		if($typesalary == PROPOSAL_DEP)
 		{
 			$data = Department::lists('name', 'id');
 		}
-		if($typesalary == 2)
+		if($typesalary == PROPOSAL_REGENCY)
 			$data = Regency::lists('name', 'id');	
 		return View::make('admin.salary.salary_normal')->with(compact('data'));
+	}	
+	public function ajaxGetUser()
+	{
+		$username = Input::get('username');
+		$user = User::where('username', $username)->first();
+		$userId = $user->id;
+		$array = CommonSalary::getDepRegency($userId);
+		return View::make('admin.salary.dep_regency')->with(compact('array'));
+		// $list = CommonSalary::getListNoSalaryUser();
+		// return Response::json(array('data' => $list));
 	}
 }

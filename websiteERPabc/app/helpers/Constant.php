@@ -14,7 +14,6 @@ define('SUCCESS', 'Success');
 //active inactive
 define('ACTIVE', 1);
 define('INACTIVE', 2);
-define('WAITING', 3);
 //value checkbox
 define('CHECKED', 1);
 define('NOT_CHECKED', 0);
@@ -93,4 +92,14 @@ define('ADD_QUALIFICATIONS', 8);
 //
 define('EDIT_FULL_NAME', 1);
 
-//
+//status for salary:
+define('SALARY_APPROVE', 1);
+define('SALARY_EDIT', 2);
+define('SALARY_REJECT', 3);
+define('SALARY_PROPOSAL', 4);
+
+//Type up and dow
+define('TYPE_SALARY_CHOOSE', 0);
+define('TYPE_SALARY_UP', 2);
+define('TYPE_SALARY_DOWN', 1);
+

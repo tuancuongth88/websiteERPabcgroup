@@ -1,0 +1,18 @@
+{{ Form::open(['action' => ['SearchController@autocomplete'], 'method' => 'GET']) }}
+    {{ Form::text('q', '', ['id' =>  'q', 'placeholder' =>  'Search users'])}}
+    {{ Form::submit('Search', array('class' => 'btn btn-default')) }}
+{{ Form::close() }}
+<script type="text/javascript" src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+<script>
+	$(function()
+{
+	 $( "#q" ).autocomplete({
+	  source: "{{ url('search/autocomplete') }}",
+	  minLength: 3,
+	  select: function(event, ui) {
+	  	$('#q').val(ui.item.value);
+	  }
+	});
+});
+
+</script>

@@ -15,6 +15,8 @@
 // {
 // 	return View::make('hello');
 // });
+
+
 Route::group(['prefix' => 'admin'], function () {
 	Route::get('/login', array('uses' => 'AdminController@login', 'as' => 'admin.login'));
 	Route::post('/login', array('uses' => 'AdminController@doLogin'));
@@ -82,12 +84,15 @@ Route::group(['prefix' => 'admin'], function () {
 //  Quản lý thể loại nhân viên
 	Route::resource('/user_type', 'UserTypeController');
 	// Quản lý tiền lương
+	Route::get('search/autocomplete', 'SearchController@autocomplete');
 	Route::get('/salary/searchabc', 'SalaryUserController@searchabc');
 	Route::get('/salary/createAll', 'SalaryUserController@createAll');
 	Route::post('/salary/storeAll', 'SalaryUserController@storeAll');
 	Route::post('/salary/getFormatTypeSalary', 'SalaryUserController@getFormatTypeSalary');
+	Route::post('/salary/ajax/getUser', 'SalaryUserController@ajaxGetUser');
 	Route::resource('/salary', 'SalaryUserController');
 	// Route::resource('/comment', 'CommentController');
+
 });
 // Route::group(
 // 	['prefix' => 'user'], function(){

@@ -1,12 +1,41 @@
 <?php
 
-class testController extends \BaseController {
+class SearchController extends AdminController {
 
 	/**
 	 * Display a listing of the resource.
 	 *
 	 * @return Response
 	 */
+	public function getIntroducer()
+	{
+		$term      = Input::get('term');
+		$associate = array();
+		$search    = DB::select(
+			"
+            select id , rank_id ,associate_no as value ,CONCAT(name ,'  ID  ',associate_no) as label
+            from associates
+            where match (name, associate_no )
+            against ('+{$term}*' IN BOOLEAN MODE)
+            "
+		);
+
+		foreach ($search as $result) {
+			$associate[] = $result;
+
+		}
+
+		return json_encode($associate);
+
+	}
+
+	public function getRanklist()
+	{
+		$get_rank_id = Input::get('rank_id');
+		$ranklist    = Rank::select('id', 'rankname')->where('rank_no', '<=', $get_rank_no)->get();
+
+		return $ranklist;
+	}
 	public function index()
 	{
 		//
