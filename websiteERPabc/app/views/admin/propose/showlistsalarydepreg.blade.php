@@ -5,13 +5,12 @@
 @stop
 @section('content')
 @include('admin.salary.search')
-<!-- <div class="row margin-bottom">
+<div class="row margin-bottom">
 	<div class="col-xs-12">
-	<a href="{{ action('SalaryUserController@create') }}" class="btn btn-primary">Đề xuất lương cá nhân</a>
 	<a href="{{ action('SalaryUserController@createAll') }}" class="btn btn-primary">Đề xuất lương công ty</a>
 	</div>
 
-</div> -->
+</div>
 <div class="row">
 	<div class="col-xs-12">
 		<div class="box">
@@ -34,16 +33,18 @@
 					<tr>
 						<td>{{ $value->id }}</td>
 						@if($value->model_name == 'Department')
-						<td>{{ CommonSalary::getDepAndRegency($value->model_name, $value->model_id) }}</td>
+							<td>
+								{{ CommonSalary::getDepAndRegency($value->model_name, $value->model_id) }}
+							</td>
 						@else
-						<td></td>
+							<td></td>
 						@endif
 						@if($value->model_name == 'Regency')
-						<td>
-						{{ CommonSalary::getDepAndRegency($value->model_name, $value->model_id) }}
-						</td> 
+							<td>
+								{{ CommonSalary::getDepAndRegency($value->model_name, $value->model_id) }}
+							</td> 
 						@else
-						<td></td>
+							<td></td>
 						@endif
 						<td>{{ $value->note_user_update }} </td>
 						<td>{{ CommonSalary::getUpAndDown($value) }}</td>
