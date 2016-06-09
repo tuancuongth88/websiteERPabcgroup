@@ -69,4 +69,33 @@ class CommonSalary {
 			return 'Giam luong';
 		}
 	} 
+	public static function addAllUserId($userId, $input)
+	{
+		$userProposalId = CommonUser::getUserId();
+    	$salary = SalaryUser::where('user_id', $userId)
+			->where('status', SALARY_APPROVE)
+			->first();
+    	$inputHistory['start_date'] = $input['start_date']; 
+    	$inputHistory['model_name'] = 'User'; 
+    	$inputHistory['model_id'] = $userId; 
+    	$inputHistory['note_user_update'] = $input['note_user_update']; 
+    	$inputHistory['salary_old'] = $salary->salary; 
+    	$inputHistory['salary_new'] = getSalaryNew($input, $salary); 
+    	$inputHistory['user_proposal'] = $userProposalId; 
+    	$inputHistory['type_salary'] = $input['type_salary']; 
+    	$inputHistory['type'] = PROPOSAL_USER; 
+    	$inputHistory['percent'] = $input['percent']; 
+    	$inputHistory['status'] = SALARY_PROPOSAL; 
+    	$historyId = SalaryHistoryUser::create($inputHistory)->id;
+	}
+	public static function getListUserId($input)
+	{
+		if ($input['type_dep_regency'] == PROPOSAL_DEP) {
+			$listUser = SalaryUser::where('dep_id', $input['model_id'])->lists('user_id');
+		}
+		if ($input['type_dep_regency'] == PROPOSAL_REGENCY) {
+			$listUser = SalaryUser::where('regency_id', $input['model_id'])->lists('user_id');
+		}
+		return $listUser;
+	}
 }
