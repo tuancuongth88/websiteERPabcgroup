@@ -10,7 +10,6 @@
 		<a href="{{ action('ManagementController@index') }}" class="btn btn-success">Danh sách</a>
 	</div>
 </div>
-
 <div class="row">
 	<div class="col-xs-12">
 		<div class="box box-primary">

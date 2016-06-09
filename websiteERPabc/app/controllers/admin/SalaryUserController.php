@@ -16,7 +16,6 @@ class SalaryUserController extends AdminController {
 		return View::make('admin.salary.new.index')->with(compact('data'));
 	}
 
-
 	/**
 	 * Show the form for creating a new resource.
 	 *
@@ -144,7 +143,7 @@ class SalaryUserController extends AdminController {
         	$input['model_id'] = $input['model_id'];
         	$input['type_salary'] = $input['type_salary'];
         	SalaryHistoryUser::create($input);
-			return Redirect::action('SalaryUserController@index');	
+			return Redirect::action('ProposeSalaryListController@index');	
         }
 	}
 	/**

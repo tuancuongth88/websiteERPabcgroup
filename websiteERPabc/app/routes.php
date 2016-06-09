@@ -96,6 +96,8 @@ Route::group(['prefix' => 'admin'], function () {
 	Route::get('/salary/old/index', 'SalaryUserController@indexOld');
 	Route::resource('/salary', 'SalaryUserController');
 	// Route::resource('/comment', 'CommentController');
+	// danh sach de xuat luong
+	Route::resource('/propose', 'ProposeSalaryListController');
 
 });
 // Route::group(

@@ -1,7 +1,7 @@
 @extends('admin.layout.default')
 
 @section('title')
-{{ $title='Thêm mới mức lương nhân viên' }}
+{{ $title='Thêm mới mức lương phong ban hoac chuc vu' }}
 @stop
 
 @section('content')
