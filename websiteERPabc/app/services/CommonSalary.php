@@ -50,4 +50,23 @@ class CommonSalary {
 	{
 		return $input['type_dep_regency'];
 	}
+	public static function getDepAndRegency($modelName, $modelId)
+	{
+		$data = $modelName::find($modelId);
+		if($data)
+		{
+			return $data->name;
+		}else{
+			return '';
+		}
+
+	}
+	public static function getUpAndDown($value)
+	{
+		if ($value->type_salary == TYPE_SALARY_UP) {
+			return 'Tang luong';
+		}else{
+			return 'Giam luong';
+		}
+	} 
 }

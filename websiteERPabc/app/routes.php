@@ -92,6 +92,8 @@ Route::group(['prefix' => 'admin'], function () {
 	Route::post('/salary/ajax/getUser', 'SalaryUserController@ajaxGetUser');
 	Route::resource('/salary', 'SalaryUserController');
 	// Route::resource('/comment', 'CommentController');
+	// danh sach de xuat luong
+	Route::resource('/propose', 'ProposeSalaryListController');
 
 });
 // Route::group(
