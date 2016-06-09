@@ -142,6 +142,7 @@ class SalaryUserController extends AdminController {
         	$input['model_id'] = $input['model_id'];
         	$input['type_salary'] = $input['type_salary'];
         	SalaryHistoryUser::create($input);
+        	//insert record for all member in dep or regency
 			return Redirect::action('ProposeSalaryListController@index');	
         }
 	}
