@@ -50,22 +50,7 @@ class SalaryUserController extends AdminController {
         } else {
         	$user = User::where('username', $input['username'])->first();
 			$userId = $user->id;
-        	$userProposalId = CommonUser::getUserId();
-        	$salary = SalaryUser::where('user_id', $userId)
-				->where('status', SALARY_APPROVE)
-				->first();
-        	$inputHistory['start_date'] = $input['start_date']; 
-        	$inputHistory['model_name'] = 'User'; 
-        	$inputHistory['model_id'] = $userId; 
-        	$inputHistory['note_user_update'] = $input['note_user_update']; 
-        	$inputHistory['salary_old'] = $salary->salary; 
-        	$inputHistory['salary_new'] = getSalaryNew($input, $salary); 
-        	$inputHistory['user_proposal'] = $userProposalId; 
-        	$inputHistory['type_salary'] = $input['type_salary']; 
-        	$inputHistory['type'] = PROPOSAL_USER; 
-        	$inputHistory['percent'] = $input['percent']; 
-        	$inputHistory['status'] = SALARY_PROPOSAL; 
-        	$historyId = SalaryHistoryUser::create($inputHistory)->id;
+        	CommonSalary::addAllUserId($userId, $input);
         	return Redirect::action('SalaryUserController@indexOld');
         }
 	}
@@ -143,6 +128,15 @@ class SalaryUserController extends AdminController {
         	$input['model_id'] = $input['model_id'];
         	$input['type_salary'] = $input['type_salary'];
         	SalaryHistoryUser::create($input);
+        	// insert all user 
+        	//get list user follow dep or regency
+        	$listUserId = CommonSalary::getListUserId($input);
+        	//insert list user
+        	foreach ($listUserId as $value) {
+
+				$userId = $value;
+	        	CommonSalary::addAllUserId($userId, $input);
+        	}
 			return Redirect::action('ProposeSalaryListController@index');	
         }
 	}

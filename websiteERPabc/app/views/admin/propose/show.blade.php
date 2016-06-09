@@ -21,7 +21,7 @@
 					<label>Chọn phòng ban hoặc chức vụ</label>
 					<div class="row">
 						<div class="col-sm-6">
-						ten phong ban
+							{{ SalaryHistoryUser::getName($data, 'name') }}
 						</div>
 					</div>
 				</div>
