@@ -9,7 +9,11 @@ class ProposeSalaryListController extends AdminController {
 	 */
 	public function index()
 	{
-		$data = SalaryHistoryUser::orderBy('id', 'desc')->paginate(PAGINATE);
+		$data = SalaryHistoryUser::where('model_name', 'Department')
+			->where('type', PROPOSAL_DEP)
+		    ->orwhere('model_name', 'Regency')
+			->where('type', PROPOSAL_REGENCY)
+			->paginate(PAGINATE);
 		return View::make('admin.propose.showlistsalarydepreg')->with(compact('data'));
 	}
 
