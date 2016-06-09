@@ -94,7 +94,11 @@ Route::group(['prefix' => 'admin'], function () {
 	Route::get('/salary/old/employee', 'SalaryUserController@createOld');
 	Route::post('/salary/old/employee', 'SalaryUserController@storeOld');
 	Route::get('/salary/old/index', 'SalaryUserController@indexOld');
+	Route::get('/salary/approve_salary_manager/approveSalary/{id}', 'SalaryApproveController@approveSalary');
+	Route::get('/salary/approve_salary_manager/search', 'SalaryApproveController@search');
+	Route::resource('/salary/approve_salary_manager', 'SalaryApproveController');
 	Route::resource('/salary', 'SalaryUserController');
+
 	// Route::resource('/comment', 'CommentController');
 	// danh sach de xuat luong
 	Route::resource('/propose', 'ProposeSalaryListController');
