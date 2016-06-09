@@ -9,7 +9,6 @@ class SalaryUserController extends AdminController {
 	 */
 	public function index()
 	{
-		// $data = SalaryUser::orderBy('id', 'desc')->paginate(PAGINATE);
 		$data = SalaryHistoryUser::where('model_name', 'User')
 			->where('type', PROPOSAL_USER_NEW)
 			->paginate(PAGINATE);
@@ -72,7 +71,7 @@ class SalaryUserController extends AdminController {
 	public function indexOld()
 	{
 		$data = SalaryHistoryUser::where('model_name', 'User')
-			->where('status', PROPOSAL_USER)
+			->where('type', PROPOSAL_USER)
 			->paginate(PAGINATE);
 		return View::make('admin.salary.old.index')->with(compact('data'));
 	}
