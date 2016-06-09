@@ -29,7 +29,7 @@
 	function searchName() {
 		var user =[
 					@foreach($data as $value)
-						{{ "'".$value['username']."'"."," }}
+						{{ "'".$value."'"."," }}
 					@endforeach
 				];
 		$('#user_salary').autocomplete({
@@ -54,6 +54,24 @@
 			success: function(responseText)
 			{
 				$('#assignBox').append(responseText);
+			}
+		});
+	}
+	function getDetail()
+	{
+		// alert(33);
+		user = document.getElementById('user_salary');
+		username = user.value;
+		$.ajax(
+		{
+			type : 'post',
+			url : '{{ url("admin/salary/ajax/getDetailUser") }}',
+			data : {
+				'username' : username,
+			},
+			success: function(responseText)
+			{
+				$('#getDetailUserBox').append(responseText);
 			}
 		});
 	}

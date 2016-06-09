@@ -27,5 +27,35 @@ class SalaryHistoryUser extends Eloquent {
 		'note_reject', 'percent', 'approve_id', 'approve_date', 'type', 'type_salary');
     protected $dates = ['deleted_at'];
 
+    public static function getName($history, $field)
+    {
+    	$modelName = $history->model_name;
+    	$modelId = $history->model_id;
+		$ob = $modelName::find($modelId);
+        if ($ob) {
+            return $ob->$field;
+        }
+		return null; 	
+    }
+    public static function getSalaryCurrent($history)
+    {
+    	$salaryId = self::getName($history, 'salary_id');
+        if (!$salaryId) {
+            return null;
+        }
+    	return SalaryUser::find($salaryId)->salary;
+    }
+    public static function getSalaryProposal($value)
+    {
+    	$salaryId = self::getName($value, 'salary_id');
+        if (!$salaryId) {
+            return null;
+        }
+    	$salary = SalaryUser::find($salaryId);
+    	$input['type_salary'] = $value->type_salary;
+    	$input['percent'] = $value->percent;
+    	// dd(getSalaryNew($input, $salary));
+    	return getSalaryNew($input, $salary);
+    }
    
 }

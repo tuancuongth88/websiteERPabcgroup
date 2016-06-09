@@ -34,7 +34,9 @@
 				<li><a href="{{ action('UserTypeController@index') }}"><i class="fa fa-laptop"></i> <span>Quản lý thể loại nhân viên</span></a></li>
 			@endif
 			@if(User::isAdmin() == ROLE_ADMIN || Common::checkPermissionUser(FUNCTION_USER, Config::get('button.manager_salary')))
-				<li><a href="{{ action('SalaryUserController@index') }}"><i class="fa fa-laptop"></i> <span>Quản lý lương nhân viên</span></a></li>
+				<li><a href="{{ action('SalaryUserController@index') }}"><i class="fa fa-laptop"></i> <span>Quản lý lương nhân viên mới</span></a></li>
+				<li><a href="{{ action('SalaryUserController@indexOld') }}"><i class="fa fa-laptop"></i> <span>Đề xuất lương nhân viên cũ</span></a></li>
+				<li><a href="{{ action('SalaryUserController@index') }}"><i class="fa fa-laptop"></i> <span>Đề xuất lương công ty</span></a></li>
 			@endif
 		</ul>
 	</section>

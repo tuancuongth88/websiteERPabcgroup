@@ -178,6 +178,15 @@ class CommonUser
 			return self::getDepartmentUser($userId);
 		}
 		return null;
-	}	
+	}
+	// public static function getRegencyNameBySalary($value)
+	// {
+	// 	$user = self::getUserBySalary($value);
+	// 	if ($user) {
+	// 		$userId = $user->id;
+	// 		return self::getDepartmentUser($userId);
+	// 	}
+	// 	return null;
+	// }		
 
 }

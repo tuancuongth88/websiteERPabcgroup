@@ -7,8 +7,7 @@
 @include('admin.salary.search')
 <div class="row margin-bottom">
 	<div class="col-xs-12">
-	<a href="{{ action('SalaryUserController@create') }}" class="btn btn-primary">Đề xuất lương cá nhân</a>
-	<a href="{{ action('SalaryUserController@createAll') }}" class="btn btn-primary">Đề xuất lương công ty</a>
+	<a href="{{ action('SalaryUserController@create') }}" class="btn btn-primary">Đề xuất lương nhân viên mới</a>
 	</div>
 
 </div>
@@ -25,15 +24,15 @@
 						<th>ID</th>
 						<th>Mức lương</th>
 						<th>Tên nhân viên</th>
-						<th>Phòng ban</th>
+						<th>Trạng thái</th>
 						<!-- <th>Action</th>  -->
 					</tr>
-					@foreach($data as $key => $value)
+					@foreach($data as $value)
 					<tr>
 						<td>{{ $value->id }}</td>
-						<td>{{ $value->salary }}</td> 
-						<td>{{ CommonUser::getUserNameSalary($value) }} </td>
-						<td> {{ CommonUser::getDeparmentNameBySalary($value) }} </td>
+						<td>{{ $value->salary_new }}</td> 
+						<td>{{ SalaryHistoryUser::getName($value, 'username') }} </td>
+						<td>{{ getStatusHistory($value) }}</td>
 						<!-- <td>
 							<a href="{{ action('SalaryUserController@edit', $value->id) }}" class="btn btn-primary">Sửa</a>
 							{{ Form::open(array('method'=>'DELETE', 'action' => array('SalaryUserController@destroy', $value->id), 'style' => 'display: inline-block;')) }}

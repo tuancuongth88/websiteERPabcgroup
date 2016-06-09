@@ -9,14 +9,11 @@ class SalaryUserController extends AdminController {
 	 */
 	public function index()
 	{
-		// if ($userId = ADMIN) {
-		// 	return View::make('admin.salary.approve');
-		// }
-		// if ($check == true) {
-		// 	# code...
-		// }
-		$data = SalaryUser::orderBy('id', 'desc')->paginate(PAGINATE);
-		return View::make('admin.salary.index')->with(compact('data'));
+		// $data = SalaryUser::orderBy('id', 'desc')->paginate(PAGINATE);
+		$data = SalaryHistoryUser::where('model_name', 'User')
+			->where('type', PROPOSAL_USER_NEW)
+			->paginate(PAGINATE);
+		return View::make('admin.salary.new.index')->with(compact('data'));
 	}
 
 
@@ -27,16 +24,59 @@ class SalaryUserController extends AdminController {
 	 */
 	public function create()
 	{
-		$data = User::select('id', 'username')->get()->toArray();
-		return View::make('admin.salary.create')->with(compact('data'));
+		$data = User::whereNull('salary_id')->lists('username');
+		return View::make('admin.salary.new.create')->with(compact('data'));
 	}
 
 	public function createAll()
 	{
 		return View::make('admin.salary.create_all_user');
 	}
-	
-
+	public function createOld()
+	{
+		$data = User::whereNotNull('salary_id')->lists('username');
+		return View::make('admin.salary.old.create')->with(compact('data'));
+	}
+	public function storeOld()
+	{
+		$input = Input::except('_token');
+		$rules = array(
+			'percent' => 'required|integer|min:1',
+		);
+		$validator = Validator::make($input, $rules);
+		if($validator->fails()) {
+			return Redirect::action('SalaryUserController@create')
+				->withInput($input)
+	            ->withErrors($validator);
+        } else {
+        	$user = User::where('username', $input['username'])->first();
+			$userId = $user->id;
+        	$userProposalId = CommonUser::getUserId();
+        	$salary = SalaryUser::where('user_id', $userId)
+				->where('status', SALARY_APPROVE)
+				->first();
+        	$inputHistory['start_date'] = $input['start_date']; 
+        	$inputHistory['model_name'] = 'User'; 
+        	$inputHistory['model_id'] = $userId; 
+        	$inputHistory['note_user_update'] = $input['note_user_update']; 
+        	$inputHistory['salary_old'] = $salary->salary; 
+        	$inputHistory['salary_new'] = getSalaryNew($input, $salary); 
+        	$inputHistory['user_proposal'] = $userProposalId; 
+        	$inputHistory['type_salary'] = $input['type_salary']; 
+        	$inputHistory['type'] = PROPOSAL_USER; 
+        	$inputHistory['percent'] = $input['percent']; 
+        	$inputHistory['status'] = SALARY_PROPOSAL; 
+        	$historyId = SalaryHistoryUser::create($inputHistory)->id;
+        	return Redirect::action('SalaryUserController@indexOld');
+        }
+	}
+	public function indexOld()
+	{
+		$data = SalaryHistoryUser::where('model_name', 'User')
+			->where('status', PROPOSAL_USER)
+			->paginate(PAGINATE);
+		return View::make('admin.salary.old.index')->with(compact('data'));
+	}
 	/**
 	 * Store a newly created resource in storage.
 	 *
@@ -61,21 +101,22 @@ class SalaryUserController extends AdminController {
       		$regencyId = $depRegencyUser->regency_id;
       		$inputSalary = [
       			'salary' => $input['salary'],
-      			'salary_origin' => $input['salary_origin'],
       			'status' => SALARY_PROPOSAL,
       			'user_id' => $userId,
       			'dep_id' => $depId,
       			'regency_id' => $regencyId,
       		];
       		$salaryId = SalaryUser::create($inputSalary)->id;
-        	//create new recored history salary in the table: salary_histories: status : 4
-   			
-   			dd($salaryId);
-
-   //      	$input['status'] = SALARY_PROPOSAL;
-   //      	$salaryId = SalaryUser::create(['salary' => $input['salary']])->id;
-   //      	User::find($input['user_id'])->update(['salary_id' => $salaryId]);
-			// return Redirect::action('SalaryUserController@index');	
+   			$inputHistory['start_date'] = $input['start_date']; 
+        	$inputHistory['model_name'] = 'User'; 
+        	$inputHistory['model_id'] = $userId; 
+        	$inputHistory['note_user_update'] = $input['note_user_update']; 
+        	$inputHistory['salary_new'] = $input['salary']; 
+        	$inputHistory['user_proposal'] = CommonUser::getUserId(); 
+        	$inputHistory['type'] = PROPOSAL_USER_NEW; 
+        	$inputHistory['status'] = SALARY_PROPOSAL; 
+        	$historyId = SalaryHistoryUser::create($inputHistory)->id;
+			return Redirect::action('SalaryUserController@index');	
         }
 	}
 
@@ -98,21 +139,10 @@ class SalaryUserController extends AdminController {
         	$input['user_proposal'] = CommonUser::getUserId();
         	$input['start_date'] = $input['start_date'];
         	$type_model = $input['type_dep_regency'];
-
-        	// if($type_model == PROPOSAL_DEP) {
-	        // 	$input['model_name'] = 'Department';
-	        // 	$input['type'] = PROPOSAL_DEP;
-        	// }
-
-        	// if($type_model == PROPOSAL_REGENCY) {
-	        // 	$input['model_name'] = 'Regency';
-	        // 	$input['type'] = PROPOSAL_REGENCY;
-        	// }
         	$input['model_name'] = CommonSalary::getModelName($input);
         	$input['type'] = CommonSalary::getType($input);
         	$input['model_id'] = $input['model_id'];
         	$input['type_salary'] = $input['type_salary'];
-        	
         	SalaryHistoryUser::create($input);
 			return Redirect::action('SalaryUserController@index');	
         }
@@ -219,7 +249,17 @@ class SalaryUserController extends AdminController {
 		$userId = $user->id;
 		$array = CommonSalary::getDepRegency($userId);
 		return View::make('admin.salary.dep_regency')->with(compact('array'));
-		// $list = CommonSalary::getListNoSalaryUser();
-		// return Response::json(array('data' => $list));
 	}
+	public function getDetailUser()
+	{
+		// return 1;
+		$username = Input::get('username');
+		$user = User::where('username', $username)->first();
+		$userId = $user->id;
+		$salary = SalaryUser::where('user_id', $userId)
+			->where('status', SALARY_APPROVE)
+			->first();
+		return View::make('admin.salary.detailEmployee')->with(compact('salary'));
+	}
+
 }

@@ -90,6 +90,10 @@ Route::group(['prefix' => 'admin'], function () {
 	Route::post('/salary/storeAll', 'SalaryUserController@storeAll');
 	Route::post('/salary/getFormatTypeSalary', 'SalaryUserController@getFormatTypeSalary');
 	Route::post('/salary/ajax/getUser', 'SalaryUserController@ajaxGetUser');
+	Route::post('/salary/ajax/getDetailUser', 'SalaryUserController@getDetailUser');
+	Route::get('/salary/old/employee', 'SalaryUserController@createOld');
+	Route::post('/salary/old/employee', 'SalaryUserController@storeOld');
+	Route::get('/salary/old/index', 'SalaryUserController@indexOld');
 	Route::resource('/salary', 'SalaryUserController');
 	// Route::resource('/comment', 'CommentController');
 
