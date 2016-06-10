@@ -64,9 +64,13 @@ class CommonSalary {
 	public static function getUpAndDown($value)
 	{
 		if ($value->type_salary == TYPE_SALARY_UP) {
-			return 'Tang luong';
-		}else{
-			return 'Giam luong';
+			return 'Tăng lương';
+		}
+		if ($value->type_salary == TYPE_SALARY_DOWN) {
+			return 'Giảm lương';
+		}
+		else{
+			return 'Thêm mới';
 		}
 	} 
 	public static function addAllUserId($userId, $input)
@@ -129,4 +133,8 @@ class CommonSalary {
 		return $data;
 	}
 
+	public static function getNameUser($user_id)
+	{
+		return User::find($user_id)->username;
+	}
 }
