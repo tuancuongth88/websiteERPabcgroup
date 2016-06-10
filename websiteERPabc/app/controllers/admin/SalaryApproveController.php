@@ -104,7 +104,23 @@ class SalaryApproveController extends AdminController {
 			SalaryHistoryUser::find($id)->update($inputupdate);
 		} else {
 			$inputupdateSalary['salary'] = $user->salary_new;
-			SalaryUser::where('user_id', $user->model_id)->update();
+			SalaryUser::where('user_id', $user->model_id)->update($inputupdateSalary);
+			SalaryHistoryUser::find($id)->update($inputupdate);
+		}
+		return Redirect::action('SalaryApproveController@index');
+	}
+
+	public function rejectSalary($id){
+		$user = SalaryHistoryUser::find($id);
+		$inputupdate['approve_id'] = CommonUser::getUserId();
+		$inputupdate['status'] = SALARY_REJECT;
+		if($user->type == PROPOSAL_USER_NEW) {
+			$inputupdateSalary['status'] = SALARY_REJECT;
+			SalaryUser::where('user_id', $user->model_id)->update($inputupdateSalary);
+			SalaryHistoryUser::find($id)->update($inputupdate);
+		} else {
+			$inputupdateSalary['salary'] = $user->salary_new;
+			SalaryUser::where('user_id', $user->model_id)->update($inputupdateSalary);
 			SalaryHistoryUser::find($id)->update($inputupdate);
 		}
 		return Redirect::action('SalaryApproveController@index');
@@ -112,7 +128,32 @@ class SalaryApproveController extends AdminController {
 
 	public function search()
 	{
+		$input = Input::except('_token');
+		$data = CommonSalary::searchSalaryApprove($input);
+		return View::make('admin.salary.approve_salary_manager.index')->with(compact('data'));
+	}  
 
+	public function approveSalarySelect()
+	{
+		$input = Input::except('_token');
+		$inputsalary = $input['salary_id'];
+		$inputcheckAll = $input['checkall'];
+		
+		foreach ($inputsalary as $key => $value) {
+			$this->approveSalary($value);
+		}
+		dd($input);
+	}
+
+	public  function rejectSalarySelect(){
+		$input = Input::except('_token');
+		$inputcheckAll = $input['checkall'];
+
+		$inputsalary = $input['salary_id'];
+		foreach ($inputsalary as $key => $value) {
+			$this->approveSalary($value);
+		}
+		dd($input);
 	}
 
 }
