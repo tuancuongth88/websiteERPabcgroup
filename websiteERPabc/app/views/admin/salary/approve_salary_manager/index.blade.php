@@ -43,13 +43,13 @@
 						<td>{{ $value->salary_old }}</td> 
 						<td>{{ $value->salary_new }}</td> 
 						<td>{{ $value->start_date }}</td>
-						<td>{{ $value->type_salary }}</td>
+						<td>{{ CommonSalary::getUpAndDown($value) }}</td>
 						<td>{{ $value->percent }}</td>
 						<td>{{ getStatusHistory($value) }}</td>
 						<td>
 							<a href="{{ action('SalaryApproveController@edit', $value->id) }}" class="btn btn-primary">edit</a>
 							<a href="{{ action('SalaryApproveController@approveSalary', $value->id) }}" class="btn btn-primary">Duyệt lương</a>
-							<a href="{{ action('SalaryApproveController@edit', $value->id) }}" class="btn btn-danger">Từ chối</a>
+							<a href="{{ action('SalaryApproveController@rejectSalary', $value->id) }}" class="btn btn-danger">Từ chối</a>
 						</td>
 					</tr>
 					@endforeach

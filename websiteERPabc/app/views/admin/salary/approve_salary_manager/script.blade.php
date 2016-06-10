@@ -24,15 +24,18 @@
 			var values1 = $('input:checkbox:checked.salary_id').map(function () {
 			  	return this.value;
 			}).get();
-			var valuesAll = $('input:checkbox:checked.checkall').map(function () {
-			  	return this.value;
-			}).get();
+			var tmp = false;
+			if($("#checkall").is(':checked'))
+			{
+				tmp = true;
+			}
 			$.ajax(
 			{
 				type:'post',
 				url: '{{ url("/admin/salary/approve_salary_manager/approveSalarySelect") }}',
 				data:{
-					'salary_id': values1
+					'salary_id': values1,
+					'checkAll' : tmp
 				},               
 				success: function(data)
 				{
@@ -64,13 +67,18 @@
 			var values1 = $('input:checkbox:checked.salary_id').map(function () {
 			  	return this.value;
 			}).get();
-
+			var tmp = false;
+			if($("#checkall").is(':checked'))
+			{
+				tmp = true;
+			}
 			$.ajax(
 			{
 				type:'post',
 				url: '{{ url("/admin/salary/approve_salary_manager/rejectSalarySelect") }}',
 				data:{
-					'salary_id': values1
+					'salary_id': values1,
+					'checkAll' : tmp
 				},
 				success: function(data)
 				{

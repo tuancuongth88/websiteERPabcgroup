@@ -98,4 +98,35 @@ class CommonSalary {
 		}
 		return $listUser;
 	}
+
+	public static function searchSalaryApprove($input)
+	{
+		$data = SalaryHistoryUser::where(function ($query) use ($input)
+		{
+			$query = $query->where('model_name', 'User')->where('status', SALARY_PROPOSAL);
+			if($input['username'] != '') {
+				$listUser = User::where('username', 'like', '%'.$input['username'].'%')->lists('id');
+				$query = $query->whereIn('model_id', $listUser);
+			}
+			if ($input['department'] != '') {
+				$listSalaryDepID = SalaryUser::where('dep_id', $input['department'])->lists('user_id');
+				$query = $query->whereIn('model_id', $listSalaryDepID);
+			}
+			if ($input['regency'] != '') {
+				$listSalaryRegencyID = SalaryUser::where('regency_id', $input['regency'])->lists('user_id');
+				$query = $query->whereIn('model_id', $listSalaryRegencyID);
+			}
+			if ($input['type_salary'] != TYPE_SALARY_CHOOSE) {
+				$query = $query->where('type_salary', $input['type_salary'] );
+			}
+			if($input['start'] != ''){
+				$query = $query->where('start_date', '>=', $input['start']);
+			}
+			if($input['end'] != ''){
+				$query = $query->where('start_date', '<=', $input['end'].' 23:59:59');
+			}
+		})->orderBy('id', 'desc')->paginate(PAGINATE);
+		return $data;
+	}
+
 }

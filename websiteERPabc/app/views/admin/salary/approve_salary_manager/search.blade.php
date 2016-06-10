@@ -15,7 +15,7 @@
 		</div>
 		<div class="input-group" style="width: 150px; display:inline-block;">
 			<label>Tăng giảm lương</label>
-			{{ Form::select('user_id',  CommonSalary::getTypeUpDow(), null, array('class' => 'form-control')) }}
+			{{ Form::select('type_salary',  CommonSalary::getTypeUpDow(), null, array('class' => 'form-control')) }}
 		</div>
 		<div class="input-group" style="width: 150px; display:inline-block;">
 			<label>Ngày bắt đầu</label>
