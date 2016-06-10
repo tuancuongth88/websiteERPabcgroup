@@ -4,7 +4,7 @@
 {{ $title='Danh sach de xuat lương cong ty' }}
 @stop
 @section('content')
-@include('admin.salary.search')
+@include('admin.propose.search')
 <div class="row margin-bottom">
 	<div class="col-xs-12">
 	<a href="{{ action('SalaryUserController@createAll') }}" class="btn btn-primary">Đề xuất lương công ty</a>
