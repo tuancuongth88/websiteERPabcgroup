@@ -96,7 +96,11 @@ Route::group(['prefix' => 'admin'], function () {
 	Route::get('/salary/old/index', 'SalaryUserController@indexOld');
 	// quan ly lich su luong nhan vien
 	Route::resource('/salary/history', 'SalaryHistoryUserController');
+	Route::get('/salary/approve_salary_manager/approveSalary/{id}', 'SalaryApproveController@approveSalary');
+	Route::get('/salary/approve_salary_manager/search', 'SalaryApproveController@search');
+	Route::resource('/salary/approve_salary_manager', 'SalaryApproveController');
 	Route::resource('/salary', 'SalaryUserController');
+
 	// Route::resource('/comment', 'CommentController');
 	// danh sach de xuat luong
 	Route::resource('/propose', 'ProposeSalaryListController');

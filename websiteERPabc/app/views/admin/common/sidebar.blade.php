@@ -39,6 +39,13 @@
 				<li><a href="{{ action('ProposeSalaryListController@index') }}"><i class="fa fa-laptop"></i> <span>Đề xuất lương công ty</span></a></li>
 				<li><a href="{{ action('SalaryHistoryUserController@index') }}"><i class="fa fa-laptop"></i> <span>Quản lý lịch sử lương nhân viên</span></a></li>
 			@endif
+			<li class="treeview">
+				<a href="#"><i class="glyphicon glyphicon-euro"></i> <span>Quản lý đề xuất lương</span> <i class="fa fa-angle-left pull-right"></i></a>
+				<ul class="treeview-menu">
+					<li><a href="{{ action('SalaryApproveController@index') }}"><i class="glyphicon glyphicon-arrow-right"></i> <span>lương nhân viên</span></a></li>
+					<li><a href="#}"><i class="glyphicon glyphicon-arrow-right"></i> <span>lương Phòng ban chức vụ</span></a></li>
+				</ul>
+			</li>
 		</ul>
 	</section>
 	<!-- /.sidebar -->

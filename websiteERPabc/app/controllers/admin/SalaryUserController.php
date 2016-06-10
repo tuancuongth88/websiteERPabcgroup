@@ -32,7 +32,8 @@ class SalaryUserController extends AdminController {
 	}
 	public function createOld()
 	{
-		$data = User::whereNotNull('salary_id')->lists('username');
+		$list = SalaryUser::where('status', SALARY_APPROVE)->lists('user_id');
+		$data = User::whereIn('id', $list)->lists('username');
 		return View::make('admin.salary.old.create')->with(compact('data'));
 	}
 	public function storeOld()
