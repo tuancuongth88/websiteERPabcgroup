@@ -96,6 +96,8 @@ Route::group(['prefix' => 'admin'], function () {
 	Route::get('/salary/old/index', 'SalaryUserController@indexOld');
 	Route::get('/salary/approve_salary_manager/approveSalary/{id}', 'SalaryApproveController@approveSalary');
 	Route::get('/salary/approve_salary_manager/search', 'SalaryApproveController@search');
+	Route::post('/salary/approve_salary_manager/approveSalarySelect', 'SalaryApproveController@approveSalarySelect');
+	Route::post('/salary/approve_salary_manager/rejectSalarySelect', 'SalaryApproveController@rejectSalarySelect');
 	Route::resource('/salary/approve_salary_manager', 'SalaryApproveController');
 	Route::resource('/salary', 'SalaryUserController');
 

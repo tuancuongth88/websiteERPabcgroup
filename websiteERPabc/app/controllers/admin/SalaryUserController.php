@@ -22,7 +22,8 @@ class SalaryUserController extends AdminController {
 	 */
 	public function create()
 	{
-		$data = User::whereNull('salary_id')->lists('username');
+		$list = SalaryUser::where('status', SALARY_APPROVE)->lists('user_id');
+		$data = User::whereNotIn('id', $list)->lists('username');
 		return View::make('admin.salary.new.create')->with(compact('data'));
 	}
 

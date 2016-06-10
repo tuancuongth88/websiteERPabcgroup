@@ -104,7 +104,7 @@ class SalaryApproveController extends AdminController {
 			SalaryHistoryUser::find($id)->update($inputupdate);
 		} else {
 			$inputupdateSalary['salary'] = $user->salary_new;
-			SalaryUser::where('user_id', $user->model_id)->update();
+			SalaryUser::where('user_id', $user->model_id)->update($inputupdateSalary);
 			SalaryHistoryUser::find($id)->update($inputupdate);
 		}
 		return Redirect::action('SalaryApproveController@index');
@@ -113,6 +113,23 @@ class SalaryApproveController extends AdminController {
 	public function search()
 	{
 
+	}  
+
+	public function approveSalarySelect()
+	{
+		$input = Input::except('_token');
+		dd($input);
+		$inputsalary = $input['salary_id'];
+		foreach ($inputsalary as $key => $value) {
+			$this->approveSalary($value);
+		}
+		dd($input);
+	}
+
+	public  function rejectSalarySelect(){
+		$input = Input::except('_token');
+		
+		dd($input);
 	}
 
 }
