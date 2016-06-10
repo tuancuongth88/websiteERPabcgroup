@@ -9,7 +9,8 @@ class SalaryHistoryUserController extends AdminController {
 	 */
 	public function index()
 	{
-		//
+		$data = SalaryUser::orderBy('id', 'asc')->paginate(PAGINATE);
+		return View::make('admin.salary.history.index')->with(compact('data'));
 	}
 
 
@@ -43,7 +44,11 @@ class SalaryHistoryUserController extends AdminController {
 	 */
 	public function show($id)
 	{
-		//
+		$salary = SalaryUser::find($id);
+		$data = SalaryHistoryUser::where('model_name', 'User')->where('model_id', $salary->user_id)->paginate(PAGINATE);
+		$userdata = User::find($salary->user_id);
+		// dd($data->toArray());		
+		return View::make('admin.salary.history.show')->with(compact('data', 'userdata'));
 	}
 
 

@@ -94,10 +94,13 @@ Route::group(['prefix' => 'admin'], function () {
 	Route::get('/salary/old/employee', 'SalaryUserController@createOld');
 	Route::post('/salary/old/employee', 'SalaryUserController@storeOld');
 	Route::get('/salary/old/index', 'SalaryUserController@indexOld');
+	// quan ly lich su luong nhan vien
+	Route::resource('/salary/history', 'SalaryHistoryUserController');
 	Route::resource('/salary', 'SalaryUserController');
 	// Route::resource('/comment', 'CommentController');
 	// danh sach de xuat luong
 	Route::resource('/propose', 'ProposeSalaryListController');
+
 
 });
 // Route::group(
