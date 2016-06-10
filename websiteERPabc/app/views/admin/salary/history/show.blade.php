@@ -7,7 +7,7 @@
 @include('admin.salary.search')
 <div class="row margin-bottom">
 	<div class="col-xs-12">
-	<a href="{{ action('SalaryHistoryUserController@index') }}" class="btn btn-primary">Đề xuất lương nhân viên mới</a>
+	<a href="{{ action('SalaryHistoryUserController@index') }}" class="btn btn-primary">Danh sách lịch sử lương nhân viên</a>
 	</div>
 
 </div>
