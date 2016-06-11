@@ -33,8 +33,8 @@
 					<tr>
 						<td>{{ $value->id }}</td>
 						<td>{{ SalaryHistoryUser::getName($value, 'username') }} </td>
-						<td>{{ SalaryHistoryUser::getSalaryCurrent($value) }}</td> 
-						<td>{{ SalaryHistoryUser::getSalaryProposal($value) }}</td> 
+						<td>{{ $value->salary_old }}</td> 
+						<td>{{ $value->salary_new }}</td> 
 						<td>{{ $value->start_date }}</td>
 						<td>{{ $value->type_salary }}</td>
 						<td>{{ $value->percent }}</td>
