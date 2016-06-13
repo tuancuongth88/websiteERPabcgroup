@@ -133,6 +133,11 @@ class CommonSalary {
 		return $data;
 	}
 
+	public static function searchSalaryDepRegency($input)
+	{	
+		
+	}
+
 	public static function getNameUser($user_id)
 	{
 		return User::find($user_id)->username;

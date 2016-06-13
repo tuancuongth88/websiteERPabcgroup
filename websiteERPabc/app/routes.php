@@ -96,6 +96,9 @@ Route::group(['prefix' => 'admin'], function () {
 	Route::get('/salary/old/index', 'SalaryUserController@indexOld');
 	// quan ly lich su luong nhan vien
 	Route::resource('/salary/history', 'SalaryHistoryUserController');
+	//quan ly approve
+
+	Route::get('/salary/approve_salary_manager/index_dep_reg', 'SalaryApproveController@indexDepReg');
 	Route::get('/salary/approve_salary_manager/approveSalary/{id}', 'SalaryApproveController@approveSalary');
 	Route::get('/salary/approve_salary_manager/rejectSalary/{id}', 'SalaryApproveController@rejectSalary');
 	Route::get('/salary/approve_salary_manager/search', 'SalaryApproveController@search');
