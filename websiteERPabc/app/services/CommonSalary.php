@@ -137,4 +137,12 @@ class CommonSalary {
 	{
 		return User::find($user_id)->username;
 	}
+	public static function getAllNameDep()
+	{
+		return Department::lists('name');
+	}
+	public static function getAllNameRegency()
+	{
+		return Regency::lists('name');
+	}
 }

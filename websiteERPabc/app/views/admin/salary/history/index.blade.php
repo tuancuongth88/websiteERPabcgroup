@@ -1,7 +1,7 @@
 @extends('admin.layout.default')
 
 @section('title')
-{{ $title='Quản lý lương nhân viên' }}
+{{ $title='Quản lý lịch sử lương nhân viên' }}
 @stop
 @section('content')
 @include('admin.salary.search')

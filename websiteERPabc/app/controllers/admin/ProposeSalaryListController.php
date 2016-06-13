@@ -85,8 +85,11 @@ class ProposeSalaryListController extends AdminController {
 	 */
 	public function destroy($id)
 	{
-		//
+		
 	}
-
+	public static function search()
+	{
+		
+	}
 
 }
