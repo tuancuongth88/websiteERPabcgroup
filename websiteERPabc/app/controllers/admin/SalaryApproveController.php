@@ -13,7 +13,15 @@ class SalaryApproveController extends AdminController {
 							->where('model_name', 'User')->paginate(PAGINATE);
 		return View::make('admin.salary.approve_salary_manager.index')->with(compact('data'));
 	}
-
+	public function indexDepReg()
+	{
+		$data = SalaryHistoryUser::where('model_name', 'Department')
+			->where('type', PROPOSAL_DEP)
+		    ->orwhere('model_name', 'Regency')
+			->where('type', PROPOSAL_REGENCY)
+			->paginate(PAGINATE);
+		return View::make('admin.salary.approve_salary_manager.index_dep_reg')->with(compact('data'));
+	}
 
 	/**
 	 * Show the form for creating a new resource.
