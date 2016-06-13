@@ -29,6 +29,19 @@ function getSalaryNew($input, $salary)
 	}
 	return $salaryNew;
 }
+function getSalaryNew_admin_edit($input, $salary)
+{
+	if (!$salary) {
+		return null;
+	}
+	if ($input['type_salary_edit'] == TYPE_SALARY_UP) {
+		$salaryNew = $salary->salary + ($input['percent_edit'] * ($salary->salary))/100;
+	}
+	if ($input['type_salary_edit'] == TYPE_SALARY_DOWN) {
+		$salaryNew = $salary->salary - ($input['percent_edit'] * ($salary->salary))/100;
+	}
+	return $salaryNew;
+}
 function getStatusHistory($input)
 {
 	if ($input->status == SALARY_APPROVE) {
