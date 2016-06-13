@@ -58,11 +58,14 @@ class SalaryApproveController extends AdminController {
 	public function edit($id)
 	{
 		$data = SalaryHistoryUser::find($id);
+		$salary = SalaryUser::where('user_id', $data->model_id)
+			// ->where('status', SALARY_APPROVE)
+			->first();
 		if($data->type == PROPOSAL_USER_NEW)
 		{
-			return View::make('admin.salary.approve_salary_manager.edit_new')->with(compact('data'));
+			return View::make('admin.salary.approve_salary_manager.edit_new')->with(compact('data', 'salary'));
 		} else {
-			return View::make('admin.salary.approve_salary_manager.edit_old')->with(compact('data'));
+			return View::make('admin.salary.approve_salary_manager.edit_old')->with(compact('data', 'salary'));
 		}
 	}
 
@@ -75,7 +78,46 @@ class SalaryApproveController extends AdminController {
 	 */
 	public function update($id)
 	{
-		//
+		$data = SalaryHistoryUser::find($id);
+		$salary = SalaryUser::where('user_id', $data->model_id)
+			->first();
+		$input = Input::except('_token');
+		$input_user_new = array();
+		$inputupdateSalary = array();
+		$input_user_new['approve_id'] = CommonUser::getUserId();
+		$input_user_new['approve_date'] = Carbon\Carbon::now();
+		$input_user_new['status'] = SALARY_APPROVE;
+		if($data->type == PROPOSAL_USER_NEW)
+		{
+			if($input['salary_edit'] != '')
+			{
+				$input_user_new['salary_edit'] =  $input['salary_edit'];
+				$inputupdateSalary['salary'] = $input['salary_edit'];
+			}	
+			$input_user_new['type'] = PROPOSAL_USER;
+			$inputupdateSalary['status'] = SALARY_APPROVE;
+			SalaryUser::where('user_id', $data->model_id)->update($inputupdateSalary);
+			SalaryHistoryUser::find($id)->update($input_user_new);
+		} else {
+			if($input['percent_edit'] != '')
+			{
+				$input_user_new['percent_edit'] =  $input['percent_edit'];
+				$salaryNew = getSalaryNew_admin_edit($input, $salary);
+				$input_user_new['salary_edit'] =  $salaryNew;
+				$inputupdateSalary['salary'] = $salaryNew;
+			}else
+			{
+				$inputupdateSalary['salary'] = $data->salary_new;
+			}
+			if($input['type_salary_edit'] != '')
+			{
+				$input_user_new['type_salary_edit'] = $input['type_salary_edit'];
+			}
+
+			SalaryUser::where('user_id', $data->model_id)->update($inputupdateSalary);
+			SalaryHistoryUser::find($id)->update($input_user_new);
+		}
+		return Redirect::action('SalaryApproveController@index');
 	}
 
 

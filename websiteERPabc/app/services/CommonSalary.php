@@ -145,4 +145,8 @@ class CommonSalary {
 	{
 		return Regency::lists('name');
 	}
+	public static function getidDepRegPartner($data)
+	{
+		return DepRegencyUserParent::where('user_id',  $data->user_id)->where('dep_id', $data->dep_id)->first()->id;
+	}
 }

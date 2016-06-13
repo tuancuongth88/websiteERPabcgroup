@@ -13,7 +13,15 @@
 						<label>Mức lương đề xuất</label>
 						<div class="row">
 							<div class="col-sm-6">
-								{{ Form::text('salary', $data->salary_new, array('class' => 'form-control')) }}
+								{{ Form::text('salary', $data->salary_new, array('class' => 'form-control', 'readonly' => 'true')) }}
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label>Mức lương admin muốn sửa</label>
+						<div class="row">
+							<div class="col-sm-6">
+								{{ Form::text('salary_edit', $data->salary_edit, array('class' => 'form-control')) }}
 							</div>
 						</div>
 					</div>
@@ -21,8 +29,7 @@
 						<label>Tên nhân viên</label>
 						<div class="row">
 							<div class="col-sm-6">
-								{{ Form::label('username', SalaryHistoryUser::getName($data, 'username'), array('class' => 'form-control', 'id' => 'user_salary')) }}
-								<a href="#" class="btn btn-default room" id="room" onclick="getDep()">Phòng ban-chức vụ</a>
+								{{ Form::label('', SalaryHistoryUser::getName($data, 'username'), array('class' => 'form-control', 'id' => 'user_salary')) }}
 							</div>
 						</div>
 					</div>
@@ -30,14 +37,16 @@
 				<div class="form-group">
 					<label>Tên phòng ban- chức vụ</label>
 					<div class="row">
-						{{ Form::select('dep_regency_id', ['' => 'Lựa chọn'] + $array, null, array('class' => 'form-control', 'style' => 'width: 120px;')) }}
+						<div class="col-sm-6">
+							{{ Form::select('dep_regency_id', ['' => 'Lựa chọn'] + CommonSalary::getDepRegency($data->model_id), CommonSalary::getidDepRegPartner($salary), array('class' => 'form-control', 'disabled' => 'disabled')) }}
+						</div>
 					</div>
 				</div>
 				<div class="form-group">
 					<label>Ngày đề xuất</label>
 					<div class="row">
 						<div class="col-sm-6">
-				  			<input type="text" name="start_date" class="form-control" id="datepickerStartdate" placeholder="Từ ngày" />
+				  			{{ Form::label('', $data->start_date, array('class' => 'form-control')) }}
 				  		</div>
 				  	</div>
 				</div>
@@ -45,17 +54,16 @@
 					<label>Lý do</label>
 					<div class="row">
 						<div class="col-sm-6">
-							{{ Form::textarea('note_user_update', null, array('class' => 'form-control')) }}
+							{{ Form::textarea('note_user_update', $data->note_user_update, array('class' => 'form-control', 'readonly' =>'true')) }}
 						</div>
 					</div>
 				</div>
 				<div class="box-footer">
-					{{ Form::submit('Lưu lại', array('class' => 'btn btn-primary')) }}
+					{{ Form::submit('Phê duyệt', array('class' => 'btn btn-primary')) }}
 				</div>
 				{{ Form::close() }}
 			</div>
 		</div>
 	</div>
-@include('admin.salary.script')
 @include('admin.salary.style')
 @stop
