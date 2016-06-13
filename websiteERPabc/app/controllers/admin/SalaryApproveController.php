@@ -57,7 +57,13 @@ class SalaryApproveController extends AdminController {
 	 */
 	public function edit($id)
 	{
-		//
+		$data = SalaryHistoryUser::find($id);
+		if($data->type == PROPOSAL_USER_NEW)
+		{
+			return View::make('admin.salary.approve_salary_manager.edit_new')->with(compact('data'));
+		} else {
+			return View::make('admin.salary.approve_salary_manager.edit_old')->with(compact('data'));
+		}
 	}
 
 
@@ -138,7 +144,7 @@ class SalaryApproveController extends AdminController {
 		$input = Input::except('_token');
 		$inputsalary = $input['salary_id'];
 		$inputcheckAll = $input['checkall'];
-		
+
 		foreach ($inputsalary as $key => $value) {
 			$this->approveSalary($value);
 		}
