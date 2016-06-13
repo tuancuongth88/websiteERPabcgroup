@@ -17,7 +17,7 @@
 						<label>Tên nhân viên</label>
 						<div class="row">
 							<div class="col-sm-6">
-								{{ Form::text('username', SalaryHistoryUser::getName($data, 'username'), array('class' => 'form-control', 'id' => 'user_salary')) }}
+								{{ Form::label('username', SalaryHistoryUser::getName($data, 'username'), array('class' => 'form-control', 'id' => 'user_salary')) }}
 							</div>
 						</div>
 					</div>
