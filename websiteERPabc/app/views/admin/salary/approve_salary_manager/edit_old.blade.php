@@ -79,7 +79,7 @@
 					<label>Lý do</label>
 					<div class="row">
 						<div class="col-sm-6">
-							{{ Form::textarea('note_user_update', $data->note_user_update, array('class' => 'form-control')) }}
+							{{ Form::textarea('note_user_update', $data->note_user_update, array('class' => 'form-control', 'readonly' => 'true')) }}
 						</div>
 					</div>
 				</div>
