@@ -1,7 +1,7 @@
 @extends('admin.layout.default')
 
 @section('title')
-{{ $title='Danh sach de xuat lương cong ty' }}
+{{ $title='Danh sách lương phòng ban chức vụ' }}
 @stop
 @section('content')
 @include('admin.propose.search')
@@ -15,7 +15,7 @@
 	<div class="col-xs-12">
 		<div class="box">
 			<div class="box-header">
-				<h3 class="box-title">Danh sach de xuat lương cong ty</h3>
+				<h3 class="box-title">Danh sách lương phòng ban chức vụ</h3>
 			</div>
 			<!-- /.box-header -->
 			<div class="box-body table-responsive no-padding">
@@ -50,7 +50,7 @@
 						<td>{{ CommonSalary::getUpAndDown($value) }}</td>
 						<td> {{ $value->percent }} </td>
 						<td> 
-						<a href="{{ action('ProposeSalaryListController@show', $value->id) }}" class="btn btn-primary">View</a>
+						<a href="{{ action('SalaryApproveController@show', $value->id) }}" class="btn btn-primary">View</a>
 						</td>
 					</tr>
 					@endforeach

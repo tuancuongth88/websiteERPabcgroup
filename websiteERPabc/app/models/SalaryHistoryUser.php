@@ -29,6 +29,7 @@ class SalaryHistoryUser extends Eloquent {
 
     public static function getName($history, $field)
     {
+        // dd($history->toArray());
     	$modelName = $history->model_name;
     	$modelId = $history->model_id;
 		$ob = $modelName::find($modelId);

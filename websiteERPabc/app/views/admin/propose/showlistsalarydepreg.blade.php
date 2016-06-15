@@ -1,7 +1,7 @@
 @extends('admin.layout.default')
 
 @section('title')
-{{ $title='Danh sach de xuat lương cong ty' }}
+{{ $title='Danh sách đề xuất lương công ty' }}
 @stop
 @section('content')
 @include('admin.propose.search')
@@ -15,7 +15,7 @@
 	<div class="col-xs-12">
 		<div class="box">
 			<div class="box-header">
-				<h3 class="box-title">Danh sach de xuat lương cong ty</h3>
+				<h3 class="box-title">Danh sách đề xuất lương công ty</h3>
 			</div>
 			<!-- /.box-header -->
 			<div class="box-body table-responsive no-padding">

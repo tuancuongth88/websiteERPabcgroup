@@ -85,7 +85,8 @@ Route::group(['prefix' => 'admin'], function () {
 	Route::resource('/user_type', 'UserTypeController');
 	// Quản lý tiền lương
 	Route::get('search/autocomplete', 'SearchController@autocomplete');
-	Route::get('/salary/searchabc', 'SalaryUserController@searchabc');
+	Route::get('/salary/new/searchNew', 'SalaryUserController@searchNew');
+	Route::get('/salary/old/searchOld', 'SalaryUserController@searchOld');
 	Route::get('/salary/createAll', 'SalaryUserController@createAll');
 	Route::post('/salary/storeAll', 'SalaryUserController@storeAll');
 	Route::post('/salary/getFormatTypeSalary', 'SalaryUserController@getFormatTypeSalary');
@@ -95,6 +96,7 @@ Route::group(['prefix' => 'admin'], function () {
 	Route::post('/salary/old/employee', 'SalaryUserController@storeOld');
 	Route::get('/salary/old/index', 'SalaryUserController@indexOld');
 	// quan ly lich su luong nhan vien
+	Route::get('/salary/history/search', 'SalaryHistoryUserController@search');
 	Route::resource('/salary/history', 'SalaryHistoryUserController');
 	//quan ly approve
 
@@ -109,6 +111,7 @@ Route::group(['prefix' => 'admin'], function () {
 
 	// Route::resource('/comment', 'CommentController');
 	// danh sach de xuat luong
+	Route::get('/propose/search', 'ProposeSalaryListController@search');
 	Route::resource('/propose', 'ProposeSalaryListController');
 
 

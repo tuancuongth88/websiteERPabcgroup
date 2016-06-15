@@ -89,7 +89,9 @@ class ProposeSalaryListController extends AdminController {
 	}
 	public static function search()
 	{
-		
+		$input = Input::except('_token');
+		$data = CommonSalary::searchSalaryDepRegency($input);
+		return View::make('admin.propose.showlistsalarydepreg')->with(compact('data'));
 	}
 
 }

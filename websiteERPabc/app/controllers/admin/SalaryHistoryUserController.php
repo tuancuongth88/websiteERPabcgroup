@@ -86,6 +86,11 @@ class SalaryHistoryUserController extends AdminController {
 	{
 		//
 	}
-
+	public static function search()
+	{
+		$input = Input::except('_token');
+		$data = CommonSalary::searchSalaryHistoryUser($input);
+		return View::make('admin.salary.history.index')->with(compact('data'));
+	}
 
 }

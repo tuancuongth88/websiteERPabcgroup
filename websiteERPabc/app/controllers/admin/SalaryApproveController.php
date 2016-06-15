@@ -53,7 +53,8 @@ class SalaryApproveController extends AdminController {
 	 */
 	public function show($id)
 	{
-		//
+		$data = SalaryHistoryUser::find($id);
+		return View::make('admin.salary.approve_salary_manager.show')->with(compact('data'));
 	}
 
 

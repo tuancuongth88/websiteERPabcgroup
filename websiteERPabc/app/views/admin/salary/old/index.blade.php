@@ -4,7 +4,7 @@
 {{ $title='Danh sách lương nhân viên cũ' }}
 @stop
 @section('content')
-@include('admin.salary.search')
+@include('admin.salary.old.search')
 <div class="row margin-bottom">
 	<div class="col-xs-12">
 		<a href="{{ action('SalaryUserController@createOld') }}" class="btn btn-primary">Đề xuất lương nhân viên</a>

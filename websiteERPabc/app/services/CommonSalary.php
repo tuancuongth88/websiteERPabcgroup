@@ -135,20 +135,74 @@ class CommonSalary {
 
 	public static function searchSalaryDepRegency($input)
 	{	
-		
+		$data = SalaryHistoryUser::where(function ($query) use ($input)
+		{
+			$query = $query->whereIn('type', [PROPOSAL_DEP, PROPOSAL_REGENCY]);
+			// $query = $query->where('type', PROPOSAL_DEP)->orwhere('type', PROPOSAL_REGENCY);
+			if( $input['type_dep'] != ''){
+				$query = $query->where('model_name', 'Department');
+				$query = $query->where('model_id', $input['type_dep']);
+			}
+			if($input['type_regency'] != ''){
+				// dd($input['type_regency']);
+				$query = $query->where('model_name', 'Regency');
+				$query = $query->where('model_id', $input['type_regency']);
+			}
+			if ($input['type_salary'] != '0') {
+				$query = $query->where('type_salary', $input['type_salary'] );
+			}
+		})->orderBy('id', 'desc')->paginate(PAGINATE);
+		// dd($data->toArray());
+		return $data;
 	}
 
+	public static function searchSalaryHistoryUser($input)
+	{
+		$data = SalaryUser::where(function ($query) use ($input) {
+			if ($input['salary_start']) {
+				$query = $query->where('salaries.salary', '>=', $input['salary_start']);
+			}
+			if ($input['salary_end']) {
+				$query = $query->where('salaries.salary', '<=', $input['salary_end']);
+			}
+			if ($input['username']) 
+			{
+				$userName = User::where('username', 'like', '%'.$input['username'].'%')->lists('id');
+				$query = $query->whereIn('user_id', $userName);
+			}
+		})->orderBy('id', 'desc')->paginate(PAGINATE);
+		return $data;
+	}
+
+	public static function searchSalaryUser($input)
+	{
+		$data = SalaryHistoryUser::where(function ($query) use ($input) {
+			$query = $query::whereIn('type', PROPOSAL_USER_NEW);
+			if ($input['salary_start']) {
+				$query = $query->where('salary_history.salary', '>=', $input['salary_start']);
+			}
+			if ($input['salary_end']) {
+				$query = $query->where('salary_history.salary', '<=', $input['salary_end']);
+			}
+			if ($input['username']) 
+			{
+				$userName = User::where('username', 'like', '%'.$input['username'].'%')->lists('id');
+				$query = $query->whereIn('model_id', $userName);
+			}
+		})->orderBy('id', 'desc')->paginate(PAGINATE);
+		return $data;
+	}
 	public static function getNameUser($user_id)
 	{
 		return User::find($user_id)->username;
 	}
 	public static function getAllNameDep()
 	{
-		return Department::lists('name');
+		return Department::lists('name', 'id');
 	}
 	public static function getAllNameRegency()
 	{
-		return Regency::lists('name');
+		return Regency::lists('name', 'id');
 	}
 	public static function getidDepRegPartner($data)
 	{

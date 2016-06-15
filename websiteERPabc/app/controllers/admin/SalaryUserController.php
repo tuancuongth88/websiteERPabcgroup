@@ -204,25 +204,43 @@ class SalaryUserController extends AdminController {
 		return Redirect::action('SalaryUserController@index') ;
 	}
 
-	public function searchabc()
+	public function searchNew()
 	{
-		$input = Input::all();
-		$salarydata = SalaryUser::all();
-		$data = SalaryUser::join('users', 'users.salary_id', '=', 'salaries.id')
-			->select('salaries.*', 'users.username')
-			->where(function ($query) use ($input) {
+		$input = Input::except('_token');
+		$data = SalaryHistoryUser::where(function ($query) use ($input) {
+			$query = $query->where('type', PROPOSAL_USER_NEW);
 			if ($input['salary_start']) {
-				$query = $query->where('salaries.salary', '>=', $input['salary_start']);
+				$query = $query->where('salary_history.salary_new', '>=', $input['salary_start']);
 			}
 			if ($input['salary_end']) {
-				$query = $query->where('salaries.salary', '<=', $input['salary_end']);
+				$query = $query->where('salary_history.salary_new', '<=', $input['salary_end']);
 			}
-			if ($input['username']) {
-				$query = $query->where('users.username', 'like', '%'.$input['username'].'%');
+			if ($input['username']) 
+			{
+				$userName = User::where('username', 'like', '%'.$input['username'].'%')->lists('id');
+				$query = $query->whereIn('model_id', $userName);
 			}
-
-		})->paginate(PAGINATE);
-		return View::make('admin.salary.index')->with(compact('data'));
+		})->orderBy('id', 'desc')->paginate(PAGINATE);
+		return View::make('admin.salary.new.index')->with(compact('data'));
+	}
+	public function searchOld()
+	{
+		$input = Input::except('_token');
+		$data = SalaryHistoryUser::where(function ($query) use ($input) {
+			$query = $query->where('type', PROPOSAL_USER);
+			if ($input['salary_start']) {
+				$query = $query->where('salary_history.salary_old', '>=', $input['salary_start']);
+			}
+			if ($input['salary_end']) {
+				$query = $query->where('salary_history.salary_old', '<=', $input['salary_end']);
+			}
+			if ($input['username']) 
+			{
+				$userName = User::where('username', 'like', '%'.$input['username'].'%')->lists('id');
+				$query = $query->whereIn('model_id', $userName);
+			}
+		})->orderBy('id', 'desc')->paginate(PAGINATE);
+		return View::make('admin.salary.old.index')->with(compact('data'));
 	}
 	public function getFormatTypeSalary()
 	{
