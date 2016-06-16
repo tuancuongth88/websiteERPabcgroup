@@ -33,19 +33,21 @@
 			@if(User::isAdmin() == ROLE_ADMIN)
 				<li><a href="{{ action('UserTypeController@index') }}"><i class="fa fa-laptop"></i> <span>Quản lý thể loại nhân viên</span></a></li>
 			@endif
-			@if(User::isAdmin() == ROLE_ADMIN || Common::checkPermissionUser(FUNCTION_USER, Config::get('button.manager_salary')))
+			@if(User::isAdmin() == ROLE_ADMIN || Common::checkPermissionUser(FUNCTION_USER, Config::get('button.manage_salary_propose')))
 				<li><a href="{{ action('SalaryUserController@index') }}"><i class="fa fa-laptop"></i> <span>Quản lý lương nhân viên mới</span></a></li>
 				<li><a href="{{ action('SalaryUserController@indexOld') }}"><i class="fa fa-laptop"></i> <span>Đề xuất lương nhân viên cũ</span></a></li>
 				<li><a href="{{ action('ProposeSalaryListController@index') }}"><i class="fa fa-laptop"></i> <span>Đề xuất lương công ty</span></a></li>
 				<li><a href="{{ action('SalaryHistoryUserController@index') }}"><i class="fa fa-laptop"></i> <span>Quản lý lịch sử lương nhân viên</span></a></li>
 			@endif
-			<li class="treeview">
-				<a href="#"><i class="glyphicon glyphicon-euro"></i> <span>Quản lý đề xuất lương</span> <i class="fa fa-angle-left pull-right"></i></a>
-				<ul class="treeview-menu">
-					<li><a href="{{ action('SalaryApproveController@index') }}"><i class="glyphicon glyphicon-arrow-right"></i> <span>lương nhân viên</span></a></li>
-					<li><a href="{{ action('SalaryApproveController@indexDepReg') }}"><i class="glyphicon glyphicon-arrow-right"></i> <span>lương Phòng ban chức vụ</span></a></li>
-				</ul>
-			</li>
+			@if(User::isAdmin() == ROLE_ADMIN || Common::checkPermissionUser(FUNCTION_USER, Config::get('button.manage_salary_approve')))
+				<li class="treeview">
+					<a href="#"><i class="glyphicon glyphicon-euro"></i> <span>Quản lý phê duyệt lương</span> <i class="fa fa-angle-left pull-right"></i></a>
+					<ul class="treeview-menu">
+						<li><a href="{{ action('SalaryApproveController@index') }}"><i class="glyphicon glyphicon-arrow-right"></i> <span>lương nhân viên</span></a></li>
+						<li><a href="{{ action('SalaryApproveController@indexDepReg') }}"><i class="glyphicon glyphicon-arrow-right"></i> <span>lương Phòng ban chức vụ</span></a></li>
+					</ul>
+				</li>
+			@endif
 		</ul>
 	</section>
 	<!-- /.sidebar -->

@@ -22,11 +22,11 @@
 				<table class="table table-hover">
 					<tr>
 						<th>ID</th>
-						<th>Phong ban</th>
-						<th>Chuc vu</th>
-						<th>ly do</th>
+						<th>Phòng ban</th>
+						<th>Chức vụ</th>
+						<th>Lý do</th>
 						<th>Up and Down</th>
-						<th>phan tram</th>
+						<th>Phần trăm</th>
 						<th>Action</th>
 					</tr>
 					@foreach($data as $key => $value)

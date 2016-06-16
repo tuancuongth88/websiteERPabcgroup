@@ -22,11 +22,12 @@
 				<table class="table table-hover">
 					<tr>
 						<th>ID</th>
-						<th>Phong ban</th>
-						<th>Chuc vu</th>
-						<th>ly do</th>
+						<th>Phòng ban</th>
+						<th>Chức vụ</th>
+						<th>Lý do</th>
 						<th>Up and Down</th>
-						<th>phan tram</th>
+						<th>Phần trăm</th>
+						<th>Người đề xuất</th>
 						<th>Action</th>
 					</tr>
 					@foreach($data as $key => $value)
@@ -49,6 +50,7 @@
 						<td>{{ $value->note_user_update }} </td>
 						<td>{{ CommonSalary::getUpAndDown($value) }}</td>
 						<td> {{ $value->percent }} </td>
+						<td> {{ CommonSalary::getNameUser($value->user_proposal) }} </td>
 						<td> 
 						<a href="{{ action('SalaryApproveController@show', $value->id) }}" class="btn btn-primary">View</a>
 						</td>
