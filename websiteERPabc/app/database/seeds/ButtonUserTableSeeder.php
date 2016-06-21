@@ -29,25 +29,22 @@ class ButtonUserTableSeeder extends Seeder {
 		ButtonFunction::create(['name' => 'View', 'function_id' => 1]);
 
 		//quan ly bao cao
-		ButtonFunction::create(['name' => 'Thể loại báo cáo', 'function_id' => 2]);
-		ButtonFunction::create(['name' => 'Thêm', 'function_id' => 2]);
-		ButtonFunction::create(['name' => 'Sửa', 'function_id' => 2]);
-		ButtonFunction::create(['name' => 'Xóa', 'function_id' => 2]);
-		ButtonFunction::create(['name' => 'View', 'function_id' => 2]);
+		// ButtonFunction::create(['name' => 'Thể loại báo cáo', 'function_id' => 2]);
+		// ButtonFunction::create(['name' => 'Thêm', 'function_id' => 2]);
+		// ButtonFunction::create(['name' => 'Sửa', 'function_id' => 2]);
+		// ButtonFunction::create(['name' => 'Xóa', 'function_id' => 2]);
+		// ButtonFunction::create(['name' => 'View', 'function_id' => 2]);
 
 		// Quản lý công việc
-		ButtonFunction::create(['name' => 'Thêm', 'function_id' => 3]);
-		ButtonFunction::create(['name' => 'Sửa', 'function_id' => 3]);
-		ButtonFunction::create(['name' => 'Xóa', 'function_id' => 3]);
-		ButtonFunction::create(['name' => 'View', 'function_id' => 3]);
+		// ButtonFunction::create(['name' => 'Thêm', 'function_id' => 3]);
+		// ButtonFunction::create(['name' => 'Sửa', 'function_id' => 3]);
+		// ButtonFunction::create(['name' => 'Xóa', 'function_id' => 3]);
+		// ButtonFunction::create(['name' => 'View', 'function_id' => 3]);
 
 		//Quản lý lương nhân viên
 		ButtonFunction::create(['name' => 'Đề xuất lương', 'function_id' => 4]);
 		ButtonFunction::create(['name' => 'Phê duyệt lương', 'function_id' => 4]);
-		// ButtonFunction::create(['name' => 'Thêm', 'function_id' => 4]);
-		// ButtonFunction::create(['name' => 'Sửa', 'function_id' => 4]);
-		// ButtonFunction::create(['name' => 'Xóa', 'function_id' => 4]);
-		// ButtonFunction::create(['name' => 'View', 'function_id' => 4]);
+
 
 		//quan ly du an 
 		ButtonFunction::create(['name' => 'Quản lý dự án', 'function_id' => 5]);
@@ -59,16 +56,3 @@ class ButtonUserTableSeeder extends Seeder {
 	}
 
 }
-// Đề xuất lương
-// Phê duyệt lương
-// Sửa hợp đồng
-// Sửa bằng cấp
-// Quản lý thể loại nhân viên
-// Quản lý nhân viên
-// Thể loại báo cáo
-// Thể loại thông báo
-// Chức năng phân quyền
-// Quản lý dự án
-// Đổi mật khẩu
-// Sửa thông thường
-// Sửa nâng cao
