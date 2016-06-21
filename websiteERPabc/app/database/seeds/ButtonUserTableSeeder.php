@@ -44,10 +44,10 @@ class ButtonUserTableSeeder extends Seeder {
 		//Quản lý lương nhân viên
 		ButtonFunction::create(['name' => 'Đề xuất lương', 'function_id' => 4]);
 		ButtonFunction::create(['name' => 'Phê duyệt lương', 'function_id' => 4]);
-		ButtonFunction::create(['name' => 'Thêm', 'function_id' => 4]);
-		ButtonFunction::create(['name' => 'Sửa', 'function_id' => 4]);
-		ButtonFunction::create(['name' => 'Xóa', 'function_id' => 4]);
-		ButtonFunction::create(['name' => 'View', 'function_id' => 4]);
+		// ButtonFunction::create(['name' => 'Thêm', 'function_id' => 4]);
+		// ButtonFunction::create(['name' => 'Sửa', 'function_id' => 4]);
+		// ButtonFunction::create(['name' => 'Xóa', 'function_id' => 4]);
+		// ButtonFunction::create(['name' => 'View', 'function_id' => 4]);
 
 		//quan ly du an 
 		ButtonFunction::create(['name' => 'Quản lý dự án', 'function_id' => 5]);
