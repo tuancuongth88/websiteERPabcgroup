@@ -5,9 +5,11 @@
 @stop
 @section('content')
 @include('admin.salary.before.search')
+
+{{ Form::open(array('action' => 'SalaryBeforeController@create', 'method' => 'GET')) }}
 <div class="row margin-bottom">
 	<div class="col-xs-12">
-	<a href="{{ action('SalaryBeforeController@create') }}" class="btn btn-primary">Gửi đề xuất nhân viên được chọn</a>
+	{{ Form::submit('Gửi đề xuất nhân viên được chọn', array('class' => 'btn btn-primary')) }}
 	</div>
 
 </div>
@@ -29,13 +31,13 @@
 					</tr>
 					@foreach($data as $value)
 					<tr>
-						<td><input type="checkbox" class="salary_id" name="salary_id[]" value="{{ $value->id }}"/></td>
+						<td><input type="checkbox" class="history_id" name="history_id[]" value="{{ $value->id }}"/></td>
 						<td>{{ $value->id }}</td>
 						<td>{{ CommonSalary::getNameUserDate($value)}}</td> 
 						<td>{{ CommonSalary::getSalaryUserDate($value) }} 
 						</td>
 						<td>
-							<a href="{{ action('SalaryBeforeController@create') }}" class="btn btn-primary">Gửi đề xuất</a>
+							<a href="{{ action('SalaryBeforeController@edit', $value->id) }}" class="btn btn-primary">Gửi đề xuất</a>
 						</td>
 					</tr>
 					@endforeach
@@ -56,5 +58,6 @@
 	</div>
 </div>
 @include('admin.salary.before.script')
+{{ Form::close() }}
 @stop
 

@@ -9,7 +9,7 @@ class SalaryBeforeController extends AdminController {
 	 */
 	public function index()
 	{
-		$data = SalaryUser::orderBy('id', 'asc')->paginate(PAGINATE);
+		$data = SalaryUser::orderBy('id', 'asc')->where('status', SALARY_APPROVE)->paginate(PAGINATE);
 		return View::make('admin.salary.before.index')->with(compact('data'));
 	}
 
@@ -21,7 +21,10 @@ class SalaryBeforeController extends AdminController {
 	 */
 	public function create()
 	{
-		return View::make('admin.salary.before.submit_proposals');
+		$input = Input::get('history_id');
+		$listIdHistory = SalaryHistoryUser::whereIn('id', $input)->lists('model_id');
+		$data = SalaryUser::whereIn('user_id', $listIdHistory)->get();
+		return View::make('admin.salary.before.submit_proposals')->with(compact('data'));
 	}
 
 
@@ -56,7 +59,9 @@ class SalaryBeforeController extends AdminController {
 	 */
 	public function edit($id)
 	{
-		//
+		$listIdHistory = SalaryHistoryUser::where('id', $id)->lists('model_id');
+		$data = SalaryUser::whereIn('user_id', $listIdHistory)->get();
+		return View::make('admin.salary.before.submit_proposals')->with(compact('data'));
 	}
 
 
@@ -105,8 +110,12 @@ class SalaryBeforeController extends AdminController {
 				}
 			})->orderBy('id', 'desc')->paginate(PAGINATE);
 			$listid = $data1->lists('model_id');
-			$data = SalaryHistoryUser::where('model_name', 'User')->whereNotIn('model_id', $listid)->paginate(PAGINATE);
+			$listIdHistory = SalaryHistoryUser::whereRaw('id in (select MAX(id) as id From salary_history GROUP BY model_id)')->lists('id');
+			$data = SalaryHistoryUser::where('model_name', 'User')->whereNotIn('model_id', $listid)->where('status', SALARY_APPROVE)->whereIn('id', $listIdHistory)->paginate(PAGINATE);
 			return View::make('admin.salary.before.index')->with(compact('data'));
 		}
 	}
+    public function proposeSalary(){
+
+    }
 }
