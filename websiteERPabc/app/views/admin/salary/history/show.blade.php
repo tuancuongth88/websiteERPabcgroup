@@ -38,13 +38,17 @@
 						<td>{{ $value->start_date }}</td>
 						<td>{{ $value->note_user_update }}</td> 
 						<td>{{ $value->salary_old }} </td>
-						<td>{@if($value->salary_edit)
+						<td> @if($value->salary_edit)
 									{{$value->salary_edit}}
 								@else 
 									{{$value->salary_new }}
 								@endif </td>
 						<td>{{ CommonSalary::getUpAndDown($value) }}</td>
-						<td>{{ $value->percent }}</td>
+						<td> @if($value->percent_edit)
+									{{ $value->percent_edit }}
+								@else 
+									{{$value->percent }}
+								@endif </td>
 						<td>{{ getStatusHistory($value) }}</td>
 					</tr>
 					@endforeach

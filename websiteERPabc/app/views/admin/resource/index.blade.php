@@ -7,7 +7,7 @@
 @section('content')
 <div class="row margin-bottom">
 	<div class="col-xs-12">
-	<a href="{{ action('ResouceController@create') }}" class="btn btn-primary">Thêm mới</a>
+	<a href="{{ action('ResourceManagementController@create') }}" class="btn btn-primary">Thêm mới</a>
 	</div>
 </div>
 <div class="row">
@@ -21,20 +21,21 @@
 				<table class="table table-hover">
 					<tr>
 						<th>ID</th>
-						<th>Title</th>
-						<th>Tên file</th>
+						<th>Tên file</th>	
 						<th>Tên link</th>
+						<th>Người tạo</th>
 						<th>Action</th>
 					</tr>
 					@foreach($data as $key => $value)
 					<tr>
 						<td>{{ $value->id }}</td>
-						<td>{{ $value->name }}</td>
-						<td>{{ $value->linkFile }}</td>
-						<td>{{ $value->link }}</td>
+						<td>{{ $value->file_name }}</td>
+						<td>{{ $value->link_file }}</td>
+						<td>{{ $value->user_id }}</td>
 						<td>
-							<a href="{{ action('ResouceController@edit', $value->id) }}" class="btn btn-primary">Sửa</a>
-							{{ Form::open(array('method'=>'DELETE', 'action' => array('ResouceController@destroy', $value->id), 'style' => 'display: inline-block;')) }}
+							<a href="{{ action('ResourceManagementController@edit', $value->id) }}" class="btn btn-primary">Sửa</a>
+							{{ Form::open(array('method'=>'DELETE', 'action' => array('ResourceManagementController@destroy', $value->id), 'style' => 'display: inline-block;')) }}
+							<a href="{{ action('ResourceManagementController@edit', $value->id) }}" class="btn btn-primary">View</a>
 							<button class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa?');">Xóa</button>
 							{{ Form::close() }}
 						</td>

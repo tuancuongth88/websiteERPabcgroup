@@ -45,7 +45,8 @@ Route::group(['prefix' => 'admin'], function () {
 	Route::resource('/deparment', 'DeparmentController');
 	
 	Route::resource('/regency', 'RegencyController');
-	Route::resource('/resouce', 'ResouceController');
+	// quan ly tai nguyen
+	Route::resource('/resource', 'ResourceManagementController');
 
 	Route::post('/comment/{modelName}/{modelId}', 'CommentController@comment');
 
@@ -98,6 +99,9 @@ Route::group(['prefix' => 'admin'], function () {
 	// quan ly lich su luong nhan vien
 	Route::get('/salary/history/search', 'SalaryHistoryUserController@search');
 	Route::resource('/salary/history', 'SalaryHistoryUserController');
+	// quan ly luong theo thoi gian
+	Route::get('/salary/before/search', 'SalaryBeforeController@search');
+	Route::resource('/salary/before', 'SalaryBeforeController');
 	//quan ly approve
 
 	Route::get('/salary/approve_salary_manager/index_dep_reg', 'SalaryApproveController@indexDepReg');

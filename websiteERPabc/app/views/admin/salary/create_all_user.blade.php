@@ -7,7 +7,7 @@
 @section('content')
 <div class="row margin-bottom">
 	<div class="col-xs-12">
-		<a href="{{ action('SalaryUserController@index') }}" class="btn btn-success">Danh sách lương</a>
+		<a href="{{ action('ProposeSalaryListController@index') }}" class="btn btn-success">Danh sách lương</a>
 	</div>
 </div>
 <div class="row">

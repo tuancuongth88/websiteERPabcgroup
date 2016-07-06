@@ -17,6 +17,22 @@
 			<div class="box-header">
 				<h3 class="box-title">Danh sách lương nhân viên đề xuất cần duyệt</h3>
 			</div>
+			<div class="box-header">
+				<table class="table table-hover">
+					<tr>
+						<td>Tổng lương cả công ty:</td>
+						<th>{{ SalaryUser::sum('salary') }} .VNĐ</th>
+					</tr>
+					<tr>
+						<td>Tổng lương hiện tại: </td>
+						<th>{{ $data->sum('salary_old')}} .VNĐ</th>
+						<td>Tổng lương đề xuất: </td>
+						<th>{{ $data->sum('salary_new') }} .VNĐ</th>
+						<td>Độ chênh: </td>
+						<th>{{ $data->sum('salary_new') -  $data->sum('salary_old') }} .VNĐ</th>
+					</tr>
+				</table>
+			</div>
 			<!-- /.box-header -->
 			<div class="box-body table-responsive no-padding">
 				<table class="table table-hover">

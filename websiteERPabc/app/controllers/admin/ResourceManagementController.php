@@ -1,6 +1,6 @@
 <?php
 
-class create_resource_management_table extends \BaseController {
+class ResourceManagementController extends AdminController {
 
 	/**
 	 * Display a listing of the resource.
@@ -9,7 +9,8 @@ class create_resource_management_table extends \BaseController {
 	 */
 	public function index()
 	{
-		//
+		$data = Resource::orderBy('id', 'desc')->paginate(PAGINATE);
+		return View::make('admin.resource.index')->with(compact('data'));
 	}
 
 
@@ -20,7 +21,7 @@ class create_resource_management_table extends \BaseController {
 	 */
 	public function create()
 	{
-		//
+		return View::make('admin.resource.create');
 	}
 
 
@@ -31,7 +32,21 @@ class create_resource_management_table extends \BaseController {
 	 */
 	public function store()
 	{
-		//
+		$rules = array(
+			// 'name' => 'required',
+		);
+		$input = Input::except('_token');
+		$validator = Validator::make($input,$rules);
+		if($validator->fails()) {
+			return Redirect::action('ResourceManagementController@create')
+	            ->withErrors($validator);
+        }else{
+        	$input['status'] = 1;
+        	// $id = CommonNormal::create($input);
+        	CommonUpload::uploadFile($input, USER_AVATAR);
+        	return Redirect::action('ResourceManagementController@index');
+
+        }
 	}
 
 

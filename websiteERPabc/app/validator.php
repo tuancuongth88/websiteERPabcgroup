@@ -19,3 +19,10 @@ Validator::extend('addFuntion', function($attribute, $value, $parameters)
 	}
 	return true;
 });
+Validator::extend('checkTime', function($attribute, $value, $parameters)
+{
+	if(strtotime($input['start']) < strtotime($input['end'])){
+		return false;
+	}
+	return true;
+});

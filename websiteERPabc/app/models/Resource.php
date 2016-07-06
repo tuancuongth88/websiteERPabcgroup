@@ -11,14 +11,14 @@ class Resource extends Eloquent {
 	 *
 	 * @var string
 	 */
-	protected $table = 'resources';
+	protected $table = 'resource_management';
 
 	/**
 	 * The attributes excluded from the model's JSON form.
 	 *
 	 * @var array
 	 */
-	protected $fillable = array('name','linkFile','link' ,'status');
+	protected $fillable = array('file_name', 'description', 'link_file', 'user_id', 'typer_id', 'status');
     protected $dates = ['deleted_at'];
 
    

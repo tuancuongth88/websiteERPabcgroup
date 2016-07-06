@@ -208,4 +208,29 @@ class CommonSalary {
 	{
 		return DepRegencyUserParent::where('user_id',  $data->user_id)->where('dep_id', $data->dep_id)->first()->id;
 	}
+	public static function getNameUserDate($value)
+	{
+		if(isset($value->user_id))
+			return User::find($value->user_id)->username;
+		else
+			return User::find($value->model_id)->username;
+	}
+	public static function getSalaryUserDate($value)
+	{
+		$input = $value;
+		if(isset($value->user_id))
+		{
+			return SalaryUser::find($input->id)->salary;
+		}
+		elseif (isset($value->model_id)) {
+			if($value->salary_edit){
+				$data= SalaryHistoryUser::where('id' ,$input->id)->where('model_id', $input->model_id)->get();
+				return $data[0]->salary_edit;
+			}
+			elseif($value->salary_new){
+				$data = SalaryHistoryUser::where('id' ,$input->id)->where('model_id', $input->model_id)->get();
+				return $data[0]->salary_new;
+			}
+		}
+	}
 }
