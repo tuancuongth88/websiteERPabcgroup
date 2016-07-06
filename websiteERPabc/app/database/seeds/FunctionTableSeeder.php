@@ -21,5 +21,4 @@ class FunctionTableSeeder extends Seeder {
 			'name' => 'Quản lý dự án',
 		]);
 	}
-
 }
