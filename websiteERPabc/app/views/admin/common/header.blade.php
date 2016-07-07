@@ -104,6 +104,13 @@
 	    	dateFormat: 'yy-mm-dd',
 			});
 
+	    $('.datepickerStartdate').datepicker({
+	    	dateFormat: 'yy-mm-dd',
+			});
+	    $('.datepickerEnddate').datepicker({
+	    	dateFormat: 'yy-mm-dd',
+			});
+
 	    $("#input_dateofbirth").datepicker({
                     yearRange: "1960:2016",
                     changeMonth: true,

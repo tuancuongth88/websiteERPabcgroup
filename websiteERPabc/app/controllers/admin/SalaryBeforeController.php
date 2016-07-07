@@ -9,7 +9,9 @@ class SalaryBeforeController extends AdminController {
 	 */
 	public function index()
 	{
-		$data = SalaryUser::orderBy('id', 'asc')->where('status', SALARY_APPROVE)->paginate(PAGINATE);
+		
+		$listIdHistory = SalaryHistoryUser::whereRaw('id in (select MAX(id) as id From salary_history GROUP BY model_id)')->lists('id');
+		$data = SalaryHistoryUser::where('model_name', 'User')->where('status', SALARY_APPROVE)->whereIn('id', $listIdHistory)->paginate(PAGINATE);
 		return View::make('admin.salary.before.index')->with(compact('data'));
 	}
 
@@ -35,7 +37,39 @@ class SalaryBeforeController extends AdminController {
 	 */
 	public function store()
 	{
-		//
+		$input = Input::except('_token');
+		dd($input);
+		$rules = array(
+			// 'salary' => 'required|integer|min:100000',
+			'percent' => 'required',
+			'start_date' => 'required',
+		);
+		$validator = Validator::make($input, $rules);
+		if($validator->fails()) {
+			return Redirect::action('SalaryBeforeController@create')
+				->withInput($input)
+	            ->withErrors($validator);
+        } else {
+        	$input['status'] = SALARY_PROPOSAL;
+        	$input['user_proposal'] = CommonUser::getUserId();
+        	$input['start_date'] = $input['start_date'];
+        	$type_model = $input['type_dep_regency'];
+        	$input['model_name'] = CommonSalary::getModelName($input);
+        	$input['type'] = CommonSalary::getType($input);
+        	$input['model_id'] = $input['model_id'];
+        	$input['type_salary'] = $input['type_salary'];
+        	SalaryHistoryUser::create($input);
+        	// insert all user 
+        	//get list user follow dep or regency
+        	$listUserId = CommonSalary::getListUserId($input);
+        	//insert list user
+        	foreach ($listUserId as $value) {
+
+				$userId = $value;
+	        	CommonSalary::addAllUserId($userId, $input);
+        	}
+			return Redirect::action('SalaryBeforeController@create');	
+        }
 	}
 
 

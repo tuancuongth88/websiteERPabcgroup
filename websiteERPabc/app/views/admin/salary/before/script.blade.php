@@ -29,7 +29,8 @@
 					'checkAll' : tmp
 				},               
 				success: function(data)
-				{					
+				{		
+					console.log(data);			
 					if(data) {
 					   
 					}
