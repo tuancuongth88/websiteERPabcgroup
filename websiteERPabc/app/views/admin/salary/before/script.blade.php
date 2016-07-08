@@ -40,4 +40,26 @@
 			window.location.reload();
 		}
     }
+    function sendSalaryApprove(key){
+    	var username = $('#username_'+key).text();
+		var note_user_update = $('#note_user_update_'+key).val();
+		var type_salary = $('#type_salary_'+key).val();
+		var percent = $('#percent_'+key).val();
+		var start_date = $('#start_date_'+key).val();
+		$.ajax({
+				type:'post',
+				url: '{{ url("/admin/salary/before/postSalaryApprove") }}',
+				data:{
+					'username': username,
+					'note_user_update': note_user_update,
+					'type_salary': type_salary,
+					'percent': percent,
+					'start_date': start_date,
+				},
+				success: function(data){
+					console.log(data);
+					window.location.reload();
+				}
+		});
+    }
 </script>

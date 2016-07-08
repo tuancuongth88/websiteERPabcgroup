@@ -10,8 +10,8 @@ class SalaryBeforeController extends AdminController {
 	public function index()
 	{
 		
-		$listIdHistory = SalaryHistoryUser::whereRaw('id in (select MAX(id) as id From salary_history GROUP BY model_id)')->lists('id');
-		$data = SalaryHistoryUser::where('model_name', 'User')->where('status', SALARY_APPROVE)->whereIn('id', $listIdHistory)->paginate(PAGINATE);
+		$listIdHistory = SalaryHistoryUser::whereRaw('id in (select MAX(id) as id From salary_history where status = '.SALARY_APPROVE.' GROUP BY model_id)')->lists('id');
+		$data = SalaryHistoryUser::where('model_name', 'User')->whereIn('id', $listIdHistory)->paginate(PAGINATE);
 		return View::make('admin.salary.before.index')->with(compact('data'));
 	}
 
@@ -24,6 +24,7 @@ class SalaryBeforeController extends AdminController {
 	public function create()
 	{
 		$input = Input::get('history_id');
+		// dd($input);
 		$listIdHistory = SalaryHistoryUser::whereIn('id', $input)->lists('model_id');
 		$data = SalaryUser::whereIn('user_id', $listIdHistory)->get();
 		return View::make('admin.salary.before.submit_proposals')->with(compact('data'));
@@ -39,37 +40,7 @@ class SalaryBeforeController extends AdminController {
 	{
 		$input = Input::except('_token');
 		dd($input);
-		$rules = array(
-			// 'salary' => 'required|integer|min:100000',
-			'percent' => 'required',
-			'start_date' => 'required',
-		);
-		$validator = Validator::make($input, $rules);
-		if($validator->fails()) {
-			return Redirect::action('SalaryBeforeController@create')
-				->withInput($input)
-	            ->withErrors($validator);
-        } else {
-        	$input['status'] = SALARY_PROPOSAL;
-        	$input['user_proposal'] = CommonUser::getUserId();
-        	$input['start_date'] = $input['start_date'];
-        	$type_model = $input['type_dep_regency'];
-        	$input['model_name'] = CommonSalary::getModelName($input);
-        	$input['type'] = CommonSalary::getType($input);
-        	$input['model_id'] = $input['model_id'];
-        	$input['type_salary'] = $input['type_salary'];
-        	SalaryHistoryUser::create($input);
-        	// insert all user 
-        	//get list user follow dep or regency
-        	$listUserId = CommonSalary::getListUserId($input);
-        	//insert list user
-        	foreach ($listUserId as $value) {
-
-				$userId = $value;
-	        	CommonSalary::addAllUserId($userId, $input);
-        	}
-			return Redirect::action('SalaryBeforeController@create');	
-        }
+		
 	}
 
 
@@ -132,24 +103,32 @@ class SalaryBeforeController extends AdminController {
 		if($validator->fails()) {
 			return Redirect::action('SalaryBeforeController@index')
 				->withInput($input)
-	            ->withErrors($validator);
-        } else {
+				->withErrors($validator);
+		} else {
 			$data1 = SalaryHistoryUser::where(function ($query) use ($input) {
 				$query = $query->where('model_name', 'User');
 				if($input['start'] != ''){
 					$query = $query->where('approve_date', '>=', $input['start']);
 				}
-			    if($input['end'] != ''){
+				if($input['end'] != ''){
 					$query = $query->where('approve_date', '<=', $input['end'].' 23:59:59');
 				}
 			})->orderBy('id', 'desc')->paginate(PAGINATE);
 			$listid = $data1->lists('model_id');
-			$listIdHistory = SalaryHistoryUser::whereRaw('id in (select MAX(id) as id From salary_history GROUP BY model_id)')->lists('id');
+			$listIdHistory = SalaryHistoryUser::whereRaw('id in (select MAX(id) as id From salary_history where status = '.SALARY_APPROVE.'  GROUP BY model_id)')->lists('id');
 			$data = SalaryHistoryUser::where('model_name', 'User')->whereNotIn('model_id', $listid)->where('status', SALARY_APPROVE)->whereIn('id', $listIdHistory)->paginate(PAGINATE);
 			return View::make('admin.salary.before.index')->with(compact('data'));
 		}
 	}
-    public function proposeSalary(){
+	public function proposeSalary(){
 
-    }
+	}
+	public function postSalaryApprove(){
+		$input = Input::except('_token');
+			// insert all user 
+			$user = User::where('username', $input['username'])->first();
+			$userId = $user->id;
+        	CommonSalary::addAllUserId($userId, $input);
+        	dd($input);
+	}
 }

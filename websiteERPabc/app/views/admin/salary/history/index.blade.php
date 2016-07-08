@@ -23,6 +23,8 @@
 					<tr>
 						<th>ID</th>
 						<th>Tên nhân viên</th>
+						<th>Chức vụ</th>
+						<th>Phòng ban</th>
 						<th>Mức lương</th>
 						<th>Action</th>
 						<!-- <th>Action</th>  -->
@@ -31,6 +33,8 @@
 					<tr>
 						<td>{{ $value->id }}</td>
 						<td>{{ CommonSalary::getNameUser($value->user_id) }}</td> 
+						<td>{{  CommonSalary::getNameRegency($value->regency_id) }}</td>
+						<td>{{ CommonSalary::getNameDep($value->dep_id) }}</td>
 						<td>{{ $value->salary }} </td>
 						<td>
 							<a href="{{ action('SalaryHistoryUserController@show', $value->id) }}" class="btn btn-primary">View</a>

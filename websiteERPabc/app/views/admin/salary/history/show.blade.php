@@ -15,7 +15,9 @@
 		<div class="box">
 			<div class="box-header">
 				<h3 class="box-title">
-					Tên nhân viên:  {{ $userdata->username }}
+					<b>Tên nhân viên: </b> {{ $userdata->username }} &nbsp&nbsp&nbsp
+					<b>Chức vụ: </b> {{ CommonSalary::getNameRegency($salary->regency_id) }}&nbsp&nbsp&nbsp
+					<b>Phòng ban: </b> {{ CommonSalary::getNameDep($salary->dep_id) }}
 				</h3>
 			</div>
 			<!-- /.box-header -->

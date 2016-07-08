@@ -123,7 +123,7 @@ class SalaryUserController extends AdminController {
         	$input['status'] = SALARY_PROPOSAL;
         	$input['user_proposal'] = CommonUser::getUserId();
         	$input['start_date'] = $input['start_date'];
-        	$type_model = $input['type_dep_regency'];
+        	// $type_model = $input['type_dep_regency'];
         	$input['model_name'] = CommonSalary::getModelName($input);
         	$input['type'] = CommonSalary::getType($input);
         	$input['model_id'] = $input['model_id'];

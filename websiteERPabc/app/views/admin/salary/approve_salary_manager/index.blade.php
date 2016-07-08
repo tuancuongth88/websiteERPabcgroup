@@ -21,15 +21,15 @@
 				<table class="table table-hover">
 					<tr>
 						<td>Tổng lương cả công ty:</td>
-						<th>{{ SalaryUser::sum('salary') }} .VNĐ</th>
+						<th>{{ number_format(SalaryUser::sum('salary')) }} /VNĐ</th>
 					</tr>
 					<tr>
 						<td>Tổng lương hiện tại: </td>
-						<th>{{ $data->sum('salary_old')}} .VNĐ</th>
+						<th>{{ number_format($data->sum('salary_old'))}} /VNĐ</th>
 						<td>Tổng lương đề xuất: </td>
-						<th>{{ $data->sum('salary_new') }} .VNĐ</th>
+						<th>{{ number_format($data->sum('salary_new')) }} /VNĐ</th>
 						<td>Độ chênh: </td>
-						<th>{{ $data->sum('salary_new') -  $data->sum('salary_old') }} .VNĐ</th>
+						<th>{{ number_format($data->sum('salary_new') -  $data->sum('salary_old')) }} /VNĐ</th>
 					</tr>
 				</table>
 			</div>

@@ -12,9 +12,11 @@
 </div>
 <div class="row">
 	<div class="col-xs-12">
+		<a onclick="sendSalaryApprove();" class="btn btn-primary">Gửi tất cả</a>
 		<div class="box box-primary">
 			@include('admin.salary.before.salary_before_normal')
 		</div>
 	</div>
 </div>
+
 @stop

@@ -48,7 +48,7 @@ class SalaryHistoryUserController extends AdminController {
 		$data = SalaryHistoryUser::where('model_name', 'User')->where('model_id', $salary->user_id)->paginate(PAGINATE);
 		$userdata = User::find($salary->user_id);
 		// dd($data->toArray());		
-		return View::make('admin.salary.history.show')->with(compact('data', 'userdata'));
+		return View::make('admin.salary.history.show')->with(compact('data', 'userdata','salary'));
 	}
 
 

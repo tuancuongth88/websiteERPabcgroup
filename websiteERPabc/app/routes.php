@@ -100,6 +100,7 @@ Route::group(['prefix' => 'admin'], function () {
 	Route::get('/salary/history/search', 'SalaryHistoryUserController@search');
 	Route::resource('/salary/history', 'SalaryHistoryUserController');
 	// quan ly luong theo thoi gian
+	Route::post('/salary/before/postSalaryApprove', 'SalaryBeforeController@postSalaryApprove');
     Route::post('/salary/before/proposeSalary', 'SalaryBeforeController@proposeSalary');
 	Route::get('/salary/before/search', 'SalaryBeforeController@search');
 	Route::resource('/salary/before', 'SalaryBeforeController');
