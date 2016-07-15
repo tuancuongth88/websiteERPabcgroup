@@ -119,7 +119,10 @@ Route::group(['prefix' => 'admin'], function () {
 	// danh sach de xuat luong
 	Route::get('/propose/search', 'ProposeSalaryListController@search');
 	Route::resource('/propose', 'ProposeSalaryListController');
-
+	// quan ly hop dong
+	Route::resource('/contract', 'ContractController');
+	//quan ly doi tac
+	Route::resource('/partner', 'PartnerController');
 
 });
 // Route::group(

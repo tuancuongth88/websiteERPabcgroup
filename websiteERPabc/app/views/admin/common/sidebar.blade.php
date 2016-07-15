@@ -53,6 +53,15 @@
 					@endif
 				</ul>
 			</li>	
+			<li class="treeview">
+				<a href="#"><i class="fa fa-list"></i> <span>Quản lý công văn giấy tờ</span> <i class="fa fa-angle-left pull-right"></i></a>
+				<ul class="treeview-menu">
+					@if(User::isAdmin() == ROLE_ADMIN || Common::checkPermissionUser(FUNCTION_SALARY, Config::get('button.manage_salary_propose')))
+						<li><a href="{{ action('ContractController@index') }}"><i class="fa fa-laptop"></i> <span>Quản lý hợp đồng</span></a></li>
+						<li><a href="{{ action('PartnerController@index') }}"><i class="fa fa-laptop"></i> <span>Quản lý đối tác</span></a></li>
+					@endif
+				</ul>
+			</li>
 			<li><a href="{{ action('ResourceManagementController@index') }}"><i class="fa fa-laptop"></i> <span>Quản lý tài nguyên</span></a></li>
 		</ul>
 	</section>
