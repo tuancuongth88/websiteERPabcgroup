@@ -7,7 +7,7 @@
 
 <div class="row margin-bottom">
   <div class="col-xs-12">
-    <a href="{{ action('PartnerController@index') }}" class="btn btn-success">Danh sách</a>
+    <a href="{{ action('ProductController@index') }}" class="btn btn-success">Danh sách</a>
   </div>
 </div>
 
@@ -15,7 +15,7 @@
 	<div class="col-xs-12">
 		<div class="box box-primary">
         <!-- form start -->
-        {{ Form::open(array('action' => array('PartnerController@update', $data->id), 'method' => 'PUT')) }}
+        {{ Form::open(array('action' => array('ProductController@update', $data->id), 'method' => 'PUT')) }}
           <div class="box-body">
             <div class="form-group">
               <label for="username">Tên</label>

@@ -21,7 +21,7 @@ class ContractController extends AdminController {
 	 */
 	public function create()
 	{
-		//
+		return View::make('admin.contract.create');
 	}
 
 
@@ -32,7 +32,30 @@ class ContractController extends AdminController {
 	 */
 	public function store()
 	{
-		//
+		$input = Input::except('_token');
+		$rules = array(
+			'name' => 'required',
+		);
+		$validator = Validator::make($input,$rules);
+		if($validator->fails()) {
+			return Redirect::action('ContractController@create')
+				->withErrors($validator);
+		}else{
+			$inputContract = [
+				'name'=> $input['name'],
+				'code' => $input['code'],
+				'description' => $input['description'],
+				'type' => $input['type'],
+				'date_receive' => $input['date_receive'],
+				'date_send' => $input['date_send'],
+				'date_promulgate' => $input['date_promulgate'],
+				'date_active' => $input['date_active'],
+				'partner_id' => $input['partner_id'],
+				'type_extend' => $input['type_extend'],
+			];
+			Contract::create($inputContract);
+			return Redirect::action('ContractController@index');
+		}
 	}
 
 
@@ -59,7 +82,7 @@ class ContractController extends AdminController {
 		//
 	}
 
-
+ 
 	/**
 	 * Update the specified resource in storage.
 	 *
@@ -80,7 +103,8 @@ class ContractController extends AdminController {
 	 */
 	public function destroy($id)
 	{
-		//
+		Contract::find($id)->delete();
+		return Redirect::action('admin.contract.index');
 	}
 
 
