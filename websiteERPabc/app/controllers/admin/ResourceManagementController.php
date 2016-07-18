@@ -9,8 +9,9 @@ class ResourceManagementController extends AdminController {
 	 */
 	public function index()
 	{
-		$data = Resource::orderBy('id', 'desc')->paginate(PAGINATE);
-		return View::make('admin.resource.index')->with(compact('data'));
+		// $data = Resource::orderBy('id', 'desc')->paginate(PAGINATE);
+		$data = ResourceOffice::orderBy('id', 'desc')->paginate(PAGINATE);
+		return View::make('admin.resource.office.index')->with(compact('data'));
 	}
 
 
