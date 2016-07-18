@@ -123,6 +123,10 @@ Route::group(['prefix' => 'admin'], function () {
 	Route::resource('/contract', 'ContractController');
 	//quan ly doi tac
 	Route::resource('/partner', 'PartnerController');
+	// quan ly cong van giay to
+	Route::post('/archive/assignArchiveUser', 'ArchiveController@assignArchiveUser');
+	Route::get('/archive/search', 'ArchiveController@search');
+	Route::resource('/archive', 'ArchiveController');
 
 });
 // Route::group(

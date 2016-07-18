@@ -21,5 +21,4 @@ class ArchiveUser extends Eloquent {
 	protected $fillable = array('user_receive', 'user_send', 'archive_id', 'comment', 'status');
     protected $dates = ['deleted_at'];
 
-   
 }
