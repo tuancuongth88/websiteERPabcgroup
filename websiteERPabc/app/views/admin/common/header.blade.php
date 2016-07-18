@@ -96,6 +96,10 @@
 			startView: 2,
 			forceParse: 0,
 	    });
+
+		$('.datepicker').datepicker({
+	    	dateFormat: 'yy-mm-dd',
+			});	    
 	
 	    $('#datepickerStartdate').datepicker({
 	    	dateFormat: 'yy-mm-dd',

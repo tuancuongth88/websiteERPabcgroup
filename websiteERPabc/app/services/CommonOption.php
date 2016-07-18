@@ -149,4 +149,45 @@ class CommonOption {
 		return $lstUser;
 	}
 
+	// loai cong van giay to
+	public static function getArchiveType()
+	{
+		return array(
+			ARCHIVE_TYPE_1 => ARCHIVE_TYPE_1_TEXT,	
+			ARCHIVE_TYPE_2 => ARCHIVE_TYPE_2_TEXT,	
+		);
+	}
+	public static function getArchiveTypeText($type)
+	{
+		$array = self::getArchiveType();
+		return $array[$type];
+	}
+	// trang thai xu ly cong van giay to
+	public static function getArchiveStatusHandling()
+	{
+		return array(
+			ARCHIVE_STATUS_HANDLING_1 => 'Chờ xử lý',
+			ARCHIVE_STATUS_HANDLING_2 => 'Đã xử lý',
+		);
+	}
+	public static function getArchiveStatusHandlingText($status)
+	{
+		$array = self::getArchiveStatusHandling();
+		return $array[$status];
+	}
+	// trang thai chuyen cong van giay to
+	public static function getArchiveStatus()
+	{
+		return array(
+			ARCHIVE_STATUS_1 => 'Xử lý',
+			ARCHIVE_STATUS_2 => 'Báo cáo',
+			ARCHIVE_STATUS_3 => 'Phối hợp',
+		);
+	}
+	public static function getArchiveStatusText($status)
+	{
+		$array = self::getArchiveStatus();
+		return $array[$status];
+	}
+
 }
