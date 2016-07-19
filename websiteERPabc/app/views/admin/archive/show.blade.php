@@ -1,13 +1,13 @@
 @extends('admin.layout.default')
 @section('title')
-{{ $title='Xem công việc' }}
+{{ $title='Xem công văn giấy tờ' }}
 @stop
 
 @section('content')
 
 <div class="row margin-bottom">
 	<div class="col-xs-12">
-		<a href="{{ action('TaskController@index') }}" class="btn btn-success">Danh sách</a>
+		<a href="{{ action('ArchiveController@index') }}" class="btn btn-success">Danh sách</a>
 	</div>
 </div>
 <div class="row">
@@ -15,10 +15,10 @@
 		<div class="box box-primary">
 			<div class="box-body">
 				<div class="form-group">
-					<label>Tên task</label>
+					<label>Tên công văn/giấy tờ</label>
 					<div class="row">
 						<div class="col-sm-6">
-							{{ $task->name }}
+							{{ $data->name }}
 						</div>
 					</div>
 				</div>
@@ -26,7 +26,7 @@
 					<label>Ngày bắt đầu</label>
 					<div class="row">
 						<div class="col-sm-6">
-							{{ $task->start }}
+							{{ $data->start }}
 						</div>
 					</div>
 				</div>
@@ -34,7 +34,7 @@
 					<label>Ngày kết thúc</label>
 					<div class="row">
 						<div class="col-sm-6">
-							{{ $task->end }}
+							{{ $data->end }}
 						</div>
 					</div>
 				</div>
@@ -42,8 +42,8 @@
 					<label>Dự án</label>
 					<div class="row">
 						<div class="col-sm-6">
-							@if($task->project_id)
-								{{ Project::find($task->project_id)->id }}
+							@if($data->project_id)
+								{{ Project::find($data->project_id)->id }}
 							@else 
 								Không thuộc dự án nào
 							@endif
@@ -54,8 +54,8 @@
 					<label>Mức độ hoàn thành (%)</label>
 					<div class="row">
 						<div class="col-sm-6">
-							@if($task->percent)
-								{{ $task->percent }}
+							@if($data->percent)
+								{{ $data->percent }}
 							@else
 								0%
 							@endif
@@ -66,16 +66,16 @@
 					<label>Mô tả</label>
 					<div class="row">
 						<div class="col-sm-6">
-						 {{ $task->description }}
+						 {{ $data->description }}
 						</div>
 					</div>
 				</div>
-				@if($task->file_attach)
+				@if($data->file_attach)
 					<div class="form-group">
 					<label>Xem file</label>
 						<div class="row">
 							<div class="col-sm-10">
-								<a href="{{ url(TASK_FILE_UPLOAD . '/' . $task->id . '/' .$task->file_attach)}}">Xem file đính kèm</a>
+								<a href="{{ url(TASK_FILE_UPLOAD . '/' . $data->id . '/' .$data->file_attach)}}">Xem file đính kèm</a>
 							</div>
 						</div>
 					</div>
@@ -84,7 +84,7 @@
 					<label>Trạng thái</label>
 					<div class="row">
 						<div class="col-sm-6">
-							{{ CommonOption::getStatusTaskValue('TaskStatus', 'name', 'id', $task->task_status_id) }}
+							{{ CommonOption::getStatusTaskValue('TaskStatus', 'name', 'id', $data->task_status_id) }}
 						</div>
 					</div>
 				</div>
@@ -100,7 +100,7 @@
 									</tr>
 								</thead>
 								<tbody id="assignBox">
-								@foreach(TaskUser::where('task_id', $task->id)->get() as $value)
+								@foreach(TaskUser::where('task_id', $data->id)->get() as $value)
 									<tr>
 										<td>
 											{{ User::find($value->user_id)->username }}
@@ -116,7 +116,7 @@
 					</div>
 				</div>
 			</div>
-			{{ Form::open(array('action' => ['TaskController@comment', $task->id], 'method' => 'POST')) }}
+			{{ Form::open(array('action' => ['ArchiveController@comment', $data->id], 'method' => 'POST')) }}
 				<div class="box-body">
 					<div class="form-group">
 						<label>Comment</label>
@@ -132,7 +132,7 @@
 				</div>
 			{{ Form::close() }}
 				
-			@include('admin.comment.index', array('modelName' => 'Task', 'modelId' => $task->id))
+			@include('admin.comment.index', array('modelName' => 'Task', 'modelId' => $data->id))
 
 		</div>
 	</div>
