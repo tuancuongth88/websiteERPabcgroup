@@ -48,6 +48,7 @@ class PartnerController extends AdminController {
 				'phone' => $input['phone'],
 			];
 			Partner::create($inputPart);
+			
 		}
 		return Redirect::action('PartnerController@index');
 	}

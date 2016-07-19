@@ -51,6 +51,7 @@
       <div class="form-group">
         <button type="submit" class="btn btn-primary btn-block btn-flat">Đăng nhập</button>
       </div>
+      
     {{ Form::close() }}
     <br />
 

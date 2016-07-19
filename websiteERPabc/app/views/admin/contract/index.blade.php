@@ -1,7 +1,7 @@
 @extends('admin.layout.default')
 
 @section('title')
-{{ $title='Quản lý tài nguyên' }}
+{{ $title='Quản lý hợp đồng' }}
 @stop
 
 @section('content')
@@ -14,7 +14,7 @@
 	<div class="col-xs-12">
 		<div class="box">
 			<div class="box-header">
-				<h3 class="box-title">Danh sách tài nguyên</h3>
+				<h3 class="box-title">Danh sách hợp đồng</h3>
 			</div>
 			<!-- /.box-header -->
 			<div class="box-body table-responsive no-padding">
