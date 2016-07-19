@@ -107,7 +107,37 @@ class ArchiveController extends AdminController {
 	 */
 	public function update($id)
 	{
-		//
+		$rules = array(
+			'name' => 'required',
+		);
+		$input = Input::except('_token');
+		$validator = Validator::make($input, $rules);
+		if($validator->fails()) {
+			return Redirect::action('ArchiveController@edit', $id)
+	            ->withErrors($validator);
+        } else {
+        	$userId = CommonUser::getUserId();
+			$inputArchive = Input::except('_token', 'user_id', 'fun_id');
+			//sua archive
+			$archive = Archive::find($id);
+        	$inputArchive['file'] = CommonUser::uploadAction('file', ARCHIVE_FILE_UPLOAD . '/' . $id, $archive->file);
+			$archive->update($inputArchive);
+			//save user
+			if(isset($input['user_id'])) {
+				//xoa truoc khi cap nhat lai
+				// ArchiveUser::where('archive_id', $id)->delete();
+				$inputUser = $input['user_id'];
+				$inputFunction = $input['fun_id'];
+				foreach ($inputUser as $key => $value) {
+					$inputArchiveUser['user_receive'] = $inputUser[$key];
+					$inputArchiveUser['user_send'] = $userId;
+					$inputArchiveUser['archive_id'] = $id;
+					$inputArchiveUser['fun_id'] = $inputFunction[$key];
+					ArchiveUser::create($inputArchiveUser);
+				}
+			}
+			return Redirect::action('ArchiveController@index')->with('message', 'Sửa thành công');
+        }
 	}
 
 
