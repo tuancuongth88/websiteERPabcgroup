@@ -108,14 +108,12 @@ define('TYPE_SALARY_DOWN', 1);
 //loai cong van giay to
 //cong van den
 define('ARCHIVE_TYPE_1', 1);
-define('ARCHIVE_TYPE_1_TEXT', 'Công văn đến');
 //cong van di
 define('ARCHIVE_TYPE_2', 2);
-define('ARCHIVE_TYPE_2_TEXT', 'Công văn đi');
 // trang thai xu ly cong van giay to
 define('ARCHIVE_STATUS_HANDLING_1', 1);
 define('ARCHIVE_STATUS_HANDLING_2', 2);
-// trang thai chuyen cong van giay to
-define('ARCHIVE_STATUS_1', 1);
-define('ARCHIVE_STATUS_2', 2);
-define('ARCHIVE_STATUS_3', 3);
+// chuc nang chuyen cong van giay to
+define('ARCHIVE_FUNCTION_1', 1);
+define('ARCHIVE_FUNCTION_2', 2);
+define('ARCHIVE_FUNCTION_3', 3);

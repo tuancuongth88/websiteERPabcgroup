@@ -41,13 +41,13 @@
 							<!-- <td>{{-- $value->id --}}</td> -->
 							<td>{{ $value->name }}</td>
 							<td>{{ $value->code }}</td>
-							<td>{{ $value->type }}</td>
+							<td>{{ CommonOption::getArchiveTypeText($value->type) }}</td>
 							<td>{{ Common::getDateTimeString($value->date_receive) }}</td>
 							<td>{{ Common::getDateTimeString($value->date_send) }}</td>
 							<td>{{ Common::getDateTimeString($value->date_promulgate) }}</td>
 							<td>{{ Common::getDateTimeString($value->date_active) }}</td>
-							<td>{{ $value->file }}</td>
-							<td>{{ $value->status }}</td>
+							<td><a href="{{ url(ARCHIVE_FILE_UPLOAD . '/' . $value->id . '/' .$value->file)}}">{{ $value->file }}</a></td>
+							<td>{{ CommonOption::getArchiveStatusHandlingText($value->status) }}</td>
 							<td>
 								<a href="{{ action('ArchiveController@edit', $value->id) }}" class="btn btn-primary">Sửa</a>
 								{{ Form::open(array('method'=>'DELETE', 'action' => array('ArchiveController@destroy', $value->id), 'style' => 'display: inline-block;')) }}

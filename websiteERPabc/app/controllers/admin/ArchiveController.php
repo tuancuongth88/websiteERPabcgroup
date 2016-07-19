@@ -38,7 +38,35 @@ class ArchiveController extends AdminController {
 	 */
 	public function store()
 	{
-		//
+		$rules = array(
+			'name' => 'required',
+		);
+		$input = Input::except('_token');
+		$validator = Validator::make($input, $rules);
+		if($validator->fails()) {
+			return Redirect::action('ArchiveController@create')
+	            ->withErrors($validator);
+        } else {
+        	$userId = CommonUser::getUserId();
+			$inputArchive = Input::except('_token', 'user_id', 'fun_id');
+			//tao moi
+			$archiveId = Archive::create($inputArchive)->id;
+        	$uploadFile['file'] = CommonUser::uploadAction('file', ARCHIVE_FILE_UPLOAD . '/' . $archiveId);
+        	Archive::find($archiveId)->update($uploadFile);
+        	//
+        	if(isset($input['user_id'])) {
+				$inputUser = $input['user_id'];
+				$inputFunction = $input['fun_id'];
+				foreach ($inputUser as $key => $value) {
+					$inputArchiveUser['user_receive'] = $inputUser[$key];
+					$inputArchiveUser['user_send'] = $userId;
+					$inputArchiveUser['archive_id'] = $archiveId;
+					$inputArchiveUser['fun_id'] = $inputFunction[$key];
+					ArchiveUser::create($inputArchiveUser);
+				}
+			}
+			return Redirect::action('ArchiveController@index')->with('message', 'Tạo mới thành công');
+        }
 	}
 
 
@@ -50,7 +78,8 @@ class ArchiveController extends AdminController {
 	 */
 	public function show($id)
 	{
-		//
+		$data = Archive::find($id);
+		return View::make('admin.archive.show')->with(compact('data'));
 	}
 
 
@@ -62,7 +91,11 @@ class ArchiveController extends AdminController {
 	 */
 	public function edit($id)
 	{
-		//
+		$data = Archive::find($id);
+		$archiveUser = ArchiveUser::where('archive_id', $data->id)
+						->groupBy('user_receive')
+						->get();
+		return View::make('admin.archive.edit')->with(compact('data', 'archiveUser'));
 	}
 
 
