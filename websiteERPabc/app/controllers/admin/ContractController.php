@@ -52,6 +52,7 @@ class ContractController extends AdminController {
 				'date_active' => $input['date_active'],
 				'partner_id' => $input['partner_id'],
 				'type_extend' => $input['type_extend'],
+				'status' => $input['status'],
 			];
 			Contract::create($inputContract);
 			return Redirect::action('ContractController@index');
@@ -79,7 +80,8 @@ class ContractController extends AdminController {
 	 */
 	public function edit($id)
 	{
-		//
+		$data = Contract::find($id);
+		return View::make('admin.contract.edit')->with(compact('data'));
 	}
 
  
@@ -91,7 +93,8 @@ class ContractController extends AdminController {
 	 */
 	public function update($id)
 	{
-		//
+		// $input = Input::except('_token');
+
 	}
 
 
@@ -104,7 +107,7 @@ class ContractController extends AdminController {
 	public function destroy($id)
 	{
 		Contract::find($id)->delete();
-		return Redirect::action('admin.contract.index');
+		return Redirect::action('ContractController@index');
 	}
 
 

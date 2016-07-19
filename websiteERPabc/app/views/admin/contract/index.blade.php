@@ -34,14 +34,13 @@
 						<td>{{ $value->id }}</td>
 						<td>{{ $value->name }}</td>
 						<td>{{ $value->code }}</td>
-						<td>{{ $value->type }}</td>
+						<td>{{ CommonOption::getTypeContractText($value->type) }}</td>
 						<td>{{ $value->date_active }}</td>
-						<td>{{ $value->type_extend }}</td>
-						<td>{{ $value->status }}</td>
+						<td>{{ CommonOption::getTypeExtendContractText($value->type_extend) }}</td>
+						<td>{{ CommonOption::getStatusContractText($value->status) }}</td>
 						<td>
 							<a href="{{ action('ContractController@edit', $value->id) }}" class="btn btn-primary">Sửa</a>
 							{{ Form::open(array('method'=>'DELETE', 'action' => array('ContractController@destroy', $value->id), 'style' => 'display: inline-block;')) }}
-							<a href="{{ action('ContractController@edit', $value->id) }}" class="btn btn-primary">View</a>
 							<button class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa?');">Xóa</button>
 							{{ Form::close() }}
 						</td>

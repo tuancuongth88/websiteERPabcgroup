@@ -119,3 +119,14 @@ define('ARCHIVE_STATUS_HANDLING_2', 2);
 define('ARCHIVE_STATUS_1', 1);
 define('ARCHIVE_STATUS_2', 2);
 define('ARCHIVE_STATUS_3', 3);
+// kieu gia han
+define('TYPE_EXTEND_1', 1);
+define('TYPE_EXTEND_2', 2);
+define('TYPE_EXTEND_3', 3);
+// kieu hop dong
+define('TYPE_CONTRACT_1', 1);
+define('TYPE_CONTRACT_2', 2);
+define('TYPE_CONTRACT_3', 3);
+// trang thai hop dong
+define('STATUS_CONTRACT_1', 1);
+define('STATUS_CONTRACT_2', 2);

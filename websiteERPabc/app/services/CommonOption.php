@@ -190,4 +190,43 @@ class CommonOption {
 		return $array[$status];
 	}
 
+	public static function getTypeContract()
+	{
+		return array(
+			TYPE_CONTRACT_1 => 'Hợp đồng kinh tế',
+			TYPE_CONTRACT_2 => 'Hợp đồng dịch vụ',
+			TYPE_CONTRACT_3 => 'Hợp đồng hợp tác',
+		);
+	}
+	public static function getTypeContractText($type)
+	{
+		$array = self::getTypeContract();
+		return $array[$type];
+	}
+	public static function getTypeExtendContract()
+	{
+		return array(
+			TYPE_EXTEND_1 => 'Tự động gia hạn',
+			TYPE_EXTEND_2 => 'Thanh lý gia hạn',
+			TYPE_EXTEND_3 => 'Yêu cầu gia hạn',
+		);
+	}
+	public static function getTypeExtendContractText($type_extend)
+	{
+		$array = self::getTypeExtendContract();
+		return $array[$type_extend];
+	}
+	public static function getStatusContract()
+	{
+		return array(
+			STATUS_CONTRACT_1 => 'Đang thực hiên',
+			STATUS_CONTRACT_2 => 'Thanh lý',
+		);
+	}
+	public static function getStatusContractText($status)
+	{
+		$array = self::getStatusContract();
+		return $array[$status];
+	}
+
 }
