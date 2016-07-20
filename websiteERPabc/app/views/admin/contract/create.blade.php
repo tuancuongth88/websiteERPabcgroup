@@ -100,6 +100,14 @@
                </div>
             </div>
             <div class="form-group">
+            <label>File đính kèm</label>
+            <div class="row">
+              <div class="col-sm-6">
+                {{ Form::file('file') }}
+              </div>
+            </div>
+          </div>
+            <div class="form-group">
                <label for="linkFile">Trạng thái</label>
                <div class="row">
                     <div class="col-sm-6">

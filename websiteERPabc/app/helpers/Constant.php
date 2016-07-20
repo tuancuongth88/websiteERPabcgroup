@@ -32,6 +32,7 @@ define('REPORT_FORMAT', '/reports/format');
 define('NOTIFICATION_FILE', '/notification/files');
 define('TASK_FILE_UPLOAD', '/tasks');
 define('ARCHIVE_FILE_UPLOAD', '/archive');
+define('CONTRACT_FILE_UPLOAD', '/contract');
 //if upload file
 define('IS_UPLOAD_FILE', 1);
 define('IS_UPLOAD_UNIQUE', 1);

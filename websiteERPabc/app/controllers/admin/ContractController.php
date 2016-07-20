@@ -42,6 +42,11 @@ class ContractController extends AdminController {
 			return Redirect::action('ContractController@create')
 				->withErrors($validator);
 		}else{
+			//tao moi
+			$contract_id = Contract::create($input)->id;
+        	$uploadFile['file'] = CommonUser::uploadAction('file', CONTRACT_FILE_UPLOAD . '/' . $contract_id);
+        	Contract::find($contract_id)->update($uploadFile);
+        	// 
 			$inputContract = [
 				'name'=> $input['name'],
 				'code' => $input['code'],

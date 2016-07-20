@@ -28,6 +28,7 @@
 						<th>Kiểu hợp đồng</th>
 						<th>Ngày hiệu lực</th>
 						<th>kiểu gia hạn</th>
+						<th>File</th>
 						<th>Trang thái</th>
 						<th>Action</th>
 					</tr>
@@ -40,6 +41,7 @@
 						<td>{{ CommonOption::getTypeContractText($value->type) }}</td>
 						<td>{{ $value->date_active }}</td>
 						<td>{{ CommonOption::getTypeExtendContractText($value->type_extend) }}</td>
+						<td><a href="{{ url(CONTRACT_FILE_UPLOAD . '/' . $value->id . '/' .$value->file)}}">{{ $value->file }}</a></td>
 						<td>{{ CommonOption::getStatusContractText($value->status) }}</td>
 						<td>
 							<a href="{{ action('ContractController@edit', $value->id) }}" class="btn btn-primary">Sửa</a>
