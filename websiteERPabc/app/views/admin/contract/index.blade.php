@@ -5,6 +5,7 @@
 @stop
 
 @section('content')
+@include('admin.contract.search')
 <div class="row margin-bottom">
 	<div class="col-xs-12">
 	<a href="{{ action('ContractController@create') }}" class="btn btn-primary">Thêm mới</a>
@@ -23,6 +24,7 @@
 						<th>ID</th>
 						<th>Tên hợp đồng</th>	
 						<th>Số hợp đồng</th>
+						<th>Nội dung tóm tắt</th>
 						<th>Kiểu hợp đồng</th>
 						<th>Ngày hiệu lực</th>
 						<th>kiểu gia hạn</th>
@@ -34,6 +36,7 @@
 						<td>{{ $value->id }}</td>
 						<td>{{ $value->name }}</td>
 						<td>{{ $value->code }}</td>
+						<td>{{ $value->description }}</td>
 						<td>{{ CommonOption::getTypeContractText($value->type) }}</td>
 						<td>{{ $value->date_active }}</td>
 						<td>{{ CommonOption::getTypeExtendContractText($value->type_extend) }}</td>
@@ -64,4 +67,5 @@
 </div>
 
 @stop
+
 

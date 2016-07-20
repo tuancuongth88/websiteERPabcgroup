@@ -93,7 +93,22 @@ class ContractController extends AdminController {
 	 */
 	public function update($id)
 	{
-		// $input = Input::except('_token');
+		$input = Input::except('_token');
+		$inputContract = Contract::find($id);
+		$inputContract->update([
+			'name'=> $input['name'],
+			'code' => $input['code'],
+			'description' => $input['description'],
+			'type' => $input['type'],
+			'date_receive' => $input['date_receive'],
+			'date_send' => $input['date_send'],
+			'date_promulgate' => $input['date_promulgate'],
+			'date_active' => $input['date_active'],
+			'partner_id' => $input['partner_id'],
+			'type_extend' => $input['type_extend'],
+			'status' => $input['status'],
+		]);
+		return Redirect::action('ContractController@index');
 
 	}
 
@@ -109,6 +124,10 @@ class ContractController extends AdminController {
 		Contract::find($id)->delete();
 		return Redirect::action('ContractController@index');
 	}
+	public function search(){
 
+		$data = CommonContract::search();
+		return View::make('admin.contract.index')->with(compact('data'));
+	}
 
 }
