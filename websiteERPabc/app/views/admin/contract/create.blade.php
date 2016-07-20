@@ -38,7 +38,7 @@
                <label for="linkFile">Kiểu hợp đồng</label>
                <div class="row">
                     <div class="col-sm-6">
-                         {{ Form::select('type', ['0'=> 'Lựa chọn']+CommonOption::getTypeContract(), null, array('class' => 'form-control', 'onchange' => 'changeTypeSalary()')) }}
+                         {{ Form::select('type', CommonOption::getTypeContract(), null, array('class' => 'form-control', 'onchange' => 'changeTypeSalary()')) }}
                     </div>
                </div>
             </div>
@@ -54,7 +54,7 @@
                <label for="linkFile">Đối tác</label>
                <div class="row">
                     <div class="col-sm-6">
-                        {{ Form::select('partner_id', ['0'=> 'Lựa chọn']+CommonContract::getNamePartner(), null, array('class' => 'form-control', 'onchange' => 'changeTypeSalary()')) }}
+                        {{ Form::select('partner_id', CommonContract::getNamePartner(), null, array('class' => 'form-control', 'onchange' => 'changeTypeSalary()')) }}
                     </div>
                </div>
             </div>
@@ -63,7 +63,7 @@
                <div class="row">
                     <div class="col-sm-6">
 
-                        {{ Form::select('type_extend', ['0'=> 'Lựa chọn']+CommonOption::getTypeExtendContract(), null, array('class' => 'form-control', 'onchange' => 'changeTypeSalary()')) }}
+                        {{ Form::select('type_extend', CommonOption::getTypeExtendContract(), null, array('class' => 'form-control', 'onchange' => 'changeTypeSalary()')) }}
                     </div>
                </div>
             </div>
