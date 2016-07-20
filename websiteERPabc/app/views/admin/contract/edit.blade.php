@@ -15,13 +15,13 @@
 	<div class="col-xs-12">
 		<div class="box box-primary">
         <!-- form start -->
-        {{ Form::open(array('action' => 'ContractController@store', 'files'=> true)) }}
+        {{ Form::open(array('action' => array('ContractController@update', $data->id), 'method' => 'PUT')) }}
           <div class="box-body">
             <div class="form-group">
               <label for="username">Tên </label>
               <div class="row">
               	<div class="col-sm-6">
-                	<input type="text" class="form-control" id="name" placeholder="Tên" name="name">
+                	<input type="text" class="form-control" id="name" value="{{ $data->name }}" name="name">
                 </div>
               </div>
             </div>
@@ -30,7 +30,7 @@
               <label>Số hợp đồng</label>
                <div class="row">
                     <div class="col-sm-6">
-                        <input type="text" class="form-control" id="code" placeholder="số hợp đồng" name="code">
+                        <input type="text" class="form-control" id="code" value="{{ $data->code }}" name="code">
                     </div>
                </div>
             </div>
@@ -38,7 +38,7 @@
                <label for="linkFile">Kiểu hợp đồng</label>
                <div class="row">
                     <div class="col-sm-6">
-                         {{ Form::select('type', CommonOption::getTypeContract(), null, array('class' => 'form-control', 'onchange' => 'changeTypeSalary()')) }}
+                         {{ Form::select('type', ['0'=> 'Lựa chọn']+CommonOption::getTypeContract(), $data->type, array('class' => 'form-control', 'onchange' => 'changeTypeSalary()')) }}
                     </div>
                </div>
             </div>
@@ -46,7 +46,7 @@
               <label>Nội dung tóm tắt</label>
                <div class="row">
                     <div class="col-sm-6">
-                        <input type="text" class="form-control" id="description" placeholder="Nội dung tóm tắt" name="description">
+                        <input type="text" class="form-control" id="description" value="{{ $data->description}}" name="description">
                     </div>
                </div>
             </div>
@@ -54,7 +54,7 @@
                <label for="linkFile">Đối tác</label>
                <div class="row">
                     <div class="col-sm-6">
-                        {{ Form::select('partner_id', CommonContract::getNamePartner(), null, array('class' => 'form-control', 'onchange' => 'changeTypeSalary()')) }}
+                        {{ Form::select('partner_id', ['0'=> 'Lựa chọn']+CommonContract::getNamePartner(), $data->partner_id, array('class' => 'form-control', 'onchange' => 'changeTypeSalary()')) }}
                     </div>
                </div>
             </div>
@@ -62,8 +62,7 @@
                <label for="linkFile">Kiểu gia hạn</label>
                <div class="row">
                     <div class="col-sm-6">
-
-                        {{ Form::select('type_extend', CommonOption::getTypeExtendContract(), null, array('class' => 'form-control', 'onchange' => 'changeTypeSalary()')) }}
+                        {{ Form::select('type_extend', ['0'=> 'Lựa chọn']+CommonOption::getTypeExtendContract(), $data->type_extend, array('class' => 'form-control', 'onchange' => 'changeTypeSalary()')) }}
                     </div>
                </div>
             </div>
@@ -71,7 +70,7 @@
                <label for="linkFile">Ngày nhận</label>
                <div class="row">
                     <div class="col-sm-6">
-                        <input type="text" name="date_receive" class="form-control datepicker" placeholder="Ngày nhận" />
+                        <input type="text" name="date_receive" class="form-control datepicker" value="{{ $data->date_receive }}" />
                     </div>
                </div>
             </div>
@@ -79,7 +78,7 @@
                <label for="linkFile">Ngày gửi</label>
                <div class="row">
                     <div class="col-sm-6">
-                        <input type="text" name="date_send" class="form-control datepicker"  placeholder="Ngày gửi" />
+                        <input type="text" name="date_send" class="form-control datepicker"  value="{{ $data->date_send }}" />
                     </div>
                </div>
             </div>
@@ -87,7 +86,7 @@
                <label for="linkFile">Ngày ban hành</label>
                <div class="row">
                     <div class="col-sm-6">
-                        <input type="text" name="date_promulgate" class="form-control datepicker"  placeholder="Ngày ban hành" />
+                        <input type="text" name="date_promulgate" class="form-control datepicker"  value="{{ $data->date_promulgate }}" />
                     </div>
                </div>
             </div>
@@ -95,23 +94,15 @@
                <label for="linkFile">Ngày hiệu lực</label>
                <div class="row">
                     <div class="col-sm-6">
-                        <input type="text" name="date_active" class="form-control datepicker"  placeholder="Ngày hiệu lực" />
+                        <input type="text" name="date_active" class="form-control datepicker"  value="{{ $data->date_active }}" />
                     </div>
                </div>
             </div>
             <div class="form-group">
-            <label>File đính kèm</label>
-            <div class="row">
-              <div class="col-sm-6">
-                {{ Form::file('file') }}
-              </div>
-            </div>
-          </div>
-            <div class="form-group">
                <label for="linkFile">Trạng thái</label>
                <div class="row">
                     <div class="col-sm-6">
-                        {{ Form::select('status', CommonOption::getStatusContract(), null, array('class' => 'form-control')) }}
+                        {{ Form::select('status', CommonOption::getStatusContract(), $data->status, array('class' => 'form-control')) }}
                     </div>
                </div>
             </div>
@@ -120,12 +111,10 @@
 
           <div class="box-footer">
             <input type="submit" class="btn btn-primary" value="Lưu lại" />
-            <input type="reset" class="btn btn-default" value="Nhập lại" />
           </div>
         {{ Form::close() }}
       </div>
       <!-- /.box -->
 	</div>
 </div>
-
 @stop

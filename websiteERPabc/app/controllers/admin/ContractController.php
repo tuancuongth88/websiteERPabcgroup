@@ -35,12 +35,18 @@ class ContractController extends AdminController {
 		$input = Input::except('_token');
 		$rules = array(
 			'name' => 'required',
+			'code' => 'required'
 		);
 		$validator = Validator::make($input,$rules);
 		if($validator->fails()) {
 			return Redirect::action('ContractController@create')
 				->withErrors($validator);
 		}else{
+			//tao moi
+			$contract_id = Contract::create($input)->id;
+        	$uploadFile['file'] = CommonUser::uploadAction('file', CONTRACT_FILE_UPLOAD . '/' . $contract_id);
+        	Contract::find($contract_id)->update($uploadFile);
+        	// 
 			$inputContract = [
 				'name'=> $input['name'],
 				'code' => $input['code'],
@@ -52,6 +58,7 @@ class ContractController extends AdminController {
 				'date_active' => $input['date_active'],
 				'partner_id' => $input['partner_id'],
 				'type_extend' => $input['type_extend'],
+				'status' => $input['status'],
 			];
 			Contract::create($inputContract);
 			return Redirect::action('ContractController@index');
@@ -79,7 +86,8 @@ class ContractController extends AdminController {
 	 */
 	public function edit($id)
 	{
-		//
+		$data = Contract::find($id);
+		return View::make('admin.contract.edit')->with(compact('data'));
 	}
 
  
@@ -91,7 +99,23 @@ class ContractController extends AdminController {
 	 */
 	public function update($id)
 	{
-		//
+		$input = Input::except('_token');
+		$inputContract = Contract::find($id);
+		$inputContract->update([
+			'name'=> $input['name'],
+			'code' => $input['code'],
+			'description' => $input['description'],
+			'type' => $input['type'],
+			'date_receive' => $input['date_receive'],
+			'date_send' => $input['date_send'],
+			'date_promulgate' => $input['date_promulgate'],
+			'date_active' => $input['date_active'],
+			'partner_id' => $input['partner_id'],
+			'type_extend' => $input['type_extend'],
+			'status' => $input['status'],
+		]);
+		return Redirect::action('ContractController@index');
+
 	}
 
 
@@ -104,8 +128,12 @@ class ContractController extends AdminController {
 	public function destroy($id)
 	{
 		Contract::find($id)->delete();
-		return Redirect::action('admin.contract.index');
+		return Redirect::action('ContractController@index');
 	}
+	public function search(){
 
+		$data = CommonContract::search();
+		return View::make('admin.contract.index')->with(compact('data'));
+	}
 
 }

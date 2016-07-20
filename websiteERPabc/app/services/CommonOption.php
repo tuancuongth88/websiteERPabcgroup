@@ -153,8 +153,8 @@ class CommonOption {
 	public static function getArchiveType()
 	{
 		return array(
-			ARCHIVE_TYPE_1 => ARCHIVE_TYPE_1_TEXT,	
-			ARCHIVE_TYPE_2 => ARCHIVE_TYPE_2_TEXT,	
+			ARCHIVE_TYPE_1 => 'Công văn đến',	
+			ARCHIVE_TYPE_2 => 'Công văn đi',	
 		);
 	}
 	public static function getArchiveTypeText($type)
@@ -175,18 +175,57 @@ class CommonOption {
 		$array = self::getArchiveStatusHandling();
 		return $array[$status];
 	}
-	// trang thai chuyen cong van giay to
-	public static function getArchiveStatus()
+	// chuc nang chuyen cong van giay to
+	public static function getArchiveFunction()
 	{
 		return array(
-			ARCHIVE_STATUS_1 => 'Xử lý',
-			ARCHIVE_STATUS_2 => 'Báo cáo',
-			ARCHIVE_STATUS_3 => 'Phối hợp',
+			ARCHIVE_FUNCTION_1 => 'Xử lý',
+			ARCHIVE_FUNCTION_2 => 'Báo cáo',
+			ARCHIVE_FUNCTION_3 => 'Phối hợp',
 		);
 	}
-	public static function getArchiveStatusText($status)
+	public static function getArchiveFunctionText($funId)
 	{
-		$array = self::getArchiveStatus();
+		$array = self::getArchiveFunction();
+		return $array[$funId];
+	}
+
+	public static function getTypeContract()
+	{
+		return array(
+			TYPE_CONTRACT_1 => 'Hợp đồng kinh tế',
+			TYPE_CONTRACT_2 => 'Hợp đồng dịch vụ',
+			TYPE_CONTRACT_3 => 'Hợp đồng hợp tác',
+		);
+	}
+	public static function getTypeContractText($type)
+	{
+		$array = self::getTypeContract();
+		return $array[$type];
+	}
+	public static function getTypeExtendContract()
+	{
+		return array(
+			TYPE_EXTEND_1 => 'Tự động gia hạn',
+			TYPE_EXTEND_2 => 'Thanh lý gia hạn',
+			TYPE_EXTEND_3 => 'Yêu cầu gia hạn',
+		);
+	}
+	public static function getTypeExtendContractText($type_extend)
+	{
+		$array = self::getTypeExtendContract();
+		return $array[$type_extend];
+	}
+	public static function getStatusContract()
+	{
+		return array(
+			STATUS_CONTRACT_1 => 'Đang thực hiên',
+			STATUS_CONTRACT_2 => 'Thanh lý',
+		);
+	}
+	public static function getStatusContractText($status)
+	{
+		$array = self::getStatusContract();
 		return $array[$status];
 	}
 	public static function getStatusResource(){

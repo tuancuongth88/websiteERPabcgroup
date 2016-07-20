@@ -5,6 +5,7 @@
 @stop
 
 @section('content')
+@include('admin.contract.search')
 <div class="row margin-bottom">
 	<div class="col-xs-12">
 	<a href="{{ action('ContractController@create') }}" class="btn btn-primary">Thêm mới</a>
@@ -23,9 +24,11 @@
 						<th>ID</th>
 						<th>Tên hợp đồng</th>	
 						<th>Số hợp đồng</th>
+						<th>Nội dung tóm tắt</th>
 						<th>Kiểu hợp đồng</th>
 						<th>Ngày hiệu lực</th>
 						<th>kiểu gia hạn</th>
+						<th>File</th>
 						<th>Trang thái</th>
 						<th>Action</th>
 					</tr>
@@ -34,14 +37,15 @@
 						<td>{{ $value->id }}</td>
 						<td>{{ $value->name }}</td>
 						<td>{{ $value->code }}</td>
-						<td>{{ $value->type }}</td>
+						<td>{{ $value->description }}</td>
+						<td>{{ CommonOption::getTypeContractText($value->type) }}</td>
 						<td>{{ $value->date_active }}</td>
-						<td>{{ $value->type_extend }}</td>
-						<td>{{ $value->status }}</td>
+						<td>{{ CommonOption::getTypeExtendContractText($value->type_extend) }}</td>
+						<td><a href="{{ url(CONTRACT_FILE_UPLOAD . '/' . $value->id . '/' .$value->file)}}">{{ $value->file }}</a></td>
+						<td>{{ CommonOption::getStatusContractText($value->status) }}</td>
 						<td>
 							<a href="{{ action('ContractController@edit', $value->id) }}" class="btn btn-primary">Sửa</a>
 							{{ Form::open(array('method'=>'DELETE', 'action' => array('ContractController@destroy', $value->id), 'style' => 'display: inline-block;')) }}
-							<a href="{{ action('ContractController@edit', $value->id) }}" class="btn btn-primary">View</a>
 							<button class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa?');">Xóa</button>
 							{{ Form::close() }}
 						</td>
@@ -65,4 +69,5 @@
 </div>
 
 @stop
+
 
