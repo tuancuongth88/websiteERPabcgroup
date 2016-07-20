@@ -1,13 +1,13 @@
 @extends('admin.layout.default')
 @section('title')
-{{ $title='Thêm mới thiết bị văn phòng' }}
+{{ $title='Thêm mới thiết bị máy tính' }}
 @stop
 
 @section('content')
 
 <div class="row margin-bottom">
 	<div class="col-xs-12">
-		<a href="{{ action('ResourceManagementController@index') }}" class="btn btn-success">Danh sách</a>
+		<a href="{{ action('ComputerResourceController@index') }}" class="btn btn-success">Danh sách</a>
 	</div>
 </div>
 
@@ -15,13 +15,45 @@
 	<div class="col-xs-12">
 		<div class="box box-primary">
 				<!-- form start -->
-				{{ Form::open(array('action' => 'ResourceManagementController@store', 'files'=> true)) }}
+				{{ Form::open(array('action' => 'ComputerResourceController@store', 'files'=> true)) }}
 					<div class="box-body">
 						<div class="form-group">
 							<label for="username">Tên thiết bị</label>
 							<div class="row">
 								<div class="col-sm-6">
 									<input type="text" class="form-control" id="name" placeholder="Tên thiết bị" name="name">
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="username">CPU</label>
+							<div class="row">
+								<div class="col-sm-6">
+									<input type="text" class="form-control" id="name" placeholder="CPU" name="cpu">
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="username">RAM</label>
+							<div class="row">
+								<div class="col-sm-6">
+									<input type="text" class="form-control" id="name" placeholder="Dung lượng ram" name="ram">
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="username">Ổ cứng</label>
+							<div class="row">
+								<div class="col-sm-6">
+									<input type="text" class="form-control" id="name" placeholder="Dung lượng ổ cứng" name="hhd">
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="username">Kích thước màn hình</label>
+							<div class="row">
+								<div class="col-sm-6">
+									<input type="text" class="form-control" id="name" placeholder="Kích thước màn hình" name="size">
 								</div>
 							</div>
 						</div>

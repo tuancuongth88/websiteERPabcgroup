@@ -1,13 +1,13 @@
 @extends('admin.layout.default')
 @section('title')
-{{ $title='Thêm mới tài nguyên' }}
+{{ $title='Sửa thông tin đối tác' }}
 @stop
 
 @section('content')
 
 <div class="row margin-bottom">
   <div class="col-xs-12">
-    <a href="{{ action('ResourceManagementController@index') }}" class="btn btn-success">Danh sách</a>
+    <a href="{{ action('ProductController@index') }}" class="btn btn-success">Danh sách</a>
   </div>
 </div>
 
@@ -15,55 +15,43 @@
 	<div class="col-xs-12">
 		<div class="box box-primary">
         <!-- form start -->
-        {{ Form::open(array('action' => 'ResourceManagementController@store', 'files'=> true)) }}
+        {{ Form::open(array('action' => array('ProductController@update', $data->id), 'method' => 'PUT')) }}
           <div class="box-body">
             <div class="form-group">
-              <label for="username">Tên title</label>
+              <label for="username">Tên</label>
               <div class="row">
               	<div class="col-sm-6">
-                	<input type="text" class="form-control" id="name" placeholder="Tên title" name="file_name">
+                	<input type="text" class="form-control" id="name" placeholder="Tên" value="{{ $data->name }}" name="name">
                 </div>
               </div>
             </div>
 
             <div class="form-group">
-              <label>Thể loại</label>
+              <label>Email</label>
               <div class="row">
                 <div class="col-sm-6">
-                    {{ Form::select('type_resource_id', [0 => 'Lựa chọn'] + TypeReport::lists('name', 'id'), null, array('class' => 'form-control', 'onchange' => 'changeTypeReport()')) }}
+                    <input type="text" class="form-control" id="name" value="{{ $data->email }}" placeholder="Email" name="email">
                 </div>
               </div>
             </div>
             <div class="form-group">
-              <label for="linkFile">Nội dung</label>
+              <label for="linkFile">Địa chỉ</label>
               <div class="row">
                 <div class="col-sm-6">
-                  <input type="text" class="form-control" id="description" placeholder="Mô tả" name="description">
+                  <input type="text" class="form-control" id="description" value="{{ $data->address }}" placeholder="Địa chỉ" name="address">
                 </div>
               </div>
             </div>
-
-          <!--   <div class="form-group">
-             <label for="linkFile">Tên File</label>
-              <div class="row">
-                <div class="col-sm-6">
-                  {{ Form::file('linkFile[]') }}
-                </div>
-              </div>
-            </div>
-
             <div class="form-group">
-             <label for="link">Tên link</label>
+              <label for="linkFile">Số điện thoại</label>
               <div class="row">
                 <div class="col-sm-6">
-                  <input type="text" class="form-control" id="link" placeholder="Tên link" name="link">
+                  <input type="text" class="form-control" id="description" value="{{ $data->phone }}" placeholder="Số điện thoại" name="phone">
                 </div>
               </div>
-            </div> -->
-            
+            </div>
           </div>
           <!-- /.box-body -->
-
           <div class="box-footer">
             <input type="submit" class="btn btn-primary" value="Lưu lại" />
             <input type="reset" class="btn btn-default" value="Nhập lại" />

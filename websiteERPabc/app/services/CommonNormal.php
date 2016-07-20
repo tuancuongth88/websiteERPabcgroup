@@ -71,6 +71,18 @@ class CommonNormal
 		{
 			return 'storeAll';
 		}
+		if($name == 'office')
+		{
+			return 'ResourceOffice';
+		}
+		if($name == 'computer')
+		{
+			return 'ResourceDeviceComputer';
+		}
+		if($name == 'domain')
+		{
+			return 'ResourceDomain';
+		}
 	}
 
 }

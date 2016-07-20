@@ -31,6 +31,7 @@ define('REPORT_FORMAT', '/reports/format');
 //upload file cho thong bao
 define('NOTIFICATION_FILE', '/notification/files');
 define('TASK_FILE_UPLOAD', '/tasks');
+define('ARCHIVE_FILE_UPLOAD', '/archive');
 //if upload file
 define('IS_UPLOAD_FILE', 1);
 define('IS_UPLOAD_UNIQUE', 1);
@@ -103,4 +104,24 @@ define('SALARY_PROPOSAL', 4);
 define('TYPE_SALARY_CHOOSE', 0);
 define('TYPE_SALARY_UP', 2);
 define('TYPE_SALARY_DOWN', 1);
+
+//loai cong van giay to
+//cong van den
+define('ARCHIVE_TYPE_1', 1);
+define('ARCHIVE_TYPE_1_TEXT', 'Công văn đến');
+//cong van di
+define('ARCHIVE_TYPE_2', 2);
+define('ARCHIVE_TYPE_2_TEXT', 'Công văn đi');
+// trang thai xu ly cong van giay to
+define('ARCHIVE_STATUS_HANDLING_1', 1);
+define('ARCHIVE_STATUS_HANDLING_2', 2);
+// trang thai chuyen cong van giay to
+define('ARCHIVE_STATUS_1', 1);
+define('ARCHIVE_STATUS_2', 2);
+define('ARCHIVE_STATUS_3', 3);
+//trang thoi tai nguyen
+define("RESOURCE_STATUS_NEW", 1);
+define("RESOURCE_STATUS_OLD", 2);
+define("RESOURCE_STATUS_OLE_NO_USER", 3);
+define("RESOURCE_STATUS_WAIT_LIQUIDATION", 4);
 

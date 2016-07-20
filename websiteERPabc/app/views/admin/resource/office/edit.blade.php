@@ -1,6 +1,6 @@
 @extends('admin.layout.default')
 @section('title')
-{{ $title='Thêm mới thiết bị văn phòng' }}
+{{ $title='Cập nhật thiết bị văn phòng' }}
 @stop
 
 @section('content')
@@ -15,13 +15,13 @@
 	<div class="col-xs-12">
 		<div class="box box-primary">
 				<!-- form start -->
-				{{ Form::open(array('action' => 'ResourceManagementController@store', 'files'=> true)) }}
+				{{ Form::open(array('action' => array('ResourceManagementController@update', $data->id), 'method' => 'PUT')) }}
 					<div class="box-body">
 						<div class="form-group">
 							<label for="username">Tên thiết bị</label>
 							<div class="row">
 								<div class="col-sm-6">
-									<input type="text" class="form-control" id="name" placeholder="Tên thiết bị" name="name">
+									<input type="text" class="form-control" id="name" value="{{ $data->name}}" placeholder="Tên thiết bị" name="name">
 								</div>
 							</div>
 						</div>
@@ -29,7 +29,7 @@
 							<label for="username">Bên cung cấp</label>
 							<div class="row">
 								<div class="col-sm-6">
-									<input type="text" class="form-control" id="provider" placeholder="bên cung cấp" name="provider">
+									<input type="text" class="form-control" id="provider" value="{{ $data->provider}}"  placeholder="bên cung cấp" name="provider">
 								</div>
 							</div>
 						</div>
@@ -37,7 +37,7 @@
 							<label for="username">Thông tin liên hệ</label>
 							<div class="row">
 								<div class="col-sm-6">
-									<input type="text" class="form-control" id="provider" placeholder="Thông tin liên hệ" name="provider_contact">
+									<input type="text" class="form-control" id="provider" value="{{ $data->provider_contact}}"  placeholder="Thông tin liên hệ" name="provider_contact">
 								</div>
 							</div>
 						</div>
@@ -45,7 +45,7 @@
 							<label for="username">Số lượng</label>
 							<div class="row">
 								<div class="col-sm-6">
-									<input type="text" class="form-control" id="provider" placeholder="Số lượng" name="number">
+									<input type="text" class="form-control" id="provider" value="{{ $data->number}}"  placeholder="Số lượng" name="number">
 								</div>
 							</div>
 						</div>
@@ -53,7 +53,7 @@
 							<label>Thể loại</label>
 							<div class="row">
 								<div class="col-sm-6">
-									{{ Form::select('type', ['' => 'Lựa chọn'] + CommonResource::getResourceDevice(), null, array('class' => 'form-control')) }}
+										{{ Form::select('type', [0 => 'Lựa chọn'] + CommonResource::getResourceDevice(), $data->type, array('class' => 'form-control')) }}
 								</div>
 							</div>
 						</div>
@@ -61,7 +61,7 @@
 							<label>Tình trạng</label>
 							<div class="row">
 								<div class="col-sm-6">
-									{{ Form::select('status', CommonOption::getStatusResource(), null, array('class' => 'form-control')) }}
+									{{ Form::select('status', CommonOption::getStatusResource(), $data->status, array('class' => 'form-control')) }}
 								</div>
 							</div>
 						</div>
@@ -69,7 +69,7 @@
 							<label for="linkFile">Mô tả</label>
 							<div class="row">
 								<div class="col-sm-6">
-									<input type="text" class="form-control" id="description" placeholder="Mô tả" name="description">
+									<input type="text" class="form-control" value="{{ $data->description}}"  id="description" placeholder="Mô tả" name="description">
 								</div>
 							</div>
 						</div>
