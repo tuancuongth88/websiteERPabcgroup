@@ -47,7 +47,7 @@
 							<td>{{ CommonOption::getFieldTextByModel('Project', $value->project_id, 'name') }}</td>
 							<td>{{ CommonOption::getStatusTaskValue($value->task_status_id) }}</td>
 							<td>
-								<a href="{{ action('TaskController@show', $value->id) }}" class="btn btn-primary">View</a>
+								<a href="{{ action('TaskController@show', $value->id) }}" class="btn btn-primary">Xem</a>
 								@if(Common::checkModelUserStatus('TaskUser', $value->id, 'task_id') == ASSIGN_STATUS_1 && Common::checkModelUserFunction('TaskUser', $value->id, 'task_id'))
 									<a href="{{ action('TaskController@edit', $value->id) }}" class="btn btn-primary">Sửa</a>
 									{{ Form::open(array('method'=>'DELETE', 'action' => array('TaskController@destroy', $value->id), 'style' => 'display: inline-block;')) }}

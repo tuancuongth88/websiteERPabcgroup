@@ -49,6 +49,7 @@
 							<td><a href="{{ url(ARCHIVE_FILE_UPLOAD . '/' . $value->id . '/' .$value->file)}}">{{ $value->file }}</a></td>
 							<td>{{ CommonOption::getArchiveStatusHandlingText($value->status) }}</td>
 							<td>
+								<a href="{{ action('ArchiveController@show', $value->id) }}" class="btn btn-primary">Xem</a>
 								<a href="{{ action('ArchiveController@edit', $value->id) }}" class="btn btn-primary">Sửa</a>
 								{{ Form::open(array('method'=>'DELETE', 'action' => array('ArchiveController@destroy', $value->id), 'style' => 'display: inline-block;')) }}
 									<button class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa?');">Xóa</button>

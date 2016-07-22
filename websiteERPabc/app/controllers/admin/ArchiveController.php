@@ -79,7 +79,8 @@ class ArchiveController extends AdminController {
 	public function show($id)
 	{
 		$data = Archive::find($id);
-		return View::make('admin.archive.show')->with(compact('data'));
+		$archiveUser = ArchiveUser::where('archive_id', $id)->groupBy('user_receive')->orderBy('created_at', 'desc')->get();
+		return View::make('admin.archive.show')->with(compact('data', 'archiveUser'));
 	}
 
 
@@ -125,7 +126,8 @@ class ArchiveController extends AdminController {
 			//save user
 			if(isset($input['user_id'])) {
 				//xoa truoc khi cap nhat lai
-				// ArchiveUser::where('archive_id', $id)->delete();
+				ArchiveUser::where('archive_id', $id)->delete();
+				//
 				$inputUser = $input['user_id'];
 				$inputFunction = $input['fun_id'];
 				foreach ($inputUser as $key => $value) {
@@ -149,7 +151,9 @@ class ArchiveController extends AdminController {
 	 */
 	public function destroy($id)
 	{
-		//
+		ArchiveUser::where('archive_id', $id)->delete();
+		Archive::find($id)->delete();
+		return Redirect::action('ArchiveController@index')->with('message', 'Xóa thành công');
 	}
 
 	public function assignArchiveUser()
