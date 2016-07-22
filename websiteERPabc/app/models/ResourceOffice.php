@@ -18,7 +18,7 @@ class ResourceOffice extends Eloquent {
 	 *
 	 * @var array
 	 */
-	protected $fillable = array('name', 'provider', 'provider_contact', 'type', 'status');
+	protected $fillable = array('name', 'provider', 'provider_contact', 'type', 'status', 'number', 'description');
     protected $dates = ['deleted_at'];
 
    

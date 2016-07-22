@@ -1,6 +1,6 @@
 <?php
 
-class ResourceManagementController extends AdminController {
+class DomainResourceController extends AdminController {
 
 	/**
 	 * Display a listing of the resource.
@@ -9,8 +9,8 @@ class ResourceManagementController extends AdminController {
 	 */
 	public function index()
 	{
-		$data = ResourceOffice::orderBy('id', 'desc')->paginate(PAGINATE);
-		return View::make('admin.resource.office.index')->with(compact('data'));
+		$data = ResourceDomain::orderBy('id', 'desc')->paginate(PAGINATE);
+		return View::make('admin.resource.domains.index')->with(compact('data'));
 	}
 
 
@@ -21,7 +21,7 @@ class ResourceManagementController extends AdminController {
 	 */
 	public function create()
 	{
-		return View::make('admin.resource.office.create');
+		return View::make('admin.resource.domains.create');
 	}
 
 
@@ -38,12 +38,11 @@ class ResourceManagementController extends AdminController {
 		$input = Input::except('_token');
 		$validator = Validator::make($input,$rules);
 		if($validator->fails()) {
-			return Redirect::action('ResourceManagementController@create')
+			return Redirect::action('DomainResourceController@create')
 	            ->withErrors($validator);
         }else{
-        	ResourceOffice::create($input);
-        	return Redirect::action('ResourceManagementController@index');
-
+        	ResourceDomain::create($input);
+        	return Redirect::action('DomainResourceController@index');
         }
 	}
 
@@ -68,8 +67,8 @@ class ResourceManagementController extends AdminController {
 	 */
 	public function edit($id)
 	{
-		$data = ResourceOffice::find($id);
-		return View::make('admin.resource.office.edit')->with(compact('data'));
+		$data = ResourceDomain::find($id);
+		return View::make('admin.resource.domains.edit')->with(compact('data'));
 	}
 
 
@@ -87,11 +86,11 @@ class ResourceManagementController extends AdminController {
 		$input = Input::except('_token');
 		$validator = Validator::make($input,$rules);
 		if($validator->fails()) {
-			return Redirect::action('ResourceManagementController@edit', $id)
+			return Redirect::action('DomainResourceController@edit', $id)
 	            ->withErrors($validator);
         }else{
         	CommonNormal::update($id, $input);
-        	return Redirect::action('ResourceManagementController@index');
+        	return Redirect::action('DomainResourceController@index');
 
         }
 	}
@@ -106,14 +105,13 @@ class ResourceManagementController extends AdminController {
 	public function destroy($id)
 	{
 		CommonNormal::delete($id);
-		return Redirect::action('ResourceManagementController@index');
+		return Redirect::action('DomainResourceController@index');
 	}
 
 	public function search()
 	{
 		$input = Input::except('_token');
-		$data = CommonSearch::searchOffice($input, 'ResourceOffice');
-		return View::make('admin.resource.office.index')->with(compact('data'));
+		$data = CommonSearch::searchOffice($input, 'ResourceDomain');
+		return View::make('admin.resource.domains.index')->with(compact('data'));
 	}
-
 }

@@ -228,5 +228,23 @@ class CommonOption {
 		$array = self::getStatusContract();
 		return $array[$status];
 	}
+	public static function getStatusResource(){
+		return array(
+				RESOURCE_STATUS_NEW => 'Mới',
+				RESOURCE_STATUS_OLD => 'Đang sử dụng',
+				RESOURCE_STATUS_OLE_NO_USER => 'Không sử dụng',
+			);
+	}
+	public static function getNameStatusResource($id){
+		if($id == RESOURCE_STATUS_NEW)
+			return 'Mới';
+		elseif ($id == RESOURCE_STATUS_OLD) {
+			return 'Đang sử dụng';
+		}
+		elseif ($id == RESOURCE_STATUS_OLE_NO_USER) {
+			return 'Không sử dụng';
+		}
+		
+	}
 
 }

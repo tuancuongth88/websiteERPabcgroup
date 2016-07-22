@@ -46,7 +46,17 @@ Route::group(['prefix' => 'admin'], function () {
 	
 	Route::resource('/regency', 'RegencyController');
 	// quan ly tai nguyen
-	Route::resource('/resource', 'ResourceManagementController');
+	Route::get('office/search', 'ResourceManagementController@search');
+	Route::resource('/office', 'ResourceManagementController');
+
+	Route::get('computer/search', 'ComputerResourceController@search');
+	Route::resource('/computer', 'ComputerResourceController');
+
+	Route::get('document/search', 'DocumentResourceController@search');
+	Route::resource('/document', 'DocumentResourceController');	
+
+	Route::get('domain/search', 'DomainResourceController@search');
+	Route::resource('/domain', 'DomainResourceController');
 
 	Route::post('/comment/{modelName}/{modelId}', 'CommentController@comment');
 

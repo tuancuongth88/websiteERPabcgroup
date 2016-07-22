@@ -18,7 +18,7 @@ class ResourceDeviceComputer extends Eloquent {
 	 *
 	 * @var array
 	 */
-	protected $fillable = array('name', 'cpu', 'ram', 'hhd', 'provider', 'provider_contact', 'size', 'type', 'status');
+	protected $fillable = array('name', 'cpu', 'ram', 'hhd', 'provider', 'provider_contact', 'size', 'type', 'status', 'number', 'description');
     protected $dates = ['deleted_at'];
 
    
