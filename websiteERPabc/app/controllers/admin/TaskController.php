@@ -212,7 +212,7 @@ class TaskController extends AdminController {
 		$input = Input::except('_token');
 		$input['status'] = ACTIVE;
 		$commentId = Common::insertComment('Task', $taskId, $input);
-		return Redirect::action('TaskController@index');
+		return Redirect::action('TaskController@show', $taskId);
 	}
 	public function accept($id)
 	{

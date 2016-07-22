@@ -8,6 +8,7 @@
 
 <div class="row margin-bottom">
 	<div class="col-xs-12">
+		<a href="{{ action('ArchiveController@index') }}" class="btn btn-success">Danh sách</a>
 		<a href="{{ action('ArchiveController@create') }}" class="btn btn-primary">Thêm mới</a>
 	</div>
 </div>
@@ -49,7 +50,7 @@
 							<td><a href="{{ url(ARCHIVE_FILE_UPLOAD . '/' . $value->id . '/' .$value->file)}}">{{ $value->file }}</a></td>
 							<td>{{ CommonOption::getArchiveStatusHandlingText($value->status) }}</td>
 							<td>
-								<a href="{{ action('ArchiveController@show', $value->id) }}" class="btn btn-primary">Xem</a>
+								<a href="{{ action('ArchiveController@show', $value->id) }}" class="btn btn-success">Xem</a>
 								<a href="{{ action('ArchiveController@edit', $value->id) }}" class="btn btn-primary">Sửa</a>
 								{{ Form::open(array('method'=>'DELETE', 'action' => array('ArchiveController@destroy', $value->id), 'style' => 'display: inline-block;')) }}
 									<button class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa?');">Xóa</button>

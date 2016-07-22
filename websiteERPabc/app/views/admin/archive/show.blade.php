@@ -8,6 +8,7 @@
 <div class="row margin-bottom">
 	<div class="col-xs-12">
 		<a href="{{ action('ArchiveController@index') }}" class="btn btn-success">Danh sách</a>
+		<a href="{{ action('ArchiveController@create') }}" class="btn btn-primary">Thêm mới</a>
 	</div>
 </div>
 <div class="row">
@@ -135,7 +136,29 @@
 					</div>
 				</div>
 				@endif
+				
 			</div>
+
+			{{ Form::open(array('action' => ['ArchiveController@comment', $data->id], 'method' => 'POST')) }}
+				<div class="box-body">
+					<div class="form-group">
+						<h3>Comment</h3>
+						<div class="row">
+							<div class="col-sm-6">
+								{{ Form::textarea('description', '', array('class' => 'form-control', 'rows' => 5)) }}
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-6">
+								<br />
+								{{ Form::submit('Lưu lại', array('class' => 'btn btn-primary')) }}
+							</div>
+						</div>
+					</div>
+				</div>
+			{{ Form::close() }}
+
+			@include('admin.comment.index', array('modelName' => 'Archive', 'modelId' => $data->id))
 
 		</div>
 	</div>

@@ -12,6 +12,10 @@ class CommonArchive {
 			if(!empty($input['code'])) {
 				$query = $query->where('archives.code', 'like', '%'.$input['code'].'%');
 			}
+			if(!empty($input['status'])) {
+				$query = $query->where('archives.status', $input['status']);
+			}
+			
 			
 		})->distinct()->orderBy('archives.name', 'asc')->paginate(PAGINATE);
 		return $data;

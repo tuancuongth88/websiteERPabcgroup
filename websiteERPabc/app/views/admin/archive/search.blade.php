@@ -8,6 +8,10 @@
 			<label>Số</label>
 		  	<input type="text" name="code" class="form-control" placeholder="Số" />
 		</div>
+		<div class="input-group" style="width: 150px; display:inline-block;">
+			<label>Trạng thái</label>
+			 {{ Form::select('status', ['' => 'Tất cả'] + CommonOption::getArchiveStatusHandling(), null, array('class' => 'form-control')) }}
+		</div>
 		<div class="input-group" style="display: inline-block; vertical-align: bottom;">
 			<input type="submit" value="Search" class="btn btn-primary" />
 		</div>

@@ -59,7 +59,7 @@
 					<div class="form-group">
 						<label>Mô tả</label>
 						<div class="row">
-							<div class="col-sm-6">
+							<div class="col-sm-8">
 								{{ Form::textarea('description', null, array('class' => 'form-control', 'id' => 'editor1')) }}
 							</div>
 						</div>

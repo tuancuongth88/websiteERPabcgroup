@@ -167,4 +167,13 @@ class ArchiveController extends AdminController {
 		}
 		return View::make('admin.archive.assign')->with(compact('archiveUserKey'));
 	}
+
+	public function comment($id)
+	{
+		$input = Input::except('_token');
+		$input['status'] = ACTIVE;
+		$commentId = Common::insertComment('Archive', $id, $input);
+		return Redirect::action('ArchiveController@show', $id);
+	}
+
 }
