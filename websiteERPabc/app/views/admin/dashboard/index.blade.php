@@ -108,6 +108,24 @@
 			</div>
 			@endif
 
+			@if(count($contractExpired) > 0)
+			<div class="box-body table-responsive">
+				<h4>Hợp đồng sắp hết hạn</h4>
+				<table class="table table-hover">
+					<tr>
+						<!-- <th>ID</th> -->
+						<th>Tên</th>
+					</tr>
+					@foreach($contractExpired as $key => $value)
+						<tr>
+							<!-- <td>{{-- $value->id --}}</td> -->
+							<td>{{ $value->name }}</td>
+						</tr>
+					@endforeach
+				</table>
+			</div>
+			@endif
+
 		</div>
 		<!-- /.box -->
 	</div>

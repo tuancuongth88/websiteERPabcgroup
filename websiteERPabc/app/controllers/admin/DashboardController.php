@@ -19,7 +19,13 @@ class DashboardController extends AdminController {
 		$projectAssign = Common::getModelUserStatus('projects', 'project_users', 'project_id', $userId, ASSIGN_STATUS_3);
 		//deparement đươc assign, cho dong y
 		// $depAssign = Common::getModelUserStatus('departments', 'dep_regency_per_user', 'dep_id', $userId, ASSIGN_STATUS_3);
-		return View::make('admin.dashboard.index')->with(compact('task', 'taskAssign', 'projectAssign'));
+		// ngay hien tai - 1 tuan <= date_active <= ngay hien tai
+		$now = date('Y-m-d H:i:s');
+		$weekback = date('Y-m-d 00:00:00', time() + (60 * 60 * 24 * -7));
+		$contractExpired = Contract::where('date_active', '<=', $now)
+								->where('date_active', '>=', $weekback)
+								->get();
+		return View::make('admin.dashboard.index')->with(compact('task', 'taskAssign', 'projectAssign', 'contractExpired'));
 	}
 
 
