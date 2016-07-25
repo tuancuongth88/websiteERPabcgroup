@@ -74,7 +74,7 @@ class ContractController extends AdminController {
 	 */
 	public function show($id)
 	{
-		//
+		
 	}
 
 
