@@ -1,6 +1,6 @@
 <?php
 
-class ResouceController extends AdminController {
+class DocumentResourceController extends AdminController {
 
 	/**
 	 * Display a listing of the resource.
@@ -9,9 +9,7 @@ class ResouceController extends AdminController {
 	 */
 	public function index()
 	{
-			
-		$data = Resouce::orderBy('id', 'desc')->paginate(PAGINATE);
-		return View::make('admin.resouce.index')->with(compact('data'));
+		//
 	}
 
 
@@ -22,7 +20,7 @@ class ResouceController extends AdminController {
 	 */
 	public function create()
 	{
-		return View::make('admin.resouce.create');
+		//
 	}
 
 
@@ -33,21 +31,7 @@ class ResouceController extends AdminController {
 	 */
 	public function store()
 	{
-		$rules = array(
-			'name' => 'required',
-		);
-		$input = Input::except('_token');
-		$validator = Validator::make($input,$rules);
-		if($validator->fails()) {
-			return Redirect::action('ResouceController@create')
-	            ->withErrors($validator);
-        }else{
-        	$input['status'] = 1;
-        	// $id = CommonNormal::create($input);
-        	CommonUpload::uploadFile($input, USER_AVATAR);
-        	return Redirect::action('ResouceController@index');
-
-        }
+		//
 	}
 
 
@@ -59,9 +43,10 @@ class ResouceController extends AdminController {
 	 */
 	public function show($id)
 	{
-		
+		//
 	}
-  
+
+
 	/**
 	 * Show the form for editing the specified resource.
 	 *
@@ -70,7 +55,7 @@ class ResouceController extends AdminController {
 	 */
 	public function edit($id)
 	{
-		
+		//
 	}
 
 
@@ -82,7 +67,7 @@ class ResouceController extends AdminController {
 	 */
 	public function update($id)
 	{
-		      
+		//
 	}
 
 
@@ -94,7 +79,8 @@ class ResouceController extends AdminController {
 	 */
 	public function destroy($id)
 	{
-		//
+		CommonNormal::delete($id);
+		return Redirect::action('DocumentResourceController@index');
 	}
 
 

@@ -4,6 +4,7 @@ class Common {
 	{
 		$comments = Comment::where('model_id', $modelId)
 			->where('model_name', $modelName)
+			->orderBy('created_at', 'desc')
 			->get();
 		return $comments;
 	}

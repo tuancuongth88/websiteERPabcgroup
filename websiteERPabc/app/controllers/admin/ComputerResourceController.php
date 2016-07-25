@@ -1,6 +1,6 @@
 <?php
 
-class ResourceManagementController extends AdminController {
+class ComputerResourceController extends AdminController {
 
 	/**
 	 * Display a listing of the resource.
@@ -9,8 +9,8 @@ class ResourceManagementController extends AdminController {
 	 */
 	public function index()
 	{
-		$data = ResourceOffice::orderBy('id', 'desc')->paginate(PAGINATE);
-		return View::make('admin.resource.office.index')->with(compact('data'));
+		$data = ResourceDeviceComputer::orderBy('id', 'desc')->paginate(PAGINATE);
+		return View::make('admin.resource.computer.index')->with(compact('data'));
 	}
 
 
@@ -21,7 +21,7 @@ class ResourceManagementController extends AdminController {
 	 */
 	public function create()
 	{
-		return View::make('admin.resource.office.create');
+		return View::make('admin.resource.computer.create');
 	}
 
 
@@ -34,15 +34,16 @@ class ResourceManagementController extends AdminController {
 	{
 		$rules = array(
 			'name' => 'required',
+			'type' => 'required',
 		);
 		$input = Input::except('_token');
 		$validator = Validator::make($input,$rules);
 		if($validator->fails()) {
-			return Redirect::action('ResourceManagementController@create')
+			return Redirect::action('ComputerResourceController@create')
 	            ->withErrors($validator);
         }else{
-        	ResourceOffice::create($input);
-        	return Redirect::action('ResourceManagementController@index');
+        	ResourceDeviceComputer::create($input);
+        	return Redirect::action('ComputerResourceController@index');
 
         }
 	}
@@ -68,8 +69,8 @@ class ResourceManagementController extends AdminController {
 	 */
 	public function edit($id)
 	{
-		$data = ResourceOffice::find($id);
-		return View::make('admin.resource.office.edit')->with(compact('data'));
+		$data = ResourceDeviceComputer::find($id);
+		return View::make('admin.resource.computer.edit')->with(compact('data'));
 	}
 
 
@@ -87,11 +88,11 @@ class ResourceManagementController extends AdminController {
 		$input = Input::except('_token');
 		$validator = Validator::make($input,$rules);
 		if($validator->fails()) {
-			return Redirect::action('ResourceManagementController@edit', $id)
+			return Redirect::action('ComputerResourceController@edit', $id)
 	            ->withErrors($validator);
         }else{
         	CommonNormal::update($id, $input);
-        	return Redirect::action('ResourceManagementController@index');
+        	return Redirect::action('ComputerResourceController@index');
 
         }
 	}
@@ -106,14 +107,14 @@ class ResourceManagementController extends AdminController {
 	public function destroy($id)
 	{
 		CommonNormal::delete($id);
-		return Redirect::action('ResourceManagementController@index');
+		return Redirect::action('ComputerResourceController@index');
 	}
 
 	public function search()
 	{
 		$input = Input::except('_token');
-		$data = CommonSearch::searchOffice($input, 'ResourceOffice');
-		return View::make('admin.resource.office.index')->with(compact('data'));
+		$data = CommonSearch::searchOffice($input, 'ResourceDeviceComputer');
+		return View::make('admin.resource.computer.index')->with(compact('data'));
 	}
 
 }

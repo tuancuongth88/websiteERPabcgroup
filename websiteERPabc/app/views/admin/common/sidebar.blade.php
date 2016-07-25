@@ -52,6 +52,18 @@
 						</li>
 					@endif
 				</ul>
+			</li>
+			<li class="treeview">
+				<a href="#">
+					<i class="fa fa-list"></i><span>Quản lý tài nguyên</span>
+					<i class="fa fa-angle-left pull-right"></i>
+				</a>
+				<ul class="treeview-menu">
+					<li><a href="{{ action('ResourceManagementController@index') }}"><i class="fa fa-laptop"></i> <span>Quản lý Thiết bị</span></a></li>
+					<li><a href="{{ action('ComputerResourceController@index') }}"><i class="fa fa-laptop"></i> <span>Quản lý máy tính</span></a></li>
+					<li><a href="{{ action('ComputerResourceController@index') }}"><i class="fa fa-laptop"></i> <span>Quản lý tài liệu</span></a></li>
+					<li><a href="{{ action('DomainResourceController@index') }}"><i class="fa fa-laptop"></i> <span>Quản lý Tên miền</span></a></li>
+				</ul>
 			</li>	
 			<li class="treeview">
 				<a href="#"><i class="fa fa-list"></i> <span>Quản lý công văn giấy tờ</span> <i class="fa fa-angle-left pull-right"></i></a>
@@ -63,7 +75,6 @@
 					@endif
 				</ul>
 			</li>
-			<li><a href="{{ action('ResourceManagementController@index') }}"><i class="fa fa-laptop"></i> <span>Quản lý tài nguyên</span></a></li>
 		</ul>
 	</section>
 	<!-- /.sidebar -->

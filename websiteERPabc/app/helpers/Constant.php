@@ -118,6 +118,12 @@ define('ARCHIVE_STATUS_HANDLING_2', 2);
 define('ARCHIVE_STATUS_1', 1);
 define('ARCHIVE_STATUS_2', 2);
 define('ARCHIVE_STATUS_3', 3);
+//trang thoi tai nguyen
+define("RESOURCE_STATUS_NEW", 1);
+define("RESOURCE_STATUS_OLD", 2);
+define("RESOURCE_STATUS_OLE_NO_USER", 3);
+define("RESOURCE_STATUS_WAIT_LIQUIDATION", 4);
+
 // kieu gia han
 define('TYPE_EXTEND_1', 1);
 define('TYPE_EXTEND_2', 2);

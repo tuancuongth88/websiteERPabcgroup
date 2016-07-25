@@ -8,6 +8,7 @@
 <div class="row margin-bottom">
 	<div class="col-xs-12">
 		<a href="{{ action('ArchiveController@index') }}" class="btn btn-success">Danh sách</a>
+		<a href="{{ action('ArchiveController@create') }}" class="btn btn-primary">Thêm mới</a>
 	</div>
 </div>
 <div class="row">
