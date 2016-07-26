@@ -83,7 +83,7 @@
 				<ul class="treeview-menu">
 					<li><a href="{{ action('ResourceManagementController@index') }}"><i class="fa fa-laptop"></i> <span>Quản lý Thiết bị</span></a></li>
 					<li><a href="{{ action('ComputerResourceController@index') }}"><i class="fa fa-laptop"></i> <span>Quản lý máy tính</span></a></li>
-					<li><a href="{{ action('ComputerResourceController@index') }}"><i class="fa fa-laptop"></i> <span>Quản lý tài liệu</span></a></li>
+					<li><a href="{{ action('DocumentResourceController@index') }}"><i class="fa fa-laptop"></i> <span>Quản lý tài liệu</span></a></li>
 					<li><a href="{{ action('DomainResourceController@index') }}"><i class="fa fa-laptop"></i> <span>Quản lý Tên miền</span></a></li>
 				</ul>
 			</li>
