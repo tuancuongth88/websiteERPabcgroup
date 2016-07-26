@@ -5,33 +5,20 @@
 		<ul class="sidebar-menu">
 			<li class="header">Menu</li>
 			<li><a href="{{ action('DashboardController@index') }}"><i class="fa fa-dashboard"></i> <span>Bảng tin</span></a></li>
-			@if(User::editFunctionUserAd())
-				<li><a href="{{ action('ManagementController@index') }}"><i class="fa fa-user"></i> <span>Quản lý nhân viên</span></a></li>
-			@else
-				<li><a href="{{ action('ManagementController@index') }}"><i class="fa fa-user"></i> <span>Danh sách nhân viên</span></a></li>
-			@endif
-			<li><a href="{{ action('ReportController@index') }}"><i class="fa fa-laptop"></i> <span>Quản lý báo cáo</span></a></li>
-			<li><a href="{{ action('NotificationController@index') }}"><i class="fa fa-laptop"></i> <span>Quản lý thông báo</span></a></li>
 
-			@if(User::isAdmin() == ROLE_ADMIN)
-				<li><a href="{{ action('TypeReportController@index') }}"><i class="fa fa-laptop"></i> <span>Thể loại báo cáo</span></a></li>
-				<li><a href="{{ action('TypeNotificationController@index') }}"><i class="fa fa-laptop"></i> <span>Thể loại thông báo</span></a></li>
-				<li><a href="{{ action('DeparmentController@index') }}"><i class="fa fa-laptop"></i> <span>Quản lý phòng ban</span></a></li>
-				<li><a href="{{ action('RegencyController@index') }}"><i class="fa fa-laptop"></i> <span>Quản lý chức vụ</span></a></li>
-			@endif
 			<li class="treeview">
-				<a href="#"><i class="fa fa-list"></i> <span>Quản lý công việc</span> <i class="fa fa-angle-left pull-right"></i></a>
+				<a href="#"><i class="fa fa-users"></i> <span>Nhân viên</span> <i class="fa fa-angle-left pull-right"></i></a>
 				<ul class="treeview-menu">
-					<li><a href="{{ action('TaskController@index') }}"><i class="fa fa-circle-o"></i> <span>Tất cả</span></a></li>
-					@foreach(TaskStatus::lists('name', 'id') as $key => $value)
-					<li><a href="{{ action('TaskController@filter', $key) }}"><i class="fa fa-circle-o"></i> <span>{{ $value }}</span></a></li>
-					@endforeach
-					<li><a href="{{ action('TaskStatusController@index') }}"><i class="fa fa-circle-o"></i> <span>Quản lý trạng thái công việc</span></a></li>
+					@if(User::editFunctionUserAd())
+						<li><a href="{{ action('ManagementController@index') }}"><i class="fa fa-circle-o"></i> <span>Quản lý nhân viên</span></a></li>
+					@else
+						<li><a href="{{ action('ManagementController@index') }}"><i class="fa fa-circle-o"></i> <span>Danh sách nhân viên</span></a></li>
+					@endif
+					@if(User::isAdmin() == ROLE_ADMIN)
+						<li><a href="{{ action('UserTypeController@index') }}"><i class="fa fa-circle-o"></i> <span>Quản lý thể loại nhân viên</span></a></li>
+					@endif
 				</ul>
 			</li>
-			@if(User::isAdmin() == ROLE_ADMIN)
-				<li><a href="{{ action('UserTypeController@index') }}"><i class="fa fa-laptop"></i> <span>Quản lý thể loại nhân viên</span></a></li>
-			@endif
 			<li class="treeview">
 				<a href="#"><i class="fa fa-list"></i> <span>Quản lý Luơng nhân viên</span> <i class="fa fa-angle-left pull-right"></i></a>
 				<ul class="treeview-menu">
@@ -53,6 +40,39 @@
 					@endif
 				</ul>
 			</li>
+			@if(User::isAdmin() == ROLE_ADMIN)
+				<li><a href="{{ action('DeparmentController@index') }}"><i class="fa fa-laptop"></i> <span>Quản lý phòng ban</span></a></li>
+				<li><a href="{{ action('RegencyController@index') }}"><i class="fa fa-laptop"></i> <span>Quản lý chức vụ</span></a></li>
+			@endif
+			<li class="treeview">
+				<a href="#"><i class="fa fa-list"></i> <span>Báo cáo / Thông báo</span> <i class="fa fa-angle-left pull-right"></i></a>
+				<ul class="treeview-menu">
+					<li><a href="{{ action('ReportController@index') }}"><i class="fa fa-circle-o"></i> <span>Quản lý báo cáo</span></a></li>
+					<li><a href="{{ action('NotificationController@index') }}"><i class="fa fa-circle-o"></i> <span>Quản lý thông báo</span></a></li>
+					<li><a href="{{ action('TypeReportController@index') }}"><i class="fa fa-circle-o"></i> <span>Thể loại báo cáo</span></a></li>
+					<li><a href="{{ action('TypeNotificationController@index') }}"><i class="fa fa-circle-o"></i> <span>Thể loại thông báo</span></a></li>
+				</ul>
+			</li>
+			<li class="treeview">
+				<a href="#"><i class="fa fa-list"></i> <span>Quản lý công việc</span> <i class="fa fa-angle-left pull-right"></i></a>
+				<ul class="treeview-menu">
+					<li><a href="{{ action('TaskController@index') }}"><i class="fa fa-circle-o"></i> <span>Tất cả</span></a></li>
+					@foreach(TaskStatus::lists('name', 'id') as $key => $value)
+					<li><a href="{{ action('TaskController@filter', $key) }}"><i class="fa fa-circle-o"></i> <span>{{ $value }}</span></a></li>
+					@endforeach
+					<li><a href="{{ action('TaskStatusController@index') }}"><i class="fa fa-circle-o"></i> <span>Quản lý trạng thái công việc</span></a></li>
+				</ul>
+			</li>
+			<li class="treeview">
+				<a href="#"><i class="fa fa-list"></i> <span>Quản lý công văn/hợp đồng</span> <i class="fa fa-angle-left pull-right"></i></a>
+				<ul class="treeview-menu">
+					@if(User::isAdmin() == ROLE_ADMIN || Common::checkPermissionUser(FUNCTION_ARCHIVE, Config::get('button.manager_archive')))
+						<li><a href="{{ action('ArchiveController@index') }}"><i class="fa fa-laptop"></i> <span>Quản lý công văn giấy tờ</span></a></li>
+					@endif
+					<li><a href="{{ action('ContractController@index') }}"><i class="fa fa-laptop"></i> <span>Quản lý hợp đồng</span></a></li>
+					<li><a href="{{ action('PartnerController@index') }}"><i class="fa fa-laptop"></i> <span>Quản lý đối tác</span></a></li>
+				</ul>
+			</li>
 			<li class="treeview">
 				<a href="#">
 					<i class="fa fa-list"></i><span>Quản lý tài nguyên</span>
@@ -63,16 +83,6 @@
 					<li><a href="{{ action('ComputerResourceController@index') }}"><i class="fa fa-laptop"></i> <span>Quản lý máy tính</span></a></li>
 					<li><a href="{{ action('ComputerResourceController@index') }}"><i class="fa fa-laptop"></i> <span>Quản lý tài liệu</span></a></li>
 					<li><a href="{{ action('DomainResourceController@index') }}"><i class="fa fa-laptop"></i> <span>Quản lý Tên miền</span></a></li>
-				</ul>
-			</li>	
-			<li class="treeview">
-				<a href="#"><i class="fa fa-list"></i> <span>Quản lý công văn giấy tờ</span> <i class="fa fa-angle-left pull-right"></i></a>
-				<ul class="treeview-menu">
-					@if(User::isAdmin() == ROLE_ADMIN || Common::checkPermissionUser(FUNCTION_SALARY, Config::get('button.manage_salary_propose')))
-						<li><a href="{{ action('ArchiveController@index') }}"><i class="fa fa-laptop"></i> <span>Quản lý công văn giấy tờ</span></a></li>
-						<li><a href="{{ action('ContractController@index') }}"><i class="fa fa-laptop"></i> <span>Quản lý hợp đồng</span></a></li>
-						<li><a href="{{ action('PartnerController@index') }}"><i class="fa fa-laptop"></i> <span>Quản lý đối tác</span></a></li>
-					@endif
 				</ul>
 			</li>
 		</ul>

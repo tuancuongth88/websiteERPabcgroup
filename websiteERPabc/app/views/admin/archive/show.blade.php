@@ -8,7 +8,9 @@
 <div class="row margin-bottom">
 	<div class="col-xs-12">
 		<a href="{{ action('ArchiveController@index') }}" class="btn btn-success">Danh sách</a>
-		<a href="{{ action('ArchiveController@create') }}" class="btn btn-primary">Thêm mới</a>
+		@if(Common::checkPermissionUser(FUNCTION_ARCHIVE, Config::get('button.archive_add')))
+			<a href="{{ action('ArchiveController@create') }}" class="btn btn-primary">Thêm mới</a>
+		@endif
 	</div>
 </div>
 <div class="row">

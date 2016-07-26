@@ -20,4 +20,10 @@ return array(
 	// 'manager_user' => 26,
 	// 'report_category' => 27,
 	// 'notification_category' => 28,
+	'manager_archive' => 38,
+	'archive_add' => 39,
+	'archive_show' => 40,
+	'archive_edit' => 41,
+	'archive_delete' => 42,
+
 );
