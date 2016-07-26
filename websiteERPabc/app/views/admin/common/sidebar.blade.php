@@ -22,14 +22,14 @@
 			<li class="treeview">
 				<a href="#"><i class="fa fa-list"></i> <span>Quản lý Luơng nhân viên</span> <i class="fa fa-angle-left pull-right"></i></a>
 				<ul class="treeview-menu">
-					@if(User::isAdmin() == ROLE_ADMIN || Common::checkPermissionUser(FUNCTION_SALARY, Config::get('button.manage_salary_propose')))
+					@if(Common::checkPermissionUser(FUNCTION_SALARY, Config::get('button.manage_salary_propose')))
 						<li><a href="{{ action('SalaryUserController@index') }}"><i class="fa fa-circle-o"></i> <span>Đề xuất lương nhân viên mới</span></a></li>
 						<li><a href="{{ action('SalaryUserController@indexOld') }}"><i class="fa fa-circle-o"></i> <span>Đề xuất lương nhân viên cũ</span></a></li>
 						<li><a href="{{ action('SalaryBeforeController@index') }}"><i class="fa fa-circle-o"></i> <span>Đề xuất lương theo thời gian</span></a></li>
 						<li><a href="{{ action('ProposeSalaryListController@index') }}"><i class="fa fa-circle-o"></i> <span>Đề xuất lương công ty</span></a></li>
 						<li><a href="{{ action('SalaryHistoryUserController@index') }}"><i class="fa fa-circle-o"></i> <span>Tra cứu lương nhân viên</span></a></li>
 					@endif
-					@if(User::isAdmin() == ROLE_ADMIN || Common::checkPermissionUser(FUNCTION_SALARY, Config::get('button.manage_salary_approve')))
+					@if(Common::checkPermissionUser(FUNCTION_SALARY, Config::get('button.manage_salary_approve')))
 						<li class="treeview">
 							<a href="#"><i class="fa fa-circle-o"></i> <span>Quản lý phê duyệt lương</span> <i class="fa fa-angle-left pull-right"></i></a>
 							<ul class="treeview-menu">
@@ -49,8 +49,10 @@
 				<ul class="treeview-menu">
 					<li><a href="{{ action('ReportController@index') }}"><i class="fa fa-circle-o"></i> <span>Quản lý báo cáo</span></a></li>
 					<li><a href="{{ action('NotificationController@index') }}"><i class="fa fa-circle-o"></i> <span>Quản lý thông báo</span></a></li>
-					<li><a href="{{ action('TypeReportController@index') }}"><i class="fa fa-circle-o"></i> <span>Thể loại báo cáo</span></a></li>
-					<li><a href="{{ action('TypeNotificationController@index') }}"><i class="fa fa-circle-o"></i> <span>Thể loại thông báo</span></a></li>
+					@if(User::isAdmin() == ROLE_ADMIN)
+						<li><a href="{{ action('TypeReportController@index') }}"><i class="fa fa-circle-o"></i> <span>Thể loại báo cáo</span></a></li>
+						<li><a href="{{ action('TypeNotificationController@index') }}"><i class="fa fa-circle-o"></i> <span>Thể loại thông báo</span></a></li>
+					@endif
 				</ul>
 			</li>
 			<li class="treeview">
@@ -66,7 +68,7 @@
 			<li class="treeview">
 				<a href="#"><i class="fa fa-list"></i> <span>Quản lý công văn/hợp đồng</span> <i class="fa fa-angle-left pull-right"></i></a>
 				<ul class="treeview-menu">
-					@if(User::isAdmin() == ROLE_ADMIN || Common::checkPermissionUser(FUNCTION_ARCHIVE, Config::get('button.manager_archive')))
+					@if(Common::checkPermissionUser(FUNCTION_ARCHIVE, Config::get('button.manager_archive')))
 						<li><a href="{{ action('ArchiveController@index') }}"><i class="fa fa-laptop"></i> <span>Quản lý công văn giấy tờ</span></a></li>
 					@endif
 					<li><a href="{{ action('ContractController@index') }}"><i class="fa fa-laptop"></i> <span>Quản lý hợp đồng</span></a></li>
