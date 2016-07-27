@@ -9,21 +9,21 @@ class ArchiveController extends AdminController {
 	 */
 	public function index()
 	{
-		// $data = Archive::orderBy('id', 'desc')->paginate(PAGINATE);
-		// return View::make('admin.archive.index')->with(compact('data'));
-
-		$user = Auth::user()->get();
-		$data = Archive::join('archive_users', 'archive_users.archive_id', '=', 'archives.id')
-			->select('archives.*');
-		if($user) {
-			if($user->role_id != ROLE_ADMIN) {
-				$data = $data->where('archive_users.user_send', $user->id);
-				$data = $data->orWhere('archive_users.user_receive', $user->id);
-			}
-		}
-		$data = $data->distinct()->groupBy('archives.id')
-			->orderBy('archives.id', 'desc')->paginate(PAGINATE);
+		$data = Archive::orderBy('id', 'desc')->paginate(PAGINATE);
 		return View::make('admin.archive.index')->with(compact('data'));
+
+		// $user = Auth::user()->get();
+		// $data = Archive::join('archive_users', 'archive_users.archive_id', '=', 'archives.id')
+		// 	->select('archives.*');
+		// if($user) {
+		// 	if($user->role_id != ROLE_ADMIN) {
+		// 		$data = $data->where('archive_users.user_send', $user->id);
+		// 		$data = $data->orWhere('archive_users.user_receive', $user->id);
+		// 	}
+		// }
+		// $data = $data->distinct()->groupBy('archives.id')
+		// 	->orderBy('archives.id', 'desc')->paginate(PAGINATE);
+		// return View::make('admin.archive.index')->with(compact('data'));
 	}
 
 	public function search()
@@ -53,6 +53,7 @@ class ArchiveController extends AdminController {
 	{
 		$rules = array(
 			'name' => 'required',
+			'file' => 'required',
 		);
 		$input = Input::except('_token');
 		$validator = Validator::make($input, $rules);
