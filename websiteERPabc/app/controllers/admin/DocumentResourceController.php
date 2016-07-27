@@ -35,12 +35,13 @@ class DocumentResourceController extends AdminController {
 		$rules = array(
 			'name' => 'required',
 			'code' => 'required',
+			'file' => 'required',
 		);
 		$input = Input::except('_token');
 		$validator = Validator::make($input,$rules);
 		if($validator->fails()) {
-			return Redirect::action('DocumentResourceController@create')
-	            ->withErrors($validator);
+			return Redirect::action('DocumentResourceController@create')->
+			withErrors($validator);
         }else{
         	//tao moi
 			$document_id = ResourceDocument::create($input)->id;

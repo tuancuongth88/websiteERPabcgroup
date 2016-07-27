@@ -8,7 +8,9 @@
 @include('admin.contract.search')
 <div class="row margin-bottom">
 	<div class="col-xs-12">
-	<a href="{{ action('ContractController@create') }}" class="btn btn-primary">Thêm mới</a>
+	@if(Common::checkPermissionUser(FUNCTION_CONTRACT, Config::get('button.contract_add')))
+		<a href="{{ action('ContractController@create') }}" class="btn btn-primary">Thêm mới</a>
+	@endif
 	</div>
 </div>
 <div class="row">
@@ -42,11 +44,17 @@
 						<td>{{ CommonOption::getTypeExtendContractText($value->type_extend) }}</td>
 						<td>{{ CommonOption::getStatusContractText($value->status) }}</td>
 						<td>
-							<a href="{{ action('ContractController@edit', $value->id) }}" class="btn btn-primary">Sửa</a>
-							<a href="{{ action('ContractController@show', $value->id) }}" class="btn btn-primary">Xem</a>
-							{{ Form::open(array('method'=>'DELETE', 'action' => array('ContractController@destroy', $value->id), 'style' => 'display: inline-block;')) }}
-							<button class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa?');">Xóa</button>
-							{{ Form::close() }}
+							@if(Common::checkPermissionUser(FUNCTION_CONTRACT, Config::get('button.contract_edit')))
+								<a href="{{ action('ContractController@edit', $value->id) }}" class="btn btn-primary">Sửa</a>
+							@endif
+							@if(Common::checkPermissionUser(FUNCTION_CONTRACT, Config::get('button.contract_show')))
+								<a href="{{ action('ContractController@show', $value->id) }}" class="btn btn-primary">Xem</a>
+							@endif
+							@if(Common::checkPermissionUser(FUNCTION_CONTRACT, Config::get('button.contract_delete')))
+								{{ Form::open(array('method'=>'DELETE', 'action' => array('ContractController@destroy', $value->id), 'style' => 'display: inline-block;')) }}
+								<button class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa?');">Xóa</button>
+								{{ Form::close() }}
+							@endif
 						</td>
 					</tr>
 					@endforeach

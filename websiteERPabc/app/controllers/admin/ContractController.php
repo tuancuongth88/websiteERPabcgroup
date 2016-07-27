@@ -37,7 +37,9 @@ class ContractController extends AdminController {
 		$input = Input::except('_token');
 		$rules = array(
 			'name' => 'required',
-			'code' => 'required'
+			'code' => 'required',
+			'partner_id' => 'required',
+			'file' => 'required',
 		);
 		$validator = Validator::make($input,$rules);
 		if($validator->fails()) {

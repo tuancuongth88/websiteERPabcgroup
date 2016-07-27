@@ -81,9 +81,9 @@ define('FUNCTION_TASK', 3);
 define('FUNCTION_SALARY', 4);
 define('FUNCTION_PROJECT', 5);
 define('FUNCTION_ARCHIVE', 6);
-// define('FUNCTION_REGENCY', 3);
-// define('FUNCTION_TEMPROLE', 6);
-// define('FUNCTION_PROJECTSTATUS', 7);
+define('FUNCTION_CONTRACT', 7);
+define('FUNCTION_PARTNER', 8);
+define('FUNCTION_RESOURCE_DOCUMENT', 11);
 //button
 define('CREATE', 1);
 define('EDIT', 2);
