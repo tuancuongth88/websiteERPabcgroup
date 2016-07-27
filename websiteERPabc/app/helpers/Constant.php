@@ -80,7 +80,7 @@ define('FUNCTION_REPORT', 2);
 define('FUNCTION_TASK', 3);
 define('FUNCTION_SALARY', 4);
 define('FUNCTION_PROJECT', 5);
-// define('FUNCTION_DEPARTMENT', 2);
+define('FUNCTION_ARCHIVE', 6);
 // define('FUNCTION_REGENCY', 3);
 // define('FUNCTION_TEMPROLE', 6);
 // define('FUNCTION_PROJECTSTATUS', 7);

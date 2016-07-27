@@ -17,12 +17,10 @@
 			<!-- form start -->
 				{{ Form::open(array('action' => array('ManagementController@updatePassword', $data->id), 'method' => 'POST')) }}
 				<div class="box-body">
-
 					<div class="form-group">
 						<div class="row">
 							<div class="col-sm-6">
 								<label for="username">Tài khoản</label>
-								tunglaso1
 								{{ Form::text('username', $data->username, array('class'=> 'form-control', 'id'=> 'username', 'placeholder'=> 'Tên tài khoản'))}}
 							</div>
 						</div>
