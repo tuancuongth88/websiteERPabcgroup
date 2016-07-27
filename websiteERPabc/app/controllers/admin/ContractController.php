@@ -9,7 +9,9 @@ class ContractController extends AdminController {
 	 */
 	public function index()
 	{
-		$data = Contract::orderBy('id', 'desc')->paginate(PAGINATE);
+		$listIdContract = Contract::whereRaw('id in (select MAX(id) as id From contracts GROUP BY name)')->lists('id');
+		// dd($listIdContract);
+		$data = Contract::whereIn('id', $listIdContract)->paginate(PAGINATE);
 		return View::make('admin.contract.index')->with(compact('data'));
 	}
 
@@ -46,21 +48,6 @@ class ContractController extends AdminController {
 			$contract_id = Contract::create($input)->id;
         	$uploadFile['file'] = CommonUser::uploadAction('file', CONTRACT_FILE_UPLOAD . '/' . $contract_id);
         	Contract::find($contract_id)->update($uploadFile);
-        	// 
-			$inputContract = [
-				'name'=> $input['name'],
-				'code' => $input['code'],
-				'description' => $input['description'],
-				'type' => $input['type'],
-				'date_receive' => $input['date_receive'],
-				'date_send' => $input['date_send'],
-				'date_promulgate' => $input['date_promulgate'],
-				'date_active' => $input['date_active'],
-				'partner_id' => $input['partner_id'],
-				'type_extend' => $input['type_extend'],
-				'status' => $input['status'],
-			];
-			Contract::create($inputContract);
 			return Redirect::action('ContractController@index');
 		}
 	}
@@ -74,7 +61,10 @@ class ContractController extends AdminController {
 	 */
 	public function show($id)
 	{
-		
+		$contract_id = Contract::where('id',$id)->first();
+		$data = Contract::where('name', '=', $contract_id->name)->where('code', '=', $contract_id->code)
+		->where('partner_id', '=', $contract_id->partner_id)->paginate(PAGINATE);
+		return View::make('admin.contract.show')->with(compact('data'));
 	}
 
 
@@ -90,7 +80,7 @@ class ContractController extends AdminController {
 		return View::make('admin.contract.edit')->with(compact('data'));
 	}
 
- 
+ 	
 	/**
 	 * Update the specified resource in storage.
 	 *
@@ -100,22 +90,10 @@ class ContractController extends AdminController {
 	public function update($id)
 	{
 		$input = Input::except('_token');
-		$inputContract = Contract::find($id);
-		$inputContract->update([
-			'name'=> $input['name'],
-			'code' => $input['code'],
-			'description' => $input['description'],
-			'type' => $input['type'],
-			'date_receive' => $input['date_receive'],
-			'date_send' => $input['date_send'],
-			'date_promulgate' => $input['date_promulgate'],
-			'date_active' => $input['date_active'],
-			'partner_id' => $input['partner_id'],
-			'type_extend' => $input['type_extend'],
-			'status' => $input['status'],
-		]);
+		$contract = Contract::find($id);
+    	$input['file'] = CommonUser::uploadAction('file', CONTRACT_FILE_UPLOAD . '/' . $id, $contract->file);
+		$contract->update($input);
 		return Redirect::action('ContractController@index');
-
 	}
 
 
@@ -136,4 +114,27 @@ class ContractController extends AdminController {
 		return View::make('admin.contract.index')->with(compact('data'));
 	}
 
+	public function adjourn($id)
+	{
+		$data = Contract::find($id);
+		return View::make('admin.contract.extend')->with(compact('data'));
+	}
+
+	public function updateAdjourn($id){
+		$input = Input::except('_token');
+		// dd($input);
+		$rules = array(
+			'date_expired_new' => 'required',
+		);
+		$validator = Validator::make($input,$rules);
+		if($validator->fails()) {
+			return Redirect::action('ContractController@adjourn')
+	            ->withErrors($validator);
+        }else{
+        	Contract::create($input);
+        	return Redirect::action('ContractController@index');
+
+        }
+		
+	}
 }

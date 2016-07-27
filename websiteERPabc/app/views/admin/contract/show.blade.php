@@ -1,21 +1,20 @@
 @extends('admin.layout.default')
 
 @section('title')
-{{ $title='Quản lý hợp đồng' }}
+{{ $title='Lịch sử quản lý hợp đồng' }}
 @stop
 
 @section('content')
-@include('admin.contract.search')
 <div class="row margin-bottom">
 	<div class="col-xs-12">
-	<a href="{{ action('ContractController@create') }}" class="btn btn-primary">Thêm mới</a>
+	<a href="{{ action('ContractController@index') }}" class="btn btn-primary">Quay lại</a>
 	</div>
 </div>
 <div class="row">
 	<div class="col-xs-12">
 		<div class="box">
 			<div class="box-header">
-				<h3 class="box-title">Danh sách hợp đồng</h3>
+				<h3 class="box-title">Danh sách lịch sử hợp đồng</h3>
 			</div>
 			<!-- /.box-header -->
 			<div class="box-body table-responsive no-padding">
@@ -27,9 +26,10 @@
 						<th>Nội dung tóm tắt</th>
 						<th>Kiểu hợp đồng</th>
 						<th>Ngày hết hạn</th>
+						<th>Ngày hết hạn mới</th>
 						<th>kiểu gia hạn</th>
+						<th>File</th>
 						<th>Trang thái</th>
-						<th>Action</th>
 					</tr>
 					@foreach($data as $key => $value)
 					<tr>
@@ -38,16 +38,11 @@
 						<td>{{ $value->code }}</td>
 						<td>{{ $value->description }}</td>
 						<td>{{ CommonOption::getTypeContractText($value->type) }}</td>
+						<td>{{ $value->date_expired_old }}</td>
 						<td>{{ $value->date_expired_new }}</td>
 						<td>{{ CommonOption::getTypeExtendContractText($value->type_extend) }}</td>
+						<td><a href="{{ url(CONTRACT_FILE_UPLOAD . '/' . $value->id . '/' .$value->file)}}">{{ $value->file }}</a></td>
 						<td>{{ CommonOption::getStatusContractText($value->status) }}</td>
-						<td>
-							<a href="{{ action('ContractController@edit', $value->id) }}" class="btn btn-primary">Sửa</a>
-							<a href="{{ action('ContractController@show', $value->id) }}" class="btn btn-primary">Xem</a>
-							{{ Form::open(array('method'=>'DELETE', 'action' => array('ContractController@destroy', $value->id), 'style' => 'display: inline-block;')) }}
-							<button class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa?');">Xóa</button>
-							{{ Form::close() }}
-						</td>
 					</tr>
 					@endforeach
 				</table>

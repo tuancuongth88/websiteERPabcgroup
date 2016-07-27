@@ -83,6 +83,14 @@ class CommonNormal
 		{
 			return 'ResourceDomain';
 		}
+		if($name == 'document')
+		{
+			return 'ResourceDocument';
+		}
+		if($name == 'contract')
+		{
+			return 'Contract';
+		}
 	}
 
 }

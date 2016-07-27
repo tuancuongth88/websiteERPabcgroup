@@ -9,7 +9,8 @@ class DocumentResourceController extends AdminController {
 	 */
 	public function index()
 	{
-		//
+		$data = ResourceDocument::orderBy('id', 'desc')->paginate(PAGINATE);
+		return View::make('admin.resource.document.index')->with(compact('data'));
 	}
 
 
@@ -20,7 +21,7 @@ class DocumentResourceController extends AdminController {
 	 */
 	public function create()
 	{
-		//
+		return View::make('admin.resource.document.create');
 	}
 
 
@@ -31,7 +32,25 @@ class DocumentResourceController extends AdminController {
 	 */
 	public function store()
 	{
-		//
+		$rules = array(
+			'name' => 'required',
+			'code' => 'required',
+		);
+		$input = Input::except('_token');
+		$validator = Validator::make($input,$rules);
+		if($validator->fails()) {
+			return Redirect::action('DocumentResourceController@create')
+	            ->withErrors($validator);
+        }else{
+        	//tao moi
+			$document_id = ResourceDocument::create($input)->id;
+        	$uploadFile['file'] = CommonUser::uploadAction('file', DOCUMENT_FILE_UPLOAD . '/' . $document_id);
+        	ResourceDocument::find($document_id)->update($uploadFile);
+        	// 
+        	// ResourceDocument::create($input);
+        	return Redirect::action('DocumentResourceController@index');
+
+        }
 	}
 
 
@@ -55,7 +74,8 @@ class DocumentResourceController extends AdminController {
 	 */
 	public function edit($id)
 	{
-		//
+		$data = ResourceDocument::find($id);
+		return View::make('admin.resource.document.edit')->with(compact('data'));
 	}
 
 
@@ -67,7 +87,12 @@ class DocumentResourceController extends AdminController {
 	 */
 	public function update($id)
 	{
-		//
+		$input = Input::except('_token');
+		//sua document
+		$document = ResourceDocument::find($id);
+    	$input['file'] = CommonUser::uploadAction('file', DOCUMENT_FILE_UPLOAD . '/' . $id, $document->file);
+		$document->update($input);
+		return Redirect::action('DocumentResourceController@index');
 	}
 
 
@@ -83,5 +108,8 @@ class DocumentResourceController extends AdminController {
 		return Redirect::action('DocumentResourceController@index');
 	}
 
-
+	public function search(){
+		$data = CommonResource::search();
+		return View::make('admin.resource.document.index')->with(compact('data'));
+	}
 }

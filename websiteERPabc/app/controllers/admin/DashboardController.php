@@ -22,9 +22,10 @@ class DashboardController extends AdminController {
 		// ngay hien tai - 1 tuan <= date_active <= ngay hien tai
 		$now = date('Y-m-d H:i:s');
 		$weekback = date('Y-m-d 00:00:00', time() + (60 * 60 * 24 * -7));
-		$contractExpired = Contract::where('date_active', '<=', $now)
-								->where('date_active', '>=', $weekback)
-								->get();
+		$listIdContract = Contract::whereRaw('id in (select MAX(id) as id From contracts GROUP BY name)')->lists('id');
+		$contractExpired = Contract::where('date_expired_new', '<=', $now)
+			->where('date_expired_new', '>=', $weekback)->whereIn('id', $listIdContract)
+			->whereIn('type_extend', array(TYPE_EXTEND_1, TYPE_EXTEND_3))->get();
 		return View::make('admin.dashboard.index')->with(compact('task', 'taskAssign', 'projectAssign', 'contractExpired'));
 	}
 

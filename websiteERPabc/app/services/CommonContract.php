@@ -17,8 +17,8 @@ class CommonContract {
 			if(!empty($input['code'])) {
 				$query = $query->where('contracts.code', 'like', '%'.$input['code'].'%');
 			}
-			if(!empty($input['date_active'])){
-				$query = $query->where('contracts.date_active', 'like', '%'.$input['date_active'].'%');
+			if(!empty($input['date_expired'])){
+				$query = $query->where('contracts.date_expired', 'like', '%'.$input['date_expired'].'%');
 			}
 			if(!empty($input['type'])){
 				$query = $query->where('contracts.type', 'like', '%'.$input['type'].'%');

@@ -18,7 +18,7 @@ class Contract extends Eloquent {
 	 *
 	 * @var array
 	 */
-	protected $fillable = array('name', 'code', 'type', 'date_receive', 'date_send', 'date_promulgate', 'date_active', 'description', 'file', 'partner_id', 'result', 'comment', 'status', 'price', 'type_extend');
+	protected $fillable = array('name', 'code', 'type', 'date_sign', 'date_expired_new', 'date_expired_old', 'date_active', 'description', 'file', 'partner_id', 'result', 'comment', 'status', 'price', 'type_extend');
     protected $dates = ['deleted_at'];
 
    

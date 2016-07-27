@@ -8,9 +8,9 @@
 <div class="row">
 	<div class="col-xs-12">
 		<div class="box">
-			<div class="box-header">
+			<!-- <div class="box-header">
 				<h3 class="box-title">Bảng tin</h3>
-			</div>
+			</div> -->
 			<!-- approve department -->
 			
 
@@ -114,12 +114,22 @@
 				<table class="table table-hover">
 					<tr>
 						<!-- <th>ID</th> -->
-						<th>Tên</th>
+						<th>Tên hợp đồng</th>
+						<th>Số hợp đồng</th>
+						<th>Kiểu hợp đồng</th>
+						<th>Kiểu gia hạn</th>
+						<th>Action</th>
 					</tr>
 					@foreach($contractExpired as $key => $value)
 						<tr>
 							<!-- <td>{{-- $value->id --}}</td> -->
 							<td>{{ $value->name }}</td>
+							<td>{{ $value->code }}</td>
+							<td>{{ CommonOption::getTypeContractText($value->type) }}</td>
+							<td>{{ CommonOption::getTypeExtendContractText($value->type_extend) }}</td>
+							<td>
+								<a href="{{ action('ContractController@adjourn', $value->id) }}" class="btn btn-primary">Gia hạn</a>
+							</td>
 						</tr>
 					@endforeach
 				</table>

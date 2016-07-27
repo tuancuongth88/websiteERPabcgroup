@@ -130,6 +130,8 @@ Route::group(['prefix' => 'admin'], function () {
 	Route::get('/propose/search', 'ProposeSalaryListController@search');
 	Route::resource('/propose', 'ProposeSalaryListController');
 	// quan ly hop dong
+	Route::post('/contract/updateAdjourn/{id}', 'ContractController@updateAdjourn');
+	Route::get('/contract/adjourn/{id}', 'ContractController@adjourn');
 	Route::get('/contract/search', 'ContractController@search');
 	Route::resource('/contract', 'ContractController');
 	//quan ly doi tac

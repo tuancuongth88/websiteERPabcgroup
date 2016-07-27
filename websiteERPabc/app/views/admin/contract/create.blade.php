@@ -68,26 +68,10 @@
                </div>
             </div>
             <div class="form-group">
-               <label for="linkFile">Ngày nhận</label>
+               <label for="linkFile">Ngày ký hợp đồng</label>
                <div class="row">
                     <div class="col-sm-6">
-                        <input type="text" name="date_receive" class="form-control datepicker" placeholder="Ngày nhận" />
-                    </div>
-               </div>
-            </div>
-            <div class="form-group">
-               <label for="linkFile">Ngày gửi</label>
-               <div class="row">
-                    <div class="col-sm-6">
-                        <input type="text" name="date_send" class="form-control datepicker"  placeholder="Ngày gửi" />
-                    </div>
-               </div>
-            </div>
-            <div class="form-group">
-               <label for="linkFile">Ngày ban hành</label>
-               <div class="row">
-                    <div class="col-sm-6">
-                        <input type="text" name="date_promulgate" class="form-control datepicker"  placeholder="Ngày ban hành" />
+                        <input type="text" name="date_sign" class="form-control datepicker" placeholder="Ngày ký" />
                     </div>
                </div>
             </div>
@@ -96,6 +80,14 @@
                <div class="row">
                     <div class="col-sm-6">
                         <input type="text" name="date_active" class="form-control datepicker"  placeholder="Ngày hiệu lực" />
+                    </div>
+               </div>
+            </div>
+            <div class="form-group">
+               <label for="linkFile">Ngày hết hạn</label>
+               <div class="row">
+                    <div class="col-sm-6">
+                        <input type="text" name="date_expired_new" class="form-control datepicker"  placeholder="Ngày hết hạn" />
                     </div>
                </div>
             </div>
