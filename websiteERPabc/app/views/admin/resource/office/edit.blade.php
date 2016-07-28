@@ -53,7 +53,7 @@
 							<label>Thể loại</label>
 							<div class="row">
 								<div class="col-sm-6">
-										{{ Form::select('type', [0 => 'Lựa chọn'] + CommonResource::getResourceDevice(), $data->type, array('class' => 'form-control')) }}
+										{{ Form::select('type', ['' => 'Lựa chọn'] + CommonResource::getResourceDevice(), $data->type, array('class' => 'form-control')) }}
 								</div>
 							</div>
 						</div>

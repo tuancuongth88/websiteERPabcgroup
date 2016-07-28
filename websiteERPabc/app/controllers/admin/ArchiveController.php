@@ -53,12 +53,13 @@ class ArchiveController extends AdminController {
 	{
 		$rules = array(
 			'name' => 'required',
+			'file' => 'required',
 		);
 		$input = Input::except('_token');
 		$validator = Validator::make($input, $rules);
 		if($validator->fails()) {
 			return Redirect::action('ArchiveController@create')
-	            ->withErrors($validator);
+	            ->withErrors($validator);    
         } else {
         	$userId = CommonUser::getUserId();
 			$inputArchive = Input::except('_token', 'user_id', 'fun_id');
@@ -154,7 +155,6 @@ class ArchiveController extends AdminController {
 			return Redirect::action('ArchiveController@index')->with('message', 'Sửa thành công');
         }
 	}
-
 
 	/**
 	 * Remove the specified resource from storage.
