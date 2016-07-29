@@ -38,13 +38,13 @@ return array(
 	'partner_edit' => 50,
 	'partner_delete' => 51,
 	//Thiết bị
-	'manager_office' => 52,
+	'manager_office' => 43,
 	'office_add' => 53,
 	'office_edit' => 54,
 	'office_delete' => 55,
 	'office_show' => 56,
 	//máy tính
-	'manager_computer' => 57,
+	'manager_computer' => 48,
 	'computer_add' => 58,
 	'computer_edit' => 59,
 	'computer_delete' => 60,
@@ -56,7 +56,7 @@ return array(
 	'document_delete' => 56,
 	'document_show' => 57,
 	//Tên miền
-	'manager_domain' => 67,
+	'manager_domain' => 58,
 	'domain_add' => 68,
 	'domain_edit' => 69,
 	'domain_delete' => 70,

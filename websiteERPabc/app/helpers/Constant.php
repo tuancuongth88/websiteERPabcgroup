@@ -83,7 +83,10 @@ define('FUNCTION_PROJECT', 5);
 define('FUNCTION_ARCHIVE', 6);
 define('FUNCTION_CONTRACT', 7);
 define('FUNCTION_PARTNER', 8);
+define('FUNCTION_OFFICE', 9);
+define('FUNCTION_COMPUTER', 10);
 define('FUNCTION_RESOURCE_DOCUMENT', 11);
+define('FUNCTION_DOMAIN', 12);
 //button
 define('CREATE', 1);
 define('EDIT', 2);

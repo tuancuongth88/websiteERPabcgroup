@@ -83,10 +83,16 @@
 					<i class="fa fa-angle-left pull-right"></i>
 				</a>
 				<ul class="treeview-menu">
-					<li><a href="{{ action('ResourceManagementController@index') }}"><i class="fa fa-laptop"></i> <span>Quản lý Thiết bị</span></a></li>
-					<li><a href="{{ action('ComputerResourceController@index') }}"><i class="fa fa-laptop"></i> <span>Quản lý máy tính</span></a></li>
+					@if(Common::checkPermissionUser(FUNCTION_OFFICE, Config::get('button.manager_office')))
+						<li><a href="{{ action('ResourceManagementController@index') }}"><i class="fa fa-laptop"></i> <span>Quản lý Thiết bị</span></a></li>
+					@endif
+					@if(Common::checkPermissionUser(FUNCTION_COMPUTER, Config::get('button.manager_computer')))
+						<li><a href="{{ action('ComputerResourceController@index') }}"><i class="fa fa-laptop"></i> <span>Quản lý máy tính</span></a></li>
+					@endif
 					<li><a href="{{ action('DocumentResourceController@index') }}"><i class="fa fa-laptop"></i> <span>Quản lý tài liệu</span></a></li>
-					<li><a href="{{ action('DomainResourceController@index') }}"><i class="fa fa-laptop"></i> <span>Quản lý Tên miền</span></a></li>
+					@if(Common::checkPermissionUser(FUNCTION_DOMAIN, Config::get('button.manager_domain')))
+						<li><a href="{{ action('DomainResourceController@index') }}"><i class="fa fa-laptop"></i> <span>Quản lý Tên miền</span></a></li>
+					@endif
 				</ul>
 			</li>
 		</ul>
