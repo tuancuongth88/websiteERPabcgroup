@@ -9,7 +9,7 @@ class ContractController extends AdminController {
 	 */
 	public function index()
 	{
-		$listIdContract = Contract::whereRaw('id in (select MAX(id) as id From contracts GROUP BY name)')->lists('id');
+		$listIdContract = Contract::whereRaw('id in (select MAX(id) as id From contracts GROUP BY name, code)')->lists('id');
 		// dd($listIdContract);
 		$data = Contract::whereIn('id', $listIdContract)->paginate(PAGINATE);
 		return View::make('admin.contract.index')->with(compact('data'));
@@ -42,15 +42,21 @@ class ContractController extends AdminController {
 			'file' => 'required',
 		);
 		$validator = Validator::make($input,$rules);
-		if($validator->fails()) {
-			return Redirect::action('ContractController@create')
-				->withErrors($validator);
+		$date_sign = $input['date_sign'];
+		$date_active = $input['date_active'];
+		if($date_sign > $date_active){
+			return Redirect::action('ContractController@create')->with('error' , 'Thời gian ký hợp đồng phải nhỏ hơn thời gian có hiệu lực');
 		}else{
-			//tao moi
-			$contract_id = Contract::create($input)->id;
-        	$uploadFile['file'] = CommonUser::uploadAction('file', CONTRACT_FILE_UPLOAD . '/' . $contract_id);
-        	Contract::find($contract_id)->update($uploadFile);
-			return Redirect::action('ContractController@index');
+			if($validator->fails()) {
+				return Redirect::action('ContractController@create')
+					->withErrors($validator);
+			}else{
+				//tao moi
+				$contract_id = Contract::create($input)->id;
+	        	$uploadFile['file'] = CommonUser::uploadAction('file', CONTRACT_FILE_UPLOAD . '/' . $contract_id);
+	        	Contract::find($contract_id)->update($uploadFile);
+				return Redirect::action('ContractController@index');
+			}
 		}
 	}
 
