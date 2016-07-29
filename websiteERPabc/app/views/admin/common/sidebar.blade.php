@@ -65,6 +65,15 @@
 					<li><a href="{{ action('TaskStatusController@index') }}"><i class="fa fa-circle-o"></i> <span>Quản lý trạng thái công việc</span></a></li>
 				</ul>
 			</li>
+			@if(Common::checkPermissionUser(FUNCTION_PROJECT, Config::get('button.manager_project')))
+			<li class="treeview">
+				<a href="#"><i class="fa fa-list"></i> <span>Quản lý dự án</span> <i class="fa fa-angle-left pull-right"></i></a>
+				<ul class="treeview-menu">
+					<li><a href="{{ action('ProjectController@index') }}"><i class="fa fa-circle-o"></i> <span>Danh sách dự án</span></a></li>
+					<li><a href="{{ action('ProjectStatusController@index') }}"><i class="fa fa-circle-o"></i> <span>Quản lý trạng thái dự án</span></a></li>
+				</ul>
+			</li>
+			@endif
 			<li class="treeview">
 				<a href="#"><i class="fa fa-list"></i> <span>Quản lý công văn/hợp đồng</span> <i class="fa fa-angle-left pull-right"></i></a>
 				<ul class="treeview-menu">

@@ -10,6 +10,7 @@ class DashboardController extends AdminController {
 	public function index()
 	{
 		$userId = CommonUser::getUserId();
+		$userRole = CommonUser::getUserRole();
 		//task cong viec dang lam
 		$listTask = TaskStatus::lists('id');
 		$task = CommonTask::filterTask($listTask);
@@ -26,7 +27,18 @@ class DashboardController extends AdminController {
 		$contractExpired = Contract::where('date_expired_new', '<=', $now)
 			->where('date_expired_new', '>=', $weekback)->whereIn('id', $listIdContract)
 			->whereIn('type_extend', array(TYPE_EXTEND_1, TYPE_EXTEND_3))->get();
-		return View::make('admin.dashboard.index')->with(compact('task', 'taskAssign', 'projectAssign', 'contractExpired'));
+		if($userRole != ROLE_ADMIN) {
+			$archive = Archive::join('archive_users', 'archive_users.archive_id', '=', 'archives.id')
+					->select('archives.*')
+					->where('archive_users.user_send', $userId)
+					->orWhere('archive_users.user_receive', $userId)
+					->distinct()->groupBy('archives.id')
+					->limit(5)
+					->get();
+		} else {
+			$archive = Archive::orderBy('id', 'desc')->limit(5)->get();
+		}
+		return View::make('admin.dashboard.index')->with(compact('task', 'taskAssign', 'projectAssign', 'contractExpired', 'archive'));
 	}
 
 
