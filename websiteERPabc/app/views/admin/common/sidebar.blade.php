@@ -70,7 +70,9 @@
 				<a href="#"><i class="fa fa-list"></i> <span>Quản lý dự án</span> <i class="fa fa-angle-left pull-right"></i></a>
 				<ul class="treeview-menu">
 					<li><a href="{{ action('ProjectController@index') }}"><i class="fa fa-circle-o"></i> <span>Danh sách dự án</span></a></li>
+					@if(User::isAdmin() == ROLE_ADMIN)
 					<li><a href="{{ action('ProjectStatusController@index') }}"><i class="fa fa-circle-o"></i> <span>Quản lý trạng thái dự án</span></a></li>
+					@endif
 				</ul>
 			</li>
 			@endif
@@ -83,7 +85,9 @@
 					@if(Common::checkPermissionUser(FUNCTION_CONTRACT, Config::get('button.manager_contract')))
 						<li><a href="{{ action('ContractController@index') }}"><i class="fa fa-laptop"></i> <span>Quản lý hợp đồng</span></a></li>
 					@endif
+					@if(Common::checkPermissionUser(FUNCTION_ARCHIVE, Config::get('button.manager_archive')) || Common::checkPermissionUser(FUNCTION_CONTRACT, Config::get('button.manager_contract')))
 					<li><a href="{{ action('PartnerController@index') }}"><i class="fa fa-laptop"></i> <span>Quản lý đối tác</span></a></li>
+					@endif
 				</ul>
 			</li>
 			<li class="treeview">
