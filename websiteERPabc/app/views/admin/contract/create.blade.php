@@ -46,7 +46,8 @@
               <label>Nội dung tóm tắt</label>
                <div class="row">
                     <div class="col-sm-6">
-                        <input type="text" class="form-control" id="description" placeholder="Nội dung tóm tắt" name="description">
+                        <!-- <input type="text" class="form-control" id="description" placeholder="Nội dung tóm tắt" name="description"> -->
+                        {{ Form::textarea('description', null, array('class' => 'form-control')) }}
                     </div>
                </div>
             </div>

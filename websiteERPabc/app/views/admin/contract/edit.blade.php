@@ -46,7 +46,7 @@
               <label>Nội dung tóm tắt</label>
                <div class="row">
                     <div class="col-sm-6">
-                        <input type="text" class="form-control" id="description" value="{{ $data->description}}" name="description">
+                        {{ Form::textarea('description', $data->description, array('class' => 'form-control')) }}
                     </div>
                </div>
             </div>

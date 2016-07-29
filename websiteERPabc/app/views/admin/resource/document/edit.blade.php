@@ -37,7 +37,7 @@
 							<label for="username">Mô tả</label>
 							<div class="row">
 								<div class="col-sm-6">
-									<input type="text" class="form-control" id="provider" value="{{ $data->description }}" name="description">
+									{{ Form::textarea('description', $data->description, array('class' => 'form-control')) }}
 								</div>
 							</div>
 						</div>
