@@ -100,7 +100,7 @@
                     </div>
                </div>
             </div>
-            <!-- <div class="form-group">
+            <div class="form-group">
                 <label>File đính kèm</label>
                 <div class="row">
                   <div class="col-sm-6">
@@ -116,7 +116,7 @@
                         </div>
                     </div>
                 </div>
-            @endif -->
+            @endif
             <div class="form-group">
                <label for="linkFile">Trạng thái</label>
                <div class="row">

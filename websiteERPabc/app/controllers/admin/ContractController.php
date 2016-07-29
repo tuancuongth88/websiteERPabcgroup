@@ -136,12 +136,31 @@ class ContractController extends AdminController {
 		);
 		$validator = Validator::make($input,$rules);
 		if($validator->fails()) {
-			return Redirect::action('ContractController@adjourn')
+			return Redirect::action('ContractController@adjourn', $id)
 	            ->withErrors($validator);
         }else{
-        	Contract::create($input);
-        	return Redirect::action('ContractController@index');
-
+        	if($input['file'] == null){
+        		$input_contract = [
+      			'name' => $input['name'],
+      			'code' => $input['code'],
+      			'type' => $input['type'],
+      			'description' => $input['description'],
+      			'partner_id' => $input['partner_id'],
+      			'type_extend' => $input['type_extend'],
+      			'date_sign' => $input['date_sign'],
+      			'date_active' => $input['date_active'],
+      			'date_expired_old' => $input['date_expired_old'],
+      			'date_expired_new' => $input['date_expired_new'],
+      			'status' => $input['status'],
+      			];
+        		Contract::create($input_contract);	
+        	}else{
+				//tao moi
+				$contract_id = Contract::create($input)->id;
+		    	$uploadFile['file'] = CommonUser::uploadAction('file', CONTRACT_FILE_UPLOAD . '/' . $contract_id);
+		    	Contract::find($contract_id)->update($uploadFile);
+        	}
+		    return Redirect::action('ContractController@index');
         }
 		
 	}
