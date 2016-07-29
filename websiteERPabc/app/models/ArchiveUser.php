@@ -1,10 +1,10 @@
 <?php
 
-use Illuminate\Database\Eloquent\SoftDeletingTrait;
+// use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
 class ArchiveUser extends Eloquent {
 
-	use SoftDeletingTrait;
+	// use SoftDeletingTrait;
 
 	/**
 	 * The database table used by the model.
@@ -19,6 +19,6 @@ class ArchiveUser extends Eloquent {
 	 * @var array
 	 */
 	protected $fillable = array('user_receive', 'user_send', 'archive_id', 'fun_id');
-    protected $dates = ['deleted_at'];
+    // protected $dates = ['deleted_at'];
 
 }
