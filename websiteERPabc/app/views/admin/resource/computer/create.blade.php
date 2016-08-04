@@ -101,7 +101,7 @@
 							<label for="linkFile">Mô tả</label>
 							<div class="row">
 								<div class="col-sm-6">
-									<input type="text" class="form-control" id="description" placeholder="Mô tả" name="description">
+									{{ Form::textarea('description', null, array('class' => 'form-control')) }}
 								</div>
 							</div>
 						</div>

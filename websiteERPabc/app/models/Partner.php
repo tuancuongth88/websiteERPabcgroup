@@ -18,7 +18,7 @@ class Partner extends Eloquent {
 	 *
 	 * @var array
 	 */
-	protected $fillable = array('name', 'fullname', 'email', 'address', 'phone', 'comment', 'status');
+	protected $fillable = array('name', 'fullname', 'email', 'address', 'phone', 'type', 'department', 'regency', 'parent_id');
     protected $dates = ['deleted_at'];
 
    

@@ -25,8 +25,8 @@ class DashboardController extends AdminController {
 		$weekback = date('Y-m-d 00:00:00', time() + (60 * 60 * 24 * -7));
 		$listIdContract = Contract::whereRaw('id in (select MAX(id) as id From contracts GROUP BY name)')->lists('id');
 		$contractExpired = Contract::where('date_expired_new', '<=', $now)
-			->where('date_expired_new', '>=', $weekback)->whereIn('id', $listIdContract)
-			->whereIn('type_extend', array(TYPE_EXTEND_1, TYPE_EXTEND_3))->get();
+			->where('date_expired_new', '>=', $weekback)
+			->whereIn('id', $listIdContract)->get();
 		if($userRole != ROLE_ADMIN) {
 			$archive = Archive::join('archive_users', 'archive_users.archive_id', '=', 'archives.id')
 					->select('archives.*')

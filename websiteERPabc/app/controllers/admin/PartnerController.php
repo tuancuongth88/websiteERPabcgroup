@@ -9,10 +9,14 @@ class PartnerController extends AdminController {
 	 */
 	public function index()
 	{
-		$data = Partner::orderBy('id', 'desc')->paginate(PAGINATE);
+		$data = Partner::orderBy('id', 'desc')->where('type', TYPE_PARTNER_1)->where('parent_id', null)->paginate(PAGINATE);
 		return View::make('admin.partner.index')->with(compact('data'));
 	}
-
+	public function indexService()
+	{
+		$data = Partner::orderBy('id', 'desc')->where('type', TYPE_PARTNER_2)->paginate(PAGINATE);
+		return View::make('admin.partner.service.index')->with(compact('data'));
+	}
 
 	/**
 	 * Show the form for creating a new resource.
@@ -42,6 +46,7 @@ class PartnerController extends AdminController {
 				->withErrors($validator);
 		}else{
 			$inputPart = [
+				'type' => TYPE_PARTNER_1,
 				'name'=> $input['name'],
 				'email' => $input['email'],
 				'address' => $input['address'],
@@ -53,7 +58,48 @@ class PartnerController extends AdminController {
 		return Redirect::action('PartnerController@index');
 	}
 
+	public function createService()
+	{
+		return View::make('admin.partner.service.create');
+	}
+	public function storeService()
+	{
 
+		$input = Input::except('_token');
+		$rules = array(
+			'fullname' => 'required',
+		);
+		$validator = Validator::make($input,$rules);
+		if($validator->fails()) {
+			return Redirect::action('PartnerController@createService')
+				->withErrors($validator);
+		}else{
+			$inputPart = [
+				'type' => TYPE_PARTNER_2,
+				'fullname'=> $input['fullname'],
+				'phone' => $input['phone'],
+			];
+			Partner::create($inputPart);
+			
+		}
+		return Redirect::action('PartnerController@indexService');
+	}
+
+	public function editService($id)
+	{
+		$data = Partner::find($id);
+		return View::make('admin.partner.service.edit')->with(compact('data'));
+	}
+	public function updateService($id)
+	{
+		$input = Input::except('_token');
+		$partner_id = Partner::find($id);
+		$partner_id->update([
+			'fullname' => $input['fullname'],
+			'phone' => $input['phone'],
+			]);
+		return Redirect::action('PartnerController@indexService');
+	}
 	/**
 	 * Display the specified resource.
 	 *
@@ -107,9 +153,24 @@ class PartnerController extends AdminController {
 	 */
 	public function destroy($id)
 	{
-		Partner::find($id)->delete();
-		return Redirect::action('PartnerController@index') ;
+		
+		$data = Partner::find($id);
+		if($data->type == TYPE_PARTNER_1){
+			$data->delete();
+			return Redirect::action('PartnerController@index') ;
+		}else{
+			$data->delete();
+			return Redirect::action('PartnerController@indexService') ;
+		}
 	}
-
-
+	public function search()
+	{
+		$data = CommonPartner::getSearch();
+		return View::make('admin.partner.index')->with(compact('data'));
+	}
+	public function searchService()
+	{
+		$data = CommonPartner::getSearchService();
+		return View::make('admin.partner.service.index')->with(compact('data'));
+	}
 }

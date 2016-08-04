@@ -127,7 +127,9 @@ define("RESOURCE_STATUS_NEW", 1);
 define("RESOURCE_STATUS_OLD", 2);
 define("RESOURCE_STATUS_OLE_NO_USER", 3);
 define("RESOURCE_STATUS_WAIT_LIQUIDATION", 4);
-
+// define kieu doi tac
+define('TYPE_PARTNER_1', 1);
+define('TYPE_PARTNER_2', 2);
 // kieu gia han
 define('TYPE_EXTEND_1', 1);
 define('TYPE_EXTEND_2', 2);

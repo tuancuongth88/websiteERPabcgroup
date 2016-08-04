@@ -10,7 +10,6 @@ class ContractController extends AdminController {
 	public function index()
 	{
 		$listIdContract = Contract::whereRaw('id in (select MAX(id) as id From contracts GROUP BY name, code, partner_id)')->lists('id');
-		// dd($listIdContract);
 		$data = Contract::whereIn('id', $listIdContract)->paginate(PAGINATE);
 		return View::make('admin.contract.index')->with(compact('data'));
 	}

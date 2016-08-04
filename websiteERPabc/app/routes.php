@@ -134,7 +134,20 @@ Route::group(['prefix' => 'admin'], function () {
 	Route::get('/contract/adjourn/{id}', 'ContractController@adjourn');
 	Route::get('/contract/search', 'ContractController@search');
 	Route::resource('/contract', 'ContractController');
-	//quan ly doi tac
+	//quan ly doi tac 
+	Route::get('/partner/clue/search', 'PartnerClueController@search');
+	Route::post('/partner/clue/storeClue/{id}', 'PartnerClueController@storeClue');
+	Route::get('/partner/clue/createClue/{id}', 'PartnerClueController@createClue');
+	Route::get('/partner/clue/indexClue/{id}', 'PartnerClueController@indexClue');
+	Route::resource('/partner/clue', 'PartnerClueController');
+	// doi tac hop tac 
+	Route::get('/partner/searchService', 'PartnerController@searchService');
+	Route::get('/partner/search', 'PartnerController@search');
+	Route::post('/partner/updateService/{id}', 'PartnerController@updateService');
+	Route::get('/partner/editService/{id}', 'PartnerController@editService');
+	Route::get('/partner/indexService', 'PartnerController@indexService');
+	Route::get('/partner/createService', 'PartnerController@createService');
+	Route::post('/partner/storeService', 'PartnerController@storeService');
 	Route::resource('/partner', 'PartnerController');
 	// quan ly cong van giay to
 	Route::post('/archive/comment/{modelId}', 'ArchiveController@comment');

@@ -25,6 +25,7 @@
 						<th>Số hợp đồng</th>
 						<th>Nội dung tóm tắt</th>
 						<th>Kiểu hợp đồng</th>
+						<th>Ngày ký</th>
 						<th>Ngày hết hạn</th>
 						<th>Ngày hết hạn mới</th>
 						<th>kiểu gia hạn</th>
@@ -38,6 +39,7 @@
 						<td>{{ $value->code }}</td>
 						<td>{{ $value->description }}</td>
 						<td>{{ CommonOption::getTypeContractText($value->type) }}</td>
+						<td>{{ $value->date_sign }}</td>
 						<td>{{ $value->date_expired_old }}</td>
 						<td>{{ $value->date_expired_new }}</td>
 						<td>{{ CommonOption::getTypeExtendContractText($value->type_extend) }}</td>
