@@ -86,9 +86,13 @@
 					@if(Common::checkPermissionUser(FUNCTION_CONTRACT, Config::get('button.manager_contract')))
 						<li><a href="{{ action('ContractController@index') }}"><i class="fa fa-laptop"></i> <span>Quản lý hợp đồng</span></a></li>
 					@endif
-					@if(Common::checkPermissionUser(FUNCTION_ARCHIVE, Config::get('button.manager_archive')) || Common::checkPermissionUser(FUNCTION_CONTRACT, Config::get('button.manager_contract')))
-					<li><a href="{{ action('PartnerController@index') }}"><i class="fa fa-laptop"></i> <span>Quản lý đối tác</span></a></li>
-					@endif
+					<li class="treeview">
+						<a href="#"><i class="fa fa-list"></i> <span>Quản lý đối tác</span> <i class="fa fa-angle-left pull-right"></i></a>
+							<ul class="treeview-menu">
+								<li><a href="{{ action('PartnerController@index') }}"><i class="fa fa-laptop"></i> <span>Quản lý đối tác hợp tác</span></a></li>
+								<li><a href="{{ action('PartnerController@indexService') }}"><i class="fa fa-laptop"></i> <span>Quản lý đối tác cung cấp</span></a></li>
+							</ul>
+					</li>
 				</ul>
 			</li>
 			<li class="treeview">

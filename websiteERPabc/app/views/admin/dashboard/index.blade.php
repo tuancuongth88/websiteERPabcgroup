@@ -130,9 +130,16 @@
 							<td>{{ $value->code }}</td>
 							<td>{{ CommonOption::getTypeContractText($value->type) }}</td>
 							<td>{{ CommonOption::getTypeExtendContractText($value->type_extend) }}</td>
-							<td>
-								<a href="{{ action('ContractController@adjourn', $value->id) }}" class="btn btn-primary">Gia hạn</a>
-							</td>
+							@if($value->type_extend != TYPE_EXTEND_2)
+								<td>
+									<a href="{{ action('ContractController@adjourn', $value->id) }}" class="btn btn-primary">Gia hạn</a>
+								</td>
+								@else
+									<td>
+										<a href="{{ action('ContractController@index', $value->id) }}" class="btn btn-success">Xem</a>
+									</td>
+							@endif
+
 						</tr>
 					@endforeach
 				</table>

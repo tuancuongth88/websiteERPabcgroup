@@ -91,6 +91,10 @@ class CommonNormal
 		{
 			return 'Contract';
 		}
+		if($name == 'partner')
+		{
+			return 'Partner';
+		}
 	}
 
 }
