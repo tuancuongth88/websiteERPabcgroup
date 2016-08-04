@@ -51,31 +51,50 @@
 </script>
 
 <script type="text/javascript">
-	if(!window.Notification){
-		alert('Trình duyệt không hỗ trợ thông báo! Để sử dụng đầy đủ tính năng của website bạn vui lòng chuyển sang trình duyệt khác để sử dụng.');
-	}else
+	function showNotification()
 	{
-		Notification.requestPermission(function(p){
-			console.log(p);
-			if(p === 'denied'){
-				alert('Bạn vui lòng bật thông báo trình duyệt.');
+		if(!window.Notification){
+			alert('Trình duyệt không hỗ trợ thông báo! Để sử dụng đầy đủ tính năng của website bạn vui lòng chuyển sang trình duyệt khác để sử dụng.');
+		}else
+		{
+			Notification.requestPermission(function(p){
+				console.log(p);
+				if(p === 'denied'){
+					alert('Bạn vui lòng bật thông báo trình duyệt.');
+				}
+			});
+			
+		}
+		var notify;
+		if(Notification.permission === 'default') {
+			alert('Bạn vui lòng bật thông báo trình duyệt.');
+		}else{
+			notify = new Notification('Bạn có '+ {{ Session::get('countNotification') }}+ ' thông báo', {
+				body: 'Click vào đây để xem chi tiết các thông báo!' ,
+				icon: '../image/alert.png',
+				tag: '#'
+			});
+			notify.onclick = function(){
+				window.location = '?ntc=' + this.tag;
 			}
-		});
-		
-	}
-
-	//show message
-	var notify;
-	if(Notification.permission === 'default') {
-		alert('Bạn vui lòng bật thông báo trình duyệt.');
-	}else{
-		notify = new Notification('Thông báo mới cho TuanCuong', {
-			body: 'Hôm nay bạn nhặt được rất nhiều tiền!',
-			icon: 'image/logo.png',
-			tag: 'Success!'
-		});
-		notify.onclick = function(){
-			window.location = '?ntc=' + this.tag;
 		}
 	}
+</script>
+<script>
+     var time = new Date().getTime();
+     $(document.body).bind("mousemove keypress", function(e) {
+         time = new Date().getTime();
+     });
+
+     function refresh() {
+         	 showNotification();
+         if(new Date().getTime() - time >= 60000) 
+         {
+             window.location.reload(true);
+         }
+         else 
+             setTimeout(refresh, 10000);
+     }
+
+     setTimeout(refresh, 10000);
 </script>

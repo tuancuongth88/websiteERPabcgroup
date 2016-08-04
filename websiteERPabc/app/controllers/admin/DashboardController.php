@@ -9,7 +9,7 @@ class DashboardController extends AdminController {
 	 */
 	public function index()
 	{
-		Common::sendMail();
+		// Common::sendMail();
 		$userId = CommonUser::getUserId();
 		$userRole = CommonUser::getUserRole();
 		//task cong viec dang lam
@@ -41,6 +41,11 @@ class DashboardController extends AdminController {
 			$archive = Archive::orderBy('id', 'desc')->limit(5)->get();
 		}
 		$countNotification = count($task) + count($taskAssign) + count($projectAssign) + count($contractExpired) + count($archive);
+		Session::put('task', $task);
+		Session::put('taskAssign', $taskAssign);
+		Session::put('projectAssign', $projectAssign);
+		Session::put('contractExpired', $contractExpired);
+		Session::put('archive', $archive);
 		Session::put('countNotification', $countNotification );
 		return View::make('admin.dashboard.index')->with(compact('task', 'taskAssign', 'projectAssign', 'contractExpired', 'archive', 'countNotification'));
 	}

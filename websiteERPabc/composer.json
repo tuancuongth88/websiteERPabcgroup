@@ -5,7 +5,9 @@
 	"license": "MIT",
 	"require": {
 		"laravel/framework": "4.2.*",
-		"ollieread/multiauth": "dev-master"
+		"ollieread/multiauth": "dev-master",
+		"pusher/pusher-php-server": "^2.4",
+		"davibennun/laravel-push-notification": "dev-master"
 	},
 	"autoload": {
 		"classmap": [

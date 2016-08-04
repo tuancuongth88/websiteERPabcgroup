@@ -130,53 +130,29 @@ class Common {
 		}
 		return null;
 	}
+	private $coutsession = 0;
 	public static function sendNotification()
 	{
-		$devices = PushNotification::DeviceCollection(array(
-		    PushNotification::Device('token', array('badge' => 5)),
-		    PushNotification::Device('token1', array('badge' => 1)),
-		    PushNotification::Device('token2')
-		));
-		$message = PushNotification::Message('Message Text',array(
-		    'badge' => 1,
-		    'sound' => 'example.aiff',
-
-		    'actionLocKey' => 'Action button title!',
-		    'locKey' => 'localized key',
-		    'locArgs' => array(
-		        'localized args',
-		        'localized args',
-		    ),
-		    'launchImage' => 'image.jpg',
-
-		    'custom' => array('custom data' => array(
-		        'we' => 'want', 'send to app'
-		    ))
-		));
-
-		$collection = PushNotification::app('appNameIOS')
-		    ->to($devices)
-		    ->send($message);
-
-		// get response for each device push
-		foreach ($collection->pushManager as $push) {
-		    $response = $push->getAdapter()->getResponse();
+		//Session::put('task', $task);
+		// Session::put('taskAssign', $taskAssign);
+		// Session::put('projectAssign', $projectAssign);
+		// Session::put('contractExpired', $contractExpired);
+		// Session::put('archive', $archive);
+		// Session::get('countNotification')
+		$coutsession ++;
+		Session::put('countsession', $countsession);
+		$Alter = 'Thông báo';
+		if(count(Session::get('task')) > 0){
+			$Alter .= count(Session::get('task')) . ' công việc mới. ';
 		}
+		if(count(Session::get('taskAssign')) > 0)
+			$Alter .= count(Session::get('taskAssign')) . ' việc chờ duyệt. ';
+		if(count(Session::get('projectAssign')) > 0)
+			$Alter .= count(Session::get('projectAssign')) . ' dự án chờ duyệt. ';
+		if(count(Session::get('contractExpired')) > 0)
+			$Alter .= count(Session::get('contractExpired')) . ' Hợp đồng. ';
+		
+	}
 
-		// access to adapter for advanced settings
-		$push = PushNotification::app('appNameAndroid');
-		$push->adapter->setAdapterParameters(['sslverifypeer' => false]);
-		}
-
-		public static function sendMail()
-		{
-			$data = array('user' => 'tuancuong');
-			Mail::send('emails.email', $data, function($message)
-			{
-			    $message->from('cuongnt@abc-group.vn', 'TuanCuong');
-
-			    $message->to('tuancuongth88@gmail.com');
-
-			});
-		}
+	
 }
