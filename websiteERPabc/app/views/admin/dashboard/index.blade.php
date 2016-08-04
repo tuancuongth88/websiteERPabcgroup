@@ -3,7 +3,9 @@
 @section('title')
 {{ $title='Bảng tin' }}
 @stop
-
+@section('notification')
+{{ $notification =  $countNotification}}
+@stop
 @section('content')
 <div class="row">
 	<div class="col-xs-12">
@@ -182,5 +184,6 @@
 		<!-- /.box -->
 	</div>
 </div>
+@include('admin.dashboard.script');
 @stop
 

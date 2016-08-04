@@ -121,6 +121,7 @@ return array(
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
 		"Ollieread\Multiauth\MultiauthServiceProvider",
+		'Davibennun\LaravelPushNotification\LaravelPushNotificationServiceProvider',
     	
 	),
 
@@ -188,6 +189,7 @@ return array(
 		'URL'             => 'Illuminate\Support\Facades\URL',
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
 		'View'            => 'Illuminate\Support\Facades\View',
+		'PushNotification' => 'Davibennun\LaravelPushNotification\Facades\PushNotification'
 
 	),
 

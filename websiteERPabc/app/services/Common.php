@@ -130,4 +130,53 @@ class Common {
 		}
 		return null;
 	}
+	public static function sendNotification()
+	{
+		$devices = PushNotification::DeviceCollection(array(
+		    PushNotification::Device('token', array('badge' => 5)),
+		    PushNotification::Device('token1', array('badge' => 1)),
+		    PushNotification::Device('token2')
+		));
+		$message = PushNotification::Message('Message Text',array(
+		    'badge' => 1,
+		    'sound' => 'example.aiff',
+
+		    'actionLocKey' => 'Action button title!',
+		    'locKey' => 'localized key',
+		    'locArgs' => array(
+		        'localized args',
+		        'localized args',
+		    ),
+		    'launchImage' => 'image.jpg',
+
+		    'custom' => array('custom data' => array(
+		        'we' => 'want', 'send to app'
+		    ))
+		));
+
+		$collection = PushNotification::app('appNameIOS')
+		    ->to($devices)
+		    ->send($message);
+
+		// get response for each device push
+		foreach ($collection->pushManager as $push) {
+		    $response = $push->getAdapter()->getResponse();
+		}
+
+		// access to adapter for advanced settings
+		$push = PushNotification::app('appNameAndroid');
+		$push->adapter->setAdapterParameters(['sslverifypeer' => false]);
+		}
+
+		public static function sendMail()
+		{
+			$data = array('user' => 'tuancuong');
+			Mail::send('emails.email', $data, function($message)
+			{
+			    $message->from('cuongnt@abc-group.vn', 'TuanCuong');
+
+			    $message->to('tuancuongth88@gmail.com');
+
+			});
+		}
 }
