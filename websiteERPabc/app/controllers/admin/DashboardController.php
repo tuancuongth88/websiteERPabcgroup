@@ -9,6 +9,7 @@ class DashboardController extends AdminController {
 	 */
 	public function index()
 	{
+		Common::sendMail();
 		$userId = CommonUser::getUserId();
 		$userRole = CommonUser::getUserRole();
 		//task cong viec dang lam
@@ -22,11 +23,12 @@ class DashboardController extends AdminController {
 		// $depAssign = Common::getModelUserStatus('departments', 'dep_regency_per_user', 'dep_id', $userId, ASSIGN_STATUS_3);
 		// ngay hien tai - 1 tuan <= date_active <= ngay hien tai
 		$now = date('Y-m-d H:i:s');
-		$weekback = date('Y-m-d 00:00:00', time() + (60 * 60 * 24 * -7));
+		$weekback = date('Y-m-d 00:00:00', time() + (60 * 60 * 24 * +7));
 		$listIdContract = Contract::whereRaw('id in (select MAX(id) as id From contracts GROUP BY name)')->lists('id');
-		$contractExpired = Contract::where('date_expired_new', '<=', $now)
-			->where('date_expired_new', '>=', $weekback)
-			->whereIn('id', $listIdContract)->get();
+		$contractExpired = Contract::where('date_expired_new', '<=', $weekback)->
+		whereIn('id', $listIdContract)
+			->lists('id');
+		$contractExpired =  Contract::whereIn('id', $contractExpired)->where('date_expired_new', '>', $now)->get();
 		if($userRole != ROLE_ADMIN) {
 			$archive = Archive::join('archive_users', 'archive_users.archive_id', '=', 'archives.id')
 					->select('archives.*')
@@ -38,7 +40,9 @@ class DashboardController extends AdminController {
 		} else {
 			$archive = Archive::orderBy('id', 'desc')->limit(5)->get();
 		}
-		return View::make('admin.dashboard.index')->with(compact('task', 'taskAssign', 'projectAssign', 'contractExpired', 'archive'));
+		$countNotification = count($task) + count($taskAssign) + count($projectAssign) + count($contractExpired) + count($archive);
+		Session::put('countNotification', $countNotification );
+		return View::make('admin.dashboard.index')->with(compact('task', 'taskAssign', 'projectAssign', 'contractExpired', 'archive', 'countNotification'));
 	}
 
 

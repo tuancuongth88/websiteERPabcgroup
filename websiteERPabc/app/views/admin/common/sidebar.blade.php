@@ -4,7 +4,8 @@
 		<!-- sidebar menu: : style can be found in sidebar.less -->
 		<ul class="sidebar-menu">
 			<li class="header">Menu</li>
-			<li><a href="{{ action('DashboardController@index') }}"><i class="fa fa-dashboard"></i> <span>Bảng tin</span></a></li>
+			<li><a href="{{ action('DashboardController@index') }}"><i class="fa fa-dashboard"></i> <span>Bảng tin</span> <span class="badge badge-notify">{{Session::get('countNotification')}}</span></a></li>
+
 
 			<li class="treeview">
 				<a href="#"><i class="fa fa-users"></i> <span>Nhân viên</span> <i class="fa fa-angle-left pull-right"></i></a>
