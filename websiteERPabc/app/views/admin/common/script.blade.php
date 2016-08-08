@@ -86,7 +86,7 @@
 	$(document.body).bind("mousemove keypress", function(e) {
 		 time = new Date().getTime();
 	});
-	showNotification("Click vào đây để xem nội dung chi tiết!", {{ Session::get('countNotification') }});
+	// showNotification("Click vào đây để xem nội dung chi tiết!", {{ Session::get('countNotification') }});
 	function refresh() {
 		//alert(99);
 		getNotification();
