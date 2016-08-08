@@ -10,7 +10,7 @@ class ContractController extends AdminController {
 	public function index()
 	{
 		$listIdContract = Contract::whereRaw('id in (select MAX(id) as id From contracts GROUP BY name, code, partner_id)')->lists('id');
-		$data = Contract::whereIn('id', $listIdContract)->paginate(PAGINATE);
+		$data = Contract::whereIn('id', $listIdContract)->where('contract_addendum', CONTRACT)->paginate(PAGINATE);
 		return View::make('admin.contract.index')->with(compact('data'));
 	}
 
@@ -51,6 +51,10 @@ class ContractController extends AdminController {
 					->withErrors($validator);
 			}else{
 				//tao moi
+				if ($input['parent_id'] == '') {
+        		$input['parent_id'] = null;
+        		}
+				$input['contract_addendum'] = CONTRACT;
 				$contract_id = Contract::create($input)->id;
 	        	$uploadFile['file'] = CommonUser::uploadAction('file', CONTRACT_FILE_UPLOAD . '/' . $contract_id);
 	        	Contract::find($contract_id)->update($uploadFile);
@@ -162,5 +166,67 @@ class ContractController extends AdminController {
 		    return Redirect::action('ContractController@index');
         }
 		
+	}
+	public function Appendix($id)
+	{
+		$data = Contract::find($id)->where('contract_addendum', CONTRACT_APPENDIX)->where('parent_id', $id)->paginate(PAGINATE);;
+		return View::make('admin.contract.appendix')->with(compact('data', 'id'));
+	}
+	public function createAppendix($id)
+	{
+		$data = Contract::find($id);
+		return View::make('admin.contract.createAppendix')->with(compact('data', 'id'));;
+	}
+
+	public function storeAppendix($id)
+	{
+		$input = Input::except('_token');
+
+		$rules = array(
+			'name' => 'required',
+			'code' => 'required',
+			'file' => 'required',
+		);
+		$validator = Validator::make($input,$rules);
+		$date_sign = $input['date_sign'];
+		$date_active = $input['date_active'];
+		if($date_sign > $date_active){
+			return Redirect::action('ContractController@createAppendix', $id)->with('error' , 'Thời gian ký hợp đồng phải nhỏ hơn thời gian có hiệu lực');
+		}else{
+			if($validator->fails()) {
+				return Redirect::action('ContractController@createAppendix', $id)
+					->withErrors($validator);
+			}else{
+				//tao moi
+				$input['contract_addendum'] = CONTRACT_APPENDIX;
+
+				$contract_id = Contract::create($input)->id;
+	        	$uploadFile['file'] = CommonUser::uploadAction('file', CONTRACT_FILE_UPLOAD . '/' . $contract_id);
+	        	Contract::find($contract_id)->update($uploadFile);
+				return Redirect::action('ContractController@Appendix', $id);
+			}
+		}
+	}
+	public function editAppendix($id)
+	{
+		$data = Contract::find($id);
+		$parent_id = $data->parent_id;
+		return View::make('admin.contract.editAppendix')->with(compact('data', 'parent_id'));
+	}
+	public function updateAppendix($id)
+	{
+		$input = Input::except('_token');
+		$contract = Contract::find($id);
+		$id = $contract->parent_id;
+    	$input['file'] = CommonUser::uploadAction('file', CONTRACT_FILE_UPLOAD . '/' . $id, $contract->file);
+		$contract->update($input);
+		return Redirect::action('ContractController@Appendix', $id);
+	}
+	public function destroyAppendix($id)
+	{
+		$data = Contract::find($id);
+		$id = $data->parent_id;
+		$data->delete();
+		return Redirect::action('ContractController@Appendix', $id);
 	}
 }

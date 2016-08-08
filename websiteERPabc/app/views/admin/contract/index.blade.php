@@ -44,6 +44,7 @@
 						<td>{{ CommonOption::getTypeExtendContractText($value->type_extend) }}</td>
 						<td>{{ CommonOption::getStatusContractText($value->status) }}</td>
 						<td>
+							<a href="{{ action('ContractController@Appendix', $value->id) }}" class="btn btn-primary">DS phụ lục</a>
 							@if(Common::checkPermissionUser(FUNCTION_CONTRACT, Config::get('button.contract_edit')))
 								<a href="{{ action('ContractController@edit', $value->id) }}" class="btn btn-primary">Sửa</a>
 							@endif
