@@ -1,5 +1,5 @@
 <div class="margin-bottom">
-	{{ Form::open(array('action' => 'DomainResourceController@search', 'method' => 'GET')) }}
+	{{ Form::open(array('action' => 'ResourceManagementController@search', 'method' => 'GET')) }}
 		<div class="input-group" style="width: 150px; display:inline-block;">
 			<label>Tên thiết bị</label>
 		  	<input type="text" name="name" class="form-control" placeholder="Tên" />
