@@ -125,3 +125,4 @@
 	</script>
 
 </head>
+@include('admin.common.script')

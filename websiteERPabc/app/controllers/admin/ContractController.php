@@ -163,7 +163,7 @@ class ContractController extends AdminController {
 		    	$uploadFile['file'] = CommonUser::uploadAction('file', CONTRACT_FILE_UPLOAD . '/' . $contract_id);
 		    	Contract::find($contract_id)->update($uploadFile);
         	}
-		    return Redirect::action('ContractController@index');
+		    return Redirect::action('DashboardController@index');
         }
 		
 	}
