@@ -130,7 +130,13 @@ Route::group(['prefix' => 'admin'], function () {
 	// danh sach de xuat luong
 	Route::get('/propose/search', 'ProposeSalaryListController@search');
 	Route::resource('/propose', 'ProposeSalaryListController');
-	// quan ly hop dong
+	// quan ly hop dong 
+	Route::get('/contract/createAppendix/{id}', 'ContractController@createAppendix');
+	Route::post('/contract/storeAppendix/{id}', 'ContractController@storeAppendix');
+	Route::post('/contract/updateAppendix/{id}', 'ContractController@updateAppendix');
+	Route::delete('/contract/destroyAppendix/{id}', 'ContractController@destroyAppendix');
+	Route::get('/contract/editAppendix/{id}', 'ContractController@editAppendix');
+	Route::get('/contract/Appendix/{id}', 'ContractController@Appendix');
 	Route::post('/contract/updateAdjourn/{id}', 'ContractController@updateAdjourn');
 	Route::get('/contract/adjourn/{id}', 'ContractController@adjourn');
 	Route::get('/contract/search', 'ContractController@search');

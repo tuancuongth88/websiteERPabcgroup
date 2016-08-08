@@ -28,7 +28,7 @@ class DashboardController extends AdminController {
 		$contractExpired = Contract::where('date_expired_new', '<=', $weekback)->
 		whereIn('id', $listIdContract)
 			->lists('id');
-		$contractExpired =  Contract::whereIn('id', $contractExpired)->where('date_expired_new', '>', $now)->get();
+		$contractExpired =  Contract::whereIn('id', $contractExpired)->where('date_expired_new', '>', $now)->where('contract_addendum', CONTRACT)->get();
 		if($userRole != ROLE_ADMIN) {
 			$archive = Archive::join('archive_users', 'archive_users.archive_id', '=', 'archives.id')
 					->select('archives.*')

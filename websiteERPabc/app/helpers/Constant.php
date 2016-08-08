@@ -145,3 +145,6 @@ define('STATUS_CONTRACT_2', 2);
 define('ARCHIVE_FUNCTION_1', 1);
 define('ARCHIVE_FUNCTION_2', 2);
 define('ARCHIVE_FUNCTION_3', 3);
+// hop dong va phu luc hop dong
+define('CONTRACT', 1);
+define('CONTRACT_APPENDIX', 2);
