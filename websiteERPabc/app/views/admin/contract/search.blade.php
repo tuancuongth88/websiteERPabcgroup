@@ -10,7 +10,7 @@
 		</div>
 		<div class="input-group" style="width: 150px; display:inline-block;">
 			<label>Đối tác</label>
-			{{ Form::select('partner_id', ['' => 'Tất cả'] + CommonProject::getModelArray('partner', 'name', 'id'), null, array('class' => 'form-control')) }}
+			{{ Form::select('partner_id', ['' => 'Tất cả'] + CommonProject::getModelArray('Partner', 'name', 'id'), null, array('class' => 'form-control')) }}
 		</div>
 		<div class="input-group" style="width: 150px; display:inline-block;">
 			<label>kiểu hợp đồng</label>
