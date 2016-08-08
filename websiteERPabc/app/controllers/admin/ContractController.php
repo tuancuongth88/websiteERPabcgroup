@@ -142,8 +142,10 @@ class ContractController extends AdminController {
 			return Redirect::action('ContractController@adjourn', $id)
 	            ->withErrors($validator);
         }else{
+        	
         	if($input['file'] == null){
         		$input_contract = [
+        		'contract_addendum' => CONTRACT,
       			'name' => $input['name'],
       			'code' => $input['code'],
       			'type' => $input['type'],

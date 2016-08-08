@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddContractTable extends Migration {
+class AddMoreFieldParentIDContactTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -14,7 +14,7 @@ class AddContractTable extends Migration {
 	{
 		Schema::table('contracts', function(Blueprint $table) {
 			$table->integer('parent_id')->after('type')->nullable();
-			$table->integer('contract_addendum')->after('parent_id')->nullable();
+			$table->integer('contract_addendum')->after('type')->nullable();
 		});
 	}
 
