@@ -51,9 +51,9 @@ class ContractController extends AdminController {
 					->withErrors($validator);
 			}else{
 				//tao moi
-				if ($input['parent_id'] == '') {
-        		$input['parent_id'] = null;
-        		}
+				// if ($input['parent_id'] == '') {
+    //     			$input['parent_id'] = null;
+    //     		}
 				$input['contract_addendum'] = CONTRACT;
 				$contract_id = Contract::create($input)->id;
 	        	$uploadFile['file'] = CommonUser::uploadAction('file', CONTRACT_FILE_UPLOAD . '/' . $contract_id);
