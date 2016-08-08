@@ -130,28 +130,45 @@ class Common {
 		}
 		return null;
 	}
-	private $coutsession = 0;
 	public static function sendNotification()
 	{
-		//Session::put('task', $task);
-		// Session::put('taskAssign', $taskAssign);
-		// Session::put('projectAssign', $projectAssign);
-		// Session::put('contractExpired', $contractExpired);
-		// Session::put('archive', $archive);
-		// Session::get('countNotification')
-		$coutsession ++;
-		Session::put('countsession', $countsession);
-		$Alter = 'Thông báo';
-		if(count(Session::get('task')) > 0){
-			$Alter .= count(Session::get('task')) . ' công việc mới. ';
+		// lay thong tin id va role
+		$userId = CommonUser::getUserId();
+		$userRole = CommonUser::getUserRole();
+		//lấy ngày tháng hiện tại
+		$now = date('Y-m-d H:i:s');
+		$weekback = date('Y-m-d 00:00:00', time() + (60 * 60 * 24 * +7));
+		//load taonf bị các thông báo
+		$task = CommonTask::filterTask($listTask);
+		$taskAssign = Common::getModelUserStatus('tasks', 'task_users', 'task_id', $userId, ASSIGN_STATUS_3);
+		$projectAssign = Common::getModelUserStatus('projects', 'project_users', 'project_id', $userId, ASSIGN_STATUS_3);
+		$contractExpired = Contract::where('date_expired_new', '<=', $weekback)->
+		whereIn('id', $listIdContract)
+			->lists('id');
+		$contractExpired =  Contract::whereIn('id', $contractExpired)->where('date_expired_new', '>', $now)->get();
+		if($userRole != ROLE_ADMIN) {
+			$archive = Archive::join('archive_users', 'archive_users.archive_id', '=', 'archives.id')
+					->select('archives.*')
+					->where('archive_users.user_send', $userId)
+					->orWhere('archive_users.user_receive', $userId)
+					->distinct()->groupBy('archives.id')
+					->limit(5)
+					->get();
+		} else {
+			$archive = Archive::orderBy('id', 'desc')->limit(5)->get();
 		}
-		if(count(Session::get('taskAssign')) > 0)
-			$Alter .= count(Session::get('taskAssign')) . ' việc chờ duyệt. ';
-		if(count(Session::get('projectAssign')) > 0)
-			$Alter .= count(Session::get('projectAssign')) . ' dự án chờ duyệt. ';
-		if(count(Session::get('contractExpired')) > 0)
-			$Alter .= count(Session::get('contractExpired')) . ' Hợp đồng. ';
-		
+		$Alter = 'Thông báo';
+		if(count(Session::get('task')) > 0)
+			$Alter .= count($task) . ' Công việc mới. ';
+		if(count($taskAssign) > 0)
+			$Alter .= count($taskAssign) . ' Việc chờ duyệt. ';
+		if(count($projectAssign) > 0)
+			$Alter .= count($projectAssign) . ' Dự án chờ duyệt. ';
+		if(count($contractExpired) > 0)
+			$Alter .= count($contractExpired) . ' Hợp đồng hết hạn. ';
+		if(count($archive) > 0)
+			$Alter .= count($archive) . ' Công văn duyệt. ';
+		return $Alter;
 	}
 
 	

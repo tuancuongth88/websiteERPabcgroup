@@ -191,6 +191,5 @@
 		<!-- /.box -->
 	</div>
 </div>
-@include('admin.dashboard.script')
 @stop
 

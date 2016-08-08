@@ -87,6 +87,7 @@ Route::group(['prefix' => 'admin'], function () {
 	Route::resource('/report', 'ReportController');
 	Route::resource('/notification', 'NotificationController');
 
+	Route::post('/dashboard/getNotification', 'DashboardController@getNotification');
 	Route::resource('/dashboard', 'DashboardController');
 	Route::resource('/type_report', 'TypeReportController');
 	
