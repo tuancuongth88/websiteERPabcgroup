@@ -27,7 +27,7 @@ class CommonPartner {
 			->where(function ($query) use ($input)
 		{
 			if(!empty($input['fullname'])) {
-				$query = $query->where('partners.fullname', 'like', '%'.$input['fullname'].'%');
+				$query = $query->where('partners.name', 'like', '%'.$input['fullname'].'%');
 			}
 		})->distinct()->orderBy('partners.fullname', 'asc')->where('type', TYPE_PARTNER_2)->where('parent_id', null)->paginate(PAGINATE);
 		return $data;

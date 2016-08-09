@@ -27,7 +27,7 @@
 						<th>Tên hợp đồng</th>	
 						<th>Số hợp đồng</th>
 						<th>Đối tác</th>
-						<th>Đối tác</th>
+						<th>Kiểu hợp đồng</th>
 						<th>Ngày hết hạn</th>
 						<th>kiểu gia hạn</th>
 						<th>Trang thái</th>

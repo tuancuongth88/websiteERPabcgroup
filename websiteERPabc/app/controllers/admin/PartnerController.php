@@ -79,6 +79,7 @@ class PartnerController extends AdminController {
 				'name' => $input['name'],
 				'fullname'=> $input['fullname'],
 				'email' => $input['email'],
+				'address' => $input['address'],
 				'phone' => $input['phone'],
 			];
 			Partner::create($inputPart);
@@ -101,6 +102,7 @@ class PartnerController extends AdminController {
 			'fullname' => $input['fullname'],
 			'phone' => $input['phone'],
 			'email' => $input['email'],
+			'address' => $input['address'],
 			]);
 		return Redirect::action('PartnerController@indexService');
 	}

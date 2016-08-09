@@ -1,7 +1,7 @@
 <div class="margin-bottom">
 	{{ Form::open(array('action' => 'PartnerController@searchService', 'method' => 'GET')) }}
 		<div class="input-group" style="width: 150px; display:inline-block;">
-			<label>Tên đối tác</label>
+			<label>Tên nhà cung cấp</label>
 		  	<input type="text" name="fullname" class="form-control" placeholder="Tên" />
 		</div>
 		

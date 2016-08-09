@@ -21,9 +21,10 @@
 				<table class="table table-hover">
 					<tr>
 						<th>ID</th>
-						<th>Tên công ty</th>
+						<th>Tên nhà cung cấp</th>
 						<th>Tên</th>
 						<th>Email</th>	
+						<th>Địa chỉ</th>
 						<th>Số điện thoại</th>
 						<th>Action</th>
 					</tr>
@@ -33,6 +34,7 @@
 						<td>{{ $value->name }}</td>
 						<td>{{ $value->fullname }}</td>
 						<td>{{ $value->email }}</td>
+						<td>{{ $value->address }}</td>
 						<td>{{ $value->phone }}</td>
 						<td>
 							<a href="{{ action('PartnerController@editService', $value->id) }}" class="btn btn-primary">Sửa</a>
