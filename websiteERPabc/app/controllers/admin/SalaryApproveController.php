@@ -192,10 +192,10 @@ class SalaryApproveController extends AdminController {
 
 	public function approveSalarySelect()
 	{
+
 		$input = Input::except('_token');
 		$inputsalary = $input['salary_id'];
-		$inputcheckAll = $input['checkall'];
-
+		// $inputcheckAll = $input['checkall'];
 		foreach ($inputsalary as $key => $value) {
 			$this->approveSalary($value);
 		}
@@ -204,7 +204,7 @@ class SalaryApproveController extends AdminController {
 
 	public  function rejectSalarySelect(){
 		$input = Input::except('_token');
-		$inputcheckAll = $input['checkall'];
+		// $inputcheckAll = $input['checkall'];
 
 		$inputsalary = $input['salary_id'];
 		foreach ($inputsalary as $key => $value) {

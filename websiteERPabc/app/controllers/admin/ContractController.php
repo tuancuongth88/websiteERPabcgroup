@@ -71,9 +71,7 @@ class ContractController extends AdminController {
 	 */
 	public function show($id)
 	{
-		$contract_id = Contract::where('id',$id)->first();
-		$data = Contract::where('name', '=', $contract_id->name)->where('code', '=', $contract_id->code)
-		->where('partner_id', '=', $contract_id->partner_id)->paginate(PAGINATE);
+		$data = Contract::where('parent_id', $id)->where('contract_addendum', CONTRACT)->paginate(PAGINATE);
 		return View::make('admin.contract.show')->with(compact('data'));
 	}
 
@@ -131,7 +129,7 @@ class ContractController extends AdminController {
 	}
 
 	public function updateAdjourn($id){
-		$input = Input::except('_token');
+		$input = Input::only('date_expired_new');
 		// dd($input);
 		$rules = array(
 			'date_expired_new' => 'required',
@@ -166,7 +164,7 @@ class ContractController extends AdminController {
 		    	$uploadFile['file'] = CommonUser::uploadAction('file', CONTRACT_FILE_UPLOAD . '/' . $contract_id);
 		    	Contract::find($contract_id)->update($uploadFile);
         	}
-		    return Redirect::action('DashboardController@index');
+
         }
 		
 	}
