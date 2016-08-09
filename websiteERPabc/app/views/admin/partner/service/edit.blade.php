@@ -18,10 +18,26 @@
         {{ Form::open(array('action' => array('PartnerController@updateService', $data->id), 'method' => 'post')) }}
           <div class="box-body">
             <div class="form-group">
+              <label for="username">Tên Cong ty</label>
+              <div class="row">
+                <div class="col-sm-6">
+                  <input type="text" class="form-control" id="fullname" value="{{ $data->name }}" name="name">
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
               <label for="username">Tên</label>
               <div class="row">
               	<div class="col-sm-6">
                 	<input type="text" class="form-control" id="fullname" value="{{ $data->fullname }}" name="fullname">
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="username">Email</label>
+              <div class="row">
+                <div class="col-sm-6">
+                  <input type="text" class="form-control" id="fullname" value="{{ $data->email }}" name="email">
                 </div>
               </div>
             </div>

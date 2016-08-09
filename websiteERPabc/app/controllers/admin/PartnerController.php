@@ -76,7 +76,9 @@ class PartnerController extends AdminController {
 		}else{
 			$inputPart = [
 				'type' => TYPE_PARTNER_2,
+				'name' => $input['name'],
 				'fullname'=> $input['fullname'],
+				'email' => $input['email'],
 				'phone' => $input['phone'],
 			];
 			Partner::create($inputPart);
@@ -95,8 +97,10 @@ class PartnerController extends AdminController {
 		$input = Input::except('_token');
 		$partner_id = Partner::find($id);
 		$partner_id->update([
+			'name' => $input['name'],
 			'fullname' => $input['fullname'],
 			'phone' => $input['phone'],
+			'email' => $input['email'],
 			]);
 		return Redirect::action('PartnerController@indexService');
 	}

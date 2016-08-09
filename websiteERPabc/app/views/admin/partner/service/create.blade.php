@@ -18,10 +18,26 @@
         {{ Form::open(array('action' => 'PartnerController@storeService', 'files'=> true)) }}
           <div class="box-body">
             <div class="form-group">
+              <label for="username">Tên cong ty</label>
+              <div class="row">
+                <div class="col-sm-6">
+                  <input type="text" class="form-control" id="name" placeholder="Tên" name="name">
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
               <label for="username">Tên</label>
               <div class="row">
               	<div class="col-sm-6">
                 	<input type="text" class="form-control" id="name" placeholder="Tên" name="fullname">
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="username">Email</label>
+              <div class="row">
+                <div class="col-sm-6">
+                  <input type="text" class="form-control" id="name" placeholder="Email" name="email">
                 </div>
               </div>
             </div>

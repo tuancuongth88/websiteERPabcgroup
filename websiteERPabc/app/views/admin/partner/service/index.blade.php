@@ -21,14 +21,18 @@
 				<table class="table table-hover">
 					<tr>
 						<th>ID</th>
-						<th>Tên</th>	
+						<th>Tên công ty</th>
+						<th>Tên</th>
+						<th>Email</th>	
 						<th>Số điện thoại</th>
 						<th>Action</th>
 					</tr>
 					@foreach($data as $key => $value)
 					<tr>
 						<td>{{ $value->id }}</td>
+						<td>{{ $value->name }}</td>
 						<td>{{ $value->fullname }}</td>
+						<td>{{ $value->email }}</td>
 						<td>{{ $value->phone }}</td>
 						<td>
 							<a href="{{ action('PartnerController@editService', $value->id) }}" class="btn btn-primary">Sửa</a>
