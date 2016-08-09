@@ -9,8 +9,7 @@ class ContractController extends AdminController {
 	 */
 	public function index()
 	{
-		$listIdContract = Contract::whereRaw('id in (select MAX(id) as id From contracts GROUP BY name, code, partner_id)')->lists('id');
-		$data = Contract::whereIn('id', $listIdContract)->where('contract_addendum', CONTRACT)->paginate(PAGINATE);
+		$data = Contract::whereNull('parent_id')->where('contract_addendum', CONTRACT)->paginate(PAGINATE);
 		return View::make('admin.contract.index')->with(compact('data'));
 	}
 
@@ -158,7 +157,9 @@ class ContractController extends AdminController {
       			'date_expired_new' => $input['date_expired_new'],
       			'status' => $input['status'],
       			];
-        		Contract::create($input_contract);	
+        		$newItem = Contract::create($input_contract);
+        		CommonNormal::update($id, ['parent_id' => $newItem->id], 'Contract');
+        		Contract::where('parent_id', $id)->update(['parent_id' => $newItem->id]);	
         	}else{
 				//tao moi
 				$contract_id = Contract::create($input)->id;

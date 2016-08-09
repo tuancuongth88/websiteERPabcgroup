@@ -29,7 +29,7 @@ class CommonContract {
 			if(!empty($input['status'])){
 				$query = $query->where('contracts.status', 'like', '%'.$input['status'].'%');
 			}
-		})->distinct()->orderBy('contracts.name', 'asc')->whereRaw('id in (select MAX(id) as id From contracts GROUP BY name, code, partner_id)')->paginate(PAGINATE);
+		})->distinct()->orderBy('contracts.name', 'asc')->whereNull('parent_id')->where('contract_addendum', CONTRACT)->paginate(PAGINATE);
 		return $data;
 	}
 }

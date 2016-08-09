@@ -27,7 +27,7 @@
 						<th>Tên hợp đồng</th>	
 						<th>Số hợp đồng</th>
 						<th>Nội dung tóm tắt</th>
-						<th>Kiểu hợp đồng</th>
+						<th>Đối tác</th>
 						<th>Ngày hết hạn</th>
 						<th>kiểu gia hạn</th>
 						<th>Trang thái</th>
@@ -38,7 +38,7 @@
 						<td>{{ $value->id }}</td>
 						<td>{{ $value->name }}</td>
 						<td>{{ $value->code }}</td>
-						<td>{{ $value->description }}</td>
+						<td>{{ CommonPartner::getNameParent($value->partner_id) }}</td>
 						<td>{{ CommonOption::getTypeContractText($value->type) }}</td>
 						<td>{{ $value->date_expired_new }}</td>
 						<td>{{ CommonOption::getTypeExtendContractText($value->type_extend) }}</td>
