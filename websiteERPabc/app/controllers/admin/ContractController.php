@@ -9,8 +9,7 @@ class ContractController extends AdminController {
 	 */
 	public function index()
 	{
-		$listIdContract = Contract::whereRaw('id in (select MAX(id) as id From contracts GROUP BY name, code, partner_id)')->lists('id');
-		$data = Contract::whereIn('id', $listIdContract)->where('contract_addendum', CONTRACT)->paginate(PAGINATE);
+		$data = Contract::whereNull('parent_id')->where('contract_addendum', CONTRACT)->paginate(PAGINATE);
 		return View::make('admin.contract.index')->with(compact('data'));
 	}
 
@@ -72,9 +71,7 @@ class ContractController extends AdminController {
 	 */
 	public function show($id)
 	{
-		$contract_id = Contract::where('id',$id)->first();
-		$data = Contract::where('name', '=', $contract_id->name)->where('code', '=', $contract_id->code)
-		->where('partner_id', '=', $contract_id->partner_id)->paginate(PAGINATE);
+		$data = Contract::where('parent_id', $id)->where('contract_addendum', CONTRACT)->paginate(PAGINATE);
 		return View::make('admin.contract.show')->with(compact('data'));
 	}
 
@@ -132,7 +129,7 @@ class ContractController extends AdminController {
 	}
 
 	public function updateAdjourn($id){
-		$input = Input::except('_token');
+		$input = Input::only('date_expired_new');
 		// dd($input);
 		$rules = array(
 			'date_expired_new' => 'required',
@@ -142,29 +139,13 @@ class ContractController extends AdminController {
 			return Redirect::action('ContractController@adjourn', $id)
 	            ->withErrors($validator);
         }else{
-        	
-        	if($input['file'] == null){
-        		$input_contract = [
-        		'contract_addendum' => CONTRACT,
-      			'name' => $input['name'],
-      			'code' => $input['code'],
-      			'type' => $input['type'],
-      			'description' => $input['description'],
-      			'partner_id' => $input['partner_id'],
-      			'type_extend' => $input['type_extend'],
-      			'date_sign' => $input['date_sign'],
-      			'date_active' => $input['date_active'],
-      			'date_expired_old' => $input['date_expired_old'],
-      			'date_expired_new' => $input['date_expired_new'],
-      			'status' => $input['status'],
-      			];
-        		Contract::create($input_contract);	
-        	}else{
-				//tao moi
-				$contract_id = Contract::create($input)->id;
-		    	$uploadFile['file'] = CommonUser::uploadAction('file', CONTRACT_FILE_UPLOAD . '/' . $contract_id);
-		    	Contract::find($contract_id)->update($uploadFile);
-        	}
+			$newItem = Contract::find($id)->replicate();
+			$newItem['date_expired_old'] =  $newItem->date_expired_new;
+			$newItem['date_expired_new'] =  $input['date_expired_new'];
+			$newItem->save();
+        	CommonNormal::update($id, ['parent_id' => $newItem->id], 'Contract');
+        	Contract::where('parent_id', $id)->update(['parent_id' => $newItem->id]);
+
 		    return Redirect::action('DashboardController@index');
         }
 		

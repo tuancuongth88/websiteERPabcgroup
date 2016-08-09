@@ -101,12 +101,7 @@ class PartnerClueController extends AdminController {
 			return Redirect::action('PartnerClueController@edit', $id)
 				->withErrors($validator);
 		}else{
-			$partnerClue->update([
-			'fullname' => $input['fullname'],
-			'department' => $input['department'],
-			'regency' => $input['regency'],
-			'phone' => $input['phone'],
-			]);
+			$partnerClue->update($input);
         	return Redirect::action('PartnerClueController@indexClue', $parent_id);
         }
 	}

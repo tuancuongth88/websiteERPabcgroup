@@ -23,6 +23,7 @@
 					<tr>
 						<th>ID</th>
 						<th>Tên</th>	
+						<th>Email</th>
 						<th>Chức vụ</th>
 						<th>Phong ban</th>
 						<th>Số điện thoại</th>
@@ -32,6 +33,7 @@
 					<tr>
 						<td>{{ $value->id }}</td>
 						<td>{{ $value->fullname }}</td>
+						<td>{{ $value->email }}</td>
 						<td>{{ $value->department }}</td>
 						<td>{{ $value->regency }}</td>
 						<td>{{ $value->phone }}</td>
