@@ -4,7 +4,9 @@ class CommonContract {
 	public static function getNamePartner(){
 		return Partner::where('type', TYPE_PARTNER_1)->where('parent_id', null)->lists('name', 'id');
 	}
-	
+	public static function getNamePartnerId($id){
+		return Partner::find($id)->name;
+	}
 	public static function search()
 	{
 		$input = Input::all();

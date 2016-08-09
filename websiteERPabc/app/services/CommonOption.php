@@ -246,5 +246,27 @@ class CommonOption {
 		}
 		
 	}
+	public static function getNameTypeContract($id){
+		if($id == TYPE_EXTEND_1){
+			return 'Hợp đồng kinh tế';
+		}
+		if($id == TYPE_EXTEND_2){
+			return 'Hợp đồng dịch vụ';
+		}
+		if($id == TYPE_EXTEND_3){
+			return 'Hợp đồng hợp tác';
+		}
+	}
+	public static function getNameTypeExtendContract($id){
+		if($id == TYPE_EXTEND_1){
+			return 'Tự động gia hạn';
+		}
+		if($id == TYPE_EXTEND_2){
+			return 'Thanh lý gia hạn';
+		}
+		if($id == TYPE_EXTEND_3){
+			return 'Yêu cầu gia hạn';
+		}
+	}
 
 }

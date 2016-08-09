@@ -26,8 +26,7 @@
 						<th>Nội dung tóm tắt</th>
 						<th>Kiểu hợp đồng</th>
 						<th>Ngày ký</th>
-						<th>Ngày hết hạn</th>
-						<th>Ngày hết hạn mới</th>
+						<th>Ngày hết hạn </th>
 						<th>kiểu gia hạn</th>
 						<th>File</th>
 						<th>Trang thái</th>
@@ -37,10 +36,9 @@
 						<td>{{ $value->id }}</td>
 						<td>{{ $value->name }}</td>
 						<td>{{ $value->code }}</td>
-						<td>{{ $value->description }}</td>
+						<td>{{ limit_text($value->description, 25) }}</td>
 						<td>{{ CommonOption::getTypeContractText($value->type) }}</td>
 						<td>{{ $value->date_sign }}</td>
-						<td>{{ $value->date_expired_old }}</td>
 						<td>{{ $value->date_expired_new }}</td>
 						<td>{{ CommonOption::getTypeExtendContractText($value->type_extend) }}</td>
 						<td><a href="{{ url(CONTRACT_FILE_UPLOAD . '/' . $value->id . '/' .$value->file)}}">{{ $value->file }}</a></td>
