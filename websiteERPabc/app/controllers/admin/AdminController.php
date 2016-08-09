@@ -107,4 +107,10 @@ class AdminController extends BaseController {
 		return Redirect::route('admin.login');
 	}
 
+	public function showviewFile()
+	{
+		$input = Input::except('_token');
+		$data = $input['link'];
+		return View::make('admin.common.viewfile')->with(compact('data'));
+	}
 }

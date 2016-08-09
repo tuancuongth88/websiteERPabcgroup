@@ -4,21 +4,7 @@
 @stop
 
 @section('content')
-  <!--jQuery-->
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js"></script>
+<iframe src="http://docs.google.com/gview?url={{ $data }}&embedded=true" 
+style="width:600px; height:500px;" frameborder="0"></iframe>
 
-  <!--docviewer.js-->
-  <script src="//static-v2.crocodoc.com/core/docviewer.js"></script>
-
-  <!--sets a global variable "_doc" that is needed for initialization-->
-  {{}}
-  <script src="//crocodoc.com/webservice/document.js?session=ElHpaWxpCLXkKDNsCEDH4vrq1mh1FfjR0GmdrNN1EDHOLKBl0167F0BbXOMB-nrEqWMj_bBqWI0BUln5qhQcaJNGYsq-X2tugAGQ_A"></script>
-
-  <!--div for viewer-->
-  <div id="DocViewer"></div>
-
-  <script type="text/javascript">
-    //creates a document viewer using the "DocViewer" div
-    var docviewer = new DocViewer({ "id": "DocViewer" });
-  </script>
 @stop

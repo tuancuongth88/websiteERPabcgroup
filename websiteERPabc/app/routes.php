@@ -21,6 +21,7 @@ Route::group(['prefix' => 'admin'], function () {
 	Route::get('/login', array('uses' => 'AdminController@login', 'as' => 'admin.login'));
 	Route::post('/login', array('uses' => 'AdminController@doLogin'));
 	Route::get('/logout', array('uses' => 'AdminController@logout',  'as' => 'admin.logout'));
+	Route::get('/showviewFile', 'AdminController@showviewFile');
 	Route::resource('/', 'AdminController');
 
 	Route::post('/management/assignFunPerUser', 'ManagementController@assignFunPerUser');
@@ -161,6 +162,8 @@ Route::group(['prefix' => 'admin'], function () {
 	Route::post('/archive/assignArchiveUser', 'ArchiveController@assignArchiveUser');
 	Route::get('/archive/search', 'ArchiveController@search');
 	Route::resource('/archive', 'ArchiveController');
+
+
 
 });
 // Route::group(

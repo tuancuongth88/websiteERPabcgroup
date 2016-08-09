@@ -142,31 +142,23 @@ class ContractController extends AdminController {
 	            ->withErrors($validator);
         }else{
         	$data = Contract::find($id);
-        	// dd($data);
-        	// if($input['file'] == null){
-        		$input_contract = [
-        		'contract_addendum' => CONTRACT,
-      			'name' => $input['name'],
-      			'code' => $input['code'],
-      			'type' => $data->type,
-      			'description' => $input['description'],
-      			'partner_id' => $data->partner_id,
-      			'type_extend' => $data->type_extend,
-      			'date_sign' => $input['date_sign'],
-      			'date_active' => $input['date_active'],
-      			'date_expired_old' => $input['date_expired_old'],
-      			'date_expired_new' => $input['date_expired_new'],
-      			'status' => $data->status,
-      			];
-        		$newItem = Contract::create($input_contract);
-        		CommonNormal::update($id, ['parent_id' => $newItem->id], 'Contract');
-        		Contract::where('parent_id', $id)->update(['parent_id' => $newItem->id]);	
-    //     	}else{
-				// //tao moi
-				// $contract_id = Contract::create($input)->id;
-		  //   	$uploadFile['file'] = CommonUser::uploadAction('file', CONTRACT_FILE_UPLOAD . '/' . $contract_id);
-		  //   	Contract::find($contract_id)->update($uploadFile);
-    //     	}
+    		$input_contract = [
+    		'contract_addendum' => CONTRACT,
+  			'name' => $input['name'],
+  			'code' => $input['code'],
+  			'type' => $data->type,
+  			'description' => $input['description'],
+  			'partner_id' => $data->partner_id,
+  			'type_extend' => $data->type_extend,
+  			'date_sign' => $input['date_sign'],
+  			'date_active' => $input['date_active'],
+  			'date_expired_old' => $input['date_expired_old'],
+  			'date_expired_new' => $input['date_expired_new'],
+  			'status' => $data->status,
+  			];
+    		$newItem = Contract::create($input_contract);
+    		CommonNormal::update($id, ['parent_id' => $newItem->id], 'Contract');
+    		Contract::where('parent_id', $id)->update(['parent_id' => $newItem->id]);	
 		    return Redirect::action('DashboardController@index');
 		}
 		
@@ -228,6 +220,7 @@ class ContractController extends AdminController {
 	}
 	public function destroyAppendix($id)
 	{
+		dd(123);
 		$data = Contract::find($id);
 		$id = $data->parent_id;
 		$data->delete();

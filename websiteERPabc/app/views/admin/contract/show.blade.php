@@ -41,7 +41,18 @@
 						<td>{{ $value->date_sign }}</td>
 						<td>{{ $value->date_expired_new }}</td>
 						<td>{{ CommonOption::getTypeExtendContractText($value->type_extend) }}</td>
-						<td><a href="{{ url(CONTRACT_FILE_UPLOAD . '/' . $value->id . '/' .$value->file)}}">{{ $value->file }}</a></td>
+						<td>
+						<!-- <a href="{{ url(CONTRACT_FILE_UPLOAD . '/' . $value->id . '/' .$value->file)}}">{{ $value->file }}</a> -->
+						
+						{{
+							Form::open(array('method'=>'get', 'action' => array('AdminController@showviewFile'), 'style' => 'display: inline-block;')) 
+
+						}}
+						<input type="hidden" value="{{url(CONTRACT_FILE_UPLOAD . '/' . $value->id . '/' .$value->file)}}" name="link">
+						{{ Form::submit('Xem file', array('class' => 'btn btn-primary')) }}
+						{{ Form::close() }}
+
+						</td>
 						<td>{{ CommonOption::getStatusContractText($value->status) }}</td>
 					</tr>
 					@endforeach
