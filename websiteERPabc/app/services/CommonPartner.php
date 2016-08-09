@@ -16,7 +16,7 @@ class CommonPartner {
 				$query = $query->where('partners.email', 'like', '%'.$input['email'].'%');
 			}
 			if(!empty($input['address'])) {
-				$query = $query->where('partners.address', $input['address']);
+				$query = $query->where('partners.address', 'like', '%'.$input['address'].'%');
 			}
 		})->distinct()->orderBy('partners.name', 'asc')->where('type', TYPE_PARTNER_1)->where('parent_id', null)->paginate(PAGINATE);
 		return $data;
@@ -51,4 +51,7 @@ class CommonPartner {
 		})->where('type', TYPE_PARTNER_1)->orderBy('fullname', 'DECS')->paginate(PAGINATE);
 		return $data;
 	}
+	// public function getListNamePartner(){
+	// 	$data = Partner::where('type', )
+	// }
 }
