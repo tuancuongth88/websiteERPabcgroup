@@ -71,8 +71,12 @@ class ContractController extends AdminController {
 	 */
 	public function show($id)
 	{
-		$data = Contract::where('parent_id', $id)->where('contract_addendum', CONTRACT)->paginate(PAGINATE);
-		return View::make('admin.contract.show')->with(compact('data'));
+		$contract_id = Contract::where('id',$id)->first();
+   		$data = Contract::where('name', '=', $contract_id->name)->where('code', '=', $contract_id->code) ->where('partner_id', '=', $contract_id->partner_id)->paginate(PAGINATE);  
+    	return View::make('admin.contract.show')->with(compact('data'));      
+
+		// $data = Contract::where('parent_id', $id)->where('contract_addendum', CONTRACT)->paginate(PAGINATE);
+		// return View::make('admin.contract.show')->with(compact('data'));
 	}
 
 
