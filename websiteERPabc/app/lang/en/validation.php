@@ -75,7 +75,6 @@ return array(
 	"salary"             => "User have already salary, pls go to edit user to edit salary ",
 	"checkTime"			=> "do not exist",	
 
-
 	/*
 	|--------------------------------------------------------------------------
 	| Custom Validation Language Lines

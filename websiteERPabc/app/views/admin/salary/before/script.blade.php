@@ -58,8 +58,12 @@
 				},
 				success: function(data){
 					console.log(data);
-					window.location.reload();
+					removeAssignFuction(key);
 				}
 		});
     }
+    function removeAssignFuction(key)
+	{
+		$('#row_'+key).remove();
+	}
 </script>

@@ -80,6 +80,9 @@ class SalaryUserController extends AdminController {
 	            ->withErrors($validator);
         } else {
         	//create new record salary in the table: salaries: status: 4
+        	if(!isset($input['dep_regency_id']) || $input['dep_regency_id'] == null){
+        		return Redirect::action('SalaryUserController@create')->with("error", "Phải chọn phòng ban chức vụ");
+        	}
 			$userId = Common::getUserIdByUserName($input['username']);
 			$depRegencyUser = DepRegencyUserParent::find($input['dep_regency_id']);
       		$depId = $depRegencyUser->dep_id;

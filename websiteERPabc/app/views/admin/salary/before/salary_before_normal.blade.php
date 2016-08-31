@@ -11,7 +11,7 @@
 		<th>Action</th>
 	</tr>
 	@foreach($data as $key => $value)
-	<tr>
+	<tr id="row_{{$key }}">
 			<td><input type="checkbox" class="history_id" name="history_id[]" value="{{ $value->id }}"/></td>
 			<td>{{ Form::label('',  CommonSalary::getNameUser($value->user_id), array('class' => 'form-control', 'id' => 'username_'.$key)) }}</td>
 			<td>{{ Form::label('',  CommonSalary::getNameRegency($value->regency_id), array('class' => 'form-control')) }}</td>

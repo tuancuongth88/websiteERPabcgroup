@@ -24,7 +24,6 @@ class SalaryBeforeController extends AdminController {
 	public function create()
 	{
 		$input = Input::get('history_id');
-		// dd($input);
 		$listIdHistory = SalaryHistoryUser::whereIn('id', $input)->lists('model_id');
 		$data = SalaryUser::whereIn('user_id', $listIdHistory)->get();
 		return View::make('admin.salary.before.submit_proposals')->with(compact('data'));
@@ -64,6 +63,7 @@ class SalaryBeforeController extends AdminController {
 	 */
 	public function edit($id)
 	{
+		$input = Input::get('history_id');
 		$listIdHistory = SalaryHistoryUser::where('id', $id)->lists('model_id');
 		$data = SalaryUser::whereIn('user_id', $listIdHistory)->get();
 		return View::make('admin.salary.before.submit_proposals')->with(compact('data'));
