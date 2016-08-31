@@ -9,7 +9,7 @@ class SalaryHistoryUserController extends AdminController {
 	 */
 	public function index()
 	{
-		$data = SalaryUser::orderBy('id', 'asc')->paginate(PAGINATE);
+		$data = SalaryUser::orderBy('id', 'asc')->where('status', SALARY_APPROVE)->paginate(PAGINATE);
 		return View::make('admin.salary.history.index')->with(compact('data'));
 	}
 
