@@ -1,6 +1,6 @@
 <tr id = "assignRow_{{ $functionKey }}">
 	<td>
-		{{ Form::select('fun_id['.$functionKey.']', CommonOption::getOptionFromModel('AdminFunction'), null, array('class' => 'form-control', 'onchange' => 'loadButton('.$functionKey.')', 'id' => 'fun_id_'.$functionKey, 'style' => 'width: 200px;')) }}
+		{{ Form::select('fun_id['.$functionKey.']', CommonOption::getOptionFunByuser('AdminFunction'), null, array('class' => 'form-control', 'onchange' => 'loadButton('.$functionKey.')', 'id' => 'fun_id_'.$functionKey, 'style' => 'width: 200px;')) }}
 		{{ Form::hidden('functionKey', $functionKey) }}
 	</td>
 	<td>

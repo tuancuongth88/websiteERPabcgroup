@@ -41,7 +41,7 @@
 											@foreach(CommonUser::getFunUser($data->id) as $key => $value)
 											<tr id = "assignRow_{{ $key }}">
 												<td>
-													{{ Form::select('fun_id['.$key.']', CommonOption::getOptionFromModel('AdminFunction'), $value->id, array('class' => 'form-control', 'onchange' => 'loadButton('.$key.')', 'id' => 'fun_id_'.$key, 'style' => 'width: 200px;')) }}
+													{{ Form::select('fun_id['.$key.']', CommonOption::getOptionFunByuser('AdminFunction'), $value->id, array('class' => 'form-control', 'onchange' => 'loadButton('.$key.')', 'id' => 'fun_id_'.$key, 'style' => 'width: 200px;')) }}
 													{{ Form::hidden('functionKey[]', $key) }}
 												</td>
 												<td>

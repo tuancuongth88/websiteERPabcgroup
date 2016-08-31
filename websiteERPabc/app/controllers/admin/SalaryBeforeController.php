@@ -24,6 +24,9 @@ class SalaryBeforeController extends AdminController {
 	public function create()
 	{
 		$input = Input::get('history_id');
+		if(!$input){
+			return Redirect::action('SalaryBeforeController@index')->with('message', 'Bạn phải chon nhân viên!');
+		}
 		$listIdHistory = SalaryHistoryUser::whereIn('id', $input)->lists('model_id');
 		$data = SalaryUser::whereIn('user_id', $listIdHistory)->get();
 		return View::make('admin.salary.before.submit_proposals')->with(compact('data'));

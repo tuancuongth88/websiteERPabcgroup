@@ -15,6 +15,7 @@
             	var values1 = $('input:checkbox:checked.history_id').map(function () {
 			  	return this.value;
 			}).get();
+
             var tmp = false;
 			if($("#checkall").is(':checked'))
 			{

@@ -85,6 +85,17 @@ class CommonOption {
 	{
 		return $model::lists('name', 'id');
 	}
+	public static function getOptionFunByuser($model)
+	{
+		if(User::isAdmin() == ROLE_ADMIN)
+		{
+			return $model::lists('name', 'id');
+		}else
+		{
+			$data = FunButtonUser::where('user_id', CommonUser::getObjectFromAuth()->id)->groupBy('fun_id')->lists('fun_id');
+			return $model::whereIn('id', $data)->lists('name', 'id');
+		}
+	}
 	public static function getFieldTextByModel($modelName, $modelId, $field)
 	{
 		$data = $modelName::find($modelId);
