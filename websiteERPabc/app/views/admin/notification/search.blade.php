@@ -1,5 +1,5 @@
 <div class="margin-bottom">
-	{{ Form::open(array('action' => 'ReportController@search', 'method' => 'GET')) }}
+	{{ Form::open(array('action' => 'NotificationController@search', 'method' => 'GET')) }}
 		<div class="input-group" style="width: 150px; display:inline-block;">
 			<label>Tên báo cáo</label>
 		  	<input type="text" name="name" class="form-control" placeholder="Tên" />
@@ -9,10 +9,10 @@
 			<label>Thể loại</label>
 			 {{ Form::select('type_notification_id', ['' => 'Tất cả'] + TypeNotification::lists('name', 'id'), null, array('class' => 'form-control')) }}
 		</div>
-		<div class="input-group" style="width: 150px; display:inline-block;">
+		<!-- <div class="input-group" style="width: 150px; display:inline-block;">
 			<label>Người tạo</label>
 			{{ Form::select('user_id', ['' => 'Tất cả'] + CommonProject::getModelArray('User', 'username', 'id'), null, array('class' => 'form-control')) }}
-		</div>
+		</div> -->
 		<!-- <div class="input-group" style="width: 150px; display:inline-block;">
 			<label>Người làm</label>
 			{{-- Form::select('assign_id', ['' => 'Tất cả', 0 => 'Admin'] + CommonProject::getModelArray('User', 'username', 'id'), null, array('class' => 'form-control')) --}}

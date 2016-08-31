@@ -9,10 +9,10 @@
 			<label>Thể loại</label>
 			 {{ Form::select('type_report_id', ['' => 'Tất cả'] + TypeReport::lists('name', 'id'), null, array('class' => 'form-control')) }}
 		</div>
-		<div class="input-group" style="width: 150px; display:inline-block;">
+		<!-- <div class="input-group" style="width: 150px; display:inline-block;">
 			<label>Người tạo</label>
 			{{ Form::select('user_id', ['' => 'Tất cả'] + CommonProject::getModelArray('User', 'username', 'id'), null, array('class' => 'form-control')) }}
-		</div>
+		</div> -->
 		<!-- <div class="input-group" style="width: 150px; display:inline-block;">
 			<label>Người làm</label>
 			{{-- Form::select('assign_id', ['' => 'Tất cả', 0 => 'Admin'] + CommonProject::getModelArray('User', 'username', 'id'), null, array('class' => 'form-control')) --}}

@@ -41,9 +41,9 @@ class NotificationController extends AdminController {
 			if($input['type_notification_id'] != '') {
 				$query = $query->where('type_notification_id', $input['type_notification_id']);
 			}
-			if($input['user_id'] != '') {
-				$query = $query->where('user_id', $input['user_id']);
-			}
+			// if($input['user_id'] != '') {
+			// 	$query = $query->where('user_id', $input['user_id']);
+			// }
 			
 		})->orderBy('name', 'asc')->paginate(PAGINATE);
 		return View::make('admin.notification.index')->with(compact('data'));

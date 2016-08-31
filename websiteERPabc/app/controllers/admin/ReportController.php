@@ -41,9 +41,9 @@ class ReportController extends AdminController {
 			if($input['type_report_id'] != '') {
 				$query = $query->where('type_report_id', $input['type_report_id']);
 			}
-			if($input['user_id'] != '') {
-				$query = $query->where('user_id', $input['user_id']);
-			}
+			// if($input['user_id'] != '') {
+			// 	$query = $query->where('user_id', $input['user_id']);
+			// }
 			
 		})->orderBy('name', 'asc')->paginate(PAGINATE);
 		return View::make('admin.report.index')->with(compact('data'));

@@ -29,18 +29,19 @@
 							<label for="username">Bên cung cấp</label>
 							<div class="row">
 								<div class="col-sm-6">
-									<input type="text" class="form-control" id="provider" value="{{ $data->provider}}"  placeholder="bên cung cấp" name="provider">
+									{{ Form::select('provider', CommonContract::getNamePartnerProvided(), $data->provider, array('class' => 'form-control', 'onchange' => 'changeTypeSalary()')) }}
+									<!-- <input type="text" class="form-control" id="provider" value="{{ $data->provider}}"  placeholder="bên cung cấp" name="provider"> -->
 								</div>
 							</div>
 						</div>
-						<div class="form-group">
+						<!-- <div class="form-group">
 							<label for="username">Thông tin liên hệ</label>
 							<div class="row">
 								<div class="col-sm-6">
 									<input type="text" class="form-control" id="provider" value="{{ $data->provider_contact}}"  placeholder="Thông tin liên hệ" name="provider_contact">
 								</div>
 							</div>
-						</div>
+						</div> -->
 						<div class="form-group">
 							<label for="username">Số lượng</label>
 							<div class="row">

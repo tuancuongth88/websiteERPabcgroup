@@ -10,7 +10,7 @@
 		<a href="{{ action('NotificationController@create') }}" class="btn btn-primary">Thêm mới</a>
 	</div>
 </div>
-@include('admin.report.search')
+@include('admin.notification.search')
 <div class="row">
 	<div class="col-xs-12">
 		<div class="box">

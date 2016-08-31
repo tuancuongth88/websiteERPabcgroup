@@ -91,7 +91,7 @@
 						<label>Đối tác</label>
 						<div class="row">
 							<div class="col-sm-6">
-								{{ Form::select('partner_id', CommonProject::getModelArray('Partner', 'name', 'id'), null, array('class' => 'form-control')) }}
+								{{ Form::select('partner_id', CommonContract::getNamePartner(), null, array('class' => 'form-control')) }}
 							</div>
 						</div>
 					</div>

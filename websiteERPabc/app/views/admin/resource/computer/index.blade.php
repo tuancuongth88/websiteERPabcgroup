@@ -41,7 +41,7 @@
 						<td>{{ $value->ram }}</td>
 						<td>{{ $value->hhd }}</td>
 						<td>{{ $value->size }}</td>
-						<td>{{ $value->provider }}</td>
+						<td>{{ CommonContract::getNamePartnerId($value->provider) }}</td>
 						<td>{{ CommonOption::getNameStatusResource($value->status) }}</td>
 						<td>{{ $value->number }}</td>
 						<td>{{ CommonResource::getTypeResource($value->type) }}</td>
