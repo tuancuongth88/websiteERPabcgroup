@@ -170,7 +170,7 @@ class CommonSalary {
 				$userName = User::where('username', 'like', '%'.$input['username'].'%')->lists('id');
 				$query = $query->whereIn('user_id', $userName);
 			}
-		})->orderBy('id', 'desc')->paginate(PAGINATE);
+		})->orderBy('id', 'desc')->where('status', SALARY_APPROVE)->paginate(PAGINATE);
 		return $data;
 	}
 

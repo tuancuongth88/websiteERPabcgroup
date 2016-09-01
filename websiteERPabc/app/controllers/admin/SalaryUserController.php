@@ -58,7 +58,7 @@ class SalaryUserController extends AdminController {
 	public function indexOld()
 	{
 		$data = SalaryHistoryUser::where('model_name', 'User')
-			->where('type', PROPOSAL_USER)
+			->where('type', PROPOSAL_USER)->where('status', SALARY_PROPOSAL)
 			->paginate(PAGINATE);
 		return View::make('admin.salary.old.index')->with(compact('data'));
 	}
@@ -94,7 +94,12 @@ class SalaryUserController extends AdminController {
       			'dep_id' => $depId,
       			'regency_id' => $regencyId,
       		];
-      		$salaryId = SalaryUser::create($inputSalary)->id;
+      		$checkuser = SalaryUser::where('user_id', $userId)->get();
+      		if(count($checkuser)> 0){
+      			SalaryUser::where('user_id', $userId)->update($inputSalary);
+      		}else{
+      			$salaryId = SalaryUser::create($inputSalary)->id;
+      		}
    			$inputHistory['start_date'] = $input['start_date']; 
         	$inputHistory['model_name'] = 'User'; 
         	$inputHistory['model_id'] = $userId; 
