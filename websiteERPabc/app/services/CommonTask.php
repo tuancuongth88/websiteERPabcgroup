@@ -39,7 +39,7 @@ class CommonTask {
 				$query = $query->where('tasks.end', '<=', $input['end']);
 			}
 			if(!empty($input['status'])) {
-				$query = $query->where('tasks.status', $input['status']);
+				$query = $query->where('tasks.task_status_id', $input['status']);
 			}
 			if(!empty($input['project_id'])) {
 				$query = $query->where('tasks.project_id', $input['project_id']);
