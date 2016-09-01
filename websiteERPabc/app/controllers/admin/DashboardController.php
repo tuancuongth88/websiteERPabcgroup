@@ -32,13 +32,14 @@ class DashboardController extends AdminController {
 		if($userRole != ROLE_ADMIN) {
 			$archive = Archive::join('archive_users', 'archive_users.archive_id', '=', 'archives.id')
 					->select('archives.*')
+					->where('archives.status', ARCHIVE_STATUS_HANDLING_1)
 					->where('archive_users.user_send', $userId)
 					->orWhere('archive_users.user_receive', $userId)
 					->distinct()->groupBy('archives.id')
 					->limit(5)
 					->get();
 		} else {
-			$archive = Archive::orderBy('id', 'desc')->limit(5)->get();
+			$archive = Archive::where('status', ARCHIVE_STATUS_HANDLING_1)->orderBy('id', 'desc')->limit(5)->get();
 		}
 		$countNotification = count($task) + count($taskAssign) + count($projectAssign) + count($contractExpired) + count($archive);
 		Session::put('countNotification', $countNotification);
@@ -129,7 +130,7 @@ class DashboardController extends AdminController {
 		// $depAssign = Common::getModelUserStatus('departments', 'dep_regency_per_user', 'dep_id', $userId, ASSIGN_STATUS_3);
 		// ngay hien tai - 1 tuan <= date_active <= ngay hien tai
 		$now = date('Y-m-d H:i:s');
-		$weekback = date('Y-m-d 00:00:00', time() + (60 * 60 * 24 * +7));
+		$weekback = date('Y-m-d 00:00:00', time() + (60 * 60 * 24 * +30));
 		$listIdContract = Contract::whereRaw('id in (select MAX(id) as id From contracts GROUP BY name)')->lists('id');
 		$contractExpired = Contract::where('date_expired_new', '<=', $weekback)->
 		whereIn('id', $listIdContract)
@@ -138,13 +139,14 @@ class DashboardController extends AdminController {
 		if($userRole != ROLE_ADMIN) {
 			$archive = Archive::join('archive_users', 'archive_users.archive_id', '=', 'archives.id')
 					->select('archives.*')
+					->where('archives.status', ARCHIVE_STATUS_HANDLING_1)
 					->where('archive_users.user_send', $userId)
 					->orWhere('archive_users.user_receive', $userId)
 					->distinct()->groupBy('archives.id')
 					->limit(5)
 					->get();
 		} else {
-			$archive = Archive::orderBy('id', 'desc')->limit(5)->get();
+			$archive = Archive::where('status', ARCHIVE_STATUS_HANDLING_1)->orderBy('id', 'desc')->limit(5)->get();
 		}
 		$countNotification = count($task) + count($taskAssign) + count($projectAssign) + count($contractExpired) + count($archive);
 		Session::put('countNotification', $countNotification);
