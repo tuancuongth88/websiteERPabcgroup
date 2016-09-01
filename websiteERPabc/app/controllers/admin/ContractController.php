@@ -227,7 +227,6 @@ class ContractController extends AdminController {
 	}
 	public function destroyAppendix($id)
 	{
-		dd(123);
 		$data = Contract::find($id);
 		$id = $data->parent_id;
 		$data->delete();
