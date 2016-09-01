@@ -182,14 +182,15 @@ class ProjectController extends AdminController {
 	 */
 	public function destroy($id)
 	{
-		$checkProjectUser = ProjectUser::where('project_id', $id)
-			->first();
+		// $checkProjectUser = ProjectUser::where('project_id', $id)
+		// 	->first();
 		$checkProjectTask = Task::where('project_id', $id)
 			->first();
-		if($checkProjectUser || $checkProjectTask) {
+		if($checkProjectTask) {
 			return Redirect::action('ProjectController@index')->with('error', 'Dự án đang hoạt động. Không thể xóa!');
 		}
 		CommonNormal::delete($id);
+		ProjectUser::where('project_id', $id)->delete();
 		return Redirect::action('ProjectController@index')->with('message', 'Đã xóa');
 	}
 

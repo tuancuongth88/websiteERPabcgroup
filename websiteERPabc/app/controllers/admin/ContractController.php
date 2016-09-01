@@ -165,7 +165,7 @@ class ContractController extends AdminController {
 	}
 	public function Appendix($id)
 	{
-		$data = Contract::find($id)->where('contract_addendum', CONTRACT_APPENDIX)->where('parent_id', $id)->paginate(PAGINATE);;
+		$data = Contract::find($id)->where('contract_addendum', CONTRACT_APPENDIX)->where('parent_id', $id)->paginate(PAGINATE);
 		return View::make('admin.contract.appendix')->with(compact('data', 'id'));
 	}
 	public function createAppendix($id)
@@ -202,6 +202,13 @@ class ContractController extends AdminController {
 				return Redirect::action('ContractController@Appendix', $id);
 			}
 		}
+	}
+	public function showAppendix($id)
+	{
+		$data = Contract::find( $id);
+		$parent_id = $data->parent_id;
+    	return View::make('admin.contract.showAppendix')->with(compact('data', 'parent_id'));      
+
 	}
 	public function editAppendix($id)
 	{

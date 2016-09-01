@@ -23,7 +23,7 @@ class DashboardController extends AdminController {
 		// $depAssign = Common::getModelUserStatus('departments', 'dep_regency_per_user', 'dep_id', $userId, ASSIGN_STATUS_3);
 		// ngay hien tai - 1 tuan <= date_active <= ngay hien tai
 		$now = date('Y-m-d H:i:s');
-		$weekback = date('Y-m-d 00:00:00', time() + (60 * 60 * 24 * +7));
+		$weekback = date('Y-m-d 00:00:00', time() + (60 * 60 * 24 * +30));
 		$listIdContract = Contract::whereRaw('id in (select MAX(id) as id From contracts GROUP BY name)')->lists('id');
 		$contractExpired = Contract::where('date_expired_new', '<=', $weekback)->
 		whereIn('id', $listIdContract)

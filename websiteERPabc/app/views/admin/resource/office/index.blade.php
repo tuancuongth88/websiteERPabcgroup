@@ -8,7 +8,9 @@
 @include('admin.resource.office.search')
 <div class="row margin-bottom">
 	<div class="col-xs-12">
-	<a href="{{ action('ResourceManagementController@create') }}" class="btn btn-primary">Thêm mới</a>
+	@if(Common::checkPermissionUser(FUNCTION_OFFICE, Config::get('button.office_add')))
+		<a href="{{ action('ResourceManagementController@create') }}" class="btn btn-primary">Thêm mới</a>
+	@endif
 	</div>
 </div>
 <div class="row">
@@ -38,10 +40,14 @@
 						<td>{{ $value->number }}</td>
 						<td>{{ CommonResource::getTypeResource($value->type) }}</td>
 						<td>
-							<a href="{{ action('ResourceManagementController@edit', $value->id) }}" class="btn btn-primary">Sửa</a>
-							{{ Form::open(array('method'=>'DELETE', 'action' => array('ResourceManagementController@destroy', $value->id), 'style' => 'display: inline-block;')) }}
-							<button class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa?');">Xóa</button>
-							{{ Form::close() }}
+							@if(Common::checkPermissionUser(FUNCTION_OFFICE, Config::get('button.office_edit')))
+								<a href="{{ action('ResourceManagementController@edit', $value->id) }}" class="btn btn-primary">Sửa</a>
+							@endif
+							@if(Common::checkPermissionUser(FUNCTION_OFFICE, Config::get('button.office_delete')))
+								{{ Form::open(array('method'=>'DELETE', 'action' => array('ResourceManagementController@destroy', $value->id), 'style' => 'display: inline-block;')) }}
+								<button class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa?');">Xóa</button>
+								{{ Form::close() }}
+							@endif
 						</td>
 					</tr>
 					@endforeach

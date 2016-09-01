@@ -8,7 +8,9 @@
 @include('admin.resource.domains.search')
 <div class="row margin-bottom">
 	<div class="col-xs-12">
-	<a href="{{ action('DomainResourceController@create') }}" class="btn btn-primary">Thêm mới</a>
+	@if(Common::checkPermissionUser(FUNCTION_DOMAIN, Config::get('button.domain_add')))
+		<a href="{{ action('DomainResourceController@create') }}" class="btn btn-primary">Thêm mới</a>
+	@endif
 	</div>
 </div>
 <div class="row">
@@ -41,13 +43,17 @@
 						<td><a href="{{ $value->url_login }}" >Đăng nhập</a></td>
 						<td>{{ $value->start_date }}</td>
 						<td>{{ $value->end_date }}</td>
-						<td>{{ $value->provider }}</td>
+						<td>{{ CommonContract::getNamePartnerId($value->provider) }}</td>
 						<td>{{ CommonOption::getNameStatusResource($value->status) }}</td>
 						<td>
-							<a href="{{ action('DomainResourceController@edit', $value->id) }}" class="btn btn-primary">Sửa</a>
-							{{ Form::open(array('method'=>'DELETE', 'action' => array('DomainResourceController@destroy', $value->id), 'style' => 'display: inline-block;')) }}
-							<button class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa?');">Xóa</button>
-							{{ Form::close() }}
+							@if(Common::checkPermissionUser(FUNCTION_DOMAIN, Config::get('button.domain_edit')))
+								<a href="{{ action('DomainResourceController@edit', $value->id) }}" class="btn btn-primary">Sửa</a>
+							@endif
+							@if(Common::checkPermissionUser(FUNCTION_DOMAIN, Config::get('button.domain_delete')))
+								{{ Form::open(array('method'=>'DELETE', 'action' => array('DomainResourceController@destroy', $value->id), 'style' => 'display: inline-block;')) }}
+								<button class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa?');">Xóa</button>
+								{{ Form::close() }}
+							@endif
 						</td>
 					</tr>
 					@endforeach

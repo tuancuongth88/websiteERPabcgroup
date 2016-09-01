@@ -8,7 +8,10 @@
 <!-- @include('admin.contract.search') -->
 <div class="row margin-bottom">
 	<div class="col-xs-12">
-	<a href="{{ action('ContractController@createAppendix', $id) }}" class="btn btn-primary">Thêm mới</a>
+	@if(Common::checkPermissionUser(FUNCTION_CONTRACT, Config::get('button.appendix_contract_add')))
+		<a href="{{ action('ContractController@createAppendix', $id) }}" class="btn btn-primary">Thêm mới</a>
+	@endif
+	<a href="{{ action('ContractController@index') }}" class="btn btn-primary">Danh sach hợp đồng</a>
 	</div>
 </div>
 <div class="row">
@@ -38,10 +41,17 @@
 						<td>{{ $value->date_sign }}</td>
 						<td>{{ CommonOption::getStatusContractText($value->status) }}</td>
 						<td>
-							<a href="{{ action('ContractController@editAppendix', $value->id) }}" class="btn btn-primary">Sửa</a>
-							{{ Form::open(array('method'=>'DELETE', 'action' => array('ContractController@destroyAppendix', $value->id), 'style' => 'display: inline-block;')) }}
-							<button class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa?');">Xóa</button>
-							{{ Form::close() }}
+							@if(Common::checkPermissionUser(FUNCTION_CONTRACT, Config::get('button.appendix_contract_edit')))
+								<a href="{{ action('ContractController@editAppendix', $value->id) }}" class="btn btn-primary">Sửa</a>
+								{{ Form::open(array('method'=>'DELETE', 'action' => array('ContractController@destroyAppendix', $value->id), 'style' => 'display: inline-block;')) }}
+							@endif
+							@if(Common::checkPermissionUser(FUNCTION_CONTRACT, Config::get('button.appendix_contract_show')))
+								<a href="{{ action('ContractController@showAppendix', $value->id) }}" class="btn btn-success">Xem</a>
+							@endif
+							@if(Common::checkPermissionUser(FUNCTION_CONTRACT, Config::get('button.appendix_contract_delete')))
+								<button class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa?');">Xóa</button>
+								{{ Form::close() }}
+							@endif
 						</td>
 					</tr>
 					@endforeach

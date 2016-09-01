@@ -49,7 +49,7 @@
 								<a href="{{ action('ContractController@edit', $value->id) }}" class="btn btn-primary">Sửa</a>
 							@endif
 							@if(Common::checkPermissionUser(FUNCTION_CONTRACT, Config::get('button.contract_show')))
-								<a href="{{ action('ContractController@show', $value->id) }}" class="btn btn-primary">Xem</a>
+								<a href="{{ action('ContractController@show', $value->id) }}" class="btn btn-success">Xem</a>
 							@endif
 							@if(Common::checkPermissionUser(FUNCTION_CONTRACT, Config::get('button.contract_delete')))
 								{{ Form::open(array('method'=>'DELETE', 'action' => array('ContractController@destroy', $value->id), 'style' => 'display: inline-block;')) }}

@@ -142,6 +142,8 @@ Route::group(['prefix' => 'admin'], function () {
 	Route::post('/contract/updateAdjourn/{id}', 'ContractController@updateAdjourn');
 	Route::get('/contract/adjourn/{id}', 'ContractController@adjourn');
 	Route::get('/contract/search', 'ContractController@search');
+	Route::get('/contract/showAppendix/{id}', 'ContractController@showAppendix');
+	
 	Route::resource('/contract', 'ContractController');
 	//quan ly doi tac 
 	Route::get('/partner/clue/search', 'PartnerClueController@search');
