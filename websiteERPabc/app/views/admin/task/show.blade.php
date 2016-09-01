@@ -46,7 +46,7 @@
 						</td>
 						<td>
 							@if($task->project_id)
-								{{ CommonOption::getFieldTextByModel('Project', $task->project_id, 'id') }}
+								{{ CommonOption::getFieldTextByModel('Project', $task->project_id, 'name') }}
 							@else 
 								Không thuộc dự án nào
 							@endif
