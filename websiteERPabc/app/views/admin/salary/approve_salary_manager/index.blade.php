@@ -21,7 +21,7 @@
 				<table class="table table-hover">
 					<tr>
 						<td>Tổng lương cả công ty:</td>
-						<th>{{ number_format(SalaryUser::sum('salary')) }} /VNĐ</th>
+						<th>{{ number_format(SalaryUser::where('status', SALARY_APPROVE)->sum('salary')) }} /VNĐ</th>
 					</tr>
 					<tr>
 						<td>Tổng lương hiện tại: </td>
