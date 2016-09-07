@@ -24,8 +24,8 @@
 						<th>ID</th>
 						<th>Tên</th>	
 						<th>Email</th>
+						<th>Phòng ban</th>
 						<th>Chức vụ</th>
-						<th>Phong ban</th>
 						<th>Số điện thoại</th>
 						<th>Action</th>
 					</tr>
