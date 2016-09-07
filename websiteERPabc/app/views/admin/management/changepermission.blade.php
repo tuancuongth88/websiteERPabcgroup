@@ -45,7 +45,7 @@
 													{{ Form::hidden('functionKey[]', $key) }}
 												</td>
 												<td>
-													{{ Form::select('button_id['.$key.'][]', CommonUser::getButton($value->id),CommonUser::getSelectFunUser($data->id, $value->id), array('id' => 'button_id_'.$key, 'multiple' => true, 'style' => 'width: 200px;')) }}
+													{{ Form::select('button_id['.$key.'][]', CommonUser::getButton($value->id),CommonUser::getSelectFunUser($data->id, $value->id), array('id' => 'button_id_'.$key, 'multiple' => true, 'style' => 'width: 200px;', 'required'=>'required')) }}
 												</td>
 												<td>
 													<a onclick="removeAssignFuction({{ $key }})" class="removeAssignBtn">Xóa</a>

@@ -87,7 +87,7 @@
 							<label>Trạng thái</label>
 						</td>
 						<td>
-							{{ CommonOption::getStatusTaskValue('TaskStatus', 'name', 'id', $task->task_status_id) }}
+							{{ CommonOption::getStatusTaskValue($task->task_status_id) }}
 						</td>
 					</tr>
 

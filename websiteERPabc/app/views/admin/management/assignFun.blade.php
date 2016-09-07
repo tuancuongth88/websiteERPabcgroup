@@ -4,7 +4,7 @@
 		{{ Form::hidden('functionKey', $functionKey) }}
 	</td>
 	<td>
-		{{ Form::select('button_id['.$functionKey.'][]', [], null, array('id' => 'button_id_'.$functionKey, 'multiple' => true, 'style' => 'width: 200px;')) }}
+		{{ Form::select('button_id['.$functionKey.'][]', [], null, array('id' => 'button_id_'.$functionKey, 'multiple' => true, 'style' => 'width: 200px;', 'required'=>'required')) }}
 	</td>
 	<td>
 		<a onclick="removeAssignFuction({{ $functionKey }})" class="removeAssignBtn">Xóa</a>
