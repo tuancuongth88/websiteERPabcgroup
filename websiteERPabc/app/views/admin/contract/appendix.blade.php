@@ -25,8 +25,8 @@
 				<table class="table table-hover">
 					<tr>
 						<th>ID</th>
-						<th>Tên hợp đồng</th>	
-						<th>Số hợp đồng</th>
+						<th>Tên phụ lục</th>	
+						<th>Số phụ lục</th>
 						<th>Nội dung tóm tắt</th>
 						<th>Ngày ký</th>
 						<th>Trang thái</th>
