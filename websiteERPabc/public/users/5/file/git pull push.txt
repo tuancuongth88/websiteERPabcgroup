@@ -1,0 +1,28 @@
+git status
+git add -A
+git pull
+git commit -m "message"   | git commit -am "message"
+git push
+
+------------------
+
+1.git init
+2.git config user.name "someone"
+3.git config user.email "someone@someplace.com"
+4.git add * / git add .
+5.git commit -m "some init msg"
+
+------------------
+GIT:
+- mkdir <directory>
+- cd <directory>
+- git init
+- git remote add <name remote:origin> <link remote>
+- git pull <name remote:origin> master
+
+- git status
+- git add --all|-A|*|<filename> / git add .
+- git commit -m <message>
+- git push (git push origin master)
+
+
